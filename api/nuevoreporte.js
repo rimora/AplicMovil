@@ -1,9 +1,17 @@
 //insertar reporte
+
 $(document).ready(function() {
 	//document.addEventListener("deviceready",function(){
-		
+		 
+//	$("#regNom").val()='';
     $('#regEnviar').click(function(){
 		//window.location.href='#login';
+			
+		if($("#regTipo").val() < 1 || $("#regTipo").val() > 2) {  
+        alert("El Tipo debe ser 1 o 2 ");  
+        return false;  
+        }  
+
 		
 		
 		var nombre = $("#regNom").val();
@@ -16,34 +24,42 @@ $(document).ready(function() {
 		var analisis =	 $("#regAn").val();
 		var medida =	 $("#regMedi").val();
 		var conclusion =	 $("#regCon").val();
-//	var datosPassword = $("#regEmail").val()
+		 
+		if (nombre!='' && fecha!='' && tipo!='' && descripcion!='' && resumen!='' && antecedente!='' && secuencia!='' && 
+		   analisis!='' && medida!='' && conclusion!=''){
+		   
+     //	var datosPassword = $("#regEmail").val()
 	
   	//archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback=?"
 	archivoValidacion ="http://aplicacion.netai.net/nuevo.php?jsoncallback=?"
 
-	$.getJSON(archivoValidacion, {nombre:nombre,fecha:fecha,tipo:tipo,descripcion:descripcion,resumen:resumen,antecedente:antecedente,secuencia:secuencia,analisis:analisis,medida:conclusion})
+	$.getJSON(archivoValidacion, {nombre:nombre,fecha:fecha,tipo:tipo,descripcion:descripcion,resumen:resumen,antecedente:antecedente,secuencia:secuencia,analisis:analisis,medida:medida,conclusion:conclusion})
 	.done(function(respuestaServer) {
 		
 		//alert(respuestaServer.mensaje + "\nGenerado en: " + respuestaServer.hora + "\n" +respuestaServer.generador)		
 		//alert(respuestaServer.Numreporte)
-		alert(respuestaServer.resultado)
+		//alert(respuestaServer.resultado)
 		//if(respuestaServer.validacion == "ok"){
-			if(respuestaServer.resultado ="ok"){
+			if(respuestaServer.resultado >0){
 		  
 		 	/// si la validacion es correcta, muestra la pantalla "home"
-			alert("El reporte ha sido generado")
+			alert("El reporte generado es:"+respuestaServer.resultado)
 			$.mobile.changePage("#page")
 		  //document.getElementById('resuNombre').text(respuestaServer.Asegurador);
             
      		}else{
 		  
-		  alert("El reporte no se generó")
+        		  alert("El reporte no se generó")
 		 // navigator.notification.alert("El reporte "+numreporte+" no existe, inténtelo de nuevo",null,"Error de Registro","Aceptar");
 
 		  /// ejecutar una conducta cuando la validacion falla
-		}
+		    }
 		
-	});
+	});//.getJson
+	}//if validar campos obligatorios
+	else{
+	alert("Todos los campos son obligatorios");	
+	}
 		/*
 		
 		

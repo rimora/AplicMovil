@@ -21,7 +21,7 @@
         
 			<li><a href="#nuevo">Nuevo Reporte</a></li>
             <li><a href="#consulta">Consulta Reporte</a></li>
-			<a href="#" id="Salir" data-icon="delete" data-rel="back" data-role="button" data-theme="a">Salir</a>
+			<a href="#" id="Salir" data-icon="delete" data-role="button" data-theme="a" onclick="window.close();">Salir</a>
 		</ul>		
 	</div>
     
@@ -38,9 +38,9 @@
 	<div data-role="content">	
     <ul data-role="listview" data-inset="true" data-dividertheme="a">
     <li data-role="list-divider">Datos</li>
-    <li><input type="text" id="regNom" placeholder="Nombre" title="Requerido" required/></li>
-    <li><input type="datetime" id="regFecha" placeholder="Fecha" title="Requerido" required/></li>
-    <li><input type="text" id="regTipo" placeholder="Tipo" /></li>
+    <li><input type="text" value="" id="regNom" value="" placeholder="Nombre" title="Requerido" required/></li>
+    <li><input type="datetime" id="regFecha" placeholder="Fecha formato año-mes-dia (2013-04-01)" title="Requerido" required/></li>
+    <li><input type="text" id="regTipo" placeholder="Tipo 1=Temporal,2=Definitivo " /></li>
         <li><input type="text" id="regDescri" placeholder="Descripcion" title="Requerido" required/></li>
         <li><input type="text" id="regResu" placeholder="Resumen" title="Requerido" required /></li>
      <!--   <li> <textarea rows="2" id="resu" ></textarea></li>-->

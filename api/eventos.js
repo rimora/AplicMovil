@@ -1,6 +1,9 @@
 // EVENTOS
 $(document).ready(function() {
 	//document.addEventListener("deviceready",function(){
+
+
+
 		
     $('#consultar').click(function(){
 		//window.location.href='#login';
@@ -27,7 +30,9 @@ $(document).ready(function() {
              $("#resuRepor").text("Reporte:"+respuestaServer.Numreporte);
 			 $("#resuNom").text("Asegurador:"+respuestaServer.Asegurador);
 			 $("#resuFecha").text("Fecha:"+respuestaServer.Fecha);
-			 $("#resuTipo").text("Tipo:"+respuestaServer.Tipo);
+			 if (respuestaServer.Tipo=1) {
+			 $("#resuTipo").text("Tipo: Temporal");} //respuestaServer.Tipo
+			 else {$("#resuTipo").text("Tipo: Definitivo");}
 			 $("#resuDescri").text("Descripción:"+respuestaServer.Descripcion);
 			 $("#resuResu").text("Resumen:"+respuestaServer.Resumen);
 			 $("#resuAnte").text("Antecedentes:"+respuestaServer.Antecedente);
@@ -46,6 +51,8 @@ $(document).ready(function() {
 
 		  /// ejecutar una conducta cuando la validacion falla
 		}
+		
+	
 		
 	});
 		/*
