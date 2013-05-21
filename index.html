@@ -9,6 +9,7 @@
 <script src="api/eventos.js" type="text/javascript"></script>
 <script src="api/nuevoreporte.js" type="text/javascript"></script>
 <script src="api/consultas.js" type="text/javascript"></script>
+<script src="phonegap.js"></script>
 <body> 
 <div data-role="page" id="page">
 	<div data-role="header">
@@ -17,7 +18,7 @@
 	<div data-role="content">	
 		<ul data-role="listview" data-inset="true" data-theme="c">     
             <a href="#pclientes" id ="clientes" data-mini="true" data-role="button" data-theme="e" data-icon="sardel-clientes" data-iconpos="bottom"> Clientes</a>              
-            <a href="#" id ="pedidos"  data-role="button" data-theme="b"> Pedidos</a> 
+            <a href="#pventas" id ="pedidos"  data-role="button" data-theme="b"> Pedidos</a> 
             <a href="#" id ="cobros" data-role="button"> Cobros</a> 
             <a href="#" id ="depositos"  data-role="button"> Depositos</a> 
             <a href="#" id ="datos"  data-role="button"> Datos</a> 
@@ -35,16 +36,64 @@
 	<div data-role="header">
 		<h1>Catálogo de clientes</h1>
 	</div>
-	<div data-role="content"		
-        <ul id="listaclientes">
+	<div data-role="content">
+        <ul data-role="listview" data-inset="true" id="listaclientes" data-filter="true" data-filter-placeholder="Escribe Nombre">
+        	<li id="1020"><a href="#" >Cliente1</a></li> 
+	        <li><a href="#" >Cliente2</a></li>
         </ul>
     </div>
-	<div data-role="footer"
-<h1>Catálogo de clientes</h1>
+	<div data-role="footer">
+        <a class="ui-btn-left"  href="#page1" id="Visita" data-role="button" data-theme="b"
+        data-icon="star" data-iconpos="left">Visita</a>
+        <a class="ui-btn-right" id="regresarcli" data-role="button" data-rel="back"
+        data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>
 	</div>
-
-
 </div>
+<div data-role="page" id="datoscli">
+	<div data-role="header">
+		 
+	</div>
+	<div data-role="content"		
+       <h5 id="nomcli">Nombre</h5>
+       <h5 id="salcli">Saldo</h5>
+       <h5 id="dircli">Direccion</h5>
+       
+        
+    </div>
+	<div data-role="footer"
+ 		<a class="ui-btn-right" id="regresarcliselect" data-role="button" data-rel="back"
+        data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>
+	</div>
+</div>
+
+<div data-role="page" id="pventas">
+	<div data-role="header">
+		<h1>Ventas</h1>
+	</div>
+	<div data-role="content"		
+     <div class="ui-grid-b">
+    <div class="ui-block-a"><div class="ui-bar ui-bar-e" style="height: 60px;">A</div></div>
+    <div class="ui-block-b"><div class="ui-bar ui-bar-e" style="height: 60px;">B</div></div>
+    <div class="ui-block-c"><div class="ui-bar ui-bar-e" style="height: 60px;">C</div></div>
+    <div class="ui-block-a"><div class="ui-bar ui-bar-e" style="height: 60px;">A</div></div>
+    <div class="ui-block-b"><div class="ui-bar ui-bar-e" style="height: 60px;">B</div></div>
+    <div class="ui-block-c"><div class="ui-bar ui-bar-e" style="height: 60px;">C</div></div>
+    <div class="ui-block-a"><div class="ui-bar ui-bar-e" style="height: 60px;">A</div></div>
+    <div class="ui-block-b"><div class="ui-bar ui-bar-e" style="height: 60px;">B</div></div>
+    <div class="ui-block-c"><div class="ui-bar ui-bar-e" style="height: 60px;">C</div></div>
+</div><!-- /grid-c -->
+
+    </div>
+	<div data-role="footer"
+ 		<h1>ventas</h1>
+	</div>
+</div>
+
+
+
+
+
+
 
 <div data-role="page" id="nuevo">
 	<div data-role="header">
