@@ -7,10 +7,15 @@ $(document).ready(function() {
 		
 	
 	});*/
+	
+		
+		
+	
+	
 $("li").click(function() {
                  var oID = $(this).attr("id");
 				  //alert (oID);
-				  $.mobile.changePage($("#datoscli"))
+				  $.mobile.changePage($("#datoscli"));
 				  
 				  
 				  
@@ -19,9 +24,10 @@ $("li").click(function() {
 $('#datoscli').live('pageshow',function(event, ui){
 
 //alert('This page was just hidden: '+ ui.prevPage);
-$("#nomcli").text("Nombre:   hola2")
-$("#salcli").text("Saldo:    $1000.00")
-$("#dircli").text("Dirección:dirección del cliente")
+$("#nomcli").text("Nombre:   hola2");
+$("#salcli").text("Saldo:    $1000.00");
+$("#dircli").text("Dirección:dirección del cliente");
+inicia;
 });
 
 

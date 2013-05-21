@@ -1,4 +1,12 @@
 // consultas
+function inicia(){
+var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+db.transaction(consulta, errorCB, successCB);
+	
+	
+	
+}
+
 function consulta(tx) {
      tx.executeSql('DROP TABLE IF EXISTS DEMO');
       tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT NOT NULL, Club TEXT NOT NULL)');        
@@ -17,10 +25,10 @@ function listo() {
 function queryDB(tx){        
 	tx.executeSql('SELECT * FROM DEMO',[],querySuccess,errorCB);    }
 function querySuccess(tx,result){        
-$('#listaclientes').empty();        
+$('#catalogo').empty();        
 $.each(result.rows,function(index){           
  var row = result.rows.item(index);            
- $('#listaclientes').append('<li><a href="#"><h3>'+row['Name']+'</h3><p>Club '+row['Club']+'</p></a></li>');        
+ $('#catalogo').append('<li><a href="#"><h3>'+row['Name']+'</h3><p>Club '+row['Club']+'</p></a></li>');        
  });         
- $('#listaclientes').listview();    
+ $('#catalogo').listview();    
  }
