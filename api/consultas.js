@@ -1,10 +1,11 @@
 // consultas
 
 function mostrarclientes(clavecli){
-var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
 
+alert("entro a funcion");
 $('#pclientes').live('pageshow',function(event, ui){
 //alert('This page was just hidden: '+ ui.prevPage);
+var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
 db.transaction(consulta, errorconsulta, listo);
 
 function consulta(tx) {
