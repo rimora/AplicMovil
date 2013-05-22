@@ -1,28 +1,33 @@
 // consultas
 
+function iniciar()
+{
+		var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+		db.transaction(consulta, errorconsulta,alert('bd generada'));	
+	
+		function consulta(tx) {
+         tx.executeSql('DROP TABLE IF EXISTS DEMO');
+         tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL)');        
+	     tx.executeSql('INSERT INTO DEMO(nombre,clave) VALUES ("Cesar Menso", "1020")');        
+         tx.executeSql('INSERT INTO DEMO(nombre,clave) VALUES ("Diego Morales", "1010")');
+     	}
+	   function errorconsulta(err) {
+    	  alert("Error processing SQL al crear BD: "+err);
+	   }
+}
 function mostrarclientes(clavecli){
 	$('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);
 		var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
-		db.transaction(consulta, errorconsulta, listo);	
-	
-	function consulta(tx) {
-      tx.executeSql('DROP TABLE IF EXISTS DEMO');
-      tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL)');        
-	  tx.executeSql('INSERT INTO DEMO(nombre,clave) VALUES ("Cesar Menso", "1020")');        
-	  tx.executeSql('INSERT INTO DEMO(nombre,clave) VALUES ("Diego Morales", "1010")');
-	}
+		db.transaction(poblarcli, errorconsulta);		
 	function errorconsulta(err) {
-    	alert("Error processing SQL: "+err);
+    	alert("Error processing SQL al mostrar clientes: "+err);
 	}
 
-	function listo() {    
-		db.transaction(poblarcli,errorconsulta);
-	}
 	function poblarcli(tx){        
-		tx.executeSql('SELECT * FROM DEMO ',[],querySuccess,errorconsulta);    	
+		tx.executeSql('SELECT * FROM DEMO ',[],listo,errorconsulta);    	
 	}
-function querySuccess(tx,results){  
+function listo(tx,results){  
  $('#listaclientes').empty();        
 $.each(results.rows,function(index){           
  var row = results.rows.item(index);            
@@ -35,8 +40,8 @@ $.each(results.rows,function(index){
 	
 }
 function mostrarcliente(clavecli){
-$('#datoscli').live('pageshow',function(event, ui){
-		//alert('This page was just hidden: '+ ui.prevPage);
+  $('#datoscli').live('pageshow',function(event, ui){
+		alert('entra mostrar cliente');
 		var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
 		db.transaction(consulta, errorconsulta);
 	
@@ -48,8 +53,9 @@ $('#datoscli').live('pageshow',function(event, ui){
 	   $('#nomcli').text(row['nombre']);
   	   $('#clacli').text(row['clave']);
  		}
-
-	
-	 });	
+	function errorconsulta(err) {
+    	alert("Error processing SQL: "+err);
+	}
+  });	
 
 }

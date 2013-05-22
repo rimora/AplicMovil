@@ -7,6 +7,7 @@ $(document).ready(function() {
 		
 	
 	});*/
+	iniciar();
 	$("#clientes").click(function() {
                  //var clavecli = $(this).attr("id");
 				  //alert (oID);
