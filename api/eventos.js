@@ -7,30 +7,18 @@ $(document).ready(function() {
 		
 	
 	});*/
-	
-		
-		
-	
-	
-$("li").click(function() {
-                 var oID = $(this).attr("id");
+	$("clientes").click(function() {
+                 var clavecli = $(this).attr("id");
 				  //alert (oID);
-				  $.mobile.changePage($("#datoscli"));
-				  
-				  
-				  
+				  mostrarclientes(clavecli);
+				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });
-
-$('#datoscli').live('pageshow',function(event, ui){
-
-//alert('This page was just hidden: '+ ui.prevPage);
-$("#nomcli").text("Nombre:   hola2");
-$("#salcli").text("Saldo:    $1000.00");
-$("#dircli").text("Dirección:dirección del cliente");
-inicia;
 });
-
-
-
-});
+/*$("li").click(function() {
+                 var clavecli = $(this).attr("id");
+				  //alert (oID);
+				  mostrarclientes(clavecli);
+				  //$.mobile.changePage($("#datoscli"));	  			  				  
+               });
+});*/
 
