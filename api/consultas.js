@@ -2,12 +2,19 @@
 
 function mostrarclientes(clavecli){
 
-alert("entro a funcion");
+var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
 $('#pclientes').live('pageshow',function(event, ui){
 //alert('This page was just hidden: '+ ui.prevPage);
-var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
-db.transaction(consulta, errorconsulta, listo);
 
+db.transaction(consulta, errorconsulta, listo);
+if (clavecli=="1020") {
+	var valor="Cesar"	
+	}
+else {
+		var valor="Diego"	
+	
+	
+}
 function consulta(tx) {
      tx.executeSql('DROP TABLE IF EXISTS DEMO');
       tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT NOT NULL, Club TEXT NOT NULL)');        
@@ -22,8 +29,8 @@ function listo() {
 	db.transaction(poblarcli,errorconsulta);
 }
 function poblarcli(tx){        
-	tx.executeSql('SELECT * FROM DEMO',[],querySuccess,errorconsulta);    
-	//alert("entro a queryDB");
+	tx.executeSql('SELECT * FROM DEMO WHERE Name="'+valor+'"',[],querySuccess,errorconsulta);    
+	alert(valor);
 	}
 function querySuccess(tx,results){  
  $('#listaclientes').empty();        
