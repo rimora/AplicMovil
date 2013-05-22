@@ -8,17 +8,20 @@ $(document).ready(function() {
 	
 	});*/
 	$("#clientes").click(function() {
+                 //var clavecli = $(this).attr("id");
+				  //alert (oID);
+				  mostrarclientes();
+				  //$.mobile.changePage($("#datoscli"));	  			  				  
+               });
+			   
+    $("li").click(function() {
                  var clavecli = $(this).attr("id");
 				  //alert (oID);
-				  mostrarclientes(clavecli);
+				  mostrarcliente(clavecli);
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });
 });
-/*$("li").click(function() {
-                 var clavecli = $(this).attr("id");
-				  //alert (oID);
-				  mostrarclientes(clavecli);
-				  //$.mobile.changePage($("#datoscli"));	  			  				  
-               });
-});*/
+			   
+			   
+
 
