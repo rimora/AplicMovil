@@ -27,7 +27,12 @@ $(document).ready(function() {
 				  mostrarclientes();
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });
-			   
+    $("#menu").bind("change",function(event,ui){
+		alert($("#menu").val());
+	    mostrarclientes($("#menu").val());	
+		
+	});
+		
     $("li").click(function() {
                  var clavecli = $(this).attr("id");
 				  //alert (oID);

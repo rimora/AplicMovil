@@ -6,8 +6,8 @@ function iniciar()
 		db.transaction(consulta, errorconsulta,alert('bd generada'));	
 	    
 		function consulta(tx) {
-         //tx.executeSql('DROP TABLE IF EXISTS DEMO');
-         tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL)');        		 
+         tx.executeSql('DROP TABLE IF EXISTS DEMO');
+         tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL)');        		 
      	}		
 	   
 }
@@ -17,10 +17,10 @@ function errorconsulta(err) {
 function insertar(){
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		db.transaction(insertarcli, errorconsulta,listacliente);
-		aler('funcion insertar');	
+		alert('funcion insertar');	
     	function insertarcli(tx) {
-		tx.executeSql('INSERT INTO CLIENTES(nombre,clave) VALUES ("Cesar Menso", "1020")');        
-    	tx.executeSql('INSERT INTO CLIENTES(nombre,clave) VALUES ("Diego Morales", "1010")');		 		
+		tx.executeSql('INSERT INTO CLIENTES(nombre,clave,dia) VALUES ("Cesar Menso", "1020","Lunes")');        
+    	tx.executeSql('INSERT INTO CLIENTES(nombre,clave,dia) VALUES ("Diego Morales", "1010","Martes")');		 		
 		}
         function listacliente(tx){
 		alert('clientes insertados');
@@ -38,8 +38,8 @@ function insertar(){
 	   }
 }
 
-function mostrarclientes(){
-  $('#pclientes').live('pageshow',function(event, ui){
+function mostrarclientes(dia){
+ // $('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		db.transaction(poblarcli, errorconsulta);		
@@ -47,7 +47,7 @@ function mostrarclientes(){
     	alert("Error SQL al mostrar clientes: "+err);
 	}
 	function poblarcli(tx){        
-		tx.executeSql('SELECT * FROM CLIENTES ',[],listo,errorconsulta);    	
+		tx.executeSql('SELECT * FROM CLIENTES WHERE DIA="'+dia+'"',[],listo,errorconsulta);    	
 	}
 	function listo(tx,results){  
 		 $('#listaclientes').empty();        
@@ -58,7 +58,7 @@ function mostrarclientes(){
 		 $('#listaclientes').listview('refresh'); 
  	}
 
-  });	//$('#pclientes').live('pageshow',function(event, ui){
+//  });	//$('#pclientes').live('pageshow',function(event, ui){
 	
 }
 function mostrarcliente(clavecli){

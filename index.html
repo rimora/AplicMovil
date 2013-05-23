@@ -31,10 +31,30 @@
     
     
 </div>
-
+<!--  P A G I N A  C L I E N T E S   -->
 <div data-role="page" id="pclientes">
 	<div data-role="header">
 		<h1>Catálogo de clientes</h1>
+        <div data-role="fieldcontain" data-theme="c">
+            <label for="menu">Día:</label>
+            <select name="Dia" id="menu" data-theme="b" class="diasruta">
+                <option value="1">
+                    Lunes
+                </option>
+                <option value="2">
+                    Martes
+                </option>
+                <option value="3">
+                    Miercoles
+                </option>
+                <option value="4">
+                    Jueves
+                </option>
+                <option value="5">
+                    Viernes
+                </option>
+            </select>
+        </div>
 	</div>
 	<div data-role="content">
         <ul data-role="listview" data-inset="true" id="listaclientes" data-filter="true" data-filter-placeholder="Escribe Nombre">
@@ -46,7 +66,7 @@
         data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>
 	</div>
 </div>
-
+<!-- F I N   P A G I N A  C L I E N T E S   -->
 <div data-role="page" id="datoscli">
 	<div data-role="header">
 		 
@@ -59,6 +79,20 @@
         <a class="ui-btn-left"  href="#page1" id="Visita" data-role="button" data-theme="b"
         data-icon="star" data-iconpos="left">Visita</a>
  		<a class="ui-btn-right" id="regresarcliselect" data-role="button" data-rel="back"
+        data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>
+	</div>
+</div>
+<div data-role="page" id="poperaciones">
+	<div data-role="header">
+		<h1>Operaciones del Cliente</h1>
+	</div>
+	<div data-role="content">
+        <ul data-role="listview" data-inset="true" data-theme="c">     
+        	
+        </ul>
+    </div>
+	<div data-role="footer">        
+        <a class="ui-btn-right" id="regresarcli" data-role="button" data-rel="back"
         data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>
 	</div>
 </div>
