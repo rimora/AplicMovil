@@ -24,7 +24,7 @@ $(document).ready(function() {
 	$("#clientes").click(function() {
                  //var clavecli = $(this).attr("id");
 				  //alert (oID);
-				  mostrarclientes();
+				  mostrarclientes("Lunes");
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });
     $("#menu").bind("change",function(event,ui){

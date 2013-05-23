@@ -35,30 +35,29 @@
 <div data-role="page" id="pclientes">
 	<div data-role="header">
 		<h1>Catálogo de clientes</h1>
+    </div>
+    <div data-role="content">
         <div data-role="fieldcontain" data-theme="c">
             <label for="menu">Día:</label>
             <select name="Dia" id="menu" data-theme="b" class="diasruta">
-                <option value="1">
+                <option value="Lunes">
                     Lunes
                 </option>
-                <option value="2">
+                <option value="Martes">
                     Martes
                 </option>
-                <option value="3">
+                <option value="Miercoles">
                     Miercoles
                 </option>
-                <option value="4">
+                <option value="Jueves">
                     Jueves
                 </option>
-                <option value="5">
+                <option value="Viernes">
                     Viernes
                 </option>
             </select>
-        </div>
-	</div>
-	<div data-role="content">
-        <ul data-role="listview" data-inset="true" id="listaclientes" data-filter="true" data-filter-placeholder="Escribe Nombre">
-        	
+        </div>	
+        <ul data-role="listview" data-inset="true" id="listaclientes" data-filter="true" data-filter-placeholder="Escribe Nombre">        	
         </ul>
     </div>
 	<div data-role="footer">        

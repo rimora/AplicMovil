@@ -6,7 +6,7 @@ function iniciar()
 		db.transaction(consulta, errorconsulta,alert('bd generada'));	
 	    
 		function consulta(tx) {
-         tx.executeSql('DROP TABLE IF EXISTS DEMO');
+         tx.executeSql('DROP TABLE IF EXISTS CLIENTES');
          tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL)');        		 
      	}		
 	   
@@ -16,7 +16,7 @@ function errorconsulta(err) {
 	   }
 function insertar(){
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
-		db.transaction(insertarcli, errorconsulta,listacliente);
+		db.transaction(insertarcli, alert('error al insertar cliente'),listacliente);
 		alert('funcion insertar');	
     	function insertarcli(tx) {
 		tx.executeSql('INSERT INTO CLIENTES(nombre,clave,dia) VALUES ("Cesar Menso", "1020","Lunes")');        
@@ -34,7 +34,7 @@ function insertar(){
 			});         
     	}
 		function errorconsulta(err) {
-    	  alert("Error processing SQL al crear BD: "+err);
+    	  alert("Error al hacer select clientes: "+err);
 	   }
 }
 
