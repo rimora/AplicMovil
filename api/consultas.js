@@ -4,18 +4,25 @@ function iniciar()
 {
 		var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
 		db.transaction(consulta, errorconsulta,alert('bd generada'));	
-	
+	    
 		function consulta(tx) {
-         tx.executeSql('DROP TABLE IF EXISTS DEMO');
+        /* tx.executeSql('DROP TABLE IF EXISTS DEMO');
          tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL)');        
 	     tx.executeSql('INSERT INTO DEMO(nombre,clave) VALUES ("Cesar Menso", "1020")');        
          tx.executeSql('INSERT INTO DEMO(nombre,clave) VALUES ("Diego Morales", "1010")');
+		 */
+		 tx.executeSql('SELECT * FROM DEMO ',[],prueba,errorconsulta);    	
      	}
+		function prueba(tx,results){         
+	   var row = results.rows.item(0);            
+	   alert(row['nombre']);
+  	   alert(row['clave']);
+ 		}
 	   function errorconsulta(err) {
     	  alert("Error processing SQL al crear BD: "+err);
 	   }
 }
-function mostrarclientes(clavecli){
+function mostrarclientes(){
 	$('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);
 		var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
