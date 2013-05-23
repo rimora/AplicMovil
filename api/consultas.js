@@ -29,44 +29,46 @@ function insertar(){
 		function listo2(tx,results){  			
 		 	 $.each(results.rows,function(index){           
 			 var row = results.rows.item(index);            
- 			 alert(row['clave'])
-			 alert(row['nombre'])		
+ 			 alert(row['clave']);
+			 alert(row['nombre']);		
 			});         
     	}
+		function errorconsulta(err) {
+    	  alert("Error processing SQL al crear BD: "+err);
+	   }
 }
 
 function mostrarclientes(){
-	$('#pclientes').live('pageshow',function(event, ui){
+  $('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);
-		var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		db.transaction(poblarcli, errorconsulta);		
 	function errorconsulta(err) {
-    	alert("Error processing SQL al mostrar clientes: "+err);
+    	alert("Error SQL al mostrar clientes: "+err);
 	}
-
 	function poblarcli(tx){        
-		tx.executeSql('SELECT * FROM DEMO ',[],listo,errorconsulta);    	
+		tx.executeSql('SELECT * FROM CLIENTES ',[],listo,errorconsulta);    	
 	}
-function listo(tx,results){  
- $('#listaclientes').empty();        
-$.each(results.rows,function(index){           
- var row = results.rows.item(index);            
- $('#listaclientes').append('<li id="'+row['clave']+'"><a href="#datoscli"><h3>'+row['nombre']+'</h3><p>Clave '+row['clave']+'</p></a></li>');        
- });         
- $('#listaclientes').listview('refresh'); 
- }
+	function listo(tx,results){  
+		 $('#listaclientes').empty();        
+		 $.each(results.rows,function(index){           
+			 var row = results.rows.item(index);            
+			 $('#listaclientes').append('<li id="'+row['clave']+'"><a href="#datoscli"><h3>'+row['clave']+'  '+row['nombre']+'</h3></a></li>');        
+		 });         
+		 $('#listaclientes').listview('refresh'); 
+ 	}
 
-});	
+  });	//$('#pclientes').live('pageshow',function(event, ui){
 	
 }
 function mostrarcliente(clavecli){
   $('#datoscli').live('pageshow',function(event, ui){
 		alert('entra mostrar cliente');
-		var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		db.transaction(consulta, errorconsulta);
 	
 	function consulta(tx) {
-		tx.executeSql('SELECT * FROM DEMO WHERE clave="'+clavecli+'"',[],exito,errorconsulta);    	}
+		tx.executeSql('SELECT * FROM CLIENTES WHERE clave="'+clavecli+'"',[],exito,errorconsulta);    	}
 	
 	function exito(tx,results){         
 	   var row = results.rows.item(0);            
@@ -74,7 +76,7 @@ function mostrarcliente(clavecli){
   	   $('#clacli').text(row['clave']);
  		}
 	function errorconsulta(err) {
-    	alert("Error processing SQL: "+err);
+    	alert("Error SQL al poblar cliente: "+err);
 	}
   });	
 
