@@ -7,7 +7,20 @@ $(document).ready(function() {
 		
 	
 	});*/
-	iniciar();
+	
+	$("#carga").click(function() {
+                 //var clavecli = $(this).attr("id");
+				  //alert (oID);
+				  iniciar();
+				  //$.mobile.changePage($("#datoscli"));	  			  				  
+               });
+     $("#envia").click(function() {
+                 //var clavecli = $(this).attr("id");
+				  //alert (oID);
+				  insertar();
+				  //$.mobile.changePage($("#datoscli"));	  			  				  
+               });			   
+			  
 	$("#clientes").click(function() {
                  //var clavecli = $(this).attr("id");
 				  //alert (oID);
