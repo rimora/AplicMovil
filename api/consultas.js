@@ -24,9 +24,9 @@ function insertar(){
 		}
         function listacliente(tx){
 		alert('clientes insertados');
-		tx.executeSql('SELECT * FROM CLIENTES ',[],listo,errorconsulta);  
+		tx.executeSql('SELECT * FROM CLIENTES ',[],listo2,errorconsulta);  
 		}
-		function listo(tx,results){  			
+		function listo2(tx,results){  			
 		 	 $.each(results.rows,function(index){           
 			 var row = results.rows.item(index);            
  			 alert(row['clave'])
