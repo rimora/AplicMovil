@@ -16,7 +16,8 @@ function errorconsulta(err) {
 	   }
 function insertar(){
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
-		db.transaction(insertacli, errorconsulta,listacliente);	
+		db.transaction(insertacli, errorconsulta,listacliente);
+		aler('funcion insertar');	
     	function insertarcli(tx) {
 		tx.executeSql('INSERT INTO CLIENTES(nombre,clave) VALUES ("Cesar Menso", "1020")');        
     	tx.executeSql('INSERT INTO CLIENTES(nombre,clave) VALUES ("Diego Morales", "1010")');		 		
