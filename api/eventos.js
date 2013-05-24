@@ -35,7 +35,7 @@ $(document).ready(function() {
 		
 	});
 		
-    $("li").click(function() {
+    $("li").bind("click",function(event,ui) {
                  var clavecli = $(this).attr("id");
 				  alert (clavecli);
 				  mostrarcliente(clavecli);

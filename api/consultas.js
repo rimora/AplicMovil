@@ -24,7 +24,8 @@ function insertar(){
 		}
         function listacliente(tx){
 		alert('clientes insertados');
-		tx.executeSql('SELECT * FROM CLIENTES ',[],muestra,errorconsulta);  
+		tx.executeSql('SELECT * FROM CLIENTES ',[],muestra,errorconsulta);
+		alert('despues de clientes insertados');  
 		}
 		function muestra(tx,results){  	
 		     alert('entra a función muestra');		
