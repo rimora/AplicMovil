@@ -42,14 +42,21 @@ function insertar(){
 function mostrarclientes(dia){
  // $('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);
-		$("select#menu").val("Lunes").selectmenu("refresh");
+		
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		db.transaction(poblarcli, errorconsulta);		
 	function errorconsulta(err) {
     	alert("Error SQL al mostrar clientes: "+err);
 	}
-	function poblarcli(tx){        
-		tx.executeSql('SELECT * FROM CLIENTES WHERE DIA="'+dia+'"',[],listo,errorconsulta);    	
+	function poblarcli(tx){  
+	
+	    if (dia!="Todos"){
+			var sql='SELECT * FROM CLIENTES WHERE DIA="'+dia+'"'			
+		}
+		else {
+			var sql='SELECT * FROM CLIENTES '			
+		}
+		tx.executeSql(sql,[],listo,errorconsulta);    	
 	}
 	function listo(tx,results){  
 		 $('#listaclientes').empty();        

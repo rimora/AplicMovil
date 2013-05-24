@@ -26,6 +26,7 @@ $(document).ready(function() {
 				  //alert (oID);				  
                   
 				  mostrarclientes("Lunes");
+				  $("select#menu").val("Lunes").selectmenu("refresh");
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });
     $("#menu").bind("change",function(event,ui){
