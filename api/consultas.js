@@ -24,9 +24,10 @@ function insertar(){
 		}
         function listacliente(tx){
 		alert('clientes insertados');
-		tx.executeSql('SELECT * FROM CLIENTES ',[],listo2,errorconsulta);  
+		tx.executeSql('SELECT * FROM CLIENTES ',[],muestra,errorconsulta);  
 		}
-		function listo2(tx,results){  			
+		function muestra(tx,results){  	
+		     alert('entra a función muestra');		
 		 	 $.each(results.rows,function(index){           
 			 var row = results.rows.item(index);            
  			 alert(row['clave']);
@@ -41,6 +42,7 @@ function insertar(){
 function mostrarclientes(dia){
  // $('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);
+		$("select#menu").val("Lunes").selectmenu("refresh");
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		db.transaction(poblarcli, errorconsulta);		
 	function errorconsulta(err) {
@@ -62,7 +64,7 @@ function mostrarclientes(dia){
 	
 }
 function mostrarcliente(clavecli){
-  $('#datoscli').live('pageshow',function(event, ui){
+//  $('#datoscli').live('pageshow',function(event, ui){
 		alert('entra mostrar cliente');
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		db.transaction(consulta, errorconsulta);
@@ -78,6 +80,6 @@ function mostrarcliente(clavecli){
 	function errorconsulta(err) {
     	alert("Error SQL al poblar cliente: "+err);
 	}
-  });	
+//  });	
 
 }
