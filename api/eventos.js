@@ -23,12 +23,13 @@ $(document).ready(function() {
 			  
 	$("#clientes").click(function() {
                  //var clavecli = $(this).attr("id");
-				  //alert (oID);
+				  //alert (oID);				  
+                  $("select#menu").val("Lunes").selectmenu("refresh");
 				  mostrarclientes("Lunes");
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });
     $("#menu").bind("change",function(event,ui){
-		alert($("#menu").val());
+		//alert($("#menu").val());
 	    mostrarclientes($("#menu").val());	
 		
 	});

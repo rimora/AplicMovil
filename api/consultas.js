@@ -16,8 +16,8 @@ function errorconsulta(err) {
 	   }
 function insertar(){
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
-		db.transaction(insertarcli, alert('error al insertar cliente'),listacliente);
-		alert('funcion insertar');	
+		db.transaction(insertarcli, errorconsulta,listacliente);
+		alert('funcion insertar');			
     	function insertarcli(tx) {
 		tx.executeSql('INSERT INTO CLIENTES(nombre,clave,dia) VALUES ("Cesar Menso", "1020","Lunes")');        
     	tx.executeSql('INSERT INTO CLIENTES(nombre,clave,dia) VALUES ("Diego Morales", "1010","Martes")');		 		
@@ -34,7 +34,7 @@ function insertar(){
 			});         
     	}
 		function errorconsulta(err) {
-    	  alert("Error al hacer select clientes: "+err);
+    	  alert("Error : "+err);
 	   }
 }
 
