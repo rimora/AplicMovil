@@ -25,9 +25,10 @@ function insertar(){
     	tx.executeSql('INSERT INTO CLIENTES(nombre,clave,dia) VALUES ("Diego Morales", "1010","Martes")');		 		
 		}
         function listacliente(tx){
-			alert('clientes insertados');
-			tx.executeSql('SELECT * FROM CLIENTES ',[],
-			  function muestra(tx,results){  	
+			var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
+			 db.transaction(function(tx){      			
+		    	tx.executeSql('SELECT * FROM CLIENTES ',[],
+			  function(tx,results){  	
 		     	alert('entra a función muestra');		
 		 	 	$.each(results.rows,function(index){           
 			 		var row = results.rows.item(index);            
@@ -36,7 +37,7 @@ function insertar(){
 				});         
 			  },function(err){
     	 		 alert("Error select de clientes: "+err);
-         		});
+         		})}, errorCB);;
 			  
 		alert('despues de clientes insertados');  
 		}
