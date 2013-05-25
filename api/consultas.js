@@ -3,38 +3,44 @@
 function iniciar()
 {
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
-		db.transaction(consulta, errorconsulta,alert('bd generada'));	
-	    
+		db.transaction(consulta, function(err){
+    	  alert("Error processing SQL al crear BD: "+err);
+          },alert('bd generada'));	
+		
+		
 		function consulta(tx) {
          tx.executeSql('DROP TABLE IF EXISTS CLIENTES');
          tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL)');        		 
      	}		
 	   
 }
-function errorconsulta(err) {
-    	  alert("Error processing SQL al crear BD: "+err);
-	   }
 function insertar(){
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
-		db.transaction(insertarcli, errorconsulta,listacliente);
+		db.transaction(insertarcli,function(err){
+    	  alert("Error al insertar clientes: "+err);
+          },listacliente);
 		alert('funcion insertar');			
     	function insertarcli(tx) {
 		tx.executeSql('INSERT INTO CLIENTES(nombre,clave,dia) VALUES ("Cesar Menso", "1020","Lunes")');        
     	tx.executeSql('INSERT INTO CLIENTES(nombre,clave,dia) VALUES ("Diego Morales", "1010","Martes")');		 		
 		}
         function listacliente(tx){
-		alert('clientes insertados');
-		tx.executeSql('SELECT * FROM CLIENTES ',[],muestra,errorconsulta);
+			alert('clientes insertados');
+			tx.executeSql('SELECT * FROM CLIENTES ',[],
+			  function muestra(tx,results){  	
+		     	alert('entra a función muestra');		
+		 	 	$.each(results.rows,function(index){           
+			 		var row = results.rows.item(index);            
+ 			 		alert(row['clave']);
+			 		alert(row['nombre']);		
+				});         
+			  },function(err){
+    	 		 alert("Error processing SQL al crear BD: "+err);
+         		});
+			  
 		alert('despues de clientes insertados');  
 		}
-		function muestra(tx,results){  	
-		     alert('entra a función muestra');		
-		 	 $.each(results.rows,function(index){           
-			 var row = results.rows.item(index);            
- 			 alert(row['clave']);
-			 alert(row['nombre']);		
-			});         
-    	}
+		
 		function errorconsulta(err) {
     	  alert("Error : "+err);
 	   }

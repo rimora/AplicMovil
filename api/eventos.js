@@ -36,7 +36,7 @@ $(document).ready(function() {
 	});
 		
     $("li").bind("click",function(event,ui) {
-                 var clavecli = $(this).attr("id");
+                  var clavecli = $(this).attr("id");
 				  alert (clavecli);
 				  mostrarcliente(clavecli);
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
