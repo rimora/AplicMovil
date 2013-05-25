@@ -35,15 +35,13 @@ function insertar(){
 			 		alert(row['nombre']);		
 				});         
 			  },function(err){
-    	 		 alert("Error processing SQL al crear BD: "+err);
+    	 		 alert("Error select de clientes: "+err);
          		});
 			  
 		alert('despues de clientes insertados');  
 		}
 		
-		function errorconsulta(err) {
-    	  alert("Error : "+err);
-	   }
+		
 }
 
 function mostrarclientes(dia){
@@ -51,10 +49,10 @@ function mostrarclientes(dia){
 		//alert('This page was just hidden: '+ ui.prevPage);
 		
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
-		db.transaction(poblarcli, errorconsulta);		
-	function errorconsulta(err) {
-    	alert("Error SQL al mostrar clientes: "+err);
-	}
+		db.transaction(poblarcli, function(err){
+    	 		 alert("Error abrir bd: "+err);
+         		});		
+	
 	function poblarcli(tx){  
 	
 	    if (dia!="Todos"){
@@ -63,7 +61,9 @@ function mostrarclientes(dia){
 		else {
 			var sql='SELECT * FROM CLIENTES '			
 		}
-		tx.executeSql(sql,[],listo,errorconsulta);    	
+		tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error select clientes por dia: "+err);
+         		});    	
 	}
 	function listo(tx,results){  
 		 $('#listaclientes').empty();        
@@ -84,7 +84,9 @@ function mostrarcliente(clavecli){
 		db.transaction(consulta, errorconsulta);
 	
 	function consulta(tx) {
-		tx.executeSql('SELECT * FROM CLIENTES WHERE clave="'+clavecli+'"',[],exito,errorconsulta);    	}
+		tx.executeSql('SELECT * FROM CLIENTES WHERE clave="'+clavecli+'"',[],exito,errorconsulta);    	
+		alert('entro a la consulta de datos de un cliente');
+		}
 	
 	function exito(tx,results){         
 	   var row = results.rows.item(0);            
