@@ -40,6 +40,19 @@ $(document).ready(function() {
 				  $("select#menu").val("Lunes").selectmenu("refresh");
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });
+  /*  $("#bguardacli").tap(function() { 
+	            var nombre = $("#nomnuevocli").val()	
+				var empresa = $("#empnuevocli").val()	
+				var rfc = $("#rfcnuevocli").val()	  	
+				var direccion = $("#dirnuevocli").val()	  	
+				var colonia = $("#colnuevocli").val()	  	
+				var estado = $("#edonuevocli").val()	  	
+				var municipio = $("#munnuevocli").val()	  	
+				var telefono = $("#telnuevocli").val()	  					
+				guardacliente(nombre,empresa,rfc,direccion,colonia,estado,municipio,telefono);
+				 
+               });*/
+			   
     $("#menu").bind("change",function(event,ui){
 		//alert($("#menu").val());
 	    mostrarclientes($("#menu").val());	

@@ -45,14 +45,12 @@ function insertar(){
 		
 		consultadb().transaction(insertarcli,function(err){
     	  alert("Error al insertar clientes: "+err.code+err.message);
-          },alert("clientes insertardos"));
+          },alert("clientes insertados"));
 				
     	function insertarcli(tx) {		
-		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia) VALUES ("Cesar Menso", "1020","Lunes")');        
-    	tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia) VALUES ("Diego Morales", "1010","Martes")');		 		
+		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito) VALUES ("Farmacia UNO", "1020","Lunes","Dirección del cliente","2281545130","C","30","10000.00")');        
+        tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito) VALUES ("Farmacia DOS", "1020","Lunes","Dirección del cliente DOS","2281545130","C","30","10000.00")');        
 		}
-        
-		
 }
 
 function mostrarclientes(dia){
@@ -61,7 +59,7 @@ function mostrarclientes(dia){
 		
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);
 		db.transaction(poblarcli, function(err){
-    	 		 alert("Error abrir bd: "+err);
+    	 		 alert("Error select clientes : "+err.code);
          		});		
 	
 	function poblarcli(tx){  
@@ -96,17 +94,34 @@ function mostrarcliente(clavecli){
 	
 	function consulta(tx) {
 		tx.executeSql('SELECT * FROM CLIENTES WHERE clave="'+clavecli+'"',[],exito,errorconsulta);    	
-		alert('entro a la consulta de datos de un cliente');
+		//alert('entro a la consulta de datos de un cliente');
 		}
 	
 	function exito(tx,results){         
 	   var row = results.rows.item(0);            
 	   $('#nomcli').text(row['nombre']);
   	   $('#clacli').text(row['clave']);
+	   $('#direccion').text(row['direccion']);
+  	   $('#telefono').text(row['telefono']);
+	   $('#tipo').text(row['tipo']);
+  	   $('#diascredito').text(row['diasc']);
+	   $('#limitecredito').text(row['lcredito']);
+  	   
  		}
 	function errorconsulta(err) {
     	alert("Error SQL al poblar cliente: "+err);
 	}
 //  });	
 
+}
+function guardacliente(nombre,empresa,rfc,direccion,colonia,estado,municipio,telefono){
+	consultadb().transaction(nuevocli,function(err){
+    	  alert("Error al insertar cliente: "+err.code+err.message);
+          },alert("clientes insertados"));
+				
+    	function nuevocli(tx) {		
+		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito) VALUES ("Farmacia UNO", "1020","Lunes","Dirección del cliente","2281545130","C","30","10000.00")');        
+        tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito) VALUES ("Farmacia DOS", "1020","Lunes","Dirección del cliente DOS","2281545130","C","30","10000.00")');        
+		}
+	
 }

@@ -12,7 +12,7 @@
 <script src="phonegap.js"></script>
 <body> 
 <div data-role="page" id="inicio"> 	
-	<div data-role="header">
+	<div data-role="header">    
     	<h1>Ingreso</h1>	
     </div>
     <div data-role="content">
@@ -21,11 +21,12 @@
                     <label> Password </label>
                     <input type="password" id="pass" name="clave" >
                     <input type="submit" value="Login" id="botonLogin">
+                    <img border="0"  alt="Sardel"	src="imagenes/sardel.jpg"> 
     </div>	 
 </div> 
 <!--  MENU PRINCIPAL   -->
 <div data-role="page" id="page">
-	<div data-role="header">
+	<div data-role="header" data-theme="b" data-position="fixed">
 		<h1>Menu Principal</h1>
 	</div>
 	<div data-role="content">	
@@ -75,6 +76,8 @@
 	<div data-role="footer">        
         <a class="ui-btn-right" id="regresarcli" data-role="button" data-rel="back"
         data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>
+        <a class="ui-btn-left"  href="#pnuevocli" id="nuevocli" data-role="button" data-theme="b"
+        data-icon="plus" data-iconpos="left">Nuevo</a>
 	</div>
 </div>
 <!-- F I N   P A G I N A  C L I E N T E S   -->
@@ -83,11 +86,16 @@
 
 <div data-role="page" id="datoscli">
 	<div data-role="header">
-		 
+		<h1>Datos del Cliente</h1> 
 	</div>
 	<div data-role="content">		
-       <h5 id="nomcli">Nombre</h5>
        <h5 id="clacli">Clave</h5>       
+       <h5 id="nomcli">Nombre</h5>       
+       <h5 id="direccion">Dirección</h5>
+       <h5 id="telefono">Telefono</h5>       
+       <h5 id="tipo">Tipo</h5>       
+       <h5 id="diascredito">Días de Crédito</h5>       
+       <h5 id="limitecredito">Límite de Crédito</h5>       
     </div>
 	<div data-role="footer">
         <a class="ui-btn-left"  href="#poperaciones" id="Visita" data-role="button" data-theme="b"
@@ -112,7 +120,34 @@
         data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>
  	</div>
 </div>
-
+<!-- P A G I N A  NUEVO CLIENTE-->
+<div data-role="page" id="pnuevocli">
+	<div data-role="header">
+		<h1>Nuevo Cliente</h1>
+	</div>
+	<div data-role="content">
+      				<label> Nombre </label>
+          			<input type="text" id="nomnuevocli" > 
+                    <label> RFC </label>
+                    <input type="text" id="rfcnuevocli" >
+                    <input type="submit" value="Guardar" id="bguardacli">
+                    <label> Dirección </label>
+                    <input type="text" id="dirnuevocli" >
+                    <label> Colonia </label>
+                    <input type="text" id="colnuevocli" >
+                    <label> Estado </label>
+                    <input type="text" id="edonuevocli" >
+                    <label> Municipio</label>
+                    <input type="text" id="munnuevocli" >
+                    <label> Telefono</label>
+                    <input type="text" id="telnuevocli" >
+    </div>
+	<div data-role="footer">        
+			<a class="ui-btn-right" id="regresarnuevocli" data-role="button" data-rel="back"
+        data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>
+ 	</div>
+</div>
+<!-- P A G I N A  VENTAS-->
 <div data-role="page" id="pventas">
 	<div data-role="header">
 		<h1>Ventas</h1>
