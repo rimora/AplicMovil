@@ -7,21 +7,32 @@ $(document).ready(function() {
 		
 	
 	});*/
+	$('#botonLogin').tap(function() { 
+			 	// recolecta los valores que inserto el usuario	
+				var Usuario = $("#nombredeusuario").val()	
+				var Pass = $("#clave").val()	  	
+				if(Usuario == "r1"){
+
+					window.location.href='#page';
+		  		}else{		  		  
+				alert('Usuario No Válio');
+				}  	
+	});
 	
-	$("#carga").click(function() {
+	$("#carga").tap(function() { 
                  //var clavecli = $(this).attr("id");
 				  //alert (oID);
 				  iniciar();
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });
-     $("#envia").click(function() {
+     $("#envia").tap(function() { 
                  //var clavecli = $(this).attr("id");
 				  //alert (oID);
 				  insertar();
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });			   
 			  
-	$("#clientes").click(function() {
+	$("#clientes").tap(function() { 
                  //var clavecli = $(this).attr("id");
 				  //alert (oID);				  
                   
@@ -35,7 +46,7 @@ $(document).ready(function() {
 		
 	});
 		
-    $("li").bind("click",function(event,ui) {
+    $("li").live("vclick",function(event){
                   var clavecli = $(this).attr("id");
 				  alert (clavecli);
 				  mostrarcliente(clavecli);

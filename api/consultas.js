@@ -1,47 +1,57 @@
 // consultas
+function consultadb()
+{
+	var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);			
+	return db;	
+}
 
 function iniciar()
-{
-		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
-		db.transaction(consulta, function(err){
-    	  alert("Error processing SQL al crear BD: "+err);
-          },alert('bd generada'));	
+{		
+	
+	var db = window.openDatabase("Database", "1.0", "Cordova Demo", 1000000);
+db.transaction(creartb, errorCB, successCB);
+
+	
+		function creartb(tx) {
+			alert('funcion creartb');	
+    tx.executeSql('DROP TABLE IF EXISTS CLIENTES');
+         tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL)');  
+		 }
+
+function errorCB(err) {
+    alert("Error processing SQL: "+err.code);
+}
+
+function successCB() {
+    alert("success!");
+}
+
+
+		/*
 		
+		consultadb().transaction(populateDB,function(err)
+		{
+		alert("Error al insertar clientes: "+err.code+err.message);			
+		},alert('bd generada'));
+		function creartb(tx) {
+		  alert('funcion creartb');	
+		tx.executeSql('DROP TABLE IF EXISTS CLIENTES');
+         tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL)');   	
+		}
 		
-		function consulta(tx) {
-         tx.executeSql('DROP TABLE IF EXISTS CLIENTES');
-         tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL)');        		 
-     	}		
-	   
+	 */  
 }
 function insertar(){
-		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
-		db.transaction(insertarcli,function(err){
-    	  alert("Error al insertar clientes: "+err);
-          },listacliente);
-		alert('funcion insertar');			
-    	function insertarcli(tx) {
-		tx.executeSql('INSERT INTO CLIENTES(nombre,clave,dia) VALUES ("Cesar Menso", "1020","Lunes")');        
-    	tx.executeSql('INSERT INTO CLIENTES(nombre,clave,dia) VALUES ("Diego Morales", "1010","Martes")');		 		
-		}
-        function listacliente(tx){
-			var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
-			 db.transaction(function(tx){      			
-		    	tx.executeSql('SELECT * FROM CLIENTES ',[],
-			  function(tx,results){  	
-		     	alert('entra a función muestra');		
-		 	 	$.each(results.rows,function(index){           
-			 		var row = results.rows.item(index);            
- 			 		alert(row['clave']);
-			 		alert(row['nombre']);		
-				});         
-			  },function(err){
-    	 		 alert("Error select de clientes: "+err);
-         		})}, errorCB);;
-			  
-		alert('despues de clientes insertados');  
-		}
 		
+		consultadb().transaction(insertarcli,function(err){
+    	  alert("Error al insertar clientes: "+err.code+err.message);
+          },alert("clientes insertardos"));
+				
+    	function insertarcli(tx) {		
+		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia) VALUES ("Cesar Menso", "1020","Lunes")');        
+    	tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia) VALUES ("Diego Morales", "1010","Martes")');		 		
+		}
+        
 		
 }
 
@@ -49,7 +59,7 @@ function mostrarclientes(dia){
  // $('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);
 		
-		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
+		var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);
 		db.transaction(poblarcli, function(err){
     	 		 alert("Error abrir bd: "+err);
          		});		
