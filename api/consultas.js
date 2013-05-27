@@ -15,9 +15,8 @@ db.transaction(creartb, errorCB, successCB);
 		function creartb(tx) {
 			alert('funcion creartb');	
     tx.executeSql('DROP TABLE IF EXISTS CLIENTES');
-         tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL)');  
+         tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL,direccion TEXT NOT NULL,telefono TEXT NOT NULL,tipo TEXT NOT NULL,diasc TEXT NOT NULL,lcredito TEXT NOT NULL,)');  
 		 }
-
 function errorCB(err) {
     alert("Error processing SQL: "+err.code);
 }
