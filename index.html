@@ -34,7 +34,7 @@
             <a href="#pclientes" id ="clientes" data-mini="true" data-role="button" data-theme="e" data-icon="sardel-clientes" data-iconpos="left"> Clientes</a>                          
             <a href="#" id ="depositos"  data-role="button"> Depositos</a> 
             <a href="#pdatos" id ="datos"  data-role="button"> Datos</a> 
-            <a href="#" id ="reportes"  data-role="button"> Reportes</a> 		
+            <a href="#preportes" id ="reportes"  data-role="button"> Reportes</a> 		
           </ul>	
         <img border="0"  alt="hola"	src="imagenes/ajustador.png">
 	</div>
@@ -48,7 +48,7 @@
     </div>
     <div data-role="content">
         <div data-role="fieldcontain" data-theme="c">
-            <label for="menu">Día:</label>
+            <label for="menu"><b>Día:</b></label>
             <select name="Dia" id="menu" data-theme="b" class="diasruta">
                 <option value="Lunes">
                     Lunes
@@ -70,14 +70,24 @@
                 </option>
             </select>
         </div>	
+        <div id="ordencli" data-role="fieldcontain">
+            <fieldset data-role="controlgroup" data-type="vertical">
+                <input name="ordencli" id="checkcli" type="checkbox" data-theme="c">
+                <label for="checkcli">
+                    Orden Alfabético
+                </label>
+            </fieldset>
+        </div>
         <ul data-role="listview" data-inset="true" id="listaclientes" data-filter="true" data-filter-placeholder="Escribe Nombre">        	
         </ul>
+        
+
     </div>
 	<div data-role="footer">        
         <a class="ui-btn-right" id="regresarcli" data-role="button" data-rel="back"
         data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>
         <a class="ui-btn-left"  href="#pnuevocli" id="nuevocli" data-role="button" data-theme="b"
-        data-icon="plus" data-iconpos="left">Nuevo</a>
+        data-icon="plus" data-iconpos="left">Nuevo</a>        
 	</div>
 </div>
 <!-- F I N   P A G I N A  C L I E N T E S   -->
@@ -86,17 +96,34 @@
 
 <div data-role="page" id="datoscli">
 	<div data-role="header">
-		<h1>Datos del Cliente</h1> 
+		<h1><b>Cliente</b></h1> 
 	</div>
 	<div data-role="content">		
-       <h5 id="clacli">Clave</h5>       
-       <h5 id="nomcli">Nombre</h5>       
-       <h5 id="direccion">Dirección</h5>
-       <h5 id="telefono">Telefono</h5>       
-       <h5 id="tipo">Tipo</h5>       
-       <h5 id="diascredito">Días de Crédito</h5>       
-       <h5 id="limitecredito">Límite de Crédito</h5>       
+        <div data-role="collapsible" data-theme="b" data-content-theme="c" id="agrupadatoscli">
+	       <h3>
+                    <b>Datos del cliente</b>
+           </h3>
+           <h5 id="clacli">Clave</h5>       
+    	   <h5 id="nomcli">Nombre</h5>       
+	       <h5 id="direccion">Dirección</h5>
+    	   <h5 id="telefono">Telefono</h5>       
+	       <h5 id="tipo">Tipo</h5>       
+    	   <h5 id="diascredito">Días de Crédito</h5>       
+	       <h5 id="limitecredito">Límite de Crédito</h5> 
+           <h5 id="saldo">Saldo</h5> 
+        </div>   
+       <div data-role="collapsible" data-theme="b" data-content-theme="c" id="agrupacomentario">
+            
+                <h3>
+                    <b>Notas de Cuentas por Cobrar</b>
+                </h3>
+                <textarea cols="8" rows="50" name="textarea" id="comment" readonly="true"></textarea>
+            
+        </div>        
+             
+       
     </div>
+    
 	<div data-role="footer">
         <a class="ui-btn-left"  href="#poperaciones" id="Visita" data-role="button" data-theme="b"
         data-icon="star" data-iconpos="left">Visita</a>
@@ -129,8 +156,7 @@
       				<label> Nombre </label>
           			<input type="text" id="nomnuevocli" > 
                     <label> RFC </label>
-                    <input type="text" id="rfcnuevocli" >
-                    <input type="submit" value="Guardar" id="bguardacli">
+                    <input type="text" id="rfcnuevocli" >                    
                     <label> Dirección </label>
                     <input type="text" id="dirnuevocli" >
                     <label> Colonia </label>
@@ -141,6 +167,7 @@
                     <input type="text" id="munnuevocli" >
                     <label> Telefono</label>
                     <input type="text" id="telnuevocli" >
+                    <input type="submit" value="Guardar" id="bguardacli" data-theme="b">
     </div>
 	<div data-role="footer">        
 			<a class="ui-btn-right" id="regresarnuevocli" data-role="button" data-rel="back"
@@ -186,7 +213,27 @@
     
     
 </div>
-
+<!-- P A G I N A  REPORTES-->
+<div data-role="page" id="preportes">
+	<div data-role="header">
+		<h1>Operaciones del Cliente</h1>
+	</div>
+	<div data-role="content">
+        <div data-role="collapsible" data-theme="b" data-content-theme="c">
+           
+                <h3>
+                    <b>Notas de Cuentas por Cobrar</b>
+                </h3>
+                <textarea cols="8" rows="50" name="textarea" id="comment"></textarea>
+            
+        </div>
+       
+    </div>
+	<div data-role="footer">        
+			<a class="ui-btn-right" id="regresarreportes" data-role="button" data-rel="back"
+        data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>
+ 	</div>
+</div>
 
 
 

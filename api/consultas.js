@@ -15,7 +15,7 @@ db.transaction(creartb, errorCB, successCB);
 		function creartb(tx) {
 			alert('funcion creartb');	
     tx.executeSql('DROP TABLE IF EXISTS CLIENTES');
-         tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL,direccion TEXT NOT NULL,telefono TEXT NOT NULL,tipo TEXT NOT NULL,diasc TEXT NOT NULL,lcredito TEXT NOT NULL,)');  
+         tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL,direccion TEXT NOT NULL,telefono TEXT NOT NULL,tipo TEXT NOT NULL,diasc TEXT NOT NULL,lcredito TEXT NOT NULL,saldo TEXT NOT NULL)');  
 		 }
 function errorCB(err) {
     alert("Error processing SQL: "+err.code);
@@ -48,7 +48,7 @@ function insertar(){
 				
     	function insertarcli(tx) {		
 		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito) VALUES ("Farmacia UNO", "1020","Lunes","Dirección del cliente","2281545130","C","30","10000.00")');        
-        tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito) VALUES ("Farmacia DOS", "1020","Lunes","Dirección del cliente DOS","2281545130","C","30","10000.00")');        
+        tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito) VALUES ("Farmacia DOS", "1020","Lunes","Dirección del cliente DOS","2281545130","C","30","10000.00","5000.00")');        
 		}
 }
 
@@ -98,13 +98,14 @@ function mostrarcliente(clavecli){
 	
 	function exito(tx,results){         
 	   var row = results.rows.item(0);            
-	   $('#nomcli').text(row['nombre']);
-  	   $('#clacli').text(row['clave']);
-	   $('#direccion').text(row['direccion']);
-  	   $('#telefono').text(row['telefono']);
-	   $('#tipo').text(row['tipo']);
-  	   $('#diascredito').text(row['diasc']);
-	   $('#limitecredito').text(row['lcredito']);
+	   $('#nomcli').text("Nombre: "+row['nombre']);
+  	   $('#clacli').text("Clave: "+row['clave']);
+	   $('#direccion').text("Dirección: "+row['direccion']);
+  	   $('#telefono').text("Telefono: "+row['telefono']);
+	   $('#tipo').text("Tipo: "+row['tipo']);
+  	   $('#diascredito').text("Dias de Crédito: "+row['diasc']);
+	   $('#limitecredito').text("Límite de Crédito: "+row['lcredito']);
+	   $('#saldo').text("Saldo: "+row['saldo']);
   	   
  		}
 	function errorconsulta(err) {
@@ -123,4 +124,12 @@ function guardacliente(nombre,empresa,rfc,direccion,colonia,estado,municipio,tel
         tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito) VALUES ("Farmacia DOS", "1020","Lunes","Dirección del cliente DOS","2281545130","C","30","10000.00")');        
 		}
 	
+}
+function llamadascxc(){	
+  alert ('depositos');
+    $.get("demo_test.asp",function(data,status){
+      alert("Data: " + data + "\nStatus: " + status);
+    });
+  
+
 }

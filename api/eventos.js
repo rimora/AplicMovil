@@ -64,7 +64,30 @@ $(document).ready(function() {
 				  alert (clavecli);
 				  mostrarcliente(clavecli);
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
-               });
+    });
+	$("#depositos").tap(function() { 
+                 //var clavecli = $(this).attr("id");
+				  
+				  llamadascxc();
+				  //$.mobile.changePage($("#datoscli"));	  			  				  
+     });				   
+   $("#checkcli").tap(function(){
+				  alert($("#menu").val());
+				  //llamadascxc();
+				  
+	   if ($("#checkcli").prop("checked")){
+		   alert("checado");
+		   
+	   }
+	   else{
+		   alert("NO checado");
+		   
+	   }
+  
+     });	
+
+
+
 });
 			   
 			   
