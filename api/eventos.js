@@ -71,7 +71,7 @@ $(document).ready(function() {
 				  llamadascxc();
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
      });				   
-   $("#checkcli").tap(function(){
+   $("#checkcli").bind("change",function(event){
 				  alert($("#menu").val());
 				  //llamadascxc();
 				  
