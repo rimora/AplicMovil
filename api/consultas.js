@@ -49,11 +49,11 @@ function insertar(){
           },alert("clientes insertados"));
 				
     	function insertarcli(tx) {		
-		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito) VALUES ("Farmacia UNO", "1020","Lunes","Dirección del cliente","2281545130","C","30","10000.00","3000.00")');        
-        tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito) VALUES ("Farmacia DOS", "1020","Martes","Dirección del cliente  DOS","2281545130","C","30","10000.00","5000.00")'); 
-		// tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven) VALUES ("S04", "1","00041534","1020","$437.55","$437.55","08/05/2013","08/05/2013")');        
-		 //tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven) VALUES ("S04", "1","00041535","1020","$888.55","$1000.55","15/05/2013","15/05/2013")');        
-		 	//	 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven) VALUES ("S04", "1","00041536","1020","$5000.00","$5000.00","08/06/2013","08/06/2013")');        
+		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia UNO", "1020","Lunes","Dirección del cliente","2281545130","C","30","10000.00","3000.00")');        
+        tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia DOS", "1020","Martes","Dirección del cliente  DOS","2281545130","C","30","10000.00","5000.00")'); 
+		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven) VALUES ("S04", "1","00041534","1020","$437.55","$437.55","08/05/2013","08/05/2013")');        
+		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven) VALUES ("S04", "1","00041535","1020","$888.55","$1000.55","15/05/2013","15/05/2013")');        
+		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven) VALUES ("S04", "1","00041536","1020","$5000.00","$5000.00","08/06/2013","08/06/2013")');        
 
 
 		}
