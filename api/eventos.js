@@ -61,7 +61,7 @@ $(document).ready(function() {
 		
     $("li").live("vclick",function(event){
                   var clavecli = $(this).attr("id");
-				  alert (clavecli);
+				  //alert (clavecli);
 				  mostrarcliente(clavecli);
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
     });
