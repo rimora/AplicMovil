@@ -14,8 +14,10 @@ db.transaction(creartb, errorCB, successCB);
 	
 		function creartb(tx) {
 			alert('funcion creartb');	
-    tx.executeSql('DROP TABLE IF EXISTS CLIENTES');
-         tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL,direccion TEXT NOT NULL,telefono TEXT NOT NULL,tipo TEXT NOT NULL,diasc TEXT NOT NULL,lcredito TEXT NOT NULL,saldo TEXT NOT NULL)');  
+    	 tx.executeSql('DROP TABLE IF EXISTS CLIENTES');
+		 tx.executeSql('DROP TABLE IF EXISTS erpadmin_alcxc_pen_cob');
+         tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL,direccion TEXT NOT NULL,telefono TEXT NOT NULL,tipo TEXT NOT NULL,diasc TEXT NOT NULL,lcredito TEXT NOT NULL,saldo TEXT NOT NULL)'); 
+		 tx.executeSql('CREATE TABLE IF NOT EXISTS erpadmin_alcxc_pen_cob (id INTEGER PRIMARY KEY AUTOINCREMENT, cod_zon TEXT NOT NULL, cod_tip_dc TEXT NOT NULL,num_doc TEXT NOT NULL,cod_clt TEXT NOT NULL,saldo TEXT NOT NULL,monto TEXT NOT NULL,fec_doc_ft TEXT NOT NULL,fec_ven TEXT NOT NULL)'); 
 		 }
 function errorCB(err) {
     alert("Error processing SQL: "+err.code);
@@ -48,7 +50,12 @@ function insertar(){
 				
     	function insertarcli(tx) {		
 		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito) VALUES ("Farmacia UNO", "1020","Lunes","Dirección del cliente","2281545130","C","30","10000.00","3000.00")');        
-        tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito) VALUES ("Farmacia DOS", "1020","Martes","Dirección del cliente DOS","2281545130","C","30","10000.00","5000.00")');        
+        tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito) VALUES ("Farmacia DOS", "1020","Martes","Dirección del cliente DOS","2281545130","C","30","10000.00","5000.00")'); 
+		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven) VALUES ("S04", "1","00041534","1020","$437.55","$437.55","08/05/2013","08/05/2013")');        
+		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven) VALUES ("S04", "1","00041535","1020","$888.55","$1000.55","15/05/2013","15/05/2013")');        
+		 		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven) VALUES ("S04", "1","00041536","1020","$5000.00","$5000.00","08/06/2013","08/06/2013")');        
+
+
 		}
 }
 
@@ -64,10 +71,10 @@ function mostrarclientes(dia){
 	function poblarcli(tx){  
 	
 	    if (dia!="Todos"){
-			var sql='SELECT * FROM CLIENTES WHERE DIA="'+dia+'"'			
+			var sql='SELECT * FROM CLIENTES WHERE DIA="'+dia+'" ORDER BY nombre  '			
 		}
 		else {
-			var sql='SELECT * FROM CLIENTES '			
+			var sql='SELECT * FROM CLIENTES ORDER BY nombre   '			
 		}
 		tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error select clientes por dia: "+err.code+err.message);
