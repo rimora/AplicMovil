@@ -85,10 +85,37 @@ $(document).ready(function() {
 	   }
   
      });	
+	 $( "#colprueba" ).bind("expand",function(event)
+	 {
+		 alert("abre")
+	 });
+	  $( "#colprueba" ).bind("collapse",function(event)
+	 {
+		 alert("cierra")
+	 });
 
+$("#reportes").click(function() { 	 
+	
+ $("#gridprueba").empty();
+	    var html = "";
+					 html += "<div class=ui-block-a><strong>Tipo</strong>creado por codigo.</div>";
+					 html += "<div class=ui-block-b><strong>Documento</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
+                     html += "<div class=ui-block-c><strong>Vence</strong> El texto que se ecriba aquí se amoldará a la mitad de pagina.</div>";
+					 html += "<div class=ui-block-d><strong>Saldo</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
+                     html += "<div class=ui-block-e><strong>Monto</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
 
+                  	 html += "<div class=ui-block-a><strong>Tipo</strong> El texto que se ecriba aquí se amoldará a la mitad de pagina.</div>";
+					 html += "<div class=ui-block-b><strong>Documento</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
+                     html += "<div class=ui-block-c><strong>Vence</strong> El texto que se ecriba aquí se amoldará a la mitad de pagina.</div>";
+					 html += "<div class=ui-block-d><strong>Saldo</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
+                     html += "<div class=ui-block-e><strong>Monto</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
+		$("#gridprueba").append(html);  
 
 });
+
+
+
+});//ultimo
 			   
 			   
 

@@ -94,6 +94,8 @@ function mostrarclientes(dia){
 }
 function mostrarcliente(clavecli){
 //  $('#datoscli').live('pageshow',function(event, ui){
+   	   window.localStorage.clear();
+	   saveidcliente(clavecli);
 		alert('entra mostrar cliente');
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		db.transaction(consulta, errorconsulta);
@@ -113,7 +115,21 @@ function mostrarcliente(clavecli){
   	   $('#diascredito').text("Dias de Crédito: "+row['diasc']);
 	   $('#limitecredito').text("Límite de Crédito: "+row['lcredito']);
 	   $('#saldo').text("Saldo: "+row['saldo']);
-  	   
+	   
+	   $("#gridfaccli").empty();
+	    var html = "";
+					 html += "<div class=ui-block-a><strong>Tipo</strong> El texto que se ecriba aquí se amoldará a la mitad de pagina.</div>";
+					 html += "<div class=ui-block-b><strong>Documento</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
+                     html += "<div class=ui-block-c><strong>Vence</strong> El texto que se ecriba aquí se amoldará a la mitad de pagina.</div>";
+					 html += "<div class=ui-block-d><strong>Saldo</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
+                     html += "<div class=ui-block-e><strong>Monto</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
+
+                  	 html += "<div class=ui-block-a><strong>Tipo</strong> El texto que se ecriba aquí se amoldará a la mitad de pagina.</div>";
+					 html += "<div class=ui-block-b><strong>Documento</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
+                     html += "<div class=ui-block-c><strong>Vence</strong> El texto que se ecriba aquí se amoldará a la mitad de pagina.</div>";
+					 html += "<div class=ui-block-d><strong>Saldo</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
+                     html += "<div class=ui-block-e><strong>Monto</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
+		$("#gridfaccli").append(html);  	   
  		}
 	function errorconsulta(err) {
     	alert("Error SQL al poblar cliente: "+err);
@@ -139,4 +155,10 @@ function llamadascxc(){
     });
   
 
+}
+function saveidcliente(clave){
+	window.localStorage.setItem("clave",clave);
+	alert (window.localStorage.getItem("cliente"));
+	
+	
 }
