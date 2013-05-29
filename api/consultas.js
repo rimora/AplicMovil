@@ -48,7 +48,7 @@ function insertar(){
 				
     	function insertarcli(tx) {		
 		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito) VALUES ("Farmacia UNO", "1020","Lunes","Dirección del cliente","2281545130","C","30","10000.00","3000.00")');        
-        tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito) VALUES ("Farmacia DOS", "1020","Lunes","Dirección del cliente DOS","2281545130","C","30","10000.00","5000.00")');        
+        tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito) VALUES ("Farmacia DOS", "1020","Martes","Dirección del cliente DOS","2281545130","C","30","10000.00","5000.00")');        
 		}
 }
 
@@ -58,7 +58,7 @@ function mostrarclientes(dia){
 		
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);
 		db.transaction(poblarcli, function(err){
-    	 		 alert("Error select clientes : "+err.code);
+    	 		 alert("Error select clientes : "+err.code+err.message);
          		});		
 	
 	function poblarcli(tx){  
@@ -70,7 +70,7 @@ function mostrarclientes(dia){
 			var sql='SELECT * FROM CLIENTES '			
 		}
 		tx.executeSql(sql,[],listo,function(err){
-    	 		 alert("Error select clientes por dia: "+err);
+    	 		 alert("Error select clientes por dia: "+err.code+err.message);
          		});    	
 	}
 	function listo(tx,results){  
