@@ -124,6 +124,11 @@ function mostrarcliente(clavecli){
 		      $("#gridfaccli").empty();			  
 			  var html = "";
 			  var tipo="";
+			  html += "<div class=ui-block-a><strong></strong> Tipo</div>";
+			  html += "<div class=ui-block-b><strong></strong> Documento</div>";
+			  html += "<div class=ui-block-c><strong></strong> Vencimiento</div>";
+			  html += "<div class=ui-block-d><strong></strong> Saldo</div>";
+			  html += "<div class=ui-block-e><strong></strong> Monto</div>";
 			  $.each(results.rows,function(index){
 				  var row = results.rows.item(index); 				     
 				     if (row['tipo']=="1"){
@@ -133,15 +138,16 @@ function mostrarcliente(clavecli){
 						 tipo="OTRO" 
 					 }
 					 
-					 html += "<div class=ui-block-a><strong>" +tipo+"</strong> El texto que se ecriba aquí se amoldará a la mitad de pagina.</div>";
-					 html += "<div class=ui-block-b><strong>"+row['num_doc']+"</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
-                     html += "<div class=ui-block-c><strong>"+row['fec_ven']+"</strong> El texto que se ecriba aquí se amoldará a la mitad de pagina.</div>";
-					 html += "<div class=ui-block-d><strong>"+row['saldo']+"</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
-                     html += "<div class=ui-block-e><strong>"+row['monto']+"</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
+					 html += "<div class=ui-block-a><strong></strong> " +tipo+"</div>";
+					 html += "<div class=ui-block-b><strong></strong> "+row['num_doc']+"</div>";
+                     html += "<div class=ui-block-c><strong></strong> "+row['fec_ven']+"</div>";
+					 html += "<div class=ui-block-d><strong></strong> "+row['saldo']+"</div>";
+                     html += "<div class=ui-block-e><strong></strong> "+row['monto']+"</div>";
 
                   	 
 			  });
-					$("#gridfaccli").append(html);  
+					$("#gridfaccli").append(html); 
+					 
 	   }
  		
 	function errorconsulta(err) {
@@ -171,7 +177,7 @@ function llamadascxc(){
 }
 function saveidcliente(clave){
 	window.localStorage.setItem("clave",clave);
-	alert (window.localStorage.getItem("clave"));
+	//alert (window.localStorage.getItem("clave"));
 	
 	
 }
