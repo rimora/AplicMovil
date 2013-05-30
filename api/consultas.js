@@ -53,10 +53,10 @@ function insertar(){
         tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia DOS", "1030","Martes","Dirección del cliente  DOS","2281545130","C","30","10000.00","5000.00")'); 
 		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia TRES", "1040","Miercoles","Dirección del cliente","2281545130","C","30","30000.00","1000.00")');        
         tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia CUATRO", "1050","Jueves","Dirección del cliente  CUATRO","2281545130","C","30","50000.00","8000.00")'); 
-		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven) VALUES ("S04", "1","00041534","1020","$437.55","$437.55","08/05/2013","08/05/2013")');        
-		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven) VALUES ("S04", "1","00041535","1020","$888.55","$1000.55","15/05/2013","15/05/2013")');  
-		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven) VALUES ("S04", "1","00041537","1020","$998.55","$1000.55","15/05/2013","15/06/2013")');        
-		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven) VALUES ("S04", "1","00041536","1030","$5000.00","$5000.00","08/06/2013","08/06/2013")');        
+		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven) VALUES ("S04", "1","00041534","1020","437.55","437.55","08/05/2013","08/05/2013")');        
+		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven) VALUES ("S04", "1","00041535","1020","888.55","1000.55","15/05/2013","15/05/2013")');  
+		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven) VALUES ("S04", "1","00041537","1020","998.55","1000.55","15/05/2013","15/06/2013")');        
+		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven) VALUES ("S04", "1","00041536","1030","5000.00","5000.00","08/06/2013","08/06/2013")');        
 
 
 		}
@@ -127,6 +127,7 @@ function mostrarcliente(clavecli){
 			  var tipo="";
 			  var saldot=0;
 			  var montot=0;
+			  alert(saldot);
 			  html += "<div class=ui-block-a><div class=ui-bar ui-bar-a><strong></strong> Tipo</div></div>";
 			  html += "<div class=ui-block-b><strong></strong> Documento</div>";
 			  html += "<div class=ui-block-c><strong></strong> Vencimiento</div>";
@@ -153,7 +154,7 @@ function mostrarcliente(clavecli){
 					$("#gridfaccli").append(html); 
 					$("#saldocli").text(saldot); 
 					$("#montocli").text(montot); 
-					//alert(saldot);
+					alert(saldot);
 	   }
  		
 	function errorconsulta(err) {
