@@ -153,7 +153,7 @@ function mostrarcliente(clavecli){
 					$("#gridfaccli").append(html); 
 					$("#saldocli").text(saldot); 
 					$("#montocli").text(montot); 
-					alert(saldot);
+					//alert(saldot);
 	   }
  		
 	function errorconsulta(err) {
