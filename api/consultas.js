@@ -101,7 +101,7 @@ function mostrarcliente(clavecli){
 		db.transaction(consulta, errorconsulta);
 	
 	function consulta(tx) {
-		tx.executeSql('SELECT * FROM CLIENTES a left outer join erpadmin_alcxc_pen_cob b on b.cod_clt=a.clave WHERE clave="'+clavecli+'"',[],exito,errorconsulta);
+		tx.executeSql('SELECT * FROM CLIENTES  WHERE clave="'+clavecli+'"',[],exito,errorconsulta);
 		tx.executeSql('SELECT * FROM erpadmin_alcxc_pen_cob WHERE cod_clt="'+clavecli+'"',[],poblarfac,errorconsulta);    	
 		//alert('entro a la consulta de datos de un cliente');
 		}
@@ -117,7 +117,7 @@ function mostrarcliente(clavecli){
 	   		$('#limitecredito').text("Límite de Crédito: "+row['lcredito']);
 	   		$('#saldo').text("Saldo: "+row['saldo']);
 		}
-		function exito(tx,results){ 
+		function poblarfac(tx,results){ 
 		      $("#gridfaccli").empty();			  
 			  var html = "";
 			  var tipo="";
@@ -161,7 +161,7 @@ function guardacliente(nombre,empresa,rfc,direccion,colonia,estado,municipio,tel
 function llamadascxc(){	
   alert ('depositos');
     $.get("demo_test.asp",function(data,status){
-      alert("Data: " + data + "\nStatus: " + status);
+     // alert("Data: " + data + "\nStatus: " + status);
     });
   
 
