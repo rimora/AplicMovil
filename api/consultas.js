@@ -100,6 +100,7 @@ function mostrarcliente(clavecli){
    	   window.localStorage.clear();
 	   saveidcliente(clavecli);
 		//alert('entra mostrar cliente');
+		$('#notascxc').text("Notas para el cliente " + clavecli);
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		db.transaction(consulta, errorconsulta);
 	
@@ -133,7 +134,7 @@ function mostrarcliente(clavecli){
 			  html += "<div class=ui-block-e><strong></strong> Monto</div>";
 			  $.each(results.rows,function(index){
 				  var row = results.rows.item(index); 				     
-				     if (row['tipo']=="1"){
+				     if (row['cod_tip_dc']=="1"){
 						 tipo="FACTURA"
 					 }
 					 else  {
@@ -152,7 +153,7 @@ function mostrarcliente(clavecli){
 					$("#gridfaccli").append(html); 
 					$("#saldocli").text(saldot); 
 					$("#montocli").text(montot); 
-					
+					alert(saldot);
 	   }
  		
 	function errorconsulta(err) {
