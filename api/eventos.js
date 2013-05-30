@@ -95,6 +95,10 @@ $(document).ready(function() {
 	 });
 
 $("#reportes").click(function() { 	 
+	var cadena="555.5";
+	var saldo=0;
+	alert(Number(cadena)+1);
+	
 	
  $("#gridprueba").empty();
 	    var html = "";

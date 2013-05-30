@@ -124,6 +124,8 @@ function mostrarcliente(clavecli){
 		      $("#gridfaccli").empty();			  
 			  var html = "";
 			  var tipo="";
+			  var saldot=0;
+			  var montot=0;
 			  html += "<div class=ui-block-a><strong></strong> Tipo</div>";
 			  html += "<div class=ui-block-b><strong></strong> Documento</div>";
 			  html += "<div class=ui-block-c><strong></strong> Vencimiento</div>";
@@ -137,7 +139,8 @@ function mostrarcliente(clavecli){
 					 else  {
 						 tipo="OTRO" 
 					 }
-					 
+					 saldot=saldot+Number(row['saldo']);
+					 montot=montot+Number(row['monto']);
 					 html += "<div class=ui-block-a><strong></strong> " +tipo+"</div>";
 					 html += "<div class=ui-block-b><strong></strong> "+row['num_doc']+"</div>";
                      html += "<div class=ui-block-c><strong></strong> "+row['fec_ven']+"</div>";
@@ -147,7 +150,9 @@ function mostrarcliente(clavecli){
                   	 
 			  });
 					$("#gridfaccli").append(html); 
-					 
+					$("#saldocli").text(saldot); 
+					$("#montocli").text(montot); 
+					
 	   }
  		
 	function errorconsulta(err) {
