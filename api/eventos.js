@@ -98,6 +98,11 @@ $("#venta").tap(function(){
 	if (window.localStorage.getItem("vencida")=="S"){
 	   alert("El cliente tiene facturas vencidas");	
 	}
+	else
+	{
+		
+	window.location.href='#pventa';	
+	}
 	
 	
 });

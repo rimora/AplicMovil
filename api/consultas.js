@@ -9,6 +9,7 @@ function iniciar()
 {		
 	
 	var db = window.openDatabase("Database", "1.0", "Cordova Demo", 1000000);
+	alert(db);
 	db.transaction(creartablas, errorCB, successCB);
 
 	
