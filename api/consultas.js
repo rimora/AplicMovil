@@ -7,24 +7,24 @@ function consultadb()
 
 function iniciar()
 {		
-	 alert("antes de llamar a window.datavase");
+	
 	var db = window.openDatabase("Database", "1.0", "Cordova Demo", 1000000);
-db.transaction(creartb, errorCB, successCB);
+	db.transaction(creartablas, errorCB, successCB);
 
 	
-		function creartb(tx) {
-			alert('funcion creartb');	
+		function creartablas(tx) {
+			alert('funcion creartablas');	
     	 tx.executeSql('DROP TABLE IF EXISTS CLIENTES');
 		 tx.executeSql('DROP TABLE IF EXISTS erpadmin_alcxc_pen_cob');
          tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL,direccion TEXT NOT NULL,telefono TEXT NOT NULL,tipo TEXT NOT NULL,diasc TEXT NOT NULL,lcredito TEXT NOT NULL,saldo TEXT NOT NULL)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS erpadmin_alcxc_pen_cob (id INTEGER PRIMARY KEY AUTOINCREMENT, cod_zon TEXT NOT NULL, cod_tip_dc TEXT NOT NULL,num_doc TEXT NOT NULL,cod_clt TEXT NOT NULL,saldo REAL NOT NULL,monto REAL NOT NULL,fec_doc_ft TEXT NOT NULL,fec_ven TEXT NOT NULL,vencida TEXT NOT NULL)'); 
 		 }
-function errorCB(err) {
-    alert("Error processing SQL: "+err.code);
+		function errorCB(err) {
+    		alert("Error al borrar y crear tablas: "+err.code+err.message);
 
-function successCB() {
-    alert("success!");
-}
+		function successCB() {
+    		alert("success!");
+		}
 }
 
 
@@ -49,7 +49,7 @@ function insertar(){
           },alert("clientes insertados"));
 				
     	function insertarcli(tx) {		
-		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia UNO", "1020","Lunes","Dirección del cliente","2281545130","C","30","10000.00","3000.00")');        
+		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia UNO", "1020","Lunes","Dirección del cliente","2281545130","C","30","10000.00","30000.00")');        
         tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia DOS", "1030","Martes","Dirección del cliente  DOS","2281545130","C","30","10000.00","5000.00")'); 
 		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia TRES", "1040","Miercoles","Dirección del cliente","2281545130","C","30","30000.00","1000.00")');        
         tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia CUATRO", "1050","Jueves","Dirección del cliente  CUATRO","2281545130","C","30","50000.00","8000.00")'); 
@@ -97,10 +97,14 @@ function mostrarclientes(dia){
 }
 function mostrarcliente(clavecli){
 //  $('#datoscli').live('pageshow',function(event, ui){
-   	   window.localStorage.clear();
-	   saveidcliente(clavecli);
+   	   window.localStorage.clear();	   	   
 		//alert('entra mostrar cliente');
 		$('#notascxc').text("Notas para el cliente " + clavecli);
+		
+		var saldo=0;
+		var limite=0;
+		var vencida="N";
+		
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		db.transaction(consulta, errorconsulta);
 	
@@ -120,6 +124,12 @@ function mostrarcliente(clavecli){
   	   		$('#diascredito').text("Dias de Crédito: "+row['diasc']);
 	   		$('#limitecredito').text("Límite de Crédito: "+row['lcredito']);
 	   		$('#saldo').text("Saldo: "+row['saldo']);
+			saldo=row['saldo'];
+			limite=row['lcredito'];
+		}
+		if (saldo>limite){
+			alert('El cliente tiene límite de crédito excedido');
+			
 		}
 		function poblarfac(tx,results){ 
 		      $("#gridfaccli").empty();			  
@@ -135,11 +145,15 @@ function mostrarcliente(clavecli){
 			  html += "<div class=ui-block-e><strong></strong> Monto</div>";
 			  $.each(results.rows,function(index){
 				  var row = results.rows.item(index); 				     
+				  
 				     if (row['cod_tip_dc']=="1"){
 						 tipo="FACTURA"
 					 }
 					 else  {
 						 tipo="OTRO" 
+					 }
+					  if (row['vencida']=="S"){
+						 vencida="S"
 					 }
 					 saldot+=Number(row['saldo']);
 					 montot+=Number(row['monto']);
@@ -155,13 +169,16 @@ function mostrarcliente(clavecli){
 					$("#saldocli").text(saldot); 
 					$("#montocli").text(montot); 
 					alert(saldot);
+					if (vencida=="S"){
+						 alert('El cliente tiene facturas vencidas');
+					 }
 	   }
  		
 	function errorconsulta(err) {
     	alert("Error SQL al poblar cliente: "+err.code+err.message);
 	}
 //  });	
-
+    saveidcliente(clavecli,saldo,vencida);
   }//funcion consulta(x)
 function guardacliente(nombre,empresa,rfc,direccion,colonia,estado,municipio,telefono){
 	consultadb().transaction(nuevocli,function(err){
@@ -182,8 +199,10 @@ function llamadascxc(){
   
 
 }
-function saveidcliente(clave){
+function saveidcliente(clave,saldo,vencida){
 	window.localStorage.setItem("clave",clave);
+	window.localStorage.setItem("saldo",saldo);
+	window.localStorage.setItem("vencida",vencida);
 	//alert (window.localStorage.getItem("clave"));
 	
 	

@@ -94,6 +94,14 @@ $(document).ready(function() {
 		 alert("cierra")
 	 });
 
+$("#venta").tap(function(){
+	if (window.localStorage.getItem("vencida")=="S"){
+	   alert("El cliente tiene facturas vencidas");	
+	}
+	
+	
+});
+window.localStorage.getItem("clave")
 $("#reportes").click(function() { 	 
 	var cadena="555.5";
 	var saldo=0;
