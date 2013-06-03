@@ -11,7 +11,7 @@ function iniciar()
 	var db = window.openDatabase("Database", "1.0", "Cordova Demo", 1000000);
 db.transaction(creartb, errorCB, successCB);
 
-	
+	alert('entra a funcion iniciar');
 		function creartb(tx) {
 			alert('funcion creartb');	
     	 tx.executeSql('DROP TABLE IF EXISTS CLIENTES');

@@ -21,7 +21,7 @@ $(document).ready(function() {
 	
 	$("#carga").tap(function() { 
                  //var clavecli = $(this).attr("id");
-				  //alert (oID);
+				  alert ("llama a iniciar");
 				  iniciar();
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });
