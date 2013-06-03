@@ -21,7 +21,7 @@ $(document).ready(function() {
 	
 	$("#carga").tap(function() { 
                  //var clavecli = $(this).attr("id");
-				  alert ('llama a iniciar');
+				  //alert (oID);
 				  iniciar();
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });
@@ -94,19 +94,6 @@ $(document).ready(function() {
 		 alert("cierra")
 	 });
 
-$("#venta").tap(function(){
-	if (window.localStorage.getItem("vencida")=="S"){
-	   alert("El cliente tiene facturas vencidas");	
-	}
-	else
-	{
-		
-	window.location.href='#pventa';	
-	}
-	
-	
-});
-window.localStorage.getItem("clave")
 $("#reportes").click(function() { 	 
 	var cadena="555.5";
 	var saldo=0;

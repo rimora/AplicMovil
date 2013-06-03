@@ -141,7 +141,7 @@
                      --> 
 				</div><!-- /grid-d --> 
                 <label> Saldo </label>
-                <input type="number" id="saldocli"  > 
+                <input type="number" id="saldocli" readonly > 
                 <label> Monto </label>
                 <input type="number" id="montocli" readonly > 
 				
@@ -165,8 +165,8 @@
 	</div>
 	<div data-role="content">
        <ul data-role="listview" data-inset="true" data-theme="c">     
-            <a href="" id ="venta" data-mini="true" data-role="button" data-theme="e" data-icon="sardel-clientes" data-iconpos="left"> Ventas</a>
-            <a href="" id ="cobros" data-role="button"> Cobros</a>             
+            <a href="#pventa" id ="venta" data-mini="true" data-role="button" data-theme="e" data-icon="sardel-clientes" data-iconpos="left"> Ventas</a>                          
+            <a href="#" id ="cobros" data-role="button"> Cobros</a>             
 		</ul>	
     </div>
 	<div data-role="footer">        
@@ -207,7 +207,17 @@
 		<h1>Ventas</h1>
 	</div>
 	<div data-role="content">		
-    
+     <div class="ui-grid-b">
+    <div class="ui-block-a"><div class="ui-bar ui-bar-e" style="height: 60px;">A</div></div>
+    <div class="ui-block-b"><div class="ui-bar ui-bar-e" style="height: 60px;">B</div></div>
+    <div class="ui-block-c"><div class="ui-bar ui-bar-e" style="height: 60px;">C</div></div>
+    <div class="ui-block-a"><div class="ui-bar ui-bar-e" style="height: 60px;">A</div></div>
+    <div class="ui-block-b"><div class="ui-bar ui-bar-e" style="height: 60px;">B</div></div>
+    <div class="ui-block-c"><div class="ui-bar ui-bar-e" style="height: 60px;">C</div></div>
+    <div class="ui-block-a"><div class="ui-bar ui-bar-e" style="height: 60px;">A</div></div>
+    <div class="ui-block-b"><div class="ui-bar ui-bar-e" style="height: 60px;">B</div></div>
+    <div class="ui-block-c"><div class="ui-bar ui-bar-e" style="height: 60px;">C</div></div>
+</div><!-- /grid-c -->
 
     </div>
 	<div data-role="footer">
