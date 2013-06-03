@@ -7,7 +7,7 @@ function consultadb()
 
 function iniciar()
 {		
-	
+	 alert("antes de llamar a window.datavase");
 	var db = window.openDatabase("Database", "1.0", "Cordova Demo", 1000000);
 db.transaction(creartb, errorCB, successCB);
 
