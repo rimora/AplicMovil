@@ -249,37 +249,33 @@
 	<div data-role="content">
     <div data-role="collapsible" data-theme="a" data-content-theme="b" id="pruebacat">
     <h3> Catalogo </h3>
-       <div data-role="fieldcontain">
-         <fieldset data-role="controlgroup">
-          <label for=id1>Nombre del producto </label><p>precio: $ 50.00 existencia:10 ALG:20</p>
-          <label for="cantidadACA-01">Cantidad</label>
-          <input name="slider" id="cantidadACA-01" type="range" min="1" max="50" value="1" data-highlight="true">
+      <ul data-role="listview" data-inset="true" data-filter="true">       
+       <!--  <fieldset data-role="controlgroup">-->
+        <li>
+          <div data-role="fieldcontain">
+          <label for=ACA-01>ACANOL </label><p>precio: $ 50.00 existencia:10 ALG:20</p>
+          <input type=checkbox id=ACA-01 name=catalogo value="ACA-01" />
+          <label for="cACA-01">Cantidad</label>
+          <input name="slider" id="cACA-01" type="range" min="1" max="50" value="1" data-highlight="true">
           <img src="imagenes/ajustador.png"><p>detalle del producto</p>
-          <input type=checkbox id=id1 name=catalogo value="ACA-01" />
-          <label for=id2>opcion2</label>
+		  </div>
+        </li>       
+        <li>
+          <div data-role="fieldcontain">  
+          <label for=ACE-01>ACEITE</label>
           <p>detalle del producto</p>
-          <input type=checkbox id=id2 name=catalogo value="ACA-02"  />
-          </fieldset>
-       
-       </div>
-        <div data-role="fieldcontain">
+          <input type=checkbox id=ACE-01 name=catalogo value="ACE-01"  />
+      	  </div>
+        </li>
+          <!--</fieldset>-->       
+         <li>
+          <div data-role="fieldcontain">
             <label for=id11>Nombre del producto2 </label><p>precio: $ 50.00 existencia:10 ALG:20</p>
-          <input type=checkbox id=id11 name=p1 value="ACA-03"  />
-       
-       </div>
-       <a href="" id ="pruebachec"  data-role="button" data-theme="b"> Prueba</a> 
-       
-       <ul data-role="listview" data-inset="true">
-         <li>hola
-          
-         
-         
-         </li>
-         <li>hola2</li>
-       
-       
+          <input type=checkbox id=id11 name=p1 value="ACA-03"  />       
+          </div>
+         </li>                    
        </ul>
-    </div>
+       <a href="" id ="pruebachec"  data-role="button" data-theme="a"> Prueba</a>    </div>
     
     <table data-role="table" data-mode="columntoggle" id="my-table">
      <div data-role="collapsible" data-theme="b" data-content-theme="c" id="colprueba">

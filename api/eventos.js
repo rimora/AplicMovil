@@ -122,7 +122,7 @@ $("#pruebachec").click(function() {
 		$(':checkbox').each(function () {
            if (this.checked) {
                alert($(this).val());
-			   alert($("#"+"cantidad"+$(this).val()).val());
+			   alert($("#"+"c"+$(this).val()).val());
 			   
 			   
 			    
