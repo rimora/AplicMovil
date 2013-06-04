@@ -117,7 +117,20 @@ $("#reportes").click(function() {
 
 });
 
-
+$("#pruebachec").click(function() { 
+                 //var clavecli = $(this).attr("id");
+		$(':checkbox').each(function () {
+           if (this.checked) {
+               alert($(this).val());
+			   alert($("#"+"cantidad"+$(this).val()).val());
+			   
+			   
+			    
+           }
+		});
+		
+				  //$.mobile.changePage($("#datoscli"));	  			  				  
+});
 
 });//ultimo
 			   

@@ -249,18 +249,26 @@
 	<div data-role="content">
     <div data-role="collapsible" data-theme="a" data-content-theme="b" id="pruebacat">
     <h3> Catalogo </h3>
-       <div data-role="controlgroup">
+       <div data-role="fieldcontain">
+         <fieldset data-role="controlgroup">
           <label for=id1>Nombre del producto </label><p>precio: $ 50.00 existencia:10 ALG:20</p>
-          <label for="cantidad">Cantidad</label>
-          <input name="slider" id="cantidad" type="range" min="1" max="50" value="1" data-highlight="true">
+          <label for="cantidadACA-01">Cantidad</label>
+          <input name="slider" id="cantidadACA-01" type="range" min="1" max="50" value="1" data-highlight="true">
           <img src="imagenes/ajustador.png"><p>detalle del producto</p>
-          <input type=checkbox id=id1 name=p1 />
+          <input type=checkbox id=id1 name=catalogo value="ACA-01" />
           <label for=id2>opcion2</label>
           <p>detalle del producto</p>
-          <input type=checkbox id=id2 name=p2 />
-          
+          <input type=checkbox id=id2 name=catalogo value="ACA-02"  />
+          </fieldset>
        
        </div>
+        <div data-role="fieldcontain">
+            <label for=id11>Nombre del producto2 </label><p>precio: $ 50.00 existencia:10 ALG:20</p>
+          <input type=checkbox id=id11 name=p1 value="ACA-03"  />
+       
+       </div>
+       <a href="" id ="pruebachec"  data-role="button" data-theme="b"> Prueba</a> 
+       
        <ul data-role="listview" data-inset="true">
          <li>hola
           
