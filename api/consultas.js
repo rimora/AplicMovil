@@ -99,7 +99,7 @@ function mostrarcliente(clavecli){
 //  $('#datoscli').live('pageshow',function(event, ui){
    	   window.localStorage.clear();
 	   saveidcliente(clavecli);
-		//alert('entra mostrar cliente');
+		alert('entra mostrar cliente');
 		$('#notascxc').text("Notas para el cliente " + clavecli);
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		db.transaction(consulta, errorconsulta);
@@ -195,5 +195,17 @@ function saveidcliente(clave){
 	window.localStorage.setItem("clave",clave);
 	//alert (window.localStorage.getItem("clave"));
 	
+	
+}
+function guardaarticulo(articulo){
+	window.localStorage.setItem("articulo",articulo);
+	//alert (window.localStorage.getItem("clave"));
+	
+	
+}
+function tempdetalle(cantidad){
+	
+	alert(cantidad);	
+	alert (window.localStorage.getItem("articulo"));
 	
 }

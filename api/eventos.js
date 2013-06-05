@@ -59,7 +59,7 @@ $(document).ready(function() {
 		
 	});
 		
-    $("li.claselistac").live("vclick",function(event){
+    $("#listaclientes li").tap(function(){
                   var clavecli = $(this).attr("id");
 				  //alert (clavecli);
 				  mostrarcliente(clavecli);
@@ -132,13 +132,29 @@ $("#pruebachec").click(function() {
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
 });
 
-$("#botoncantidad").click(function() { 	 
-	alert($("#scantidad").val());
+$("#botoncantidad").click(function() { 	 	
+	//alert($("#scantidad").val());
+	tempdetalle($("#scantidad").val());
+	
 
 });
+$("#mylistview li").click(function(event){
+                  var articulo = $(this).attr("id");
+				  alert (articulo);
+				  guardaarticulo(articulo);
+
+
+	
+	
+
+				  
+				  
+  
+    });
 
 });//ultimo
 			   
 			   
+
 
 
