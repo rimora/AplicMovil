@@ -78,7 +78,7 @@
                 </label>
             </fieldset>
         </div>-->
-        <ul data-role="listview" data-inset="true" id="listaclientes" data-filter="true" data-filter-placeholder="Escribe Nombre">        	
+        <ul data-role="listview" data-inset="true" id="listaclientes" data-filter="true" data-filter-placeholder="Escribe Nombre" class="claselistac">        	
         </ul>
         
 
@@ -244,47 +244,48 @@
 <!-- P A G I N A  REPORTES-->
 <div data-role="page" id="preportes">
 	<div data-role="header">
-		<h1>Operaciones del Cliente</h1>
+		<h3>Catálogo</h3>
 	</div>
 	<div data-role="content">
-    <div data-role="collapsible" data-theme="a" data-content-theme="b" id="pruebacat">
-    <h3> Catalogo </h3>
-      <ul data-role="listview" data-inset="true" data-filter="true">       
-       <!--  <fieldset data-role="controlgroup">-->
-        <li>
-          <div data-role="fieldcontain">
-          <label for=ACA-01>ACANOL </label><p>precio: $ 50.00 existencia:10 ALG:20</p>
-          <input type=checkbox id=ACA-01 name=catalogo value="ACA-01" />
-          <label for="cACA-01">Cantidad</label>
-          <input name="slider" id="cACA-01" type="range" min="1" max="50" value="1" data-highlight="true">
-          <img src="imagenes/ajustador.png"><p>detalle del producto</p>
-		  </div>
-        </li>       
-        <li>
-          <div data-role="fieldcontain">  
-          <label for=ACE-01>ACEITE</label>
-          <p>detalle del producto</p>
-          <input type=checkbox id=ACE-01 name=catalogo value="ACE-01"  />
-      	  </div>
-        </li>
-          <!--</fieldset>-->       
-         <li>
-          <div data-role="fieldcontain">
-            <label for=id11>Nombre del producto2 </label><p>precio: $ 50.00 existencia:10 ALG:20</p>
-          <input type=checkbox id=id11 name=p1 value="ACA-03"  />       
-          </div>
-         </li>                    
-       </ul>
-       <a href="" id ="pruebachec"  data-role="button" data-theme="a"> Prueba</a>    </div>
+    	<ul id="mylistview" data-role="listview" data-inset="true" data-autodividers="true" data-filter="true" data-filter-placeholder="¿Que producto buscas?">			          <li>
+	        <a href="#pcantidad"><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> ACANOL</h3>
+			<p>Detalle del producto... <br/>Clasificación: Catalogo <br/>Precio:$100.00 Existencia:10 ALG:20</p></a></li>
+          <li>
+            <a href="#pcantidad"><img src="imagenes/sardel.jpg" width="100" height="100"/><h3>ACEITE</h3>
+            <p>Detalle del producto... <br/>Clasificación: Oferta <br/>Precio:$80.00 Existencia:30 ALG:50</p></a></li>			  
+          <li><a href="#pcantidad"><img src="imagenes/sardel.jpg"  width="100" height="100"/><h3>AMOXICILINA</h3>
+          	<p>Detalle del producto... <br/>Clasificación: Catalogo <br/>Precio:$80.00 Existencia:30 ALG:50</p></a></li>			  
+        </ul>    
+    </div>    
+    <div data-role="footer" data-position="fixed">
+        <a href="#pcantidad" id ="botonprueba"  data-role="button" data-inline="true" data-rel="dialog" data-theme="b">Abrir dialogo</a></br>
+    </div>
     
-    <table data-role="table" data-mode="columntoggle" id="my-table">
-     <div data-role="collapsible" data-theme="b" data-content-theme="c" id="colprueba">
-            
-                <h3>
-                    <b>Documentos Pendientes</b>
-                </h3>
-                <p>DESCRIPCION DEL PRODUCTO</p>
-                
+</div>
+<!-- P A G I N A  DIALOGO-->
+<div data-role="dialog" id="pcantidad">
+    <div data-role="header">
+        <h1>Indica Cantidad</h1>
+    </div>
+    <div data-role="content">
+       <div data-role="fieldcontain">
+		<label for="scantidad">Cantidad:</label>
+		<input type="number" data-type="range" name="scantidad" id="scantidad" value="1" min="1" max="100" data-theme="a" data-track-theme="b" />
+        <a href="#" data-role="button" data-rel="back" id="botoncantidad">Aceptar</a>
+	</div>
+    </div>
+</div>
+
+
+<!-- P A G I N A  PRUEBA-->
+<div data-role="page" id="pprueba">
+	<div data-role="header">
+		<h1>Pruebas</h1>
+	</div>
+	<div data-role="content">    	   
+	    <div data-role="collapsible" data-theme="b" data-content-theme="c" id="colprueba">            
+                <h3><b>Documentos Pendientes</b></h3>
+                <p>DESCRIPCION DEL PRODUCTO</p>                
                 <div class="ui-grid-d" id="gridprueba">
 					 <div class="ui-block-a"><strong>Tipo</strong> El texto que se ecriba aquí se amoldará a la mitad de pagina.</div>
 					 <div class="ui-block-b"><strong>Documento</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>
@@ -297,65 +298,52 @@
                      <div class="ui-block-c"><strong>Vence</strong> El texto que se ecriba aquí se amoldará a la mitad de pagina.</div>
 					 <div class="ui-block-d"><strong>Saldo</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>
                      <div class="ui-block-e"><strong>Monto</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>
-				</div><!-- /grid-d --> 
-                
-				
-				
-        </div>     
-    
-    
-    
-    
-       <span class="ui-btn-active">Dos columnas simples</span>
-     <div class="ui-grid-a">
-     <div class="ui-block-a" style="text-align:left" >
-     <div class="ui-bar ui-bar-e">
-        <strong>Esta es la columna numero 1</strong> El texto que se ecriba aqui se almodará a la mitad de pagina.
-     </div>
-     </div>
-     <div class="ui-block-b">
-     <div class="ui-bar ui-bar-b">
-        <strong>Esta es la columna numero 2</strong> El texto que se ecriba aqui se almodará a la otra mitad de pagina.
-     </div>
-     </div>
-     </div><!-- /grid-a -->
-     <br>
-     <span class="ui-btn-active">Dos columnas simples con dos filas</span>
-     
-     <div class="ui-grid-a">
-     <div class="ui-block-a" >
-     <div class="ui-bar ui-bar-e">
-        <strong>Esta es la columna numero 1</strong> El texto que se ecriba aqui se almodará a la mitad de pagina.
-     </div>
-     </div>
-     <div class="ui-block-b">
-     <div class="ui-bar ui-bar-a">
-        <strong>Esta es la columna numero 2</strong> El texto que se ecriba aqui se almodará a la otra mitad de pagina.
-     </div>
-     </div>
+				</div><!-- /grid-d --> 			
+        </div>         
+        <span class="ui-btn-active">Dos columnas simples</span>
+	    <div class="ui-grid-a">
+    	 <div class="ui-block-a" style="text-align:left" >
+	       <div class="ui-bar ui-bar-e">
+      	     <strong>Esta es la columna numero 1</strong> El texto que se ecriba aqui se almodará a la mitad de pagina.
+	       </div>
+         </div>
+         <div class="ui-block-b">
+           <div class="ui-bar ui-bar-b">
+             <strong>Esta es la columna numero 2</strong> El texto que se ecriba aqui se almodará a la otra mitad de pagina.
+	       </div>
+	     </div>
+        </div><!-- /grid-a -->
+  
+       <span class="ui-btn-active">Dos columnas simples con dos filas</span>     
+       <div class="ui-grid-a">
+         <div class="ui-block-a" >
+           <div class="ui-bar ui-bar-e">
+             <strong>Esta es la columna numero 1</strong> El texto que se ecriba aqui se almodará a la mitad de pagina.
+           </div>
+         </div>
+         <div class="ui-block-b">
+           <div class="ui-bar ui-bar-a">
+             <strong>Esta es la columna numero 2</strong> El texto que se ecriba aqui se almodará a la otra mitad de pagina.
+           </div>
+         </div>
         <div class="ui-block-a" >
-     <div class="ui-bar ui-bar-c">
-        <strong>Esta es la columna numero 1</strong> El texto que se ecriba aqui se almodará a la mitad de pagina.
-     </div>
-     </div>
-        
+           <div class="ui-bar ui-bar-c">
+          <strong>Esta es la columna numero 1</strong> El texto que se ecriba aqui se almodará a la mitad de pagina.
+           </div>
+        </div>        
         <div class="ui-block-b">
-     <div class="ui-bar ui-bar-b">
-        <strong>Esta es la columna numero 2</strong> El texto que se ecriba aqui se almodará a la otra mitad de pagina.
-     </div>
-     </div>
-     </div><!-- /grid-a con dos filas-->
-     
-     
-
-       
-    </div>
-	<div data-role="footer">        
+           <div class="ui-bar ui-bar-b">
+           <strong>Esta es la columna numero 2</strong> El texto que se ecriba aqui se almodará a la otra mitad de pagina.
+           </div>
+        </div>
+      </div><!-- /grid-a con dos filas-->           
+    </div>    <!--fin div content-->
+	<div data-role="footer" data-position="fixed">
 			<a class="ui-btn-right" id="regresarreportes" data-role="button" data-rel="back"
-        data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>
+        data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>        
  	</div>
 </div>
-
+    
 
 
 

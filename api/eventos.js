@@ -59,7 +59,7 @@ $(document).ready(function() {
 		
 	});
 		
-    $("li").live("vclick",function(event){
+    $("li.claselistac").live("vclick",function(event){
                   var clavecli = $(this).attr("id");
 				  //alert (clavecli);
 				  mostrarcliente(clavecli);
@@ -130,6 +130,11 @@ $("#pruebachec").click(function() {
 		});
 		
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
+});
+
+$("#botoncantidad").click(function() { 	 
+	alert($("#scantidad").val());
+
 });
 
 });//ultimo
