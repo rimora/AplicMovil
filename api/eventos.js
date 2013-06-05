@@ -59,9 +59,9 @@ $(document).ready(function() {
 		
 	});
 		
-    $("#listaclientes li").tap(function(){
+    $("#listaclientes li").click(function(){
                   var clavecli = $(this).attr("id");
-				  //alert (clavecli);
+				  alert (clavecli);
 				  mostrarcliente(clavecli);
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
     });

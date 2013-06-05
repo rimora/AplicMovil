@@ -63,7 +63,7 @@ function insertar(){
 }
 
 function mostrarclientes(dia){
-  $('#pclientes').live('pageshow',function(event, ui){
+ // $('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);
 		
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);
@@ -92,7 +92,7 @@ function mostrarclientes(dia){
 		 $('#listaclientes').listview('refresh'); 
  	}
 
-  });	//$('#pclientes').live('pageshow',function(event, ui){
+ // });	//$('#pclientes').live('pageshow',function(event, ui){
 	
 }
 function mostrarcliente(clavecli){
