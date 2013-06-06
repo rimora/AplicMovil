@@ -65,14 +65,14 @@ function insertar(){
 function mostrarclientes(dia){
  // $('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);
-		alert('entra mostrar clientes');
+		
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);
 		db.transaction(poblarcli, function(err){
     	 		 alert("Error select clientes : "+err.code+err.message);
          		});		
-	
+	alert(dia);
 	function poblarcli(tx){  
-	
+	     alert('entra poblar clientes');
 	    if (dia!="Todos"){
 			var sql='SELECT * FROM CLIENTES WHERE DIA="'+dia+'" ORDER BY nombre  '			
 		}
@@ -101,8 +101,8 @@ function mostrarcliente(clavecli){
 	   saveidcliente(clavecli);
 		alert('entra mostrar cliente');
 		$('#notascxc').text("Notas para el cliente " + clavecli);
-		var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
-		db.transaction(consulta, errorconsulta);
+		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
+		consultadb().transaction(consulta, errorconsulta);
 	
 	function consulta(tx) {
 		tx.executeSql('SELECT * FROM CLIENTES  WHERE clave="'+clavecli+'"',[],exito,errorconsulta);
