@@ -86,7 +86,7 @@
 	<div data-role="footer">        
         <a class="ui-btn-right" id="regresarcli" data-role="button" data-rel="back"
         data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>
-        <a class="ui-btn-left"  href="#pnuevocli" id="nuevocli" data-role="button" data-theme="b"
+        <a class="ui-btn-left"  href="#pnuevopros" id="nuevopros" data-role="button" data-theme="b"
         data-icon="plus" data-iconpos="left">Nuevo</a>        
 	</div>
 </div>
@@ -164,9 +164,12 @@
 		<h1>Operaciones del Cliente</h1>
 	</div>
 	<div data-role="content">
-       <ul data-role="listview" data-inset="true" data-theme="c">     
-            <a href="#pventa" id ="venta" data-mini="true" data-role="button" data-theme="e" data-icon="sardel-clientes" data-iconpos="left"> Ventas</a>                          
-            <a href="#" id ="cobros" data-role="button"> Cobros</a>             
+       <ul data-role="listview" data-inset="true" data-theme="b">     
+        <li>    <a href="#pventa" id ="venta" data-mini="true" data-role="button" data-theme="e" data-icon="sardel-clientes" data-iconpos="left"> Ventas</a>        </li>
+        <li>                  
+            <a href="#pcobros" id ="cobros" data-role="button"> Cobros</a>
+        </li>    
+         <li>   <a href="#devoluciones" id ="devoluciones" data-role="button"> Devoluciones</a>             </li>
 		</ul>	
     </div>
 	<div data-role="footer">        
@@ -175,29 +178,32 @@
  	</div>
 </div>
 <!-- P A G I N A  NUEVO CLIENTE-->
-<div data-role="page" id="pnuevocli">
+<div data-role="page" id="pnuevopros">
 	<div data-role="header">
 		<h1>Nuevo Cliente</h1>
 	</div>
 	<div data-role="content">
-      				<label> Nombre </label>
-          			<input type="number" id="nomnuevocli" readonly > 
-                    <label> RFC </label>
-                    <input type="text" class="ui-bar-a" id="rfcnuevocli" >                    
-                    <label> Dirección </label>
-                    <input type="text" id="dirnuevocli" >
-                    <label> Colonia </label>
-                    <input type="text" id="colnuevocli" >
-                    <label> Estado </label>
-                    <input type="text" id="edonuevocli" >
-                    <label> Municipio</label>
-                    <input type="text" id="munnuevocli" >
-                    <label> Telefono</label>
-                    <input type="text" id="telnuevocli" >
-                    <input type="submit" value="Guardar" id="bguardacli" data-theme="b">
+        <div data-role="fieldcontain">
+			<label for="prosnombre">Nombre</label>
+			<input type="text" id="prosnombre"  />
+            <label for="prosrfc">RFC</label>
+			<input type="text" id="prosrfc"  />
+            <label for="proscalle">Calle</label>
+			<input type="text" id="proscalle"  />
+            <label for="prosnumero">Numero</label>
+			<input type="text" id="prosnumero"  />
+            <label for="proscol">Colonia</label>
+			<input type="text" id="proscol"  />
+            <label for="prosedo">Estado</label>
+			<input type="text" id="prosedo"  />
+            <label for="prosmun">Municipio</label>
+			<input type="text" id="prosmun"  />
+            <label for="prosnotas">Notas</label>
+			<input type="text" id="prosnotas"  />            
+		</div>
     </div>
 	<div data-role="footer">        
-			<a class="ui-btn-right" id="regresarnuevocli" data-role="button" data-rel="back"
+			<a class="ui-btn-right" id="regresarnuevopros" data-role="button" data-rel="back"
         data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>
  	</div>
 </div>
