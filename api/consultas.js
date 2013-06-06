@@ -65,7 +65,7 @@ function insertar(){
 function mostrarclientes(dia){
  // $('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);
-		
+		alert('entra mostrar clientes');
 		var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);
 		db.transaction(poblarcli, function(err){
     	 		 alert("Error select clientes : "+err.code+err.message);

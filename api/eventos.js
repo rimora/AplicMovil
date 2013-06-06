@@ -34,7 +34,7 @@ $(document).ready(function() {
 			  
 	$("#clientes").tap(function() { 
                  //var clavecli = $(this).attr("id");
-				  //alert (oID);				  
+				  alert ('llama a mostrar clientes');				  
                   
 				  mostrarclientes("Lunes");
 				  $("select#menu").val("Lunes").selectmenu("refresh");
