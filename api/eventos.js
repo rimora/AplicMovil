@@ -59,16 +59,13 @@ $(document).ready(function() {
 		
 	});
 		
-    $("#listaclientes li").click(function(){
+    $("li").click(function(){
                   var clavecli = $(this).attr("id");
-				  alert (clavecli);
+				  //alert (clavecli);
 				  mostrarcliente(clavecli);
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
     });
-	 $("#listaprueba li").click(function(){                
-				  alert ('entra a lista');
-				
-    });
+	 
 	$("#depositos").tap(function() { 
                  //var clavecli = $(this).attr("id");
 				  
@@ -101,7 +98,7 @@ $(document).ready(function() {
 $("#reportes").click(function() { 	 
 	var cadena="555.5";
 	var saldo=0;
-	alert(Number(cadena)+1);
+	//alert(Number(cadena)+1);
 	
 	
  $("#gridprueba").empty();
@@ -138,13 +135,13 @@ $("#pruebachec").click(function() {
 
 $("#botoncantidad").click(function() { 	 	
 	//alert($("#scantidad").val());
-	tempdetalle($("#scantidad").val());
+	//tempdetalle($("#scantidad").val());
 	
 
 });
 $("#mylistview li").click(function(event){
                   var articulo = $(this).attr("id");
-				  alert (articulo);
+				 // alert (articulo);
 				  guardaarticulo(articulo);
 
 
@@ -155,6 +152,12 @@ $("#mylistview li").click(function(event){
 				  
   
     });
+	$("#nuevopros").tap(function() { 
+                 //var clavecli = $(this).attr("id");
+				  
+				 alert('Prospecto Guardado');
+				  $.mobile.changePage($("#pclientes"));	  			  				  
+     });	
 
 });//ultimo
 			   
