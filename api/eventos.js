@@ -59,7 +59,7 @@ $(document).ready(function() {
 		
 	});
 		
-    $("li").click(function(){
+    $("li").bind("vclick",function(event){
                   var clavecli = $(this).attr("id");
 				  //alert (clavecli);
 				  mostrarcliente(clavecli);
@@ -152,7 +152,7 @@ $("#mylistview li").click(function(event){
 				  
   
     });
-	$("#nuevopros").tap(function() { 
+	$("#guardapros").tap(function() { 
                  //var clavecli = $(this).attr("id");
 				  
 				 alert('Prospecto Guardado');
