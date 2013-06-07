@@ -65,6 +65,10 @@ $(document).ready(function() {
 				  mostrarcliente(clavecli);
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
     });
+	 $("#listaprueba li").click(function(){                
+				  alert ('entra a lista');
+				
+    });
 	$("#depositos").tap(function() { 
                  //var clavecli = $(this).attr("id");
 				  
