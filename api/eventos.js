@@ -19,9 +19,9 @@ $(document).ready(function() {
 				}  	
 	});
 	
-	$("#carga").tap(function() { 
+	$("#carga").tap(function() { 	           
                  //var clavecli = $(this).attr("id");
-				  alert ("llama a iniciar");
+				  //alert ("llama a iniciar");
 				  iniciar();
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });
@@ -34,8 +34,8 @@ $(document).ready(function() {
 			  
 	$("#clientes").tap(function() { 
                  //var clavecli = $(this).attr("id");
-				  alert ('llama a mostrar clientes');				  
-                  
+				 //botón clientes, genera lista con los clientes del día lunes
+				  alert ('llama a mostrar clientes');				                    
 				  mostrarclientes("Lunes");
 				  $("select#menu").val("Lunes").selectmenu("refresh");
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
@@ -51,17 +51,17 @@ $(document).ready(function() {
 				var telefono = $("#telnuevocli").val()	  					
 				guardacliente(nombre,empresa,rfc,direccion,colonia,estado,municipio,telefono);
 				 
-               });*/
-			   
+               });*/			   
     $("#menu").bind("change",function(event,ui){
 		//alert($("#menu").val());
 	    mostrarclientes($("#menu").val());	
 		
 	});
 		
-    $("li").bind("vclick",function(event){
+    $("#listaclientes li").click(function(){
+		          //al seleccionar un cliente de la lista, muestra sus datos
                   var clavecli = $(this).attr("id");
-				  //alert (clavecli);
+				  alert (clavecli);
 				  mostrarcliente(clavecli);
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
     });
@@ -72,6 +72,7 @@ $(document).ready(function() {
 				  llamadascxc();
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
      });				   
+  /*
    $("#checkcli").bind("change",function(event){
 				  alert($("#menu").val());
 				  //llamadascxc();
@@ -85,24 +86,35 @@ $(document).ready(function() {
 		   
 	   }
   
-     });	
+     });	*/
 	 $( "#colprueba" ).bind("expand",function(event)
 	 {
 		 alert("abre")
 	 });
+	 $( "#colprueba2" ).bind("expand",function(event)
+	 {
+		 alert("abre");
+		 
+		 
+		 
+		 
+		 
+		 
+	 });
+
 	  $( "#colprueba" ).bind("collapse",function(event)
 	 {
 		 alert("cierra")
 	 });
 
-$("#reportes").click(function() { 	 
-	var cadena="555.5";
-	var saldo=0;
+	$("#reportes").click(function() { 	 
+		var cadena="555.5";
+		var saldo=0;
 	//alert(Number(cadena)+1);
 	
 	
- $("#gridprueba").empty();
-	    var html = "";
+		 $("#gridprueba").empty();
+	    	var html = "";
 					 html += "<div class=ui-block-a><strong>Tipo</strong>creado por codigo.</div>";
 					 html += "<div class=ui-block-b><strong>Documento</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
                      html += "<div class=ui-block-c><strong>Vence</strong> El texto que se ecriba aquí se amoldará a la mitad de pagina.</div>";
@@ -114,10 +126,10 @@ $("#reportes").click(function() {
                      html += "<div class=ui-block-c><strong>Vence</strong> El texto que se ecriba aquí se amoldará a la mitad de pagina.</div>";
 					 html += "<div class=ui-block-d><strong>Saldo</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
                      html += "<div class=ui-block-e><strong>Monto</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
-		$("#gridprueba").append(html);  
+			$("#gridprueba").append(html);  
 
-});
-
+		});
+/*
 $("#pruebachec").click(function() { 
                  //var clavecli = $(this).attr("id");
 		$(':checkbox').each(function () {
@@ -132,31 +144,32 @@ $("#pruebachec").click(function() {
 		
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
 });
+*/
+	$("#botoncantidad").click(function() { 	
+     //llama a funcion que prepara las tablas temporales, insertando el articulo y cantidad
+	//alert($("#scantidad").val());	
+	preparadetalletemp(window.localStorage.getItem("articulo"),$("#scantidad").val())
 
-$("#botoncantidad").click(function() { 	 	
-	//alert($("#scantidad").val());
-	//tempdetalle($("#scantidad").val());
 	
 
-});
-$("#mylistview li").click(function(event){
+	});
+	$("#lcatalogo li").click(function(){
                   var articulo = $(this).attr("id");
 				 // alert (articulo);
-				  guardaarticulo(articulo);
-
-
-	
-	
-
-				  
-				  
-  
+				  guardaarticulo(articulo);//almacena localmente la clave de articulo
     });
 	$("#guardapros").tap(function() { 
                  //var clavecli = $(this).attr("id");
 				  
 				 alert('Prospecto Guardado');
 				  $.mobile.changePage($("#pclientes"));	  			  				  
+				  
+     });	
+	 $("#bgenerav").tap(function() { 
+                 //var clavecli = $(this).attr("id");
+				 //muestra el pedido o factura armados				 
+				  
+				  
      });	
 
 });//ultimo

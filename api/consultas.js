@@ -1,76 +1,11 @@
 // consultas
-function consultadb()
-{
-	var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);			
-	return db;	
-}
-
-function iniciar()
-{		
-	
-	var db = window.openDatabase("Database", "1.0", "Cordova Demo", 1000000);
-db.transaction(creartb, errorCB, successCB);
-
-	alert('entra a funcion iniciar');
-		function creartb(tx) {
-			alert('funcion creartb');	
-    	 tx.executeSql('DROP TABLE IF EXISTS CLIENTES');
-		 tx.executeSql('DROP TABLE IF EXISTS erpadmin_alcxc_pen_cob');
-         tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL,direccion TEXT NOT NULL,telefono TEXT NOT NULL,tipo TEXT NOT NULL,diasc TEXT NOT NULL,lcredito TEXT NOT NULL,saldo TEXT NOT NULL)'); 
-		 tx.executeSql('CREATE TABLE IF NOT EXISTS erpadmin_alcxc_pen_cob (id INTEGER PRIMARY KEY AUTOINCREMENT, cod_zon TEXT NOT NULL, cod_tip_dc TEXT NOT NULL,num_doc TEXT NOT NULL,cod_clt TEXT NOT NULL,saldo TEXT NOT NULL,monto TEXT NOT NULL,fec_doc_ft TEXT NOT NULL,fec_ven TEXT NOT NULL,vencida TEXT NOT NULL)'); 
-		 }
-function errorCB(err) {
-    alert("Error processing SQL: "+err.code);
-}
-
-function successCB() {
-    alert("success!");
-}
-
-
-		/*
-		
-		consultadb().transaction(populateDB,function(err)
-		{
-		alert("Error al insertar clientes: "+err.code+err.message);			
-		},alert('bd generada'));
-		function creartb(tx) {
-		  alert('funcion creartb');	
-		tx.executeSql('DROP TABLE IF EXISTS CLIENTES');
-         tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL)');   	
-		}
-		
-	 */  
-}
-function insertar(){
-		
-		consultadb().transaction(insertarcli,function(err){
-    	  alert("Error al insertar clientes: "+err.code+err.message);
-          },alert("clientes insertados"));
-				
-    	function insertarcli(tx) {		
-		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia UNO", "1020","Lunes","Dirección del cliente","2281545130","C","30","10000.00","30000.00")');      
-        tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia DOS", "1030","Martes","Dirección del cliente  DOS","2281545130","C","30","10000.00","5000.00")'); 
-		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia TRES", "1040","Miercoles","Dirección del cliente","2281545130","C","30","30000.00","10000.00")');        
-        tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia CUATRO", "1050","Jueves","Dirección del cliente  CUATRO","2281545130","C","30","50000.00","8000.00")'); 
-		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven,vencida) VALUES ("S04", "1","00041534","1020","437.55","437.55","08/05/2013","08/05/2013","S")');        
-		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven,vencida) VALUES ("S04", "1","00041535","1020","888.55","1000.55","15/05/2013","15/05/2013","S")');  
-		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven,vencida) VALUES ("S04", "1","00041537","1020","998.55","1000.55","15/05/2013","15/06/2013","N")');        
-		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven,vencida) VALUES ("S04", "1","00041536","1030","5000.00","5000.00","08/06/2013","08/06/2013","N")');        
-
-
-		}
-}
-
 function mostrarclientes(dia){
  // $('#pclientes').live('pageshow',function(event, ui){
-		//alert('This page was just hidden: '+ ui.prevPage);
-		
-		var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);
-		db.transaction(poblarcli, function(err){
+		//alert('This page was just hidden: '+ ui.prevPage);		
+		//var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);
+		consultadb().transaction(poblarcli, function(err){
     	 		 alert("Error select clientes : "+err.code+err.message);
          		});		
-	
 	function poblarcli(tx){  
 	    
 	    if (dia!="Todos"){
@@ -102,8 +37,7 @@ function mostrarcliente(clavecli){
 		alert('entra mostrar cliente');
 		$('#notascxc').text("Notas para el cliente " + clavecli);
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
-		consultadb().transaction(consulta, errorconsulta);
-	
+		consultadb().transaction(consulta, errorconsulta);	
 	function consulta(tx) {
 		tx.executeSql('SELECT * FROM CLIENTES  WHERE clave="'+clavecli+'"',[],exito,errorconsulta);
 		tx.executeSql('SELECT * FROM erpadmin_alcxc_pen_cob WHERE cod_clt="'+clavecli+'"',[],poblarfac,errorconsulta);    	
@@ -171,18 +105,8 @@ function mostrarcliente(clavecli){
 	}
 //  });	
 
-  }//funcion consulta(x)
-function guardacliente(nombre,empresa,rfc,direccion,colonia,estado,municipio,telefono){
-	consultadb().transaction(nuevocli,function(err){
-    	  alert("Error al insertar cliente: "+err.code+err.message);
-          },alert("clientes insertados"));
-				
-    	function nuevocli(tx) {		
-		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito) VALUES ("Farmacia UNO", "1020","Lunes","Dirección del cliente","2281545130","C","30","10000.00")');        
-        tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito) VALUES ("Farmacia DOS", "1020","Lunes","Dirección del cliente DOS","2281545130","C","30","10000.00")');        
-		}
-	
-}
+  }//mostrarcliente
+
 function llamadascxc(){	
   alert ('depositos');
     $.get("demo_test.asp",function(data,status){
@@ -191,21 +115,75 @@ function llamadascxc(){
   
 
 }
-function saveidcliente(clave){
-	window.localStorage.setItem("clave",clave);
-	//alert (window.localStorage.getItem("clave"));
+function preparadetalletemp(articulo,cantidad){
+	   var precio=100.00;
+	   var descuento=10.00;
+	   var total=cantidad*precio;
+	   var descontado=(descuento/100)*total;
+
+	
+	insertatemppedido(articulo,cantidad);
 	
 	
-}
-function guardaarticulo(articulo){
-	window.localStorage.setItem("articulo",articulo);
-	//alert (window.localStorage.getItem("clave"));
+}//function insertatemppedido
+function mostrarpedido(){
+	//muestra en un collapsible los renglones temporales de pedido, agregandolos en un grid
+	//el usuario podrá eliminar los renglones que se selecciones por medio de checkbox
+//  $('#datoscli').live('pageshow',function(event, ui){   	   
+		alert('entra mostrar pedido');
+		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
+		consultadb().transaction(consulta, errorconsulta);	
+	function consulta(tx) {
+		tx.executeSql('SELECT a.articulo,b.descripcion,b.precio,b.descuento,a.cantidad FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo',[],exito,errorconsulta);
+		}
 	
-	
-}
-function tempdetalle(cantidad){
-	
-	alert(cantidad);	
-	alert (window.localStorage.getItem("articulo"));
-	
-}
+		
+		function exito(tx,results){ 
+		      $("#gridpedido").empty();			  
+			  var html = "";
+			  var tipo="";
+			  var saldot=0;
+			  var montot=0;			  
+		      var precio=0;
+	    	  var total=0;              
+			  //agrega encabezado de grid
+			  html+=' <div class="ui-block-a" style="width:70px;height:20px" > ';            
+              html+=' <div class="ui-bar ui-bar-a">Elim.</div></div> ';           
+              html+=' <div class="ui-block-b"><div class="ui-bar ui-bar-a">Articulo</div></div>';
+              html+=' <div class="ui-block-c"><div class="ui-bar ui-bar-a">Descrip.</div></div>';
+              html+=' <div class="ui-block-d"><div class="ui-bar ui-bar-a">Cantidad</div></div>';
+              html+=' <div class="ui-block-e"><div class="ui-bar ui-bar-a">Precio</div></div>';
+          
+			  $.each(results.rows,function(index){
+				  var row = results.rows.item(index); 				     			     
+				     descuento=(row['precio']/100)*row['descuento'];
+				     precio=row['precio']-descuento;				 
+					 total+=precio*row['cantidad']
+					 					 
+					html+='<div class="ui-block-a" style="width:70px;height:20px" >';              
+           			html+='<div class="ui-bar ui-bar-e"  >';      		 		
+                   	html+='<div style="padding:0px; margin-top:-8px; margin-left:-10px">'; 
+			        html+='     <label for="P'+row['articulo']+'" >&nbsp</label>';  
+            		html+='     <input type="checkbox" id="P'+row['articulo']+'" name="'+row['articulo']+'" />';
+                   	html+='		</div>';	
+		            html+='   </div>';
+            		html+='</div>';            
+                    html+='<div class="ui-block-b"><div class="ui-bar ui-bar-b">'+row['articulo']+'</div></div>';
+                    html+='<div class="ui-block-c"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
+                    html+='<div class="ui-block-d"><div class="ui-bar ui-bar-b">'+row['cantidad']+'</div></div>';
+	                html+='<div class="ui-block-e"><div class="ui-bar ui-bar-b">'+precio+'</div></div> ';
+
+                  	 
+			  });//.each
+					$("#gridpedido").append(html); 
+					$("#tpedido").text(total); 			
+					
+					alert(saldot);
+	   }//function exito
+ 		
+	function errorconsulta(err) {
+    	alert("Error SQL al poblar cliente: "+err.code+err.message);
+	}
+//  });	
+
+  }//mostrarcliente
