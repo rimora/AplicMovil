@@ -29,12 +29,13 @@ function mostrarclientes(dia){
 
  // });	//$('#pclientes').live('pageshow',function(event, ui){
 	
-}
+}// mostrarclientes
 function mostrarcliente(clavecli){
 //  $('#datoscli').live('pageshow',function(event, ui){
    	   window.localStorage.clear();
+	   //guarda el cliente con el que se harán operaciones
 	   saveidcliente(clavecli);
-		alert('entra mostrar cliente');
+       var limite=0;
 		$('#notascxc').text("Notas para el cliente " + clavecli);
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		consultadb().transaction(consulta, errorconsulta);	
@@ -54,6 +55,7 @@ function mostrarcliente(clavecli){
   	   		$('#diascredito').text("Dias de Crédito: "+row['diasc']);
 	   		$('#limitecredito').text("Límite de Crédito: "+row['lcredito']);
 	   		$('#saldo').text("Saldo: "+row['saldo']);
+			limite=row['lcredito'];
 		}
 		function poblarfac(tx,results){ 
 		      $("#gridfaccli").empty();			  
@@ -62,7 +64,7 @@ function mostrarcliente(clavecli){
 			  var saldot=0;
 			  var montot=0;
 			  var vencida="";
-			  alert(saldot);
+			  
 			  html += "<div class=ui-block-a><div class=ui-bar ui-bar-a><strong></strong> Tipo</div></div>";
 			  html += "<div class=ui-block-b><strong></strong> Documento</div>";
 			  html += "<div class=ui-block-c><strong></strong> Vencimiento</div>";
@@ -94,10 +96,14 @@ function mostrarcliente(clavecli){
 					$("#saldocli").val(saldot); 
 					$("#montocli").val(montot); 
 					if (vencida=="S"){
-						alert('El cliente tiene facturas vencidas, no podrá');
+						alert('El cliente tiene facturas vencidas, no podrá realizar ventas');
 						
 					}
-					alert(saldot);
+					if (saldot>limite){
+						alert('Cliente limite de credito excedido, no podrá realizar ventas');
+						
+					}
+
 	   }
  		
 	function errorconsulta(err) {
@@ -123,6 +129,8 @@ function preparadetalletemp(articulo,cantidad){
 
 	
 	insertatemppedido(articulo,cantidad);
+	insertatempfactura(articulo,cantidad);
+	
 	
 	
 }//function insertatemppedido
@@ -133,8 +141,9 @@ function mostrarpedido(){
 		alert('entra mostrar pedido');
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		consultadb().transaction(consulta, errorconsulta);	
-	function consulta(tx) {
-		tx.executeSql('SELECT a.articulo,b.descripcion,b.precio,b.descuento,a.cantidad FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo',[],exito,errorconsulta);
+	function consulta(tx) {		
+		tx.executeSql('SELECT a.articulo,b.descripcion,b.precio,b.descuento,a.cantidad,b.impuesto FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo',[],exito,errorconsulta);
+		
 		}
 	
 		
@@ -158,8 +167,8 @@ function mostrarpedido(){
 				  var row = results.rows.item(index); 				     			     
 				     descuento=(row['precio']/100)*row['descuento'];
 				     precio=row['precio']-descuento;				 
-					 total+=precio*row['cantidad']
-					 					 
+					 total+=precio*row['cantidad'];
+					 alert(total);					 
 					html+='<div class="ui-block-a" style="width:70px;height:20px" >';              
            			html+='<div class="ui-bar ui-bar-e"  >';      		 		
                    	html+='<div style="padding:0px; margin-top:-8px; margin-left:-10px">'; 
@@ -176,14 +185,133 @@ function mostrarpedido(){
                   	 
 			  });//.each
 					$("#gridpedido").append(html); 
-					$("#tpedido").text(total); 			
+					$("#tpedido").value(total); 			
 					
-					alert(saldot);
+					alert(total);
 	   }//function exito
  		
 	function errorconsulta(err) {
-    	alert("Error SQL al poblar cliente: "+err.code+err.message);
+    	alert("Error SQL al llenar detalles pedido: "+err.code+err.message);
 	}
 //  });	
 
-  }//mostrarcliente
+  }//mostrarpedido
+function mostrarfactura(){
+	//muestra en un collapsible los renglones temporales de pedido, agregandolos en un grid
+	//el usuario podrá eliminar los renglones que se selecciones por medio de checkbox
+//  $('#datoscli').live('pageshow',function(event, ui){   	   
+		alert('entra mostrar factura');
+		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
+		consultadb().transaction(consulta, errorconsulta);	
+	function consulta(tx) {		
+		tx.executeSql('SELECT a.articulo,b.descripcion,b.precio,b.descuento,a.cantidad,b.impuesto FROM TEMFACTURA a left outer join articulo b on b.articulo=a.articulo',[],exito,errorconsulta);
+		
+		}
+	
+		
+		function exito(tx,results){ 
+		      $("#gridfactura").empty();			  
+			  var html = "";
+			  var tipo="";
+			  var saldot=0;
+			  var montot=0;			  
+		      var precio=0;
+	    	  var total=0;              
+			  //agrega encabezado de grid
+			  html+=' <div class="ui-block-a" style="width:70px;height:20px" > ';            
+              html+=' <div class="ui-bar ui-bar-a">Elim.</div></div> ';           
+              html+=' <div class="ui-block-b"><div class="ui-bar ui-bar-a">Articulo</div></div>';
+              html+=' <div class="ui-block-c"><div class="ui-bar ui-bar-a">Descrip.</div></div>';
+              html+=' <div class="ui-block-d"><div class="ui-bar ui-bar-a">Cantidad</div></div>';
+              html+=' <div class="ui-block-e"><div class="ui-bar ui-bar-a">Precio</div></div>';
+          
+			  $.each(results.rows,function(index){
+				  var row = results.rows.item(index); 				     			     
+				     descuento=(row['precio']/100)*row['descuento'];
+				     precio=row['precio']-descuento;				 
+					 total+=precio*row['cantidad'];
+					 					 
+					html+='<div class="ui-block-a" style="width:70px;height:20px" >';              
+           			html+='<div class="ui-bar ui-bar-e"  >';      		 		
+                   	html+='<div style="padding:0px; margin-top:-8px; margin-left:-10px">'; 
+			        html+='     <label for="F'+row['articulo']+'" >&nbsp</label>';  
+            		html+='     <input type="checkbox" id="F'+row['articulo']+'" name="'+row['articulo']+'" />';
+                   	html+='		</div>';	
+		            html+='   </div>';
+            		html+='</div>';            
+                    html+='<div class="ui-block-b"><div class="ui-bar ui-bar-b">'+row['articulo']+'</div></div>';
+                    html+='<div class="ui-block-c"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
+                    html+='<div class="ui-block-d"><div class="ui-bar ui-bar-b">'+row['cantidad']+'</div></div>';
+	                html+='<div class="ui-block-e"><div class="ui-bar ui-bar-b">'+precio+'</div></div> ';
+
+                  	 
+			  });//.each
+					$("#gridfactura").append(html); 
+					$("#tfactura").value(total); 			
+					
+					alert(total);
+	   }//function exito
+ 		
+	function errorconsulta(err) {
+    	alert("Error SQL al llenar detalles factura: "+err.code+err.message);
+	}
+//  });	
+
+  }//mostrarfatura
+function existeenpedido(articulo){
+	var existe=false;
+	consultadb().transaction(existep, function(err){
+    	 		 alert("Error select tabla TEMPPEDIDO: "+err.code+err.message);
+         		});		
+	function existep(tx){   	    
+			var sql='SELECT articulo FROM TEMPEDIDO WHERE articulo="'+articulo+'"  '			
+			tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error consultar existeTEMPEDIDO : "+err.code+err.message);
+         		});    	
+			sql='SELECT articulo FROM TEMFACTURA WHERE articulo="'+articulo+'"  '			
+			tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error consultar existeTEMFACTURA : "+err.code+err.message);
+         		});    	
+								
+	}
+	function listo(tx,results){ 
+	      
+	      if (results.rows.length>0){
+			alert('existe en pedido');  
+			existe=true;  
+		  }
+		  
+ 	}
+    return existe;
+	
+	
+}//function insertatemppedido
+function armacatalogo(){
+ // $('#pclientes').live('pageshow',function(event, ui){
+		//alert('This page was just hidden: '+ ui.prevPage);		
+		//var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);
+		consultadb().transaction(poblarcat, function(err){
+    	 		 alert("Error select catálogo : "+err.code+err.message);
+         		});		
+	function poblarcat(tx){  	   
+			var sql='SELECT * FROM articulo ORDER BY nombre  '			
+		    tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error select catalogo: "+err.code+err.message);
+         	});    	
+	}
+	function listo(tx,results){  
+		 $('#lcatalogo').empty();        
+		 $.each(results.rows,function(index){           
+			 var row = results.rows.item(index);            
+			 var html="";
+			 html+='<li id="'+row['articulo']+'">';
+	         html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> "'+row['descripcion']+'"</h3>';
+			 html+='<br/>Clasificación:"'+row['clas']+'" AcciónT:"'+row['accion']+'"<br/>Precio:'+row['precio']+' Existencia:10 ALG:20</p></a></li>';
+			 $('#lcatalogo').append(html);        
+		 });         
+		 $('#lcatalogo').listview('refresh'); 
+ 	}
+
+ // });	//$('#pclientes').live('pageshow',function(event, ui){
+	
+}//armacatalogo

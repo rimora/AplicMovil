@@ -1,12 +1,18 @@
 // EVENTOS
 $(document).ready(function() {
-	//document.addEventListener("deviceready",function(){
+	document.addEventListener("deviceready",function(){	
+
 	/*	var db = window.openDatabase("Sardel", "1.0", "SardelDB", 1000000);
     $('#clientes').click(function() {
 		db.transaction(consulta,errorconsulta,listo);
 		
 	
 	});*/
+	document.addEventListener("backbutton", function(){
+			
+		    return false;	
+			
+		}, false);
 	$('#botonLogin').tap(function() { 
 			 	// recolecta los valores que inserto el usuario	
 				var Usuario = $("#nombredeusuario").val()	
@@ -58,7 +64,7 @@ $(document).ready(function() {
 		
 	});
 		
-    $("#listaclientes li").click(function(){
+    $("#listaclientes li").live('click',function(){
 		          //al seleccionar un cliente de la lista, muestra sus datos
                   var clavecli = $(this).attr("id");
 				  alert (clavecli);
@@ -156,7 +162,17 @@ $("#pruebachec").click(function() {
 	$("#lcatalogo li").click(function(){
                   var articulo = $(this).attr("id");
 				 // alert (articulo);
-				  guardaarticulo(articulo);//almacena localmente la clave de articulo
+				 if (existeenpedido(articulo)) {
+					alert('Artículo ya fue ingresado, modifiquelo desde el pedido o factura');
+				 }
+				 else{
+					guardaarticulo(articulo);//almacena localmente la clave de articulo 					 
+					window.location.href='#pcantidad';
+					
+				 }
+				 
+				 
+				  
     });
 	$("#guardapros").tap(function() { 
                  //var clavecli = $(this).attr("id");
@@ -168,10 +184,27 @@ $("#pruebachec").click(function() {
 	 $("#bgenerav").tap(function() { 
                  //var clavecli = $(this).attr("id");
 				 //muestra el pedido o factura armados				 
-				  
+				  mostrarpedido();
+				  mostrarfactura();
 				  
      });	
-
+	 $("#bventa").tap(function() { 
+                 //var clavecli = $(this).attr("id");
+				 //limpia los grid
+                  $("#gridpedido").empty();
+				  $("#gridfactura").empty();
+				  
+     });	
+	 $("#bcatalogo").tap(function() { 
+                 //var clavecli = $(this).attr("id");
+				 //limpia los grid
+                  armacatalogo();
+				  
+     });
+	 
+	 
+	 
+  },false);//document.addEventListener("deviceready",function(){	
 });//ultimo
 			   
 			   

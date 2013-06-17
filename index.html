@@ -37,7 +37,7 @@
             <a href="#" id ="depositos"  data-role="button"> Depositos</a> 
             <a href="#pdatos" id ="datos"  data-role="button"> Datos</a> 
             <a href="#preportes" id ="reportes"  data-role="button"> Catálogo</a> 		
-            <a href="#pprueba" id ="bprueba"  data-role="button"> Pruebas</a> 		
+            <a href="#pprueba" id ="bprueba"  data-role="button">Pruebas</a> 		
           </ul>	
         <img border="0"  alt="hola"	src="imagenes/ajustador.png">
 	</div>
@@ -73,7 +73,7 @@
                 </option>
             </select>
         </div>	
-     <!--   <div id="ordencli" data-role="fieldcontain">
+        <!--   <div id="ordencli" data-role="fieldcontain">
             <fieldset data-role="controlgroup" data-type="vertical">
                 <input name="ordencli" id="checkcli" type="checkbox" data-theme="c">
                 <label for="checkcli">
@@ -82,6 +82,7 @@
             </fieldset>
         </div>-->
         <ul data-role="listview" data-inset="true" id="listaclientes" data-filter="true" data-filter-placeholder="Escribe Nombre" class="claselistac">        	
+        			
         </ul>
          
 
@@ -90,7 +91,7 @@
         <a class="ui-btn-right" id="regresarcli" data-role="button" data-rel="back"
         data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>
         <a class="ui-btn-left"  href="#pnuevopros" id="nuevopros" data-role="button" data-theme="b"
-        data-icon="plus" data-iconpos="left">Nuevo</a>        
+        data-icon="plus" data-iconpos="left">Nuevo Prospecto</a>        
 	</div>
 </div>
 <!-- F I N   P A G I N A  C L I E N T E S   -->
@@ -168,7 +169,7 @@
 	</div>
 	<div data-role="content">
        <ul data-role="listview" data-inset="true" data-theme="b">     
-        <li>    <a href="#pcatalogo" id ="bventa" data-mini="true" data-role="button" data-theme="e" data-icon="sardel-clientes" data-iconpos="left"> Ventas</a>        </li>
+        <li>    <a href="#pventas" id ="bventa" data-mini="true" data-role="button" data-theme="e" data-icon="sardel-clientes" data-iconpos="left"> Ventas</a>        </li>
         <li>                  
             <a href="#pcobros" id ="bcobros" data-role="button"> Cobros</a>
         </li>    
@@ -221,8 +222,8 @@
 		<ul data-role="listview" data-inset="true" data-theme="b">     
             <a href="" id ="carga" data-mini="true" data-role="button" data-theme="e" data-icon="refresh" data-iconpos="left"> Carga</a>              
             <a href="" id ="envia"  data-role="button" data-theme="b"> agrega datos</a> 
-            <a class="ui-btn-right" id="regresardatos" data-role="button" data-rel="back"
-            data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>
+            <a href="#page" class="ui-btn-right" id="regresardatos" data-role="button" 
+            data-theme="b" data-icon="back" data-iconpos="left" >Regresar</a>
 		</ul>	
         <img border="0"  alt="hola"	src="imagenes/ajustador.png">
 	</div>
@@ -236,12 +237,12 @@
 	</div>
 	<div data-role="content">
     	<ul id="lcatalogo" data-role="listview" data-inset="true"    class="catalogo" data-autodividers="true" data-filter="true" data-filter-placeholder="¿Que producto buscas?">			          <li id="ADE-04">
-	        <a href="#pcantidad"><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> ADEROGYL 15 SOL. C/5 AMP</h3>
+	        <a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> ADEROGYL 15 SOL. C/5 AMP</h3>
 			<p>Detalle del producto... <br/>Clasificación: Catalogo <br/>Precio:$100.00 Existencia:10 ALG:20</p></a></li>
           <li id="AGU-10">
-            <a href="#pcantidad"><img src="imagenes/sardel.jpg" width="100" height="100"/><h3>AGUA OXIGENADA CON 100 ML.</h3>
+            <a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3>AGUA OXIGENADA CON 100 ML.</h3>
             <p>Detalle del producto... <br/>Clasificación: Oferta <br/>Precio:$80.00 Existencia:30 ALG:50</p></a></li>			  
-          <li id="AMO-19"><a href="#pcantidad"><img src="imagenes/sardel.jpg"  width="100" height="100"/><h3>AMOXIL SUSP. 500 MG. C/75 ML.</h3>
+          <li id="AMO-19"><a href=""><img src="imagenes/sardel.jpg"  width="100" height="100"/><h3>AMOXIL SUSP. 500 MG. C/75 ML.</h3>
           	<p>Detalle del producto... <br/>Clasificación: Catalogo <br/>Precio:$80.00 Existencia:30 ALG:50</p></a></li>			  
             <li id="AMO-06"><a href="#pcantidad"><img src="imagenes/sardel.jpg"  width="100" height="100"/><h3>AMOXIBRON CAPS 500MG C/12</h3>
           	<p>Detalle del producto... <br/>Clasificación: Catalogo <br/>Precio:$80.00 Existencia:30 ALG:50</p></a></li>			  
@@ -277,9 +278,7 @@
         </ul>    
     </div>    
     <div data-role="footer" >
-        <a class="ui-btn-right" id="regresarcli" data-role="button" data-rel="back"
-        data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>
-        <a href="#pventas" id ="bgenerav"  data-role="button" data-theme="b">Generar</a> 
+        <a href="#pventas" id ="bgenerav"  data-role="button" data-theme="b">Aceptar</a> 
     </div>
     
 </div>
@@ -287,7 +286,7 @@
 <!--P A G I N A    V  E N T A S -->
 <div data-role="page" id="pventas">
 	<div data-role="header">
-		<h3>Catálogo</h3>
+		<h3>VENTA</h3>
 	</div>
 	<div data-role="content">
     	<div data-role="collapsible" data-theme="b" data-content-theme="c" id="agrupapedido">
@@ -295,7 +294,7 @@
                 <h3>
                     <b>Pedido</b>
                 </h3>
-                 <div class="ui-grid-d" id="gridpedidoprueba" >
+                 <div class="ui-grid-d" id="gridpedido" >
             <!--
              <div class="ui-block-a" style="width:70px;height:20px" >              
                <div class="ui-bar ui-bar-a">Elim.</div>
@@ -328,21 +327,30 @@
           <a href="" id ="beliminarp"  data-role="button" data-theme="b"  data-inline="true">Eliminar</a>   
           <a href="" id ="bimprimirp"  data-role="button" data-theme="b"  data-inline="true">Imprimir</a>   
           
-        </div>    
+        </div> <!--data-role="collapsible" -->   
         <div data-role="collapsible" data-theme="b" data-content-theme="c" id="agrupafactura">
             
                 <h3>
                     <b>Factura</b>
                 </h3>
+                <div class="ui-grid-d" id="gridfactura" >
+                       
+          		</div><!--class="ui-grid-d"-->
+                <div data-role="fieldcontain">
+          			<label for="tfactura">Total</label>
+		            <input type="number" id="tfactura" style="width:20%"> 
+        	    </div><!--<div data-role="fieldcontain">-->
+                
+                
+                
                 
           <a href="" id ="beliminarf"  data-role="button" data-theme="b"  data-inline="true">Eliminar</a>   
           <a href="" id ="bimprimirf"  data-role="button" data-theme="b"  data-inline="true">Imprimir</a>               
         </div>    
     </div>    
     <div data-role="footer" >
-        <a class="ui-btn-right" id="regresarcata" data-role="button" data-rel="back"
-        data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>
-        
+        <a href="#poperaciones" id ="regresarop"  data-role="button" data-icon="star" data-theme="b">Regresa</a> 		
+        <a href="#pcatalogo" id ="bcatalogo"  data-role="button" data-icon="star" data-theme="b">Catálogo</a> 		
     </div>
     
 </div>
@@ -399,7 +407,7 @@
             
         </ul>    
     </div>    
-    <div data-role="footer" data-position="fixed">
+    <div data-role="footer" >
         <a class="ui-btn-right" id="regresarcli" data-role="button" data-rel="back"
         data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>
     </div>
@@ -517,6 +525,7 @@
 	<div data-role="footer" data-position="fixed">
 			<a class="ui-btn-right" id="regresarreportes" data-role="button" data-rel="back"
         data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>        
+        <a href="#" data-role="button" data-rel="back" id="botoncantidad">Aceptar</a>
  	</div>
 </div>
     
