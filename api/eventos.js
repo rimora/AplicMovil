@@ -165,7 +165,7 @@ $("#pruebachec").click(function() {
 				 if (existeenpedido(articulo)) {
 					alert('Artículo ya fue ingresado, modifiquelo desde el pedido o factura');
 				 }
-				 else{
+				 {
 					guardaarticulo(articulo);//almacena localmente la clave de articulo 					 
 					window.location.href='#pcantidad';
 					

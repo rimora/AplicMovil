@@ -294,7 +294,7 @@ function armacatalogo(){
     	 		 alert("Error select catálogo : "+err.code+err.message);
          		});		
 	function poblarcat(tx){  	   
-			var sql='SELECT * FROM articulo ORDER BY nombre  '			
+			var sql='SELECT * FROM articulo ORDER BY descripcion  '			
 		    tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error select catalogo: "+err.code+err.message);
          	});    	
