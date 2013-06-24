@@ -13,7 +13,7 @@ $(document).ready(function() {
 		    return false;	
 			
 		}, false);
-	$('#botonLogin').tap(function() { 
+	$('#botonLogin').click(function() { 
 			 	// recolecta los valores que inserto el usuario	
 				var Usuario = $("#nombredeusuario").val()	
 				var Pass = $("#clave").val()	  	
@@ -135,13 +135,13 @@ $(document).ready(function() {
 			$("#gridprueba").append(html);  
 
 		});
-/*
-$("#pruebachec").click(function() { 
+
+$("#bmodificarp").tap(function() { 
                  //var clavecli = $(this).attr("id");
 		$(':checkbox').each(function () {
            if (this.checked) {
-               alert($(this).val());
-			   alert($("#"+"c"+$(this).val()).val());
+               alert($(this).attr("name"));
+			   //alert($("#"+"c"+$(this).val()).val());
 			   
 			   
 			    
@@ -150,7 +150,7 @@ $("#pruebachec").click(function() {
 		
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
 });
-*/
+
 	$("#botoncantidad").click(function() { 	
      //llama a funcion que prepara las tablas temporales, insertando el articulo y cantidad
 	//alert($("#scantidad").val());	
@@ -159,7 +159,7 @@ $("#pruebachec").click(function() {
 	
 
 	});
-	$("#lcatalogo li").click(function(){
+	$("#lcatalogo li").live('click',function(){
                   var articulo = $(this).attr("id");
 				 // alert (articulo);
 				 if (existeenpedido(articulo)) {
@@ -193,12 +193,19 @@ $("#pruebachec").click(function() {
 				 //limpia los grid
                   $("#gridpedido").empty();
 				  $("#gridfactura").empty();
+				  limpiartemp();
 				  
      });	
-	 $("#bcatalogo").tap(function() { 
+	 $("#bcatalogo").tap(function(){
                  //var clavecli = $(this).attr("id");
 				 //limpia los grid
                   armacatalogo();
+				  
+     });
+	 $("#binicializar").click(function(){
+                 //var clavecli = $(this).attr("id");
+				 //limpia los grid
+                  pruebalocalizacion();
 				  
      });
 	 
