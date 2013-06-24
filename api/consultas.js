@@ -293,6 +293,7 @@ function existeenpedido(articulo){
 		  }
 		  
  	}
+	alert('prueba de existe2 '+existe);  
     return existe;
 	
 	

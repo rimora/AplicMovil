@@ -162,7 +162,7 @@ $("#bmodificarp").tap(function() {
 	$("#lcatalogo li").live('click',function(){
                   var articulo = $(this).attr("id");
 				 // alert (articulo);
-				 if (existeenpedido(articulo)) {
+				 if (existeenpedido(articulo)==true) {
 					alert('Artículo ya fue ingresado, modifiquelo desde el pedido o factura');
 				 }
 				 {
