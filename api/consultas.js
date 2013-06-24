@@ -271,10 +271,16 @@ function mostrarfactura(){
   }//mostrarfatura
 function existeenpedido(articulo){
 	existe=false;
-	consultadb().transaction(existep, function(err){
-    	 		 alert("Error select tabla TEMPPEDIDO: "+err.code+err.message);
-         		});		
-	function existep(tx){   	    
+	
+	function existep(tx){   
+	        function listo(tx,results){ 	      
+	     	 if (results.rows.length>0){
+				alert('existe en pedido');  
+				existe=true;  
+				alert('prueba de existe '+existe);  
+			  }
+		  
+ 			}		    
 			var sql='SELECT articulo FROM TEMPEDIDO WHERE articulo="'+articulo+'"  '			
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error consultar existeTEMPEDIDO : "+err.code+err.message);
@@ -285,15 +291,10 @@ function existeenpedido(articulo){
          		});    	
 								
 	}
-	function listo(tx,results){ 
-	      
-	      if (results.rows.length>0){
-			alert('existe en pedido');  
-			existe=true;  
-			alert('prueba de existe '+existe);  
-		  }
-		  
- 	}
+	
+	consultadb().transaction(existep, function(err){
+    	 		 alert("Error select tabla TEMPPEDIDO: "+err.code+err.message);
+         		});		
 	alert('prueba de existe2 '+existe);  
     return existe;
 	
