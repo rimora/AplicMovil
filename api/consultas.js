@@ -349,6 +349,7 @@ function existencia(articulo){
 	      if (results.rows.length>0){
 			var row = results.rows.item(index);    
 			existe=row['existencia'];			
+			alert('existencia de consulta '+existe);
 
 		  }
 		  
@@ -374,7 +375,10 @@ function sugerido(){
 	      if (results.rows.length>0){
 			$.each(results.rows,function(index){           
 			 var row = results.rows.item(index);            
-			 preparadetalletemp(row['articulo'],row['cantidad']);
+			 if (row['cantidad']>0){
+			 	preparadetalletemp(row['articulo'],row['cantidad']);				
+			 }//if (row['cantidad']>0)
+			 
 		  	}); //$.each       
 
 		  }//if
