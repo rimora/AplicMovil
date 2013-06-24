@@ -1,4 +1,5 @@
 // consultas
+var existe=false;// utilizada para saber si un producto ya existe en la tabla de pedidos o factura detalle y no la inserten de nuevo desde el catalogo
 function mostrarclientes(dia){
  // $('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);		
@@ -269,7 +270,7 @@ function mostrarfactura(){
 
   }//mostrarfatura
 function existeenpedido(articulo){
-	var existe=false;
+	existe=false;
 	consultadb().transaction(existep, function(err){
     	 		 alert("Error select tabla TEMPPEDIDO: "+err.code+err.message);
          		});		
