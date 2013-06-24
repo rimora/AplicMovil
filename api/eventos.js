@@ -194,6 +194,7 @@ $("#bmodificarp").tap(function() {
                   $("#gridpedido").empty();
 				  $("#gridfactura").empty();
 				  limpiartemp();
+				  sugerido();
 				  
      });	
 	 $("#bcatalogo").tap(function(){

@@ -127,7 +127,9 @@ function preparadetalletemp(articulo,cantidad){
 	   //restar el importe de descuento al precio
 	   var exis=existencia(articulo);
 	   var diferencia=exis-cantidad;
-	   alert(diferencia);
+	   alert('existencia '+exis);
+	   alert('cantidad '+exis);
+	   
 	   if (diferencia>=0){
 	       insertatempfactura(articulo,cantidad);
 	   }
@@ -176,7 +178,7 @@ function mostrarpedido(){
 				     descuento=(row['precio']/100)*row['descuento'];
 				     precio=row['precio']-descuento;				 
 					 total+=precio*row['cantidad'];
-					 alert(total);					 
+					 
 					html+='<div class="ui-block-a" style="width:70px;height:20px" >';              
            			html+='<div class="ui-bar ui-bar-e"  >';      		 		
                    	html+='<div style="padding:0px; margin-top:-8px; margin-left:-10px">'; 
@@ -195,7 +197,7 @@ function mostrarpedido(){
 					$("#gridpedido").append(html); 
 					$("#tpedido").value(total); 			
 					
-					alert(total);
+					alert('total'+total);					 
 	   }//function exito
  		
 	function errorconsulta(err) {
@@ -257,7 +259,7 @@ function mostrarfactura(){
 					$("#gridfactura").append(html); 
 					$("#tfactura").value(total); 			
 					
-					alert(total);
+					alert('total factura'+total);					 
 	   }//function exito
  		
 	function errorconsulta(err) {
@@ -354,5 +356,30 @@ function existencia(articulo){
     return existe;
 	
 	
+}//function existencia
+function sugerido(){
+	var cliente=window.localStorage.getItem("clave");
+	consultadb().transaction(consultasug, function(err){
+    	 		 alert("Error select tabla sugerido: "+err.code+err.message);
+         		});		
+	function consultasug(tx){   	    
+			var sql='SELECT * FROM SUGERIDO WHERE cliente="'+cliente+'" ';			
+			tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error consultar sugerido del cliente : "+cliente+err.code+err.message);
+         		});    	
+								
+	}
+	function listo(tx,results){ 
+	      
+	      if (results.rows.length>0){
+			$.each(results.rows,function(index){           
+			 var row = results.rows.item(index);            
+			 preparadetalletemp(row['articulo'],row['cantidad']);
+		  	}); //$.each       
+
+		  }//if
+		  
+ 	}//function listo(tx,results){ 
+	    
 }//function existencia
 
