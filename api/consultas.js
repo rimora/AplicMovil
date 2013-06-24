@@ -289,6 +289,7 @@ function existeenpedido(articulo){
 	      if (results.rows.length>0){
 			alert('existe en pedido');  
 			existe=true;  
+			alert('prueba de existe '+existe);  
 		  }
 		  
  	}
@@ -334,10 +335,10 @@ function armacatalogo(){
 function existencia(articulo){
 	var existe=0;
 	alert(articulo);
-	consultadb().transaction(existebodega, function(err){
+	consultadb().transaction(consulexis, function(err){
     	 		 alert("Error select tabla ARTICULO_EXISTENCIA: "+err.code+err.message);
          		});		
-	function existebodega(tx){   	    
+	function consulexis(tx){   	    
 			var sql='SELECT existencia FROM ARTICULO_EXISTENCIA WHERE articulo="'+articulo+'" AND bodega="K01"';			
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error consultar existencia : "+err.code+err.message);
