@@ -241,13 +241,10 @@ function mostrarfactura(){
 //  $('#datoscli').live('pageshow',function(event, ui){   	   
 		alert('entra mostrar factura');
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
-		consultadb().transaction(consulta, errorconsulta);	
+		consultadb().transaction(consulta,errorconsulta);	
 	function consulta(tx) {		
-		tx.executeSql('SELECT a.articulo,b.descripcion,b.precio,b.descuento,a.cantidad,b.impuesto FROM TEMFACTURA a left outer join articulo b on b.articulo=a.articulo',[],exito,errorconsulta);
-		
+		tx.executeSql('SELECT a.articulo,b.descripcion,b.precio,b.descuento,a.cantidad,b.impuesto FROM TEMFACTURA a left outer join articulo b on b.articulo=a.articulo',[],exito,errorconsulta);		
 		}
-	
-		
 		function exito(tx,results){ 
 		      $("#gridfactura").empty();			  
 			  var html = "";
@@ -300,7 +297,8 @@ function mostrarfactura(){
 function existeenpedido(articulo){
 	existe=false;
 	
-	function listo(tx,results){ 	      
+	function listo(tx,results){ 	
+	         alert('entra a funcion listo de existeenpedido');         	          
 	     	 if (results.rows.length>0){
 				alert('existe en pedido');  
 				existe=true;  				
@@ -308,7 +306,8 @@ function existeenpedido(articulo){
 			  }
 		  
  			}
-	function existep(tx){  	       	    
+	function existep(tx){  	
+	        alert('entra a funcion existep');         	    
 			var sql='SELECT articulo FROM TEMPEDIDO WHERE articulo="'+articulo+'"  ';			
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error consultar existeTEMPEDIDO : "+err.code+err.message);
@@ -380,8 +379,8 @@ function sugerido(){
 				i++;
 			 }//if (row['cantidad']>0)			 
 		  	}); //$.each       
-			mostrarpedido();
-            mostrarfactura(); 	  
+			//mostrarpedido();
+            //mostrarfactura(); 	  
 		  }//if			  
 		  else
 		  {
@@ -397,11 +396,12 @@ function sugerido(){
 	}
 	consultadb().transaction(consultasug, function(err){
     	 			 alert("Error select tabla sugerido: "+err.code+err.message);
-         		});		
-	 alert(artsug.length);
-	 for (var i = 0, long = artsug.length; i < long; i++) {
-    // Hacer algo con a[i]
-	alert(artsug[i]+' '+cantsug[i]);
-	}
- 		
+         		},function(){
+				 alert(artsug.length);
+				 for (var i = 0, long = artsug.length; i < long; i++) {
+   					 // Hacer algo con a[i]
+					   alert(artsug[i]+' '+cantsug[i]);
+				 }
+				});		
+	
 }//function sugerido
