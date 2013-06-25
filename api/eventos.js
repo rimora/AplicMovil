@@ -159,7 +159,7 @@ $("#bmodificarp").tap(function() {
 	  alert('boton pruebas2');
       fprueba("ADE-04");
 	  insertatempfactura("ADE-04",5);
-
+      iniciar();
 	});
 	$("#lcatalogo li").live('click',function(){
                   var articulo = $(this).attr("id");

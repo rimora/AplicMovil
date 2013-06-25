@@ -36,7 +36,7 @@ function fprueba(articulo){
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error consultar existencia : "+err.code+err.message);
          		});    									
-	}
+	    }
 	function listo(tx,results){ 	 
 	      alert('entra a listo de consulexis');         
 	      if (results.rows.length>0){			  
