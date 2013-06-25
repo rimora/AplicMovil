@@ -71,7 +71,7 @@ function mostrarfactura(){
 //  $('#datoscli').live('pageshow',function(event, ui){   	   
 		alert('entra mostrar factura');
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
-		consultadb().transaction(consulta,errorconsulta,true);	
+		consultadb().transaction(consulta,errorconsulta);	
 	function consulta(tx) {		
 		tx.executeSql('SELECT a.articulo,b.descripcion,b.precio,b.descuento,a.cantidad,b.impuesto FROM TEMFACTURA a left outer join articulo b on b.articulo=a.articulo',[],exito,errorconsulta);		
 		}
@@ -97,8 +97,11 @@ function mostrarfactura(){
 				  var row = results.rows.item(index); 	
 				    alert('dentro del each factura');			     			     
 				     descuento=(row['precio']/100)*row['descuento'];
+					 alert(descuento);
 				     precio=row['precio']-descuento;				 
+					 alert(precio);
 					 total+=precio*row['cantidad'];
+					 alert(total);
 					 					 
 					html+='<div class="ui-block-a" style="width:70px;height:20px" >';              
            			html+='<div class="ui-bar ui-bar-e"  >';      		 		
