@@ -372,6 +372,7 @@ function sugerido(){
 			 var row = results.rows.item(index);            			
 			 if (row['cantidad']>0){
 			 	//preparadetalletemp(row['articulo'],row['cantidad']);				
+				alert('llena arreglos'); 
 				artsug[i]=row['articulo'];
 				cantsug[i]=row['cantidad'];
 				i++;
@@ -395,7 +396,7 @@ function sugerido(){
 	consultadb().transaction(consultasug, function(err){
     	 			 alert("Error select tabla sugerido: "+err.code+err.message);
          		});		
-	
+	 alert(artsug.length);
 	 for (var i = 0, long = artsug.length; i < long; i++) {
     // Hacer algo con a[i]
 	alert(artsug[i]+' '+cantsug[i]);
