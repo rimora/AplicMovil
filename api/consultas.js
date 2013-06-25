@@ -145,7 +145,7 @@ function existencia(articulo){
 	}
 	consultadb().transaction(consulexis, function(err){
     	 		 alert("Error select tabla ARTICULO_EXISTENCIA: "+err.code+err.message);
-         		});		
+         		},alert('existencia en funcion existencia de transaction '+existenciab));		
     return existenciab;
 }//function existencia
 function preparadetalletemp(articulo,cantidad){
@@ -399,7 +399,8 @@ function sugerido(){
 					   alert(artsug[i]+' '+cantsug[i]);
 					   preparadetalletemp(artsug[i],cantsug[i])
 				 }
+				 mostrarpedido();
+                 //mostrarfactura(); 
 				});		
-				mostrarpedido();
-            	mostrarfactura(); 
+				
 }//function sugerido
