@@ -135,7 +135,7 @@ function preparadetalletemp(articulo,cantidad,existencia){
 	       insertatempfactura(articulo,cantidad);
 	   }
 	   else {
-		   if (exis>0){
+		   if (existencia>0){
 			   insertatempfactura(articulo,cantidad);
                insertatemppedido(articulo,(cantidad-exis));
 			   

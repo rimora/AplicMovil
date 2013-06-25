@@ -77,6 +77,7 @@ function mostrarfactura(){
 		}
 		function exito(tx,results){ 
 		    if (results.rows.length>0){
+				alert('entra poblar grid factura');
 			  $("#gridfactura").empty();			  
 			  var html = "";
 			  var tipo="";
@@ -91,9 +92,10 @@ function mostrarfactura(){
               html+=' <div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-a">Descrip.</div></div>';
               html+=' <div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-a">Cantidad</div></div>';
               html+=' <div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-a">Precio</div></div>';
-          
+              alert('antes del each factura');
 			  $.each(results.rows,function(index){
-				  var row = results.rows.item(index); 				     			     
+				  var row = results.rows.item(index); 	
+				    alert('dentro del each factura');			     			     
 				     descuento=(row['precio']/100)*row['descuento'];
 				     precio=row['precio']-descuento;				 
 					 total+=precio*row['cantidad'];
