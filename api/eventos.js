@@ -158,7 +158,7 @@ $("#bmodificarp").tap(function() {
 	//preparadetalletemp(window.localStorage.getItem("articulo"),$("#scantidad").val())
 	  alert('boton pruebas2');
       fprueba("ADE-04");
-	
+	  insertatempfactura("ADE-04",5);
 
 	});
 	$("#lcatalogo li").live('click',function(){
