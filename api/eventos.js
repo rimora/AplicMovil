@@ -154,8 +154,9 @@ $("#bmodificarp").tap(function() {
 	$("#botoncantidad").click(function() { 	
      //llama a funcion que prepara las tablas temporales, insertando el articulo y cantidad
 	//alert($("#scantidad").val());	
-	preparadetalletemp(window.localStorage.getItem("articulo"),$("#scantidad").val())
-
+	
+	//preparadetalletemp(window.localStorage.getItem("articulo"),$("#scantidad").val())
+      existencia("ADE-04");
 	
 
 	});
