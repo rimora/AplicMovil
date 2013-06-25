@@ -156,7 +156,8 @@ $("#bmodificarp").tap(function() {
 	//alert($("#scantidad").val());	
 	
 	//preparadetalletemp(window.localStorage.getItem("articulo"),$("#scantidad").val())
-      existencia("ADE-04");
+	  alert('boton cantidad');
+      consultaexis("ADE-04");
 	
 
 	});
