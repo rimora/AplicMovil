@@ -157,7 +157,7 @@ $("#bmodificarp").tap(function() {
 	
 	//preparadetalletemp(window.localStorage.getItem("articulo"),$("#scantidad").val())
 	  alert('boton pruebas2');
-      consultaexis("ADE-04");
+      fprueba("ADE-04");
 	
 
 	});
