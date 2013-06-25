@@ -262,6 +262,7 @@ function mostrarfactura(){
 					$("#tfactura").value(total); 			
 					
 					alert('total factura'+total);					 
+					return true;
 	   }//function exito
  		
 	function errorconsulta(err) {
