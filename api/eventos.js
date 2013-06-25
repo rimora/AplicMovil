@@ -151,12 +151,12 @@ $("#bmodificarp").tap(function() {
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
 });
 
-	$("#botoncantidad").tap(function() { 	
+	$("#bpruebas").tap(function() { 	
      //llama a funcion que prepara las tablas temporales, insertando el articulo y cantidad
 	//alert($("#scantidad").val());	
 	
 	//preparadetalletemp(window.localStorage.getItem("articulo"),$("#scantidad").val())
-	  alert('boton cantidad');
+	  alert('boton pruebas2');
       consultaexis("ADE-04");
 	
 
