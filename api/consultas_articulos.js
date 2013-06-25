@@ -23,5 +23,5 @@ function consultaexis(articulo){
 	consultadb().transaction(consulexis, function(err){
     	 		 alert("Error select tabla ARTICULO_EXISTENCIA: "+err.code+err.message);
          		},alert('existencia en funcion existencia de transaction '+existenciab));		
-    return existenciab;
+    
 }//function existencia
