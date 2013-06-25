@@ -123,7 +123,7 @@ function llamadascxc(){
 
 }
 function existencia(articulo){
-	alert(articulo);	
+	alert('articulo de funcion existencia '+articulo);	
 	function listo(tx,results){ 	 
 	      alert('entra a listo de consulexis');         
 	      if (results.rows.length>0){			  
@@ -133,6 +133,7 @@ function existencia(articulo){
 		  }		
 		  else{
 			  existenciab=0;
+			  alert('no hay existencias funcion existencia'); 
 		  }
  	}
 	function consulexis(tx){   	
@@ -257,7 +258,7 @@ function mostrarfactura(){
 			  html+=' <div class="ui-block-a" style="width:70px;height:20px" > ';            
               html+=' <div class="ui-bar ui-bar-a">Elim.</div></div> ';           
               html+=' <div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-a">Articulo</div></div>';
-              html+=' <div class="ui-block-c" style="width:120px"><div class="ui-bar ui-bar-a">Descrip.</div></div>';
+              html+=' <div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-a">Descrip.</div></div>';
               html+=' <div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-a">Cantidad</div></div>';
               html+=' <div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-a">Precio</div></div>';
           
@@ -361,13 +362,19 @@ function armacatalogo(){
 }//armacatalogo
 
 function sugerido(){
+	var artsug=[];
+	var cantsug=[];
 	var cliente=window.localStorage.getItem("clave");	
+	var i=0;
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){
 			$.each(results.rows,function(index){           
-			 var row = results.rows.item(index);            
+			 var row = results.rows.item(index);            			
 			 if (row['cantidad']>0){
-			 	preparadetalletemp(row['articulo'],row['cantidad']);				
+			 	//preparadetalletemp(row['articulo'],row['cantidad']);				
+				artsug[i]=row['articulo'];
+				cantsug[i]=row['cantidad'];
+				i++;
 			 }//if (row['cantidad']>0)			 
 		  	}); //$.each       
 			mostrarpedido();
@@ -389,5 +396,9 @@ function sugerido(){
     	 			 alert("Error select tabla sugerido: "+err.code+err.message);
          		});		
 	
-	  		
+	 for (var i = 0, long = artsug.length; i < long; i++) {
+    // Hacer algo con a[i]
+	alert(artsug[i]+' '+cantsug[i]);
+	}
+ 		
 }//function sugerido
