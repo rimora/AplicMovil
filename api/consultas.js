@@ -151,7 +151,7 @@ function mostrarpedido(){
 //  $('#datoscli').live('pageshow',function(event, ui){   	   
 		alert('entra mostrar pedido');
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
-		consultadb().transaction(consulta, errorconsulta,alert('exito'));	
+		consultadb().transaction(consulta, errorconsulta);	
 	function consulta(tx) {		
 		tx.executeSql('SELECT a.articulo,b.descripcion,b.precio,b.descuento,a.cantidad,b.impuesto FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo',[],exito,errorconsulta);
 		
@@ -160,6 +160,7 @@ function mostrarpedido(){
 		
 		function exito(tx,results){ 
 		    alert('entra funcion exito de mostrar pedido');
+			if (results.rows.length>0){
 		      $("#gridpedido").empty();			  
 			  var html = "";
 			  var tipo="";
@@ -201,6 +202,7 @@ function mostrarpedido(){
 					$("#tpedido").value(total); 			
 					
 					alert('total'+total);					 
+			}//if (results.rows.length>0){
 	   }//function exito
  		
 	function errorconsulta(err) {
@@ -376,7 +378,7 @@ function sugerido(){
 					   preparadetalletemp(artsug[i],cantsug[i],exissug[i])
 				 }
 				 mostrarpedido();
-                 //mostrarfactura(); 
+                 mostrarfactura(); 
 				});		
 				
 }//function sugerido

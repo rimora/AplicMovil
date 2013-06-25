@@ -101,7 +101,7 @@ function insertatempfactura(articulo,cantidad){
 	   alert('inserttafactura');
 	    consultadb().transaction(insertadet,function(err){
     	  alert("Error al insertar renglon factura: "+err.code+err.message);
-          },alert("Artículo insertado en factura"));
+          });
 				
     	function insertadet(tx) {		
 		
