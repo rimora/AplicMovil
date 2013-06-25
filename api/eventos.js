@@ -151,7 +151,7 @@ $("#bmodificarp").tap(function() {
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
 });
 
-	$("#botoncantidad").click(function() { 	
+	$("#botoncantidad").tap(function() { 	
      //llama a funcion que prepara las tablas temporales, insertando el articulo y cantidad
 	//alert($("#scantidad").val());	
 	
