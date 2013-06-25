@@ -256,10 +256,10 @@ function mostrarfactura(){
 			  //agrega encabezado de grid
 			  html+=' <div class="ui-block-a" style="width:70px;height:20px" > ';            
               html+=' <div class="ui-bar ui-bar-a">Elim.</div></div> ';           
-              html+=' <div class="ui-block-b" style="width:90px;height:20px"><div class="ui-bar ui-bar-a">Articulo</div></div>';
-              html+=' <div class="ui-block-c" style="width:120px;height:20px"><div class="ui-bar ui-bar-a">Descrip.</div></div>';
-              html+=' <div class="ui-block-d" style="width:90px;height:20px"><div class="ui-bar ui-bar-a">Cantidad</div></div>';
-              html+=' <div class="ui-block-e" style="width:90px;height:20px"><div class="ui-bar ui-bar-a">Precio</div></div>';
+              html+=' <div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-a">Articulo</div></div>';
+              html+=' <div class="ui-block-c" style="width:120px"><div class="ui-bar ui-bar-a">Descrip.</div></div>';
+              html+=' <div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-a">Cantidad</div></div>';
+              html+=' <div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-a">Precio</div></div>';
           
 			  $.each(results.rows,function(index){
 				  var row = results.rows.item(index); 				     			     
@@ -275,10 +275,10 @@ function mostrarfactura(){
                    	html+='		</div>';	
 		            html+='   </div>';
             		html+='</div>';            
-                    html+='<div class="ui-block-b" style="width:90px;height:20px"><div class="ui-bar ui-bar-b">'+row['articulo']+'</div></div>';
-                    html+='<div class="ui-block-c" style="width:120px;height:20px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
-                    html+='<div class="ui-block-d" style="width:90px;height:20px"><div class="ui-bar ui-bar-b">'+row['cantidad']+'</div></div>';
-	                html+='<div class="ui-block-e" style="width:90px;height:20px"><div class="ui-bar ui-bar-b">'+precio+'</div></div> ';
+                    html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b">'+row['articulo']+'</div></div>';
+                    html+='<div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
+                    html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b">'+row['cantidad']+'</div></div>';
+	                html+='<div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-b">'+precio+'</div></div> ';
 
                   	 
 			  });//.each
@@ -373,8 +373,13 @@ function sugerido(){
 			mostrarpedido();
             mostrarfactura(); 	  
 		  }//if			  
+		  else
+		  {
+			alert('no hubo resultados de sugerido');  
+		  }
  	}//function listo(tx,results){ 
 	function consultasug(tx){   	    
+	        alert('entra a consultasug');
 			var sql='SELECT * FROM SUGERIDO WHERE cliente="'+cliente+'" ';			
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error consultar sugerido del cliente : "+cliente+err.code+err.message);
