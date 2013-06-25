@@ -372,23 +372,20 @@ function sugerido(){
 			$.each(results.rows,function(index){           
 			 var row = results.rows.item(index);            			
 			 if (row['cantidad']>0){
-			 	//preparadetalletemp(row['articulo'],row['cantidad']);				
-				alert('llena arreglos'); 
+			 	//preparadetalletemp(row['articulo'],row['cantidad']);								
 				artsug[i]=row['articulo'];
 				cantsug[i]=row['cantidad'];
 				i++;
 			 }//if (row['cantidad']>0)			 
-		  	}); //$.each       
-			//mostrarpedido();
-            //mostrarfactura(); 	  
+		  	}); //$.each       				  
 		  }//if			  
-		  else
+		  /*else
 		  {
 			alert('no hubo resultados de sugerido');  
-		  }
+			
+		  }*/
  	}//function listo(tx,results){ 
-	function consultasug(tx){   	    
-	        alert('entra a consultasug');
+	function consultasug(tx){   	    	        
 			var sql='SELECT * FROM SUGERIDO WHERE cliente="'+cliente+'" ';			
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error consultar sugerido del cliente : "+cliente+err.code+err.message);
@@ -398,10 +395,11 @@ function sugerido(){
     	 			 alert("Error select tabla sugerido: "+err.code+err.message);
          		},function(){
 				 alert(artsug.length);
-				 for (var i = 0, long = artsug.length; i < long; i++) {
-   					 // Hacer algo con a[i]
+				 for (var i = 0, long = artsug.length; i < long; i++) {   					 
 					   alert(artsug[i]+' '+cantsug[i]);
+					   preparadetalletemp(artsug[i],cantsug[i])
 				 }
 				});		
-	
+				mostrarpedido();
+            	mostrarfactura(); 
 }//function sugerido
