@@ -174,7 +174,7 @@ function mostrarpedido(){
               html+=' <div class="ui-block-c"><div class="ui-bar ui-bar-a">Descrip.</div></div>';
               html+=' <div class="ui-block-d"><div class="ui-bar ui-bar-a">Cantidad</div></div>';
               html+=' <div class="ui-block-e"><div class="ui-bar ui-bar-a">Precio</div></div>';
-          
+               alert('antes de each mostrar pedido');
 			  $.each(results.rows,function(index){
 				  alert('entra each de mostrar pedido');
 				  var row = results.rows.item(index); 				     			     
@@ -372,7 +372,7 @@ function sugerido(){
          		},function(){
 				 alert(artsug.length);
 				 for (var i = 0, long = artsug.length; i < long; i++) {   					 
-					   alert(artsug[i]+' '+cantsug[i],+' '+exissug[i]);
+					   alert(artsug[i]+' '+cantsug[i]+' '+exissug[i]);
 					   preparadetalletemp(artsug[i],cantsug[i],exissug[i])
 				 }
 				 mostrarpedido();
