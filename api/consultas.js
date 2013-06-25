@@ -185,6 +185,7 @@ function mostrarpedido(){
 	
 		
 		function exito(tx,results){ 
+		    alert('entra funcion exito de mostrar pedido');
 		      $("#gridpedido").empty();			  
 			  var html = "";
 			  var tipo="";
@@ -201,6 +202,7 @@ function mostrarpedido(){
               html+=' <div class="ui-block-e"><div class="ui-bar ui-bar-a">Precio</div></div>';
           
 			  $.each(results.rows,function(index){
+				  alert('entra each de mostrar pedido');
 				  var row = results.rows.item(index); 				     			     
 				     descuento=(row['precio']/100)*row['descuento'];
 				     precio=row['precio']-descuento;				 
