@@ -123,38 +123,12 @@ function llamadascxc(){
 
 }
 
-function preparadetalletemp(articulo,cantidad){
+function preparadetalletemp(articulo,cantidad,existencia){
 	   //para obtener el importe de descuento:
 	   // dividir entre 100 el precio, multiplicar el resultado por el descuento y se obtiene el importe de descuento
-	   //restar el importe de descuento al precio
-	   var exis=function(articulo){
-		   					alert('articulo de funcion existencia '+articulo);	
-							function listo(tx,results){ 	 
-						      alert('entra a listo de consulexis');         
-						      if (results.rows.length>0){			  
-				                 var row = results.rows.item(index);    
-								 existenciab=row['existencia'];			
-					             alert('existencia de consulta '+existenciab);
-							  }		
-							  else{
-								  existenciab=0;
-							  alert('no hay existencias funcion existencia'); 
-							  }
-							  return existenciab;
-						 	}
-							function consulexis(tx){   	
-						        alert('entra a consulexis');    
-				    			var sql='SELECT existencia FROM ARTICULO_EXISTENCIA WHERE articulo="'+articulo+'" AND bodega="K01"';			
-								tx.executeSql(sql,[],listo,function(err){
-				    	 		 alert("Error consultar existencia : "+err.code+err.message);
-         						});    									
-							}
-							consultadb().transaction(consulexis, function(err){
-				    	 		 alert("Error select tabla ARTICULO_EXISTENCIA: "+err.code+err.message);
-         					});	
-			   }
-	   var diferencia=exis(articulo)-cantidad;
-	   alert('existencia '+exis(articulo));
+	   //restar el importe de descuento al precio	   
+	   var diferencia=existencia-cantidad;
+	   alert('existencia '+existencia);
 	   alert('cantidad '+cantidad);
 	   
 	   if (diferencia>=0){
@@ -177,7 +151,7 @@ function mostrarpedido(){
 //  $('#datoscli').live('pageshow',function(event, ui){   	   
 		alert('entra mostrar pedido');
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
-		consultadb().transaction(consulta, errorconsulta);	
+		consultadb().transaction(consulta, errorconsulta,alert('exito'));	
 	function consulta(tx) {		
 		tx.executeSql('SELECT a.articulo,b.descripcion,b.precio,b.descuento,a.cantidad,b.impuesto FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo',[],exito,errorconsulta);
 		
@@ -365,6 +339,7 @@ function armacatalogo(){
 function sugerido(){
 	var artsug=[];
 	var cantsug=[];
+	var exissug=[];
 	var cliente=window.localStorage.getItem("clave");	
 	var i=0;
 	function listo(tx,results){ 	      
@@ -375,6 +350,7 @@ function sugerido(){
 			 	//preparadetalletemp(row['articulo'],row['cantidad']);								
 				artsug[i]=row['articulo'];
 				cantsug[i]=row['cantidad'];
+				exissug[i]=row['existencia'];
 				i++;
 			 }//if (row['cantidad']>0)			 
 		  	}); //$.each       				  
@@ -386,7 +362,7 @@ function sugerido(){
 		  }*/
  	}//function listo(tx,results){ 
 	function consultasug(tx){   	    	        
-			var sql='SELECT * FROM SUGERIDO WHERE cliente="'+cliente+'" ';			
+			var sql='SELECT * FROM SUGERIDO a left outer join articulo_existencia b on b.articulo=a.articulo and b.bodega="K01" WHERE cliente="'+cliente+'"  ';			
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error consultar sugerido del cliente : "+cliente+err.code+err.message);
          		});    									
@@ -396,8 +372,8 @@ function sugerido(){
          		},function(){
 				 alert(artsug.length);
 				 for (var i = 0, long = artsug.length; i < long; i++) {   					 
-					   alert(artsug[i]+' '+cantsug[i]);
-					   preparadetalletemp(artsug[i],cantsug[i])
+					   alert(artsug[i]+' '+cantsug[i],+' '+exissug[i]);
+					   preparadetalletemp(artsug[i],cantsug[i],exissug[i])
 				 }
 				 mostrarpedido();
                  //mostrarfactura(); 
