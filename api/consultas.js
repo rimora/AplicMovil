@@ -178,9 +178,9 @@ function preparadetalletemp(articulo,cantidad){
 				    	 		 alert("Error select tabla ARTICULO_EXISTENCIA: "+err.code+err.message);
          					});	
 			   }
-	   var diferencia=exis-cantidad;
-	   alert('existencia '+exis);
-	   alert('cantidad '+exis);
+	   var diferencia=exis(articulo)-cantidad;
+	   alert('existencia '+exis(articulo));
+	   alert('cantidad '+cantidad);
 	   
 	   if (diferencia>=0){
 	       insertatempfactura(articulo,cantidad);
