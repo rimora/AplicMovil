@@ -122,6 +122,28 @@ function llamadascxc(){
   
 
 }
+function existencia(articulo){
+	var existenciab=0;
+	alert(articulo);
+	
+	function listo(tx,results){ 	      
+	      if (results.rows.length>0){
+			var row = results.rows.item(index);    
+			existenciab=row['existencia'];			
+			alert('existencia de consulta '+existenciab);
+		  }		  
+ 	}
+	function consulexis(tx){   	    
+			var sql='SELECT existencia FROM ARTICULO_EXISTENCIA WHERE articulo="'+articulo+'" AND bodega="K01"';			
+			tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error consultar existencia : "+err.code+err.message);
+         		});    									
+	}
+	consultadb().transaction(consulexis, function(err){
+    	 		 alert("Error select tabla ARTICULO_EXISTENCIA: "+err.code+err.message);
+         		});		
+    return existenciab;
+}//function existencia
 function preparadetalletemp(articulo,cantidad){
 	   //para obtener el importe de descuento:
 	   // dividir entre 100 el precio, multiplicar el resultado por el descuento y se obtiene el importe de descuento
@@ -272,32 +294,31 @@ function mostrarfactura(){
 function existeenpedido(articulo){
 	existe=false;
 	
-	function existep(tx){   
-	        function listo(tx,results){ 	      
+	function listo(tx,results){ 	      
 	     	 if (results.rows.length>0){
 				alert('existe en pedido');  
-				existe=true;  
-				alert('prueba de existe '+existe);  
+				existe=true;  				
+				alert('prueba de existe '+existe);  				
 			  }
 		  
- 			}		    
-			var sql='SELECT articulo FROM TEMPEDIDO WHERE articulo="'+articulo+'"  '			
+ 			}
+	function existep(tx){  	       	    
+			var sql='SELECT articulo FROM TEMPEDIDO WHERE articulo="'+articulo+'"  ';			
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error consultar existeTEMPEDIDO : "+err.code+err.message);
          		});    	
-			sql='SELECT articulo FROM TEMFACTURA WHERE articulo="'+articulo+'"  '			
+			sql='SELECT articulo FROM TEMFACTURA WHERE articulo="'+articulo+'"  ';			
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error consultar existeTEMFACTURA : "+err.code+err.message);
          		});    	
 								
 	}
-	
 	consultadb().transaction(existep, function(err){
     	 		 alert("Error select tabla TEMPPEDIDO: "+err.code+err.message);
          		});		
-	 
+	alert('prueba de existe2 '+existe);  
     return existe;
-	alert('prueba de existe2 '+existe); 
+	
 	
 }//function insertatemppedido
 function armacatalogo(){
@@ -335,59 +356,29 @@ function armacatalogo(){
  // });	//$('#pclientes').live('pageshow',function(event, ui){
 	
 }//armacatalogo
-function existencia(articulo){
-	var existe=0;
-	alert(articulo);
-	consultadb().transaction(consulexis, function(err){
-    	 		 alert("Error select tabla ARTICULO_EXISTENCIA: "+err.code+err.message);
-         		});		
-	function consulexis(tx){   	    
-			var sql='SELECT existencia FROM ARTICULO_EXISTENCIA WHERE articulo="'+articulo+'" AND bodega="K01"';			
-			tx.executeSql(sql,[],listo,function(err){
-    	 		 alert("Error consultar existencia : "+err.code+err.message);
-         		});    	
-								
-	}
-	function listo(tx,results){ 
-	      
-	      if (results.rows.length>0){
-			var row = results.rows.item(index);    
-			existe=row['existencia'];			
-			alert('existencia de consulta '+existe);
 
-		  }
-		  
- 	}
-    return existe;
-	
-	
-}//function existencia
 function sugerido(){
-	var cliente=window.localStorage.getItem("clave");
-	consultadb().transaction(consultasug, function(err){
-    	 		 alert("Error select tabla sugerido: "+err.code+err.message);
-         		});		
-	function consultasug(tx){   	    
-			var sql='SELECT * FROM SUGERIDO WHERE cliente="'+cliente+'" ';			
-			tx.executeSql(sql,[],listo,function(err){
-    	 		 alert("Error consultar sugerido del cliente : "+cliente+err.code+err.message);
-         		});    	
-								
-	}
-	function listo(tx,results){ 
-	      
+	var cliente=window.localStorage.getItem("clave");	
+	function listo(tx,results){ 	      
 	      if (results.rows.length>0){
 			$.each(results.rows,function(index){           
 			 var row = results.rows.item(index);            
 			 if (row['cantidad']>0){
 			 	preparadetalletemp(row['articulo'],row['cantidad']);				
-			 }//if (row['cantidad']>0)
-			 
+			 }//if (row['cantidad']>0)			 
 		  	}); //$.each       
-
-		  }//if
-		  
+		  }//if		  
  	}//function listo(tx,results){ 
-	    
-}//function existencia
-
+	function consultasug(tx){   	    
+			var sql='SELECT * FROM SUGERIDO WHERE cliente="'+cliente+'" ';			
+			tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error consultar sugerido del cliente : "+cliente+err.code+err.message);
+         		});    									
+	}
+	consultadb().transaction(consultasug, function(err){
+    	 			 alert("Error select tabla sugerido: "+err.code+err.message);
+         		});		
+	
+	mostrarpedido();
+    mostrarfactura();   		
+}//function sugerido
