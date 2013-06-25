@@ -123,17 +123,20 @@ function llamadascxc(){
 
 }
 function existencia(articulo){
-	var existenciab=0;
-	alert(articulo);
-	
-	function listo(tx,results){ 	      
-	      if (results.rows.length>0){
+	alert(articulo);	
+	function listo(tx,results){ 	 
+	      alert('entra a listo de consulexis');         
+	      if (results.rows.length>0){			  
 			var row = results.rows.item(index);    
 			existenciab=row['existencia'];			
 			alert('existencia de consulta '+existenciab);
-		  }		  
+		  }		
+		  else{
+			  existenciab=0;
+		  }
  	}
-	function consulexis(tx){   	    
+	function consulexis(tx){   	
+	        alert('entra a consulexis');    
 			var sql='SELECT existencia FROM ARTICULO_EXISTENCIA WHERE articulo="'+articulo+'" AND bodega="K01"';			
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error consultar existencia : "+err.code+err.message);
@@ -253,10 +256,10 @@ function mostrarfactura(){
 			  //agrega encabezado de grid
 			  html+=' <div class="ui-block-a" style="width:70px;height:20px" > ';            
               html+=' <div class="ui-bar ui-bar-a">Elim.</div></div> ';           
-              html+=' <div class="ui-block-b"><div class="ui-bar ui-bar-a">Articulo</div></div>';
-              html+=' <div class="ui-block-c"><div class="ui-bar ui-bar-a">Descrip.</div></div>';
-              html+=' <div class="ui-block-d"><div class="ui-bar ui-bar-a">Cantidad</div></div>';
-              html+=' <div class="ui-block-e"><div class="ui-bar ui-bar-a">Precio</div></div>';
+              html+=' <div class="ui-block-b" style="width:90px;height:20px"><div class="ui-bar ui-bar-a">Articulo</div></div>';
+              html+=' <div class="ui-block-c" style="width:120px;height:20px"><div class="ui-bar ui-bar-a">Descrip.</div></div>';
+              html+=' <div class="ui-block-d" style="width:90px;height:20px"><div class="ui-bar ui-bar-a">Cantidad</div></div>';
+              html+=' <div class="ui-block-e" style="width:90px;height:20px"><div class="ui-bar ui-bar-a">Precio</div></div>';
           
 			  $.each(results.rows,function(index){
 				  var row = results.rows.item(index); 				     			     
@@ -272,10 +275,10 @@ function mostrarfactura(){
                    	html+='		</div>';	
 		            html+='   </div>';
             		html+='</div>';            
-                    html+='<div class="ui-block-b"><div class="ui-bar ui-bar-b">'+row['articulo']+'</div></div>';
-                    html+='<div class="ui-block-c"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
-                    html+='<div class="ui-block-d"><div class="ui-bar ui-bar-b">'+row['cantidad']+'</div></div>';
-	                html+='<div class="ui-block-e"><div class="ui-bar ui-bar-b">'+precio+'</div></div> ';
+                    html+='<div class="ui-block-b" style="width:90px;height:20px"><div class="ui-bar ui-bar-b">'+row['articulo']+'</div></div>';
+                    html+='<div class="ui-block-c" style="width:120px;height:20px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
+                    html+='<div class="ui-block-d" style="width:90px;height:20px"><div class="ui-bar ui-bar-b">'+row['cantidad']+'</div></div>';
+	                html+='<div class="ui-block-e" style="width:90px;height:20px"><div class="ui-bar ui-bar-b">'+precio+'</div></div> ';
 
                   	 
 			  });//.each
@@ -367,7 +370,9 @@ function sugerido(){
 			 	preparadetalletemp(row['articulo'],row['cantidad']);				
 			 }//if (row['cantidad']>0)			 
 		  	}); //$.each       
-		  }//if		  
+			mostrarpedido();
+            mostrarfactura(); 	  
+		  }//if			  
  	}//function listo(tx,results){ 
 	function consultasug(tx){   	    
 			var sql='SELECT * FROM SUGERIDO WHERE cliente="'+cliente+'" ';			
@@ -379,6 +384,5 @@ function sugerido(){
     	 			 alert("Error select tabla sugerido: "+err.code+err.message);
          		});		
 	
-	mostrarpedido();
-    mostrarfactura();   		
+	  		
 }//function sugerido
