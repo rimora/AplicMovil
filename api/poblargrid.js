@@ -121,7 +121,7 @@ function mostrarfactura(){
 			         alert('fuera del each factura');	
 					$("#gridfactura").append(html); 
 					alert('fuera del each factura despues del append html');	
-					$("#tfactura").value(total); 								 
+					//$("#tfactura").value(total); 								 
 					alert('total factura'+total);					 					
 			}//if (results.rows.length>0){				
 	   }//function exito
