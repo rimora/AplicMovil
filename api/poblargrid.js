@@ -88,7 +88,7 @@ function mostrarfactura(){
 			  //agrega encabezado de grid
 			  html+=' <div class="ui-block-a" style="width:70px;height:20px" > ';            
               html+=' <div class="ui-bar ui-bar-a">Elim.</div></div> ';           
-              html+=' <div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-a">Articulo</div></div>';
+              html+=' <div class="ui-block-b" style="width:110px"><div class="ui-bar ui-bar-a">Articulo</div></div>';
               html+=' <div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-a">Descrip.</div></div>';
               html+=' <div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-a">Cantidad</div></div>';
               html+=' <div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-a">Precio</div></div>';
@@ -111,22 +111,24 @@ function mostrarfactura(){
                    	html+='		</div>';	
 		            html+='   </div>';
             		html+='</div>';            
-                    html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b">'+row['articulo']+'</div></div>';
+                    html+='<div class="ui-block-b" style="width:110px"><div class="ui-bar ui-bar-b">'+row['articulo']+'</div></div>';
                     html+='<div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
                     html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b">'+row['cantidad']+'</div></div>';
 	                html+='<div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-b">'+precio+'</div></div> ';
 
                   	 
 			  });//.each
+			         alert('fuera del each factura');	
 					$("#gridfactura").append(html); 
-					$("#tfactura").value(total); 			
-					 alert('fuera del each factura');	
+					alert('fuera del each factura despues del append html');	
+					$("#tfactura").value(total); 								 
 					alert('total factura'+total);					 					
 			}//if (results.rows.length>0){				
 	   }//function exito
  		
 	function errorconsulta(err) {
     	alert("Error SQL al llenar detalles factura: "+err.code+err.message);
+		return false;
 	}
 //  });	
 
