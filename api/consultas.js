@@ -295,9 +295,9 @@ function existeenpedido(articulo){
 	consultadb().transaction(existep, function(err){
     	 		 alert("Error select tabla TEMPPEDIDO: "+err.code+err.message);
          		});		
-	alert('prueba de existe2 '+existe);  
+	 
     return existe;
-	
+	alert('prueba de existe2 '+existe); 
 	
 }//function insertatemppedido
 function armacatalogo(){
