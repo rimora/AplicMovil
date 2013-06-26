@@ -1,5 +1,6 @@
 // consultas de articulos
 function consultaexis(articulo){	
+     var existenciab=0;
 	    consultadb().transaction(existencia,function(err){
     	  alert("Error al insertar renglon factura: "+err.code+err.message);
           });
