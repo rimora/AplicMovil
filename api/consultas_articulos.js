@@ -1,6 +1,6 @@
 // consultas de articulos
 function consultaexis(articulo){	
-     existenciab=0;
+     
 	    consultadb().transaction(existencia,function(err){
     	  alert("Error al insertar renglon factura: "+err.code+err.message);
           });
@@ -12,16 +12,19 @@ function consultaexis(articulo){
     	 		 alert("Error consultar existencia : "+err.code+err.message);
          		});    									
 	    }
-	function listo(tx,results){ 	 
+		function listo(tx,results){ 	 
 	      alert('entra a listo de consulexis');         
 	      if (results.rows.length>0){			  
 		    alert('despues del rows.length');         
 			var row = results.rows.item(0);    
 			alert('despues del var row');         
 			existenciab=row['existencia'];			
-			alert('existencia de consulta '+existenciab);
-			
+			alert('existencia de consulta '+existenciab);			
 		  }		
+		  else
+		  {
+			existenciab=0;  
+		  }
  	}
 	return existenciab;
 }//function insertatemppedido
