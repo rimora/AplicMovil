@@ -1,5 +1,4 @@
 // consultas
-var existe=false;// utilizada para saber si un producto ya existe en la tabla de pedidos o factura detalle y no la inserten de nuevo desde el catalogo
 function mostrarclientes(dia){
  // $('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);		
@@ -123,10 +122,11 @@ function llamadascxc(){
 
 }
 
-function preparadetalletemp(articulo,cantidad,existencia){
+function preparadetalletemp(articulo,cantidad){
 	   //para obtener el importe de descuento:
 	   // dividir entre 100 el precio, multiplicar el resultado por el descuento y se obtiene el importe de descuento
 	   //restar el importe de descuento al precio	   
+	   var existencia=consultaexis(articulo);
 	   var diferencia=existencia-cantidad;
 	   alert('existencia '+existencia);
 	   alert('cantidad '+cantidad);
@@ -145,8 +145,7 @@ function preparadetalletemp(articulo,cantidad,existencia){
 		   }
 	   }
 }//function insertatemppedido
-function existeenpedido(articulo){
-	existe=false;	
+function existeenpedido(articulo){	
 	function listo(tx,results){ 	
 	         alert('entra a funcion listo de existeenpedido');         	          
 	     	 if (results.rows.length>0){
@@ -154,7 +153,11 @@ function existeenpedido(articulo){
 				existe=true;  				
 				alert('prueba de existe '+existe);  				
 			  }
-		  
+			  else
+			  {
+				existe=false;  
+			  }
+		      return existe;
  			}
 	function existep(tx){  	
 	        alert('entra a funcion existep');         	    
@@ -172,7 +175,7 @@ function existeenpedido(articulo){
     	 		 alert("Error select tabla TEMPPEDIDO: "+err.code+err.message);
          		});		
 	alert('prueba de existe2 '+existe);  
-    return existe;
+    
 	
 	
 }//function insertatemppedido
@@ -183,12 +186,13 @@ function armacatalogo(){
 		consultadb().transaction(poblarcat, function(err){
     	 		 alert("Error select catálogo : "+err.code+err.message);
          		});		
-	function poblarcat(tx){  	   
+	function poblarcat(tx){  
+	        alert('entra al poblarcat armacatalogo');        	   
 			var sql='SELECT a.articulo,a.descripcion,a.clas,a.accion,a.impuesto,a.descuento,b.existencia as ebodega,c.existencia as ealg,';
 			sql+='(a.precio-((a.precio/100)*a.descuento)) as precio ';
 			sql+='FROM articulo a left outer join articulo_existencia b on b.articulo=a.articulo and b.bodega="K01" ';
 			sql+=' left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="ALG" order by a.descripcion';
-			
+			alert('despues del sql armacatalogo');        
 			
 			
 		    tx.executeSql(sql,[],listo,function(err){
@@ -197,15 +201,20 @@ function armacatalogo(){
 	}
 	function listo(tx,results){  
 		 $('#lcatalogo').empty();        
-		 $.each(results.rows,function(index){           
-			 var row = results.rows.item(index);            
+		 alert('entra a listo de armacatalogo');
+		 $.each(results.rows,function(index){   
+		     alert('entra al each armacatalogo');        
+			 var row = results.rows.item(index);         
+			 alert('despues del var row armacatalogo');           
 			 var html="";	         
 			 html+='<li id='+row['articulo']+'>';
 	         html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> '+row['descripcion']+'</h3>';
 			 html+='Clasificación:'+row['clas']+' AcciónT:'+row['accion']+'<br/>Precio:'+row['precio']+' Existencia:'+row['ebodega']+' ALG:'+row['ealg']+'</p></a></li>';
 			 $('#lcatalogo').append(html);        
+			 alert('despues de lcatalogo.append armacatalogo');        
 		 });         
 		 $('#lcatalogo').listview('refresh'); 
+		 alert('despues de lcatalogo listview armacatalogo');        
  	}
 
  // });	//$('#pclientes').live('pageshow',function(event, ui){
@@ -249,7 +258,7 @@ function sugerido(){
 				 alert(artsug.length);
 				 for (var i = 0, long = artsug.length; i < long; i++) {   					 
 					   alert(artsug[i]+' '+cantsug[i]+' '+exissug[i]);
-					   preparadetalletemp(artsug[i],cantsug[i],exissug[i])
+					   preparadetalletemp(artsug[i],cantsug[i])
 				 }
 				 mostrarpedido();
                  mostrarfactura(); 
