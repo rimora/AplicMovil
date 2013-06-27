@@ -152,7 +152,7 @@ $("#bmodificarp").tap(function() {
 });
 $("#beliminarp").tap(function() { 
                  //var clavecli = $(this).attr("id");
-		$('input:checkbox.clasef').each(function () {
+		$('input:checkbox.clasep').each(function () {
            if (this.checked) {
                alert($(this).attr("name"));
 			   //alert($("#"+"c"+$(this).val()).val());
