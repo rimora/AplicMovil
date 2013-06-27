@@ -112,6 +112,31 @@ function insertatempfactura(articulo,cantidad){
 		}
 	
 }//function insertatemppedido
+function eliminatemppedido(articulo){
+	   
+	consultadb().transaction(insertadet,function(err){
+    	  alert("Error al eliminar renglon: "+err.code+err.message);
+          },alert("Artículo eliminado en pedido"));
+				
+    	function insertadet(tx) {		
+		alert('entra a delete de detallepedido');
+		tx.executeSql('DELETE FROM TEMPEDIDO WHERE ARTICULO="'+articulo+'"');        
+		}
+	
+}//function eliminatemppedido
+function eliminatempfactura(articulo,cantidad){
+	   
+	consultadb().transaction(insertadet,function(err){
+    	  alert("Error al eliminar renglon de tempfactura: "+err.code+err.message);
+          },alert("Artículo eliminado en tempfac"));
+				
+    	function insertadet(tx) {		
+		alert('entra a delete de detallefactura');
+		tx.executeSql('DELETE FROM TEMFACTURA WHERE ARTICULO="'+articulo+'"');        
+		tx.executeSql('UPDATE ARTICULO_EXISTENCIA SET existencia=existencia+'+cantidad+' WHERE articulo="'+articulo+'" and bodega="K01"');
+		}
+	
+}//function insertatemppedido
 function limpiartemp(){
 	   //limpia tablas temporales que tienen articulos en pedido y/o factura
 	consultadb().transaction(limpiatabla,function(err){

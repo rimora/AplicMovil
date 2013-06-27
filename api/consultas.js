@@ -210,10 +210,20 @@ function armacatalogo(){
 		     alert('entra al each armacatalogo');        
 			 var row = results.rows.item(index);         
 			 alert('despues del var row armacatalogo');           
-			 var html="";	         
+			 var html="";	
+			 if   (row['ebodega']==null)       
+			 {
+				var existencia=0; 
+				alert('existencia es null'); 
+			 }
+			 else 
+			 {
+				 var existencia=row['ebodega']; 
+			 }
+			 
 			 html+='<li id='+row['articulo']+'>';
 	         html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> '+row['descripcion']+'</h3>';
-			 html+='Clasificación:'+row['clas']+' AcciónT:'+row['accion']+'<br/>Precio:'+row['precio']+' Existencia:'+row['ebodega']+' ALG:'+row['ealg']+'</p></a></li>';
+			 html+='Clasificación:'+row['clas']+' AcciónT:'+row['accion']+'<br/>Precio:'+row['precio']+' Existencia:'+existencia+' ALG:'+row['ealg']+'</p></a></li>';
 			 $('#lcatalogo').append(html);        
 			 alert('despues de lcatalogo.append armacatalogo');        
 		 });         

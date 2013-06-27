@@ -151,8 +151,30 @@ $("#bmodificarp").tap(function() {
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
 });
 $("#beliminarp").tap(function() { 
+                 //var clavecli = $(this).attr("id");				 
+	function onConfirm(button) {
+		if (button==1){
+			$('input:checkbox.clasep').each(function () {
+           		if (this.checked) {
+             	  alert($(this).attr("name"));
+				  alert($(this).attr("value"));
+				   eliminatemppedido($(this).attr("name"))				    
+			   //alert($("#"+"c"+$(this).val()).val());
+          		 }
+			});//$('input:checkbox.clasep').each(function () {	
+			mostrarpedido();
+		}//if (button==1){
+	}			 
+    navigator.notification.confirm('¿Estas seguro de eliminar los registros seleccionados?',     // mensaje (message)
+    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
+    'Eliminar del pedido',            // titulo (title)
+        'SI,NO'       // botones (buttonLabels)
+    );
+				  //$.mobile.changePage($("#datoscli"));	  			  				  
+});
+$("#beliminarf").tap(function() { 
                  //var clavecli = $(this).attr("id");
-		$('input:checkbox.clasep').each(function () {
+		$('input:checkbox.clasef').each(function () {
            if (this.checked) {
                alert($(this).attr("name"));
 			   //alert($("#"+"c"+$(this).val()).val());
@@ -164,6 +186,7 @@ $("#beliminarp").tap(function() {
 		
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
 });
+
 
 	$("#bpruebas").tap(function() { 	
      //llama a funcion que prepara las tablas temporales, insertando el articulo y cantidad
