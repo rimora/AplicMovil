@@ -164,17 +164,22 @@ $("#bmodificarp").tap(function() {
 	$("#lcatalogo li").live('click',function(){
                   var articulo = $(this).attr("id");
 				 // alert (articulo);
-				 if (existeenpedido(articulo)==true) {
-					alert('Artículo ya fue ingresado, modifiquelo desde el pedido o factura');
-				 }
-				 {
-					guardaarticulo(articulo);//almacena localmente la clave de articulo 					 
-					window.location.href='#pcantidad';
-					
-				 }
-				 
-				 
-				  
+				 existeenpedido(articulo);
+    });
+	$("#botoncantidad").tap(function(){
+                 var cantidad=$('#scantidad').attr('Val');
+				  alert (cantidad);
+				  if (cantidad<=0){
+					  alert ('No es posible indicar cantidad cero');
+					  
+				  }
+				  else
+				  {
+				    //obtiene el articulo pulsado en la lista
+    				var articulo = window.localStorage.getItem("articulo");
+	     			alert (articulo);	  
+					 consultaexis(articulo,cantidad);
+				  }
     });
 	$("#guardapros").tap(function() { 
                  //var clavecli = $(this).attr("id");

@@ -1,7 +1,5 @@
 // consultas de articulos
-function consultaexis(articulo){	
-var existenciab=0;
-	    				
+function consultaexis(articulo,cantidad){	
     	function existencia(tx){   	
 	        alert('entra a consulexis');    
 			var sql='SELECT existencia FROM ARTICULO_EXISTENCIA WHERE articulo="'+articulo+'" AND bodega="K01"';			
@@ -14,18 +12,17 @@ var existenciab=0;
 	      if (results.rows.length>0){			  
 		    alert('despues del rows.length');         
 			var row = results.rows.item(0);    
-			alert('despues del var row');         
-			var existenciab=row['existencia'];			
-			alert('existencia de consulta '+existenciab);			
+			alert('despues del var row');         			
+			preparadetalletemp(articulo,cantidad,row['existencia'])
 		  }		
 		  else
 		  {
-			var existenciab=0;  
+			preparadetalletemp(articulo,cantidad,0)
 		  }
 		  
  		}
 		consultadb().transaction(existencia,function(err){
     	  alert("Error al insertar renglon factura: "+err.code+err.message);
           });
-	return existenciab;
+	
 }//function consultaexis

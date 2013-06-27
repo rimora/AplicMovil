@@ -122,11 +122,8 @@ function llamadascxc(){
 
 }
 
-function preparadetalletemp(articulo,cantidad){
-	   //para obtener el importe de descuento:
-	   // dividir entre 100 el precio, multiplicar el resultado por el descuento y se obtiene el importe de descuento
-	   //restar el importe de descuento al precio	   
-	   var existencia=consultaexis(articulo);
+function preparadetalletemp(articulo,cantidad,existencia){
+	   //var existencia=consultaexis(articulo);
 	   var diferencia=existencia-cantidad;
 	   alert('existencia '+existencia);
 	   alert('cantidad '+cantidad);
@@ -145,7 +142,8 @@ function preparadetalletemp(articulo,cantidad){
 		   }
 	   }
 }//function insertatemppedido
-function existeenpedido(articulo){	
+function existeenpedido(articulo){
+	var existe=false;	
 	function listo(tx,results){ 	
 	         alert('entra a funcion listo de existeenpedido');         	          
 	     	 if (results.rows.length>0){
@@ -153,12 +151,8 @@ function existeenpedido(articulo){
 				existe=true;  				
 				alert('prueba de existe '+existe);  				
 			  }
-			  else
-			  {
-				existe=false;  
-			  }
-		      return existe;
- 			}
+			 
+ 	}
 	function existep(tx){  	
 	        alert('entra a funcion existep');         	    
 			var sql='SELECT articulo FROM TEMPEDIDO WHERE articulo="'+articulo+'"  ';			
@@ -173,8 +167,18 @@ function existeenpedido(articulo){
 	}
 	consultadb().transaction(existep, function(err){
     	 		 alert("Error select tabla TEMPPEDIDO: "+err.code+err.message);
-         		});		
-	alert('prueba de existe2 '+existe);  
+         		},function(){
+					alert(existe);
+					if (existe){
+   					alert('Artículo ya fue ingresado, modifiquelo desde el pedido o factura');
+					}
+					else
+					{
+						guardaarticulo(articulo);//almacena localmente la clave de articulo 					 
+						window.location.href='#pcantidad';
+					}
+				});		
+
     
 	
 	
@@ -231,13 +235,13 @@ function sugerido(){
 	      if (results.rows.length>0){
 			$.each(results.rows,function(index){           
 			 var row = results.rows.item(index);            			
-			 if (row['cantidad']>0){
+			 //if (row['cantidad']>0){
 			 	//preparadetalletemp(row['articulo'],row['cantidad']);								
 				artsug[i]=row['articulo'];
 				cantsug[i]=row['cantidad'];
 				exissug[i]=row['existencia'];
 				i++;
-			 }//if (row['cantidad']>0)			 
+			 //}//if (row['cantidad']>0)			 
 		  	}); //$.each       				  
 		  }//if			  
 		  /*else
@@ -258,7 +262,7 @@ function sugerido(){
 				 alert(artsug.length);
 				 for (var i = 0, long = artsug.length; i < long; i++) {   					 
 					   alert(artsug[i]+' '+cantsug[i]+' '+exissug[i]);
-					   preparadetalletemp(artsug[i],cantsug[i])
+					   preparadetalletemp(artsug[i],cantsug[i],exissug[i])
 				 }
 				 mostrarpedido();
                  mostrarfactura(); 
