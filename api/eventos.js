@@ -150,6 +150,20 @@ $("#bmodificarp").tap(function() {
 		
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
 });
+$("#beliminarp").tap(function() { 
+                 //var clavecli = $(this).attr("id");
+		$('input:checkbox.clasef').each(function () {
+           if (this.checked) {
+               alert($(this).attr("name"));
+			   //alert($("#"+"c"+$(this).val()).val());
+			   
+			   
+			    
+           }
+		});
+		
+				  //$.mobile.changePage($("#datoscli"));	  			  				  
+});
 
 	$("#bpruebas").tap(function() { 	
      //llama a funcion que prepara las tablas temporales, insertando el articulo y cantidad
@@ -167,7 +181,8 @@ $("#bmodificarp").tap(function() {
 				 existeenpedido(articulo);
     });
 	$("#botoncantidad").tap(function(){
-                 var cantidad=$('#scantidad').attr('Val');
+                 //var cantidad=$('#scantidad').attr('Val');
+				 var cantidad=$('#scantidad').val();
 				  alert (cantidad);
 				  if (cantidad<=0){
 					  alert ('No es posible indicar cantidad cero');

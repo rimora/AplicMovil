@@ -33,7 +33,7 @@ function mostrarpedido(){
 				  var row = results.rows.item(index); 				     			     
 				     descuento=(row['precio']/100)*row['descuento'];
 				     precio=row['precio']-descuento;				 
-					 total+=precio*row['cantidad'];
+					 total+=Number(precio*row['cantidad']);
 					 
 					html+='<div class="ui-block-a" style="width:70px;height:20px" >';              
            			html+='<div class="ui-bar ui-bar-e"  >';      		 		
@@ -51,7 +51,8 @@ function mostrarpedido(){
                   	 
 			  });//.each
 					$("#gridpedido").append(html); 
-					$("#tpedido").attr("value",total); 			
+					//$("#tpedido").attr("value",total); 			
+					$("#tpedido").val(total); 			
 					
 					alert('total'+total);					 
 			
@@ -93,13 +94,13 @@ function mostrarfactura(){
 				  var row = results.rows.item(index); 					    
 				     descuento=(row['precio']/100)*row['descuento'];
 				     precio=row['precio']-descuento;				 
-					 total+=precio*row['cantidad'];
+					 total+=Number(precio*row['cantidad']);
 					 					 
 					html+='<div class="ui-block-a" style="width:70px;height:20px" >';              
            			html+='<div class="ui-bar ui-bar-e"  >';      		 		
                    	html+='<div style="padding:0px; margin-top:-8px; margin-left:-10px">'; 
 			        html+='     <label for="F'+row['articulo']+'" >&nbsp</label>';  
-            		html+='     <input type="checkbox" id="F'+row['articulo']+'" name="'+row['articulo']+'" />';
+            		html+='     <input type="checkbox" id="F'+row['articulo']+'" name="'+row['articulo']+'" class="clasef"/>';
                    	html+='		</div>';	
 		            html+='   </div>';
             		html+='</div>';            
@@ -111,7 +112,8 @@ function mostrarfactura(){
                   	 
 			  });//.each			        
 					$("#gridfactura").append(html); 					
-					$("#tfactura").attr("value",total); 								 
+					//$("#tfactura").attr("value",total); 								 
+					$("#tfactura").val(total); 								 
 					alert('total factura'+total);				 								
 	   }//function exito
  		
