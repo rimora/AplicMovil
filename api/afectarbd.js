@@ -145,8 +145,7 @@ function modificatemppedido(articulo,cantidad){
 				
     	function insertadet(tx) {		
 		//alert('entra a modificar detallepedido');
-		alert (articulo);
-		alert (cantidad);
+		
 		tx.executeSql('UPDATE TEMPEDIDO SET CANTIDAD='+cantidad+' WHERE ARTICULO="'+articulo+'"');        
 		}
 	

@@ -143,6 +143,7 @@ $("#bmodificarp").tap(function() {
            if (this.checked) {
                //alert($(this).attr("name"));
 			   contador++;
+			   var articulo=$(this).attr("name");
 			   //alert($("#"+"c"+$(this).val()).val());
            }		   
 		});//$('input:checkbox.clasep').each(function () {
@@ -150,7 +151,7 @@ $("#bmodificarp").tap(function() {
 		   navigator.notification.alert('Solo debe seleccionar un articulo',null,'Error Modificando Pedido','Aceptar');					
 		}
 		if (contador==1) {
-		     guardaarticulo($(this).attr("name"));//almacena localmente la clave de articulo 					 
+		     guardaarticulo(articulo);//almacena localmente la clave de articulo 					 
 			 window.location.href='#pmodcantidadp';
 		}	
 		
@@ -243,7 +244,7 @@ $("#beliminarf").tap(function() {
 				  {
 				    //obtiene el articulo pulsado en la lista
     				var articulo = window.localStorage.getItem("articulo");
-	     			//alert (articulo);	  
+	     			alert (cantidad);	  
 					 modificatemppedido(articulo,cantidad);
 					 mostrarpedido();
 				  }

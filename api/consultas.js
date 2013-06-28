@@ -213,13 +213,21 @@ function armacatalogo(){
 			 var html="";	
 			 if   (row['ebodega']==null)       
 			 {
-				var existencia=0; 
-				var existenciaalg=0; 
+				var existencia=0; 				
 				//alert('existencia es null'+existencia); 
 			 }
 			 else 
 			 {
 				 var existencia=row['ebodega']; 
+				 
+			 }
+			  if   (row['ealg']==null)       
+			 {
+				var existenciaalg=0; 				
+				//alert('existencia es null'+existencia); 
+			 }
+			 else 
+			 {
 				 var existenciaalg=row['ealg']; 
 			 }
 			 
