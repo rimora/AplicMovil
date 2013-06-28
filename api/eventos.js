@@ -218,7 +218,7 @@ $("#beliminarf").tap(function() {
 	$("#botoncantidad").tap(function(){
                  //var cantidad=$('#scantidad').attr('Val');
 				 var cantidad=$('#scantidad').val();
-				  alert (cantidad);
+				  //alert (cantidad);
 				  if (cantidad<=0){
 					  alert ('No es posible indicar cantidad cero');
 					  

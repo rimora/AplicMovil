@@ -196,7 +196,7 @@ function armacatalogo(){
 			sql+='(a.precio-((a.precio/100)*a.descuento)) as precio ';
 			sql+='FROM articulo a left outer join articulo_existencia b on b.articulo=a.articulo and b.bodega="K01" ';
 			sql+=' left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="ALG" order by a.descripcion';
-			alert('despues del sql armacatalogo');        
+			//alert('despues del sql armacatalogo');        
 			
 			
 		    tx.executeSql(sql,[],listo,function(err){
@@ -214,16 +214,18 @@ function armacatalogo(){
 			 if   (row['ebodega']==null)       
 			 {
 				var existencia=0; 
-				alert('existencia es null'+existencia); 
+				var existenciaalg=0; 
+				//alert('existencia es null'+existencia); 
 			 }
 			 else 
 			 {
 				 var existencia=row['ebodega']; 
+				 var existenciaalg=row['ealg']; 
 			 }
 			 
 			 html+='<li id='+row['articulo']+'>';
 	         html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> '+row['descripcion']+'</h3>';
-			 html+='Clasificación:'+row['clas']+' AcciónT:'+row['accion']+'<br/>Precio:'+row['precio']+' Existencia:'+existencia+' ALG:'+row['ealg']+'</p></a></li>';
+			 html+='Clasificación:'+row['clas']+' AcciónT:'+row['accion']+'<br/>Precio:'+row['precio']+' Existencia:'+existencia+' ALG:'+existenciaalg+'</p></a></li>';
 			 $('#lcatalogo').append(html);        
 			 //alert('despues de lcatalogo.append armacatalogo');        
 		 });         

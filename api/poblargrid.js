@@ -68,7 +68,7 @@ function mostrarfactura(){
 	//muestra en un collapsible los renglones temporales de pedido, agregandolos en un grid
 	//el usuario podrá eliminar los renglones que se selecciones por medio de checkbox
 //  $('#datoscli').live('pageshow',function(event, ui){   	   
-		alert('entra mostrar factura');
+		//alert('entra mostrar factura');
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		consultadb().transaction(consulta,errorconsulta);	
 	function consulta(tx) {		
