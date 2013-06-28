@@ -39,7 +39,7 @@ function mostrarpedido(){
            			html+='<div class="ui-bar ui-bar-e"  >';      		 		
                    	html+='<div style="padding:0px; margin-top:-8px; margin-left:-10px">'; 
 			        html+='     <label for="P'+row['articulo']+'" >&nbsp</label>';  
-            		html+='     <input type="checkbox" id="P'+row['articulo']+'" name="'+row['articulo']+'" class="clasep" value="'+row['cantidad']+'" />';
+            		html+='     <input type="checkbox" id="P'+row['articulo']+'" name="'+row['articulo']+'" value="'+row['cantidad']+'" class="clasep"  />';
                    	html+='		</div>';	
 		            html+='   </div>';
             		html+='</div>';            
