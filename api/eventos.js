@@ -184,7 +184,7 @@ $("#beliminarf").tap(function() {
 		if (button==1){
 			$('input:checkbox.clasef').each(function () {
            		if (this.checked) {
-				   eliminatemppedido($(this).attr("name"),Number($(this).attr("value")))				    
+				   eliminatempfactura($(this).attr("name"),Number($(this).attr("value")))				    
 			   //alert($("#"+"c"+$(this).val()).val());
           		 }
 			});//$('input:checkbox.clasep').each(function () {	
