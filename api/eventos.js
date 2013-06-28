@@ -138,15 +138,21 @@ $(document).ready(function() {
 
 $("#bmodificarp").tap(function() { 
                  //var clavecli = $(this).attr("id");
-		$(':checkbox').each(function () {
+				 var contador=0;
+		$('input:checkbox.clasep').each(function () {
            if (this.checked) {
-               alert($(this).attr("name"));
+               //alert($(this).attr("name"));
+			   contador++;
 			   //alert($("#"+"c"+$(this).val()).val());
-			   
-			   
-			    
-           }
-		});
+           }		   
+		});//$('input:checkbox.clasep').each(function () {
+		if (contador>1) {
+		   navigator.notification.alert('Solo debe seleccionar un articulo',null,'Error Modificando Pedido','Aceptar');					
+		}
+		if (contador==1) {
+		     guardaarticulo($(this).attr("name"));//almacena localmente la clave de articulo 					 
+			 window.location.href='#pmodcantidadp';
+		}	
 		
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
 });
@@ -174,16 +180,22 @@ $("#beliminarp").tap(function() {
 });
 $("#beliminarf").tap(function() { 
                  //var clavecli = $(this).attr("id");
-		$('input:checkbox.clasef').each(function () {
-           if (this.checked) {
-               alert($(this).attr("name"));
+		function onConfirm(button) {
+		if (button==1){
+			$('input:checkbox.clasef').each(function () {
+           		if (this.checked) {
+				   eliminatemppedido($(this).attr("name"),Number($(this).attr("value")))				    
 			   //alert($("#"+"c"+$(this).val()).val());
-			   
-			   
-			    
-           }
-		});
-		
+          		 }
+			});//$('input:checkbox.clasep').each(function () {	
+			mostrarfactura();
+		}//if (button==1){
+	}			 
+    navigator.notification.confirm('¿Estas seguro de eliminar los registros seleccionados?',     // mensaje (message)
+    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
+    'Eliminar de factura',            // titulo (title)
+        'SI,NO'       // botones (buttonLabels)
+    );
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
 });
 
@@ -215,8 +227,25 @@ $("#beliminarf").tap(function() {
 				  {
 				    //obtiene el articulo pulsado en la lista
     				var articulo = window.localStorage.getItem("articulo");
-	     			alert (articulo);	  
+	     			//alert (articulo);	  
 					 consultaexis(articulo,cantidad);
+				  }
+    });
+	$("#botonmodcantidadp").tap(function(){
+                 //var cantidad=$('#scantidad').attr('Val');
+				 var cantidad=$('#modcantidadp').val();
+				  //alert (cantidad);
+				  if (cantidad<=0){
+					   navigator.notification.alert('Debe indicar cantidad MAYOR A CERO',null,'Error Indicando Cantidad','Aceptar');					
+					  
+				  }
+				  else
+				  {
+				    //obtiene el articulo pulsado en la lista
+    				var articulo = window.localStorage.getItem("articulo");
+	     			//alert (articulo);	  
+					 modificatemppedido(articulo,cantidad);
+					 mostrarpedido();
 				  }
     });
 	$("#guardapros").tap(function() { 

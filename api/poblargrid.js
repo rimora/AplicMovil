@@ -54,7 +54,7 @@ function mostrarpedido(){
 					//$("#tpedido").attr("value",total); 			
 					$("#tpedido").val(total); 			
 					
-					alert('total'+total);					 
+					//alert('total'+total);					 
 			
 	   }//function exito
  		
@@ -100,7 +100,7 @@ function mostrarfactura(){
            			html+='<div class="ui-bar ui-bar-e"  >';      		 		
                    	html+='<div style="padding:0px; margin-top:-8px; margin-left:-10px">'; 
 			        html+='     <label for="F'+row['articulo']+'" >&nbsp</label>';  
-            		html+='     <input type="checkbox" id="F'+row['articulo']+'" name="'+row['articulo']+'" class="clasef" value='+row['cantidad']+' />';
+            		html+='     <input type="checkbox" id="F'+row['articulo']+'" name="'+row['articulo']+'" value="'+row['cantidad']+'" class="clasef"  />';
                    	html+='		</div>';	
 		            html+='   </div>';
             		html+='</div>';            
@@ -114,7 +114,7 @@ function mostrarfactura(){
 					$("#gridfactura").append(html); 					
 					//$("#tfactura").attr("value",total); 								 
 					$("#tfactura").val(total); 								 
-					alert('total factura'+total);				 								
+					//alert('total factura'+total);				 								
 	   }//function exito
  		
 	function errorconsulta(err) {
