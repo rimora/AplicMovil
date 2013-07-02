@@ -13,7 +13,7 @@ consultadb().transaction(creartb, errorCB, successCB);
 
 	//alert('entra a funcion iniciar');
 		function creartb(tx) {
-			alert('funcion creartb');	
+			//alert('funcion creartb');	
     	 tx.executeSql('DROP TABLE IF EXISTS CLIENTES');
 		 tx.executeSql('DROP TABLE IF EXISTS erpadmin_alcxc_pen_cob');
 		 tx.executeSql('DROP TABLE IF EXISTS TEMPEDIDO');
@@ -39,14 +39,14 @@ consultadb().transaction(creartb, errorCB, successCB);
 	}
 
 	function successCB() {
-    alert("success!");
+     navigator.notification.alert('Tablas Generadas',null,'Generar Tablas','Aceptar');					;
 	}	
 }//function iniciar()
 function insertar(){
 		
 		consultadb().transaction(insertarcli,function(err){
     	  alert("Error al insertar clientes: "+err.code+err.message);
-          },alert("clientes insertados"));
+          }, navigator.notification.alert('Datos insertados',null,'Insertar Datos','Aceptar'));
 				
     	function insertarcli(tx) {		
 		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia UNO", "1020","Lunes","Dirección del cliente","2281545130","C","30","10000.00","30000.00")');      
@@ -107,8 +107,8 @@ function insertatempfactura(articulo,cantidad){
 				
     	function insertadet(tx) {		
 		
-		tx.executeSql('INSERT INTO TEMFACTURA (articulo,cantidad) VALUES ("'+articulo+'",'+cantidad+')');
-		tx.executeSql('UPDATE ARTICULO_EXISTENCIA SET existencia=existencia-'+cantidad+' WHERE articulo="'+articulo+'" and bodega="K01"');        
+		tx.executeSql('INSERT INTO TEMFACTURA (articulo,cantidad) VALUES ("'+articulo+'",'+Number(cantidad)+')');
+		tx.executeSql('UPDATE ARTICULO_EXISTENCIA SET existencia=existencia-'+Number(cantidad)+' WHERE articulo="'+articulo+'" and bodega="K01"');        
 		}
 	
 }//function insertatempfactura

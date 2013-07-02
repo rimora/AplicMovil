@@ -129,15 +129,18 @@ function preparadetalletemp(articulo,cantidad,existencia){
 	  // alert('cantidad '+cantidad);
 	   
 	   if (diferencia>=0){
+		   alert('diferencia>0');
 	       insertatempfactura(articulo,cantidad);
 	   }
 	   else {
 		   if (existencia>0){
-			   insertatempfactura(articulo,cantidad);
-               insertatemppedido(articulo,(cantidad-exis));
+			   alert('diferencia<0 y existencia>0');
+			   insertatempfactura(articulo,existencia);
+               insertatemppedido(articulo,(cantidad-existencia));
 			   
 		   }
 		   else{
+			   alert('diferencia<0 y existencia=0');
 			   insertatemppedido(articulo,cantidad);
 		   }
 	   }
@@ -230,15 +233,17 @@ function armacatalogo(){
 			 {
 				 var existenciaalg=row['ealg']; 
 			 }
-			 
+			 alert('antes del html de catalogo');
 			 html+='<li id='+row['articulo']+'>';
 	         html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> '+row['descripcion']+'</h3>';
 			 html+='Clasificación:'+row['clas']+' AcciónT:'+row['accion']+'<br/>Precio:'+row['precio']+' Existencia:'+existencia+' ALG:'+existenciaalg+'</p></a></li>';
+			 			 alert('antes del append html de catalogo');
 			 $('#lcatalogo').append(html);        
 			 //alert('despues de lcatalogo.append armacatalogo');        
 		 });         
+		 			 alert('antes del refresh de lista de catalogo');
 		 $('#lcatalogo').listview('refresh'); 
-		 //alert('despues de lcatalogo listview armacatalogo');        
+		 alert('despues de lcatalogo listview armacatalogo');        
  	}
 
  // });	//$('#pclientes').live('pageshow',function(event, ui){
