@@ -35,8 +35,16 @@ function consultaexis(articulo,cantidad,tipo){
 	
 }//function consultaexis
 function consultaexis2(articulo){	
-      var existencia=0;
+      var exi=0;
 	  alert('entra a función');
+	  consultadb().transaction(existencia,function(err){
+    	  alert("Error al insertar renglon factura: "+err.code+err.message);
+          },function()
+		  	{
+			  alert(exi);
+			  return exi;
+		  	}
+		);
     	function existencia(tx){   	
 	        alert('entra a consulexis');    
 			var sql='SELECT existencia FROM ARTICULO_EXISTENCIA WHERE articulo="'+articulo+'" AND bodega="K01"';			
@@ -50,22 +58,15 @@ function consultaexis2(articulo){
 		    //alert('despues del rows.length');         
 			var row = results.rows.item(0);    
 			//alert('despues del var row');         			
-			existencia=row['existencia'];
+			exi=row['existencia'];
 		  }		
 		  else
 		  {
-			existencia=5000;
+			exi=5000;
 		  }
 		  
  		}
-		consultadb().transaction(existencia,function(err){
-    	  alert("Error al insertar renglon factura: "+err.code+err.message);
-          },function()
-		  	{
-			  alert(existencia);
-			  return existencia;
-		  	}
-		);
-	alert (existencia);
-	return existencia;
+		
+	alert (exi);
+	return exi;
 }//function consultaexis

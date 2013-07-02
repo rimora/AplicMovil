@@ -232,8 +232,9 @@ $("#beliminarf").tap(function() {
 	//preparadetalletemp(window.localStorage.getItem("articulo"),$("#scantidad").val())
 	  alert('boton pruebas2');
 	  alert('ya');
-	  alert(c);	  
+	    
 	  var c=0;
+	  alert(c);	
 	  var c=consultaexis2("ADE-04");
       alert(c);	  
       //iniciar();
