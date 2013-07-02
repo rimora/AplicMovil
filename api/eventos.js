@@ -234,9 +234,9 @@ $("#beliminarf").tap(function() {
 	  alert('ya');
 	    
 	  var c=0;
-	  alert(c);	
+	  
 	  var c=consultaexis2("ADE-04");
-      alert(c);	  
+      alert('despues de llamada'+c);	  
       //iniciar();
 	});
 	$("#lcatalogo li").live('click',function(){

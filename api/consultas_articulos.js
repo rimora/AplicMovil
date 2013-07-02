@@ -35,7 +35,7 @@ function consultaexis(articulo,cantidad,tipo){
 	
 }//function consultaexis
 function consultaexis2(articulo){	
-      var exi=0;
+     
 	  alert('entra a función');
 	  consultadb().transaction(existencia,function(err){
     	  alert("Error al insertar renglon factura: "+err.code+err.message);
@@ -67,6 +67,5 @@ function consultaexis2(articulo){
 		  
  		}
 		
-	alert (exi);
-	return exi;
+	
 }//function consultaexis
