@@ -232,9 +232,10 @@ $("#beliminarf").tap(function() {
 	//preparadetalletemp(window.localStorage.getItem("articulo"),$("#scantidad").val())
 	  alert('boton pruebas2');
 	  alert('ya');
-	  var consultaexistencias=0;
-	  var consultaexistencias=consultaexis2("ADE-04");
-      alert(consultaexistencias);	  
+	  alert(consultaexistencias);	  
+	  var c=0;
+	  var c=consultaexis2("ADE-04");
+      alert(c);	  
       //iniciar();
 	});
 	$("#lcatalogo li").live('click',function(){

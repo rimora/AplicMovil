@@ -36,6 +36,7 @@ function consultaexis(articulo,cantidad,tipo){
 }//function consultaexis
 function consultaexis2(articulo){	
       var existencia=0;
+	  alert('entra a función');
     	function existencia(tx){   	
 	        alert('entra a consulexis');    
 			var sql='SELECT existencia FROM ARTICULO_EXISTENCIA WHERE articulo="'+articulo+'" AND bodega="K01"';			
