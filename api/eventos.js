@@ -231,9 +231,11 @@ $("#beliminarf").tap(function() {
 	
 	//preparadetalletemp(window.localStorage.getItem("articulo"),$("#scantidad").val())
 	  alert('boton pruebas2');
+	  alert('ya');
+	  var consultaexistencias=0;
 	  var consultaexistencias=consultaexis2("ADE-04");
       alert(consultaexistencias);	  
-      iniciar();
+      //iniciar();
 	});
 	$("#lcatalogo li").live('click',function(){
                   var articulo = $(this).attr("id");
