@@ -98,13 +98,13 @@ function mostrarcliente(clavecli){
 					$("#saldocli").val(saldot); 
 					$("#montocli").val(montot); 
 					if (vencida=="S") {
-						alert('El cliente tiene facturas vencidas, no podrá realizar ventas');
+						navigator.notification.alert('El cliente tiene facturas vencidas, no podrá realizar ventas',null,'Saldo Vencido','Aceptar');					
 						$("#bventa").addClass('ui-disabled');
 
 						
 					}
 					else if (saldot>limite){
-						alert('Cliente limite de credito excedido, no podrá realizar ventas');
+						navigator.notification.alert('Cliente limite de credito excedido, no podrá realizar ventas',null,'Limite de Crédito Excedido','Aceptar');					
 						$("#bventa").addClass('ui-disabled');
 					}					
 					else {			
@@ -309,7 +309,7 @@ function sugerido(){
 
 					   if (validasaldo(cantsug[i]*preciosug[i]))
 					   {
-						   						   navigator.notification.alert('Limite de credito excedido,no se cargaron todos los articulos',null,'Limite de credito excedido','Aceptar');					
+						   navigator.notification.alert('Limite de credito excedido,no se cargaron todos los articulos',null,'Limite de credito excedido','Aceptar');					
 						   return false;
 						   
 					   }
@@ -333,8 +333,8 @@ function validasaldo(importe)
 {
 	alert('limite '+window.localStorage.getItem("limite"));
 	alert('saldo '+window.localStorage.getItem("saldo"));
-	var limite=window.localStorage.getItem("limite");
-	var saldo=window.localStorage.getItem("saldo")+importe;
+	var limite=Number(window.localStorage.getItem("limite"));
+	var saldo=Number(window.localStorage.getItem("saldo"))+Number(importe);
 	if (saldo>limite){
 		alert('saldo mayor a limite '+saldo+'  '+limite);
 	   return true;	   	
