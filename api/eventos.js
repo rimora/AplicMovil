@@ -312,8 +312,8 @@ $("#beliminarf").tap(function() {
     				var articulo = window.localStorage.getItem("articulo");
 	     			//alert (cantidad);	  
 					 modificalineap(articulo,cantidad,"P");
-					 alert('despues de llamada modificarlineap');
-					 mostrarpedido();
+					 //alert('despues de llamada modificarlineap');
+					 //mostrarpedido();
 				  }
     });
 	$("#botonmodcantidadf").tap(function(){
