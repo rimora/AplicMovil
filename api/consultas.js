@@ -51,11 +51,13 @@ function mostrarcliente(clavecli){
 	   	    $('#clacli').text("Clave: "+row['clave']);
 		    $('#direccion').text("Dirección: "+row['direccion']);
   	   		$('#telefono').text("Telefono: "+row['telefono']);
-	   		$('#tipo').text("Tipo: "+row['tipo']);
+	   		$('#tipo').text("Estado: Credito "+row['tipo']);
   	   		$('#diascredito').text("Dias de Crédito: "+row['diasc']);
 	   		$('#limitecredito').text("Límite de Crédito: "+row['lcredito']);
 	   		$('#saldo').text("Saldo: "+row['saldo']);
 			limite=row['lcredito'];
+			window.localStorage.setItem("limite",Number(row['lcredito']));
+			window.localStorage.setItem("saldo",Number(row['saldo']));
 		}
 		function poblarfac(tx,results){ 
 		      $("#gridfaccli").empty();			  
@@ -97,11 +99,20 @@ function mostrarcliente(clavecli){
 					$("#montocli").val(montot); 
 					if (vencida=="S"){
 						alert('El cliente tiene facturas vencidas, no podrá realizar ventas');
+						$("#bventa").addClass('ui-disabled');
+
 						
+					}
+					else {			
+						$("#bventa").removeClass('ui-disabled'); 
 					}
 					if (saldot>limite){
 						alert('Cliente limite de credito excedido, no podrá realizar ventas');
+						$("#bventa").addClass('ui-disabled');
 						
+					}
+					else {			
+						$("#bventa").removeClass('ui-disabled'); 
 					}
 
 	   }
@@ -254,18 +265,24 @@ function sugerido(){
 	var artsug=[];
 	var cantsug=[];
 	var exissug=[];
+	var preciosug=[];
 	var cliente=window.localStorage.getItem("clave");	
+	alert(window.localStorage.getItem("limite"));
+	alert(window.localStorage.getItem("saldo"));
+	
 	var i=0;
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){
-			$.each(results.rows,function(index){           
+			$.each(results.rows,function(index){           			
 			 var row = results.rows.item(index);            			
 			 //if (row['cantidad']>0){
 			 	//preparadetalletemp(row['articulo'],row['cantidad']);								
 				artsug[i]=row['articulo'];
 				cantsug[i]=row['cantidad'];
 				exissug[i]=row['existencia'];
+				preciosug[i]=row['precio']*(1+(row['impuesto']/100));
 				i++;
+				
 			 //}//if (row['cantidad']>0)			 
 		  	}); //$.each       				  
 		  }//if			  
@@ -275,22 +292,102 @@ function sugerido(){
 			
 		  }*/
  	}//function listo(tx,results){ 
-	function consultasug(tx){   	    	        
-			var sql='SELECT * FROM SUGERIDO a left outer join articulo_existencia b on b.articulo=a.articulo and b.bodega="K01" WHERE cliente="'+cliente+'"  ';			
+	function consultasug(tx){   	    	        			
+			var sql='SELECT a.articulo,a.cantidad,b.impuesto,(b.precio-((b.precio/100)*b.descuento)) as precio,';
+			sql+='c.existencia ';	
+			sql+='FROM SUGERIDO a left outer join articulo b on b.articulo=a.articulo ';
+			sql+='left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="K01" WHERE a.cliente="'+cliente+'"  ';
+					
 			tx.executeSql(sql,[],listo,function(err){
-    	 		 alert("Error consultar sugerido del cliente : "+cliente+err.code+err.message);
+    	 		 alert("Error consultar sugerido del cliente : "+sql+err.code+err.message);
          		});    									
 	}
 	consultadb().transaction(consultasug, function(err){
     	 			 alert("Error select tabla sugerido: "+err.code+err.message);
          		},function(){
 				 //alert(artsug.length);
+				 
 				 for (var i = 0, long = artsug.length; i < long; i++) {   					 
 					   //alert(artsug[i]+' '+cantsug[i]+' '+exissug[i]);
-					   preparadetalletemp(artsug[i],cantsug[i],exissug[i])
-				 }
+					   
+
+					   if (validasaldo(cantsug[i]*preciosug[i]))
+					   {
+						   						   navigator.notification.alert('Limite de credito excedido,no se cargaron todos los articulos',null,'Limite de credito excedido','Aceptar');					
+						   return false;
+						   
+					   }
+					   else{
+						   if (exissug[i]==null){
+								preparadetalletemp(artsug[i],cantsug[i],0);
+						   }
+							else
+							  {
+								preparadetalletemp(artsug[i],cantsug[i],exissug[i]);
+							}
+					   }
+					   
+				 }// for (var i = 0, long = artsug.length; i < long; i++) {   					 
 				 mostrarpedido();
                  mostrarfactura(); 
 				});		
 				
 }//function sugerido
+function validasaldo(importe)
+{
+	alert('limite '+window.localStorage.getItem("limite"));
+	alert('saldo '+window.localStorage.getItem("saldo"));
+	var limite=window.localStorage.getItem("limite");
+	var saldo=window.localStorage.getItem("saldo")+importe;
+	if (saldo>limite){
+		alert('saldo mayor a limite '+saldo+'  '+limite);
+	   return true;	   	
+	}
+	else{
+	   window.localStorage.setItem("saldo",saldo);
+	   return false;
+	}	
+}
+function eliminalinea(articulo,importe,tipo){	
+	function listo(tx,results){ 	      
+	      if (results.rows.length>0){			
+			 var row = results.rows.item(0);            			
+			 //if (row['cantidad']>0){
+			 	//preparadetalletemp(row['articulo'],row['cantidad']);								
+				var cantidad=row['cantidad'];
+				var saldoant=window.localStorage.getItem("saldo");
+				window.localStorage.setItem("saldo",saldoant-importe);
+				alert(window.localStorage.getItem("saldo"));
+				if (tipo="F"){
+					eliminatempfactura(articulo,cantidad)
+				}
+				else {
+					eliminatemppedido(articulo,cantidad)
+				}
+			 //}//if (row['cantidad']>0)			 
+  
+		  }//if			  
+		  /*else
+		  {
+			alert('no hubo resultados de sugerido');  
+			
+		  }*/
+ 	}//function listo(tx,results){ 
+	function consultatemp(tx){   
+	        if (tipo="F"){
+				alert('articulo de eliminar temfactura '+articulo);
+				var sql='SELECT * FROM TEMFACTURA WHERE a.articulo="'+articulo+'"  ';  	
+			}
+			else {
+				var sql='SELECT * FROM TEMPEDIDO WHERE a.articulo="'+articulo+'"  ';  	
+			}
+								
+			tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error consultar temporal del cliente : "+articulo+err.code+err.message);
+         		});    									
+	}
+	consultadb().transaction(consultatemp, function(err){
+    	 			 alert("Error select tabla temporal: "+err.code+err.message);
+         		});		
+				
+}//function eliminalinea
