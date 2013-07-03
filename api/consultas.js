@@ -334,12 +334,14 @@ function validasaldo(importe)
 	alert('saldo '+window.localStorage.getItem("saldo"));
 	var limite=Number(window.localStorage.getItem("limite"));
 	var saldo=Number(window.localStorage.getItem("saldo"))+Number(importe);
-	alert('saldo nuevo'+window.localStorage.getItem("saldo"));
+	alert('importe '+importe);
+	alert('saldo nuevo'+saldo);
 	if (saldo>limite){
 		alert('saldo mayor a limite '+saldo+'  '+limite);
 	   return true;	   	
 	}
 	else{
+		alert('actualiza saldo'+saldo);
 	   window.localStorage.setItem("saldo",saldo);
 	   return false;
 	}	

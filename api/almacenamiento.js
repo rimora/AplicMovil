@@ -11,7 +11,7 @@ function guardaarticulo(articulo){
 }
 function actsaldo(importe){
 	alert(importe);
-	var saldoact=window.localStorage.getItem("saldo")+importe;
+	var saldoact=Number(window.localStorage.getItem("saldo"))+Number(importe);
 	alert(saldoact);
 	window.localStorage.setItem("saldo",saldoact);
 	//alert (window.localStorage.getItem("clave"));
