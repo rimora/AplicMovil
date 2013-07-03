@@ -186,6 +186,7 @@ $("#beliminarp").tap(function() {
                  //var clavecli = $(this).attr("id");				 
 	function onConfirm(button) {
 		if (button==1){
+			alert('boton si pulsado');
 			$('input:checkbox.clasep').each(function () {
            		if (this.checked) {
              	  alert($(this).attr("name"));
@@ -193,6 +194,11 @@ $("#beliminarp").tap(function() {
 				   eliminalinea($(this).attr("name"),$(this).attr("value"),"P")				    
 			   //alert($("#"+"c"+$(this).val()).val());
           		 }
+				 else{
+					alert('no checado'); 
+					alert($(this).attr("name"));
+				  	alert($(this).attr("value"));
+				 }
 			});//$('input:checkbox.clasep').each(function () {	
 			mostrarpedido();
 		}//if (button==1){
