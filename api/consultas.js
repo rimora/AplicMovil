@@ -97,20 +97,16 @@ function mostrarcliente(clavecli){
 					$("#gridfaccli").append(html); 
 					$("#saldocli").val(saldot); 
 					$("#montocli").val(montot); 
-					if (vencida=="S"){
+					if (vencida=="S") {
 						alert('El cliente tiene facturas vencidas, no podrá realizar ventas');
 						$("#bventa").addClass('ui-disabled');
 
 						
 					}
-					else {			
-						$("#bventa").removeClass('ui-disabled'); 
-					}
-					if (saldot>limite){
+					else if (saldot>limite){
 						alert('Cliente limite de credito excedido, no podrá realizar ventas');
 						$("#bventa").addClass('ui-disabled');
-						
-					}
+					}					
 					else {			
 						$("#bventa").removeClass('ui-disabled'); 
 					}
