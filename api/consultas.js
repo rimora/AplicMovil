@@ -239,16 +239,15 @@ function armacatalogo(){
 			 else 
 			 {
 				 var existenciaalg=row['ealg']; 
-			 }
-			 alert('antes del html de catalogo');
+			 }			 
 			 html+='<li id='+row['articulo']+'>';
 	         html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> '+row['descripcion']+'</h3>';
 			 html+='Clasificación:'+row['clas']+' AcciónT:'+row['accion']+'<br/>Precio:'+row['precio']+' Existencia:'+existencia+' ALG:'+existenciaalg+'</p></a></li>';
-			 			 alert('antes del append html de catalogo');
+			 			 
 			 $('#lcatalogo').append(html);        
 			 //alert('despues de lcatalogo.append armacatalogo');        
 		 });         
-		 			 alert('antes del refresh de lista de catalogo');
+		 			 
 		 $('#lcatalogo').listview('refresh'); 
 		 alert('despues de lcatalogo listview armacatalogo');        
  	}
@@ -351,10 +350,10 @@ function eliminalinea(articulo,importe,tipo){
 			 //if (row['cantidad']>0){
 			 	//preparadetalletemp(row['articulo'],row['cantidad']);								
 				var cantidad=row['cantidad'];
-				var saldoant=window.localStorage.getItem("saldo");
+				var saldoant=Number(window.localStorage.getItem("saldo"));
 				window.localStorage.setItem("saldo",saldoant-importe);
 				alert(window.localStorage.getItem("saldo"));
-				if (tipo="F"){
+				if (tipo=="F"){
 					eliminatempfactura(articulo,cantidad)
 				}
 				else {
@@ -370,7 +369,7 @@ function eliminalinea(articulo,importe,tipo){
 		  }*/
  	}//function listo(tx,results){ 
 	function consultatemp(tx){   
-	        if (tipo="F"){
+	        if (tipo=="F"){
 				alert('articulo de eliminar temfactura '+articulo);
 				var sql='SELECT * FROM TEMFACTURA WHERE a.articulo="'+articulo+'"  ';  	
 			}
@@ -387,3 +386,56 @@ function eliminalinea(articulo,importe,tipo){
          		});		
 				
 }//function eliminalinea
+function modificalineap(articulo,cantidad,tipo){	
+	function listo(tx,results){ 	      
+	      if (results.rows.length>0){			
+			 var row = results.rows.item(0);            			
+			 //if (row['cantidad']>0){
+			 	//preparadetalletemp(row['articulo'],row['cantidad']);								
+				var cantini=row['cantidad'];
+				var precio=row['precio']*(1+(row['impuesto']/100));
+				var dif=cantidad-cantini;
+				if (cantini!=cantidad)
+				{
+					if (dif>0){
+						 if (validasaldo(dif*precio))
+					  	 {
+						   		navigator.notification.alert('Limite de credito excedido,no se puede modificar',null,'Limite de credito excedido','Aceptar');					
+						   		return false;						   
+					   	 }
+					   	 else{
+						 	modificatemppedido(articulo,cantidad);   						   
+					   	 }
+					}
+					else{						
+						actsaldo(dif*precio);					
+						modificatemppedido(articulo,cantidad);	
+						
+					}
+					
+				}
+				
+		  }//if (results.rows.length>0){		  
+ 	}//function listo(tx,results){ 
+	function consultatemp(tx){   
+	        if (tipo=="F"){
+				alert('articulo de MODIFICAR temfactura '+articulo);
+				var sql='SELECT * FROM TEMFACTURA WHERE a.articulo="'+articulo+'"  ';  	
+			}
+			else {
+				alert('articulo de MODIFICAR temPEDIDO '+articulo);
+				var sql='SELECT a.articulo,a.cantidad,b.impuesto,(b.precio-((b.precio/100)*b.descuento)) as precio,';
+				sql+='c.existencia ';	
+				sql+='FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo ';
+				sql+='left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="K01" WHERE a.articulo="'+articulo+'"  ';
+			}
+								
+			tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error consultar temporal PEDIDO : "+articulo+err.code+err.message);
+         		});    									
+	}
+	consultadb().transaction(consultatemp, function(err){
+    	 			 alert("Error select tabla temporal PEDIDO: "+err.code+err.message);
+         		});		
+				
+}//function modificalinea

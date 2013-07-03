@@ -295,12 +295,12 @@ $("#beliminarf").tap(function() {
 				    //obtiene el articulo pulsado en la lista
     				var articulo = window.localStorage.getItem("articulo");
 	     			//alert (articulo);	  
-					 consultaexis(articulo,cantidad);
+					 insertalinea(articulo,cantidad);
 				  }
     });
 	$("#botonmodcantidadp").tap(function(){
                  //var cantidad=$('#scantidad').attr('Val');
-				 var cantidad=$('#modcantidadp').val();
+				 var cantidad=Number($('#modcantidadp').val());
 				  //alert (cantidad);
 				  if (cantidad<=0){
 					   navigator.notification.alert('Debe indicar cantidad MAYOR A CERO',null,'Error Indicando Cantidad','Aceptar');					
@@ -311,7 +311,7 @@ $("#beliminarf").tap(function() {
 				    //obtiene el articulo pulsado en la lista
     				var articulo = window.localStorage.getItem("articulo");
 	     			//alert (cantidad);	  
-					 modificatemppedido(articulo,cantidad);
+					 modificalineap(articulo,cantidad,"P");
 					 mostrarpedido();
 				  }
     });
