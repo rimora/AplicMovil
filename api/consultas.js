@@ -91,8 +91,8 @@ function mostrarcliente(clavecli){
 					 html += "<div class=ui-block-a><strong></strong> " +tipo+"</div>";
 					 html += "<div class=ui-block-b><strong></strong> "+row['num_doc']+"</div>";
                      html += "<div class=ui-block-c><strong></strong> "+row['fec_ven']+"</div>";
-					 html += "<div class=ui-block-d><strong></strong> "+row['saldo'].toFixed(2)+"</div>";
-                     html += "<div class=ui-block-e><strong></strong> "+row['monto'].toFixed(2)+"</div>";
+					 html += "<div class=ui-block-d><strong></strong> "+row['saldo']+"</div>";
+                     html += "<div class=ui-block-e><strong></strong> "+row['monto']+"</div>";
 
                   	 
 			  });
