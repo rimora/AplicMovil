@@ -143,16 +143,12 @@ $("a.clasep").live('click',function(){
     });
 $("a.clasef").live('click',function(){
                   var articulo = $(this).attr("name");
-				  var id = $(this).attr("id");
+				 /* var id = $(this).attr("id");
 				  var longitud=id.length;
 				  var posicion = id.indexOf('*'); 
-				  var cantidad=Number(id.substring(posicion+1));
-				  
-				  alert ($(this).attr("id"));				  
-				  alert (articulo);
-				  alert(cantidad);				  
+				  var cantidad=Number(id.substring(posicion+1));*/
 				 guardaarticulo(articulo);//almacena localmente la clave de articulo 	
-				 guardacantidad(cantidad);//almacena localmente la cantidad actual en factura
+				
     });
 
 
@@ -317,7 +313,7 @@ $("#beliminarf").tap(function() {
 				    //obtiene el articulo pulsado en la lista
     				var articulo = window.localStorage.getItem("articulo");
 	     			//alert (cantidad);	  
-					 modificalineap(articulo,cantidad,"P");
+					 modificalineap(articulo,cantidad);
 					 //alert('despues de llamada modificarlineap');
 					 //mostrarpedido();
 				  }
@@ -332,19 +328,9 @@ $("#beliminarf").tap(function() {
 					  
 				  }
 				  else
-				  {
-				    var cantant=Number(window.localStorage.getItem("cantidad"));
-					var articulo = window.localStorage.getItem("articulo");
-					if (cantidad>cantant){
-					   		
-						
-					}
-					
-    				
-					
-	     			//alert (cantidad);	  
-					 modificatempfactura(articulo,cantidad);
-					 mostrarfactura();
+				  {				    
+					var articulo = window.localStorage.getItem("articulo");					
+					modificalineaf(articulo,cantidad);
 				  }
     });
 	$("#guardapros").tap(function() { 

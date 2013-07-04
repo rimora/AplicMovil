@@ -151,6 +151,20 @@ function modificatemppedido(articulo,cantidad){
 		}
 	
 }//function modificatemppedido
+function modificatempfactura(articulo,cantidad){
+	   
+	consultadb().transaction(insertadet,function(err){
+    	  alert("Error al modifica renglonen factura: "+err.code+err.message);
+          },alert("Artículo modificado en factura"));
+				
+    	function insertadet(tx) {		
+		//alert('entra a modificar detallepedido');
+		
+		tx.executeSql('UPDATE TEMFACTURA SET CANTIDAD=cantidad+'+cantidad+' WHERE ARTICULO="'+articulo+'"');        
+		tx.executeSql('UPDATE ARTICULO_EXISTENCIA SET existencia=existencia-'+cantidad+' WHERE articulo="'+articulo+'" and bodega="K01"');
+		}
+	
+}//function modificatempfactura
 function limpiartemp(){
 	   //limpia tablas temporales que tienen articulos en pedido y/o factura
 	consultadb().transaction(limpiatabla,function(err){

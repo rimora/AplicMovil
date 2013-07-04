@@ -23,8 +23,10 @@ function mostrarclientes(dia){
 		 $.each(results.rows,function(index){           
 			 var row = results.rows.item(index);            
 			 $('#listaclientes').append('<li id="'+row['clave']+'"><a href="#datoscli"><h3>'+row['clave']+'  '+row['nombre']+'</h3></a></li>');        
-		 });         
+		 });    
+		 alert('antes de refresh de lista');     
 		 $('#listaclientes').listview('refresh'); 
+		 alert('despues de refresh de lista');
  	}
 
  // });	//$('#pclientes').live('pageshow',function(event, ui){
@@ -89,14 +91,14 @@ function mostrarcliente(clavecli){
 					 html += "<div class=ui-block-a><strong></strong> " +tipo+"</div>";
 					 html += "<div class=ui-block-b><strong></strong> "+row['num_doc']+"</div>";
                      html += "<div class=ui-block-c><strong></strong> "+row['fec_ven']+"</div>";
-					 html += "<div class=ui-block-d><strong></strong> "+row['saldo']+"</div>";
-                     html += "<div class=ui-block-e><strong></strong> "+row['monto']+"</div>";
+					 html += "<div class=ui-block-d><strong></strong> "+row['saldo'].toFixed(2)+"</div>";
+                     html += "<div class=ui-block-e><strong></strong> "+row['monto'].toFixed(2)+"</div>";
 
                   	 
 			  });
 					$("#gridfaccli").append(html); 
-					$("#saldocli").val(saldot); 
-					$("#montocli").val(montot); 
+					$("#saldocli").val(saldot.toFixed(2)); 
+					$("#montocli").val(montot.toFixed(2)); 
 					if (vencida=="S") {
 						navigator.notification.alert('El cliente tiene facturas vencidas, no podrá realizar ventas',null,'Saldo Vencido','Aceptar');					
 						$("#bventa").addClass('ui-disabled');
@@ -374,10 +376,10 @@ function eliminalinea(articulo,importe,tipo){
 	function consultatemp(tx){   
 	        if (tipo=="F"){
 				alert('articulo de eliminar temfactura '+articulo);
-				var sql='SELECT * FROM TEMFACTURA WHERE a.articulo="'+articulo+'"  ';  	
+				var sql='SELECT * FROM TEMFACTURA WHERE articulo="'+articulo+'"  ';  	
 			}
 			else {
-				var sql='SELECT * FROM TEMPEDIDO WHERE a.articulo="'+articulo+'"  ';  	
+				var sql='SELECT * FROM TEMPEDIDO WHERE articulo="'+articulo+'"  ';  	
 			}
 								
 			tx.executeSql(sql,[],listo,function(err){
@@ -389,7 +391,7 @@ function eliminalinea(articulo,importe,tipo){
          		});		
 				
 }//function eliminalinea
-function modificalineap(articulo,cantidad,tipo){	
+function modificalineap(articulo,cantidad){	
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){			
 			 var row = results.rows.item(0);            			
@@ -422,17 +424,13 @@ function modificalineap(articulo,cantidad,tipo){
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
 	function consultatemp(tx){   
-	        if (tipo=="F"){
-				alert('articulo de MODIFICAR temfactura '+articulo);
-				var sql='SELECT * FROM TEMFACTURA WHERE a.articulo="'+articulo+'"  ';  	
-			}
-			else {
+	       
 				alert('articulo de MODIFICAR temPEDIDO '+articulo);
 				var sql='SELECT a.articulo,a.cantidad,b.impuesto,(b.precio-((b.precio/100)*b.descuento)) as precio,';
 				sql+='c.existencia ';	
 				sql+='FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo ';
 				sql+='left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="K01" WHERE a.articulo="'+articulo+'"  ';
-			}
+			
 								
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error consultar temporal PEDIDO : "+articulo+err.code+err.message);
@@ -442,4 +440,103 @@ function modificalineap(articulo,cantidad,tipo){
     	 			 alert("Error select tabla temporal PEDIDO: "+err.code+err.message);
          		});		
 				
-}//function modificalinea
+}//function modificalineap
+function modificalineaf(articulo,cantidad){	
+	function listo(tx,results){ 	      
+	      if (results.rows.length>0){			
+			 var row = results.rows.item(0);            			
+			 //if (row['cantidad']>0){
+			 	//preparadetalletemp(row['articulo'],row['cantidad']);								
+				var cantini=row['cantidad'];
+				var precio=row['precio']*(1+(row['impuesto']/100));
+				var dif=cantidad-cantini;
+				var exis=row['existencia'];
+				var difexis=dif-row['existencia'];
+				var cantpedido=row['cantpedido'];
+				
+				if (cantini!=cantidad)
+				{
+					if (dif>0){
+						if ((difexis>0) && (exis>0)){// hay existencia para agregar a factura y la diferencia a pedido
+							if (validasaldo(exis*precio))//valida para modificar en factura
+					  	 	{
+						   		navigator.notification.alert('Limite de credito excedido,no se pueden agregar '+exis+' pzas en factura',null,'Limite de credito excedido','Aceptar');					
+						   		return false;						   
+						   	 }
+						   	 else{
+							 	modificatempfactura(articulo,exis);   						   
+						   	 }	
+								 if (validasaldo(difexis*precio))//valida para insertar o modificar en pedido
+					  	 	{
+						   		navigator.notification.alert('Limite de credito excedido,no se pueden agregar '+difexis+' pzas en pedido',null,'Limite de credito excedido','Aceptar');					
+						   		return false;						   
+						   	 }
+						   	 else{
+								 if (cantpedido>0){//existe en pedido, agrega la diferencia
+									 modificatemppedido(articulo,difexis);  									 
+								 }
+								 else
+								 {
+									insertatemppedido(articulo,difexis); 									 
+								 }								 					   
+						   	 }	//else
+
+						}//if (difexis>=0){
+						else if (difexis<=0) {//la existencia es suficiente para agregar a factura
+						    if (validasaldo(dif*precio))//valida para modificar en factura
+					  	 	{
+						   		navigator.notification.alert('Limite de credito excedido,no se pueden agregar '+dif+' pzas en factura',null,'Limite de credito excedido','Aceptar');					
+						   		return false;						   
+						   	 }
+						   	 else{							 	
+									modificatempfactura(articulo,dif); 									 								 	
+						   	 }							
+						}
+						else {//la existencia es cero para agregar a factura,se agrega todo a pedido
+							  if (validasaldo(dif*precio))//valida para modificar en factura
+					  	 	{
+						   		navigator.notification.alert('Limite de credito excedido,no se pueden agregar '+dif+' pzas en pedido',null,'Limite de credito excedido','Aceptar');					
+						   		return false;						   
+						   	 }
+						   	 else{
+							 	if (cantpedido>0){//existe en pedido, agrega la diferencia
+									 modificatemppedido(articulo,dif);  									 
+								 }
+								 else
+								 {
+									insertatemppedido(articulo,dif); 									 
+								 }	
+						   	 }	
+						
+						}
+						 
+					}
+					else{						
+						actsaldo(dif*precio);					
+						modificatempfactura(articulo,dif);	
+						
+					}
+					mostrarpedido();
+					mostrarfactura();
+					
+				}
+				
+		  }//if (results.rows.length>0){		  
+ 	}//function listo(tx,results){ 
+	function consultatemp(tx){   
+				var sql='SELECT a.articulo,a.cantidad,b.impuesto,(b.precio-((b.precio/100)*b.descuento)) as precio,';
+				sql+='c.existencia,d.cantidad as cantpedido ';	
+				sql+='FROM TEMFACTURA a left outer join articulo b on b.articulo=a.articulo ';
+				sql+='left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="K01" ';
+				sql+='left outer join TEMPEDIDO d on d.articulo=a.articulo WHERE a.articulo="'+articulo+'"  ';
+			
+								
+			tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error consultar temporal FACTURA para modificar : "+articulo+err.code+err.message);
+         		});    									
+	}
+	consultadb().transaction(consultatemp, function(err){
+    	 			 alert("Error select tabla temporal PEDIDO para modificar: "+err.code+err.message);
+         		});		
+				
+}//function modificalineaf

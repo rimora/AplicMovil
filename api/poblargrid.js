@@ -53,7 +53,7 @@ function mostrarpedido(){
 			  });//.each
 					$("#gridpedido").append(html); 
 					//$("#tpedido").attr("value",total); 			
-					$("#tpedido").val(total); 			
+					$("#tpedido").val(total.toFixed(2)); 			
 					
 					//alert('total'+total);					 
 			
@@ -112,13 +112,13 @@ function mostrarfactura(){
                     html+='<div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
                     html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b"><a href="#pmodcantidadf" class="clasef" name="'+row['articulo']+'" id="F'+row['articulo']+'*'+row['cantidad']+'" ><font color="FFFFFF">'+row['cantidad']+'</font></a></div></div>';
 
-	                html+='<div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-b">'+precio+'</div></div> ';
+	                html+='<div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-b">'+precio.toFixed(2)+'</div></div> ';
 
                   	 
 			  });//.each			        
 					$("#gridfactura").append(html); 					
 					//$("#tfactura").attr("value",total); 								 
-					$("#tfactura").val(total); 								 
+					$("#tfactura").val(total.toFixed(2)); 								 
 					//alert('total factura'+total);				 								
 	   }//function exito
  		
