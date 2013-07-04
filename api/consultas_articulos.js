@@ -25,7 +25,7 @@ function insertalinea(articulo,cantidad){
 		  }//if			  
  	}//function listo(tx,results){ 
 	function consultasug(tx){   	    	        			
-			var sql='SELECT a.articulo,a.cantidad,a.impuesto,(a.precio-((a.precio/100)*a.descuento)) as precio,';
+			var sql='SELECT a.impuesto,(a.precio-((a.precio/100)*a.descuento)) as precio,';
 			sql+='b.existencia ';	
 			sql+='FROM ARTICULO a left outer join ';
 			sql+='articulo_existencia b on b.articulo=a.articulo and b.bodega="K01" WHERE a.articulo="'+articulo+'"  ';
