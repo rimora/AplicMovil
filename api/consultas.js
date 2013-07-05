@@ -105,6 +105,7 @@ function mostrarcliente(clavecli){
 					$("#gridfaccli").append(html); 
 					$("#saldocli").val(saldot.toFixed(2)); 
 					$("#montocli").val(montot.toFixed(2)); 
+					alert('saldo '+saldot);
 					if (vencida=="S") {
 						navigator.notification.alert('El cliente tiene facturas vencidas, no podrá realizar ventas',null,'Saldo Vencido','Aceptar');					
 						$("#bventa").addClass('ui-disabled');
@@ -112,10 +113,12 @@ function mostrarcliente(clavecli){
 						
 					}
 					else if (saldot>limite){
+						alert('saldo es mayor a limite');
 						navigator.notification.alert('Cliente con limite de credito excedido, no podrá realizar ventas',null,'Limite de Crédito Excedido','Aceptar');					
 						$("#bventa").addClass('ui-disabled');
 					}					
 					else {			
+						alert('saldo es menor a limite');
 						$("#bventa").removeClass('ui-disabled'); 
 					}
 
@@ -251,9 +254,9 @@ function armacatalogo(){
 			 }			 
 			 html+='<li id='+row['articulo']+'>';
 	         html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> '+row['descripcion']+'</h3>';
-			 html+='Clasificación:'+row['clas']+' AcciónT:'+row['accion']+'<br/>Precio:'+precio+' Existencia:'+existencia+' ALG:'+existenciaalg+'</p></a></li>';
+			 html+='Clasificación:'+row['clas']+' AcciónT:'+row['accion']+'<br/>Precio:'+precio.toFixed(2)+' Existencia:'+existencia+' ALG:'+existenciaalg+'</p></a></li>';
 			 			 
-			 $('#lcatalogo').append(html);        
+			 $('#lcatalogo').append(html);        	
 			 //alert('despues de lcatalogo.append armacatalogo');        
 		 });         
 		 			 
