@@ -467,6 +467,7 @@ function modificalineaf(articulo,cantidad){
 				if (cantini!=cantidad)
 				{
 					if (dif>0){
+						alert('dif mayor a cero');
 						if ((difexis>0) && (exis>0)){// hay existencia para agregar a factura y la diferencia a pedido
 							if (validasaldo(exis*precio))//valida para modificar en factura
 					  	 	{
@@ -522,10 +523,12 @@ function modificalineaf(articulo,cantidad){
 						 
 					}
 					else{						
+					alert('dif manor a cero');
 						actsaldo(dif*precio);					
 						modificatempfactura(articulo,dif);	
 						
 					}
+					alert('antes llamar a mostrar pedido y factura');
 					mostrarpedido();
 					mostrarfactura();
 					

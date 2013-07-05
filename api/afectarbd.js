@@ -158,8 +158,10 @@ function modificatempfactura(articulo,cantidad){
           },alert("Artículo modificado en factura"));
 				
     	function insertadet(tx) {		
-		//alert('entra a modificar detallepedido');
-		if (Number(cantidad)>0){
+		alert('entra a modificar detallefactura cantidad: '+cantidad);
+		tx.executeSql('UPDATE TEMFACTURA SET CANTIDAD=cantidad+'+cantidad+' WHERE ARTICULO="'+articulo+'"');        
+		tx.executeSql('UPDATE ARTICULO_EXISTENCIA SET existencia=existencia-'+cantidad+' WHERE articulo="'+articulo+'" and bodega="K01"');
+	/*	if (Number(cantidad)>0){
 			tx.executeSql('UPDATE TEMFACTURA SET CANTIDAD=cantidad+'+cantidad+' WHERE ARTICULO="'+articulo+'"');        
 			tx.executeSql('UPDATE ARTICULO_EXISTENCIA SET existencia=existencia-'+cantidad+' WHERE articulo="'+articulo+'" and bodega="K01"');
 		}
@@ -167,7 +169,7 @@ function modificatempfactura(articulo,cantidad){
 			alert('cantidad menor a cero');
 			tx.executeSql('UPDATE TEMFACTURA SET CANTIDAD=cantidad-'+cantidad+' WHERE ARTICULO="'+articulo+'"');        
 			tx.executeSql('UPDATE ARTICULO_EXISTENCIA SET existencia=existencia+'+cantidad+' WHERE articulo="'+articulo+'" and bodega="K01"');	
-		}
+		}*/
 		}
 	
 }//function modificatempfactura
