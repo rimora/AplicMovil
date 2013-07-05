@@ -136,12 +136,12 @@ $(document).ready(function() {
 			$("#gridprueba").append(html);  
 
 		});
-$("a.clasep").live('click',function(){
+$("a.clasep").live('click',function(){//al modificar linea de pedido
                   var articulo = $(this).attr("name");
 				  alert (articulo);
 				 guardaarticulo(articulo);//almacena localmente la clave de articulo 	
     });
-$("a.clasef").live('click',function(){
+$("a.clasef").live('click',function(){//al modificar linea de factura
                   var articulo = $(this).attr("name");
 				 /* var id = $(this).attr("id");
 				  var longitud=id.length;
@@ -196,7 +196,7 @@ $("#beliminarp").tap(function() {
 				  	alert($(this).attr("value"));
 				 }
 			});//$('input:checkbox.clasep').each(function () {	
-			mostrarpedido();
+			//mostrarpedido();
 		}//if (button==1){
 	}			 
     navigator.notification.confirm('¿Estas seguro de eliminar los registros seleccionados?',     // mensaje (message)
@@ -218,7 +218,7 @@ $("#beliminarf").tap(function() {
 			   //alert($("#"+"c"+$(this).val()).val());
           		 }
 			});//$('input:checkbox.clasep').each(function () {	
-			mostrarfactura();
+			
 		}//if (button==1){
 	}			 
     navigator.notification.confirm('¿Estas seguro de eliminar los registros seleccionados?',     // mensaje (message)

@@ -375,7 +375,9 @@ function eliminalinea(articulo,importe,tipo){
 					eliminatemppedido(articulo,cantidad)
 				}
 			 //}//if (row['cantidad']>0)			 
-  
+                 mostrarfactura();
+				 mostrarpedido();
+				 
 		  }//if			  
 		  /*else
 		  {
