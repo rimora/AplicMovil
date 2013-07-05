@@ -49,15 +49,21 @@ function mostrarcliente(clavecli){
 	
 		function exito(tx,results){         
 	   		var row = results.rows.item(0);            
-	   		$('#nomcli').text("Nombre: "+row['nombre']);
-	   	    $('#clacli').text("Clave: "+row['clave']);
+	   		/*
+			$('#nomcli').text("Clave: "+row['clave']+" Nombre: "+row['nombre']);
+	   	    $('#clacli').text();
 		    $('#direccion').text("Dirección: "+row['direccion']);
   	   		$('#telefono').text("Telefono: "+row['telefono']);
 	   		$('#tipo').text("Estado: Credito "+row['tipo']);
   	   		$('#diascredito').text("Dias de Crédito: "+row['diasc']);
 	   		$('#limitecredito').text("Límite de Crédito: "+row['lcredito']);
 	   		$('#saldo').text("Saldo: "+row['saldo']);
-			limite=row['lcredito'];
+			limite=Number(row['lcredito']);*/
+			$('#nomcli').text("Clave: "+row['clave']+" Nombre: "+row['nombre']);  	   		    
+			$('#direccion').text("Dirección: "+row['direccion']+" Telefono: "+row['telefono']);  	   		
+	   		$('#tipo').text("Estado: Credito "+row['tipo']+" Dias de Crédito: "+row['diasc']);
+	   		$('#limitecredito').text("Límite de Crédito: "+row['lcredito']+" Saldo: "+row['saldo']);
+			limite=Number(row['lcredito']);			
 			window.localStorage.setItem("limite",Number(row['lcredito']));
 			window.localStorage.setItem("saldo",Number(row['saldo']));
 		}
@@ -69,11 +75,11 @@ function mostrarcliente(clavecli){
 			  var montot=0;
 			  var vencida="";
 			  
-			  html += "<div class=ui-block-a><div class=ui-bar ui-bar-a><strong></strong> Tipo</div></div>";
-			  html += "<div class=ui-block-b><strong></strong> Documento</div>";
-			  html += "<div class=ui-block-c><strong></strong> Vencimiento</div>";
-			  html += "<div class=ui-block-d><strong></strong> Saldo</div>";
-			  html += "<div class=ui-block-e><strong></strong> Monto</div>";
+			  html += '<div class="ui-block-a"><div class="ui-bar ui-bar-a"><strong>Tipo</strong> Tipo</div></div>';
+			  html += '<div class="ui-block-b"><div class="ui-bar ui-bar-a"><strong>Documento</strong></div></div>';
+			  html += '<div class="ui-block-c"><div class="ui-bar ui-bar-a"><strong>Vencimiento</strong></div> </div>';
+			  html += '<div class="ui-block-d"><div class="ui-bar ui-bar-a"><strong>Saldo</strong></div></div>';
+			  html += '<div class="ui-block-e"><div class="ui-bar ui-bar-a"><strong>Monto</strong></div></div>';
 			  $.each(results.rows,function(index){
 				  var row = results.rows.item(index); 				     
 				     if (row['cod_tip_dc']=="1"){
@@ -88,11 +94,11 @@ function mostrarcliente(clavecli){
 					 }
 					 saldot+=Number(row['saldo']);
 					 montot+=Number(row['monto']);
-					 html += "<div class=ui-block-a><strong></strong> " +tipo+"</div>";
-					 html += "<div class=ui-block-b><strong></strong> "+row['num_doc']+"</div>";
-                     html += "<div class=ui-block-c><strong></strong> "+row['fec_ven']+"</div>";
-					 html += "<div class=ui-block-d><strong></strong> "+row['saldo']+"</div>";
-                     html += "<div class=ui-block-e><strong></strong> "+row['monto']+"</div>";
+					 html += "<div class=ui-block-a><strong>" +tipo+"</strong> </div>";
+					 html += "<div class=ui-block-b><strong>"+row['num_doc']+"</strong> </div>";
+                     html += "<div class=ui-block-c><strong>"+row['fec_ven']+"</strong> </div>";
+					 html += "<div class=ui-block-d><strong>"+row['saldo']+"</strong> </div>";
+                     html += "<div class=ui-block-e><strong>"+row['monto']+"</strong> </div>";
 
                   	 
 			  });
@@ -106,7 +112,7 @@ function mostrarcliente(clavecli){
 						
 					}
 					else if (saldot>limite){
-						navigator.notification.alert('Cliente limite de credito excedido, no podrá realizar ventas',null,'Limite de Crédito Excedido','Aceptar');					
+						navigator.notification.alert('Cliente con limite de credito excedido, no podrá realizar ventas',null,'Limite de Crédito Excedido','Aceptar');					
 						$("#bventa").addClass('ui-disabled');
 					}					
 					else {			
@@ -223,6 +229,7 @@ function armacatalogo(){
 			 var row = results.rows.item(index);         
 			 //alert('despues del var row armacatalogo');           
 			 var html="";	
+			 var precio=row['precio']*(1+(row['impuesto']/100));
 			 if   (row['ebodega']==null)       
 			 {
 				var existencia=0; 				
@@ -244,7 +251,7 @@ function armacatalogo(){
 			 }			 
 			 html+='<li id='+row['articulo']+'>';
 	         html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> '+row['descripcion']+'</h3>';
-			 html+='Clasificación:'+row['clas']+' AcciónT:'+row['accion']+'<br/>Precio:'+row['precio']+' Existencia:'+existencia+' ALG:'+existenciaalg+'</p></a></li>';
+			 html+='Clasificación:'+row['clas']+' AcciónT:'+row['accion']+'<br/>Precio:'+precio+' Existencia:'+existencia+' ALG:'+existenciaalg+'</p></a></li>';
 			 			 
 			 $('#lcatalogo').append(html);        
 			 //alert('despues de lcatalogo.append armacatalogo');        
