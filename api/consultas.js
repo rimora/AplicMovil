@@ -523,7 +523,7 @@ function modificalineaf(articulo,cantidad){
 						 
 					}
 					else{						
-					alert('dif manor a cero');
+					alert('dif menor a cero');
 						actsaldo(dif*precio);					
 						modificatempfactura(articulo,dif);	
 						
