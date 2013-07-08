@@ -24,9 +24,9 @@ function mostrarclientes(dia){
 			 var row = results.rows.item(index);            
 			 $('#listaclientes').append('<li id="'+row['clave']+'"><a href="#datoscli"><h3>'+row['clave']+'  '+row['nombre']+'</h3></a></li>');        
 		 });    
-		 alert('antes de refresh de lista');     
+		 //alert('antes de refresh de lista');  		 
 		 $('#listaclientes').listview('refresh'); 
-		 alert('despues de refresh de lista');
+		 //alert('despues de refresh de lista');
  	}
 
  // });	//$('#pclientes').live('pageshow',function(event, ui){
@@ -38,6 +38,7 @@ function mostrarcliente(clavecli){
 	   //guarda el cliente con el que se harán operaciones
 	   saveidcliente(clavecli);
        var limite=0;
+	   var saldo=0;
 		$('#notascxc').text("Notas para el cliente " + clavecli);
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		consultadb().transaction(consulta, errorconsulta);	
@@ -64,6 +65,7 @@ function mostrarcliente(clavecli){
 	   		$('#tipo').text("Estado: Credito "+row['tipo']+" Dias de Crédito: "+row['diasc']);
 	   		$('#limitecredito').text("Límite de Crédito: "+row['lcredito']+" Saldo: "+row['saldo']);
 			limite=Number(row['lcredito']);			
+			saldo=Number(row['saldo']);
 			window.localStorage.setItem("limite",Number(row['lcredito']));
 			window.localStorage.setItem("saldo",Number(row['saldo']));
 		}
@@ -104,21 +106,18 @@ function mostrarcliente(clavecli){
 			  });
 					$("#gridfaccli").append(html); 
 					$("#saldocli").val(saldot.toFixed(2)); 
-					$("#montocli").val(montot.toFixed(2)); 
-					alert('saldo '+saldot);
+					$("#montocli").val(montot.toFixed(2)); 					
 					if (vencida=="S") {
 						navigator.notification.alert('El cliente tiene facturas vencidas, no podrá realizar ventas',null,'Saldo Vencido','Aceptar');					
 						$("#bventa").addClass('ui-disabled');
 
 						
 					}
-					else if (saldot>limite){
-						alert('saldo es mayor a limite');
+					else if (saldo>limite){						
 						navigator.notification.alert('Cliente con limite de credito excedido, no podrá realizar ventas',null,'Limite de Crédito Excedido','Aceptar');					
 						$("#bventa").addClass('ui-disabled');
 					}					
 					else {			
-						alert('saldo es menor a limite');
 						$("#bventa").removeClass('ui-disabled'); 
 					}
 
@@ -146,19 +145,16 @@ function preparadetalletemp(articulo,cantidad,existencia){
 	  // alert('existencia '+existencia);
 	  // alert('cantidad '+cantidad);
 	   
-	   if (diferencia>=0){
-		   alert('diferencia>0');
+	   if (diferencia>=0){		  
 	       insertatempfactura(articulo,cantidad);
 	   }
 	   else {
 		   if (existencia>0){
-			   alert('diferencia<0 y existencia>0');
 			   insertatempfactura(articulo,existencia);
                insertatemppedido(articulo,(cantidad-existencia));
 			   
 		   }
 		   else{
-			   alert('diferencia<0 y existencia=0');
 			   insertatemppedido(articulo,cantidad);
 		   }
 	   }
@@ -261,7 +257,7 @@ function armacatalogo(){
 		 });         
 		 			 
 		 $('#lcatalogo').listview('refresh'); 
-		 alert('despues de lcatalogo listview armacatalogo');        
+		 //alert('despues de lcatalogo listview armacatalogo');        
  	}
 
  // });	//$('#pclientes').live('pageshow',function(event, ui){
@@ -274,8 +270,8 @@ function sugerido(){
 	var exissug=[];
 	var preciosug=[];
 	var cliente=window.localStorage.getItem("clave");	
-	alert(window.localStorage.getItem("limite"));
-	alert(window.localStorage.getItem("saldo"));
+	//alert(window.localStorage.getItem("limite"));
+	//alert(window.localStorage.getItem("saldo"));
 	
 	var i=0;
 	function listo(tx,results){ 	      
@@ -342,18 +338,18 @@ function sugerido(){
 }//function sugerido
 function validasaldo(importe)
 {
-	alert('limite '+window.localStorage.getItem("limite"));
-	alert('saldo '+window.localStorage.getItem("saldo"));
+	//alert('limite '+window.localStorage.getItem("limite"));
+	//alert('saldo '+window.localStorage.getItem("saldo"));
 	var limite=Number(window.localStorage.getItem("limite"));
 	var saldo=Number(window.localStorage.getItem("saldo"))+Number(importe);
-	alert('importe '+importe);
-	alert('saldo nuevo'+saldo);
+	//alert('importe '+importe);
+	//alert('saldo nuevo'+saldo);
 	if (saldo>limite){
-		alert('saldo mayor a limite '+saldo+'  '+limite);
+		//alert('saldo mayor a limite '+saldo+'  '+limite);
 	   return true;	   	
 	}
 	else{
-		alert('actualiza saldo'+saldo);
+		//alert('actualiza saldo'+saldo);
 	   window.localStorage.setItem("saldo",saldo);
 	   return false;
 	}	
@@ -367,7 +363,7 @@ function eliminalinea(articulo,importe,tipo){
 				var cantidad=row['cantidad'];
 				var saldoant=Number(window.localStorage.getItem("saldo"));
 				window.localStorage.setItem("saldo",saldoant-importe);
-				alert(window.localStorage.getItem("saldo"));
+				//alert(window.localStorage.getItem("saldo"));
 				if (tipo=="F"){
 					eliminatempfactura(articulo,cantidad)
 				}
@@ -387,7 +383,7 @@ function eliminalinea(articulo,importe,tipo){
  	}//function listo(tx,results){ 
 	function consultatemp(tx){   
 	        if (tipo=="F"){
-				alert('articulo de eliminar temfactura '+articulo);
+				//alert('articulo de eliminar temfactura '+articulo);
 				var sql='SELECT * FROM TEMFACTURA WHERE articulo="'+articulo+'"  ';  	
 			}
 			else {
@@ -437,7 +433,7 @@ function modificalineap(articulo,cantidad){
  	}//function listo(tx,results){ 
 	function consultatemp(tx){   
 	       
-				alert('articulo de MODIFICAR temPEDIDO '+articulo);
+				//alert('articulo de MODIFICAR temPEDIDO '+articulo);
 				var sql='SELECT a.articulo,a.cantidad,b.impuesto,(b.precio-((b.precio/100)*b.descuento)) as precio,';
 				sql+='c.existencia ';	
 				sql+='FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo ';
@@ -469,7 +465,7 @@ function modificalineaf(articulo,cantidad){
 				if (cantini!=cantidad)
 				{
 					if (dif>0){
-						alert('dif mayor a cero');
+						//alert('dif mayor a cero');
 						if ((difexis>0) && (exis>0)){// hay existencia para agregar a factura y la diferencia a pedido
 							if (validasaldo(exis*precio))//valida para modificar en factura
 					  	 	{
@@ -525,12 +521,12 @@ function modificalineaf(articulo,cantidad){
 						 
 					}
 					else{						
-					alert('dif menor a cero');
+					//alert('dif menor a cero');
 						actsaldo(dif*precio);					
 						modificatempfactura(articulo,dif);	
 						
 					}
-					alert('antes llamar a mostrar pedido y factura');
+					//alert('antes llamar a mostrar pedido y factura');
 					mostrarpedido();
 					mostrarfactura();
 					

@@ -42,9 +42,10 @@ $(document).ready(function() {
 	$("#clientes").tap(function() { 
                  //var clavecli = $(this).attr("id");
 				 //botón clientes, genera lista con los clientes del día lunes
-				  //alert ('llama a mostrar clientes');				                    
+				  //alert ('llama a mostrar clientes');
+				  window.location.href='#pclientes';				                    
 				  mostrarclientes("Lunes");
-				  $("select#menu").val("Lunes").selectmenu("refresh");
+				  $("select#menu").val("Lunes").selectmenu("refresh");   
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });
   /*  $("#bguardacli").tap(function() { 

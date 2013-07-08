@@ -10,18 +10,13 @@ function guardaarticulo(articulo){
 	//alert (window.localStorage.getItem("clave"));
 }
 function actsaldo(importe){
-	alert(importe);
+	//alert(importe);
 	var saldoact=Number(window.localStorage.getItem("saldo"))+Number(importe);
-	alert(saldoact);
+	//alert(saldoact);
 	window.localStorage.setItem("saldo",saldoact);
 	//alert (window.localStorage.getItem("clave"));
 }
-
-
-
-function tempdetalle(cantidad){
-	
-	alert(cantidad);	
-	alert (window.localStorage.getItem("articulo"));
-	
+function tempdetalle(cantidad){	
+	//alert(cantidad);	
+	alert (window.localStorage.getItem("articulo"));	
 }
