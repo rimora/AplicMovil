@@ -8,8 +8,10 @@ $(document).ready(function() {
 		
 	
 	});*/	
-	
+	window.localStorage.clear();
 	window.localStorage.setItem("saldo",0);
+	window.localStorage.setItem("consepedido","S03000375");
+	window.localStorage.setItem("ruta","S04");
 	document.addEventListener("backbutton", function(){
 			
 		    return false;	

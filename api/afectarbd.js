@@ -205,4 +205,18 @@ function guardaencpedido(pedido,ruta,cliente,hora,fecha,impuesto,total,subtotal,
 			tx.executeSql('INSERT INTO ENCPEDIDO (NUM_PED,COD_ZON,COD_CLT,TIP_DOC,HOR_FIN,FEC_PED,FEC_DES,MON_IMP_VT,MON_CIV,MON_SIV,MON_DSC,OBS_PED,ESTADO,COD_CND,COD_BOD) VALUES("'+pedido+'","'+ruta+'","'+cliente+'","S","'+hora+'","'+fecha+'","'+fecha+'",'+impuesto+','+total+','+subtotal+','+descuento+',"'+obs+'",'+cond+',"'+bodega+'")'); 
 		}
 	
-}//function modificatempfactura
+}//function guardaencpedido
+function guardadetpedido(pedido,articulo,precio,pordescuento,totalinea,descuento,precio,cantidad){
+	   alert (pedido+articulo+precio+pordescuento+totalinea+descuento+precio+cantidad);
+	consultadb().transaction(insertadet,function(err){
+    	  alert("Error al insertar en detallepedido: "+err.code+err.message);
+          },alert("Detalle Pedido Guardado"));
+				
+    	function insertadet(tx) {		
+		//alert('entra a modificar detallefactura cantidad: '+cantidad);		
+		
+			tx.executeSql('INSERT INTO DETPEDIDO (NUM_PED,COD_ART,MON_PRC_MN,POR_DSC_AP,MON_TOT,MON_DSC,MON_PRC_MX,CNT_MAX) VALUES("'+pedido+'","'+articulo+'",'+precio+','+pordescuento+','+totalinea+','+descuento+','+precio+','+cantidad+')'); 
+		}
+	
+}//function guardadetpedido
+

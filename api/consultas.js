@@ -34,7 +34,7 @@ function mostrarclientes(dia){
 }// mostrarclientes
 function mostrarcliente(clavecli){
 //  $('#datoscli').live('pageshow',function(event, ui){
-   	   window.localStorage.clear();
+   	   
 	   //guarda el cliente con el que se harán operaciones
 	   saveidcliente(clavecli);
        var limite=0;
@@ -633,7 +633,7 @@ var pedido=inicial+pad(incremetarp,6);
 			 sumtotlinea+=sumtotlinea+totlinea;//suma del total de linea sin descuento y sin iva
 			 summontodesc+=summontodesc+montodesc;//suma del total de linea sin descuento y sin iva
 			 sumivalinea+=sumivalinea+ivalinea;//suma del total de linea sin descuento y sin iva
-			 
+			 guardadetpedido(pedido,articulo,precio,pordesc,totlinea,montodesc,precio,cantidad);
 			
 			 
 			 
