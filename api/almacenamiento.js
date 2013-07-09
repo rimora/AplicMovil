@@ -14,6 +14,7 @@ function actsaldo(importe){
 	var saldoact=Number(window.localStorage.getItem("saldo"))+Number(importe);
 	//alert(saldoact);
 	window.localStorage.setItem("saldo",saldoact);
+	actsaldocliente(saldoact)
 	//alert (window.localStorage.getItem("clave"));
 }
 function tempdetalle(cantidad){	

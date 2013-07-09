@@ -372,7 +372,8 @@ $("#bimprimirp").tap(function() {
 				  $("#gridfactura").empty();
 				  //limpiartemp();
 				  validasug();//valida si tiene facturas o pedidos pendientes de imprimir para insertar o no pedido sugerido en caso de tenerlo
-				  
+				  mostrarpedido();
+				  mostrarfactura();
 				  
      });	
 	 $("#bcatalogo").tap(function(){
