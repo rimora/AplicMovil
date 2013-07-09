@@ -172,11 +172,11 @@ function existeenpedido(articulo){
  	}
 	function existep(tx){  	
 	        //alert('entra a funcion existep');         	    
-			var sql='SELECT articulo FROM TEMPEDIDO WHERE articulo="'+articulo+'"  ';			
+			var sql='SELECT articulo FROM TEMPEDIDO WHERE articulo="'+articulo+'" and cliente="'+window.localStorage.getItem("clave")+'"  ';			
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error consultar existeTEMPEDIDO : "+err.code+err.message);
          		});    	
-			sql='SELECT articulo FROM TEMFACTURA WHERE articulo="'+articulo+'"  ';			
+			sql='SELECT articulo FROM TEMFACTURA WHERE articulo="'+articulo+'" and cliente="'+window.localStorage.getItem("clave")+'" ';			
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error consultar existeTEMFACTURA : "+err.code+err.message);
          		});    	
@@ -199,7 +199,7 @@ function existeenpedido(articulo){
     
 	
 	
-}//function insertatemppedido
+}//function existeenpedido
 function armacatalogo(){
  // $('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);		
@@ -263,6 +263,45 @@ function armacatalogo(){
  // });	//$('#pclientes').live('pageshow',function(event, ui){
 	
 }//armacatalogo
+function validasug()
+{
+var existe=false;	
+	function listo(tx,results){ 	
+	         //alert('entra a funcion listo de existeenpedido');         	          
+	     	 if (results.rows.length>0){
+				//alert('existe en pedido');  
+				existe=true;  				
+				//alert('prueba de existe '+existe);  				
+			  }
+			 
+ 	}
+	function existep(tx){  	
+	        //alert('entra a funcion existep');         	    
+			var sql='SELECT articulo FROM TEMPEDIDO WHERE cliente="'+window.localStorage.getItem("clave")+'"  ';			
+			tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error consultar existeTEMPEDIDO : "+err.code+err.message);
+         		});    	
+			sql='SELECT articulo FROM TEMFACTURA WHERE cliente="'+window.localStorage.getItem("clave")+'" ';			
+			tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error consultar existeTEMFACTURA : "+err.code+err.message);
+         		});    	
+								
+	}
+	consultadb().transaction(existep, function(err){
+    	 		 alert("Error validando si tiene pedido sugerido: "+err.code+err.message);
+         		},function(){
+					//alert(existe);
+					if (existe==false){   					
+						sugerido();//inserta sugerido del cliente
+					}
+				});		
+
+    
+	
+	
+}//VALIDA SUGERIDO
+
+
 
 function sugerido(){
 	var artsug=[];
@@ -384,10 +423,10 @@ function eliminalinea(articulo,importe,tipo){
 	function consultatemp(tx){   
 	        if (tipo=="F"){
 				//alert('articulo de eliminar temfactura '+articulo);
-				var sql='SELECT * FROM TEMFACTURA WHERE articulo="'+articulo+'"  ';  	
+				var sql='SELECT * FROM TEMFACTURA WHERE articulo="'+articulo+'" and cliente="'+window.localStorage.getItem("clave")+'"   ';  	
 			}
 			else {
-				var sql='SELECT * FROM TEMPEDIDO WHERE articulo="'+articulo+'"  ';  	
+				var sql='SELECT * FROM TEMPEDIDO WHERE articulo="'+articulo+'" and cliente="'+window.localStorage.getItem("clave")+'"  ';  	
 			}
 								
 			tx.executeSql(sql,[],listo,function(err){
@@ -437,7 +476,7 @@ function modificalineap(articulo,cantidad){
 				var sql='SELECT a.articulo,a.cantidad,b.impuesto,(b.precio-((b.precio/100)*b.descuento)) as precio,';
 				sql+='c.existencia ';	
 				sql+='FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo ';
-				sql+='left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="K01" WHERE a.articulo="'+articulo+'"  ';
+				sql+='left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="K01" WHERE a.articulo="'+articulo+'" and a.cliente="'+window.localStorage.getItem("clave")+'"  ';
 			
 								
 			tx.executeSql(sql,[],listo,function(err){
@@ -449,7 +488,8 @@ function modificalineap(articulo,cantidad){
          		});		
 				
 }//function modificalineap
-function modificalineaf(articulo,cantidad){	
+function modificalineaf(articulo,cantidad){
+	var cliente=window.localStorage.getItem("clave");	
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){			
 			 var row = results.rows.item(0);            			
@@ -482,7 +522,8 @@ function modificalineaf(articulo,cantidad){
 						   	 }
 						   	 else{
 								 if (cantpedido>0){//existe en pedido, agrega la diferencia
-									 modificatemppedido(articulo,difexis);  									 
+								    alert('existe en pedido');
+									 modificatemppedido(articulo,cantpedido+difexis);//la funcion modificatemppedido inserta directo el valor, por eso la suma
 								 }
 								 else
 								 {
@@ -509,7 +550,7 @@ function modificalineaf(articulo,cantidad){
 						   	 }
 						   	 else{
 							 	if (cantpedido>0){//existe en pedido, agrega la diferencia
-									 modificatemppedido(articulo,dif);  									 
+									 modificatemppedido(articulo,cantpedido+dif);//la funcion modificatemppedido inserta directo el valor, por eso la suma  									 
 								 }
 								 else
 								 {
@@ -551,3 +592,76 @@ function modificalineaf(articulo,cantidad){
          		});		
 				
 }//function modificalineaf
+function imprimirped(obs){	
+var cabinsertada=false;
+var sumtotlinea=0;
+var summontodesc=0;
+var sumivalinea=0;
+var consecutivo=window.localStorage.getItem("consepedido");
+var ruta=window.localStorage.getItem("ruta");
+var fecha = new Date();
+var fechaact=fecha.getFullYear()+"/"+(fecha.getMonth()+1)+"/"+fecha.getDate();
+var hora=fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds();
+var fechayhora=fechaact+" "+hora;
+//+"\nMilisegundo: "+fecha.getMilliseconds());
+var longitud=consecutivo.length;
+var inicial=consecutivo.substr(0,3);
+var numpedido= consecutivo.substr(3,(longitud-3));
+var incremetarp=Number(pedido)+1;
+var pedido=inicial+pad(incremetarp,6);
+ alert(pedido); 
+   function pad(n, length){
+  	 n = n.toString();
+   	 while(n.length < length) n = "0" + n;
+  	 return n;
+   }
+	function listo(tx,results){ 	      
+	      if (results.rows.length>0){		
+		  	 $.each(results.rows,function(index){           			 
+			 var row = results.rows.item(index);    
+			 var precio=row['precio'];//precio sin descuento y sin iva			 
+			 var pordesc=row['descuento'];//porcentaje de descuento que se aplica 
+			 var totlinea=Number(row['cantidad'])*Number(row['precio']);//total de linea sin descuento y sin iva
+			 var montodesc=(Number(totlinea)/100)*Number(row['descuento']); 
+			 var lineacdes=totlinea-montodesc;//importe de linea con descuento
+			 var ivalinea=lineacdes*(row['impuesto']/100);			 
+			 var preciocdesc=row['preciocdesc'];	//precio con descuento sin iva		 
+			 var preciociva=preciocdesc*(1+(row['impuesto']/100));			 
+			 var cantidad=row['cantidad'];
+			 var articulo=row['articulo'];
+
+			 sumtotlinea+=sumtotlinea+totlinea;//suma del total de linea sin descuento y sin iva
+			 summontodesc+=summontodesc+montodesc;//suma del total de linea sin descuento y sin iva
+			 sumivalinea+=sumivalinea+ivalinea;//suma del total de linea sin descuento y sin iva
+			 
+			
+			 
+			 
+			/* 
+			 tx.executeSql('CREATE TABLE IF NOT EXISTS ENCPEDIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, NUM_PED,COD_ZON,DOC_PRO,COD_CLT,TIP_DOC,HOR_FIN,FEC_PED,FEC_DES,MON_IMP_VT,MON_CIV,MON_SIV,MON_DSC,OBS_PED,ESTADO,COD_CND,COD_BOD)'); 
+         tx.executeSql('CREATE TABLE IF NOT EXISTS DETPEDIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, NUM_PED,COD_ART,MON_PRC_MN,POR_DSC_AP,MON_TOT,MON_DSC,MON_PRC_MX,CNT_MAX)'); 
+
+			 */
+			 
+			 
+		 	});
+		  	 guardaencpedido(pedido,ruta,window.localStorage.getItem("clave"),fechayhora,fechaact,sumivalinea,(sumtotlinea+sumivalinea),sumtotlinea,summontodesc,obs,30,"K01");
+				
+		  }//if (results.rows.length>0){		  
+ 	}//function listo(tx,results){ 
+	function consultatemp(tx){   
+				var sql='SELECT a.articulo,a.cantidad,b.impuesto,(b.precio-((b.precio/100)*b.descuento)) as preciocdesc,';
+				sql+='b.descuento,b.precio ';	
+				sql+='FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo ';
+				sql+='WHERE a.articulo="'+articulo+'" and a.cliente="'+window.localStorage.getItem("clave")+'"  ';
+			
+								
+			tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error al preparar pedido : "+articulo+err.code+err.message);
+         		});    									
+	}
+	consultadb().transaction(consultatemp, function(err){
+    	 			 alert("Error select tabla temporal PEDIDO para guardarlo: "+err.code+err.message);
+         		});		
+				
+}//function imprimirped

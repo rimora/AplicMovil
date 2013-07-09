@@ -8,6 +8,7 @@ $(document).ready(function() {
 		
 	
 	});*/	
+	
 	window.localStorage.setItem("saldo",0);
 	document.addEventListener("backbutton", function(){
 			
@@ -229,7 +230,21 @@ $("#beliminarf").tap(function() {
     );
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
 });
-
+$("#bimprimirp").tap(function() { 
+                 //var clavecli = $(this).attr("id");
+		function onConfirm(button) {
+		if (button==1){
+			imprimirped($("#pcomentario").val());
+			
+		}//if (button==1){
+	}			 
+    navigator.notification.confirm('¿Confirma generar pedido?',     // mensaje (message)
+    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
+    'Generar Pedido',            // titulo (title)
+        'SI,NO'       // botones (buttonLabels)
+    );
+				  //$.mobile.changePage($("#datoscli"));	  			  				  
+});
 
 	$("#bpruebas").tap(function() { 	
      //llama a funcion que prepara las tablas temporales, insertando el articulo y cantidad
@@ -341,7 +356,7 @@ $("#beliminarf").tap(function() {
 				  $.mobile.changePage($("#pclientes"));	  			  				  
 				  
      });	
-	 $("#bgenerav").tap(function() { 
+	 $("#bgenerav").tap(function() { //boton aceptar del catalogo
                  //var clavecli = $(this).attr("id");
 				 //muestra el pedido o factura armados				 
 				  mostrarpedido();
@@ -353,9 +368,9 @@ $("#beliminarf").tap(function() {
 				 //limpia los grid
                   $("#gridpedido").empty();
 				  $("#gridfactura").empty();
-				  limpiartemp();
-				  sugerido();
-				  //insertatempfactura("ADE-04",50);
+				  //limpiartemp();
+				  validasug();//valida si tiene facturas o pedidos pendientes de imprimir para insertar o no pedido sugerido en caso de tenerlo
+				  
 				  
      });	
 	 $("#bcatalogo").tap(function(){

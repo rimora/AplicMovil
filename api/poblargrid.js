@@ -7,7 +7,7 @@ function mostrarpedido(){
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		consultadb().transaction(consulta, errorconsulta);	
 	function consulta(tx) {		
-		tx.executeSql('SELECT a.articulo,b.descripcion,(b.precio-((b.precio/100)*b.descuento)) as precio,b.descuento,a.cantidad,b.impuesto FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo',[],exito,errorconsulta);
+		tx.executeSql('SELECT a.articulo,b.descripcion,(b.precio-((b.precio/100)*b.descuento)) as precio,b.descuento,a.cantidad,b.impuesto FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo where a.cliente="'+window.localStorage.getItem("clave")+'"',[],exito,errorconsulta);
 		}
 	
 		
@@ -73,7 +73,7 @@ function mostrarfactura(){
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		consultadb().transaction(consulta,errorconsulta);	
 	function consulta(tx) {		
-		tx.executeSql('SELECT a.articulo,b.descripcion,(b.precio-((b.precio/100)*b.descuento)) as precio,a.cantidad,b.impuesto FROM TEMFACTURA a left outer join articulo b on b.articulo=a.articulo',[],exito,errorconsulta);		
+		tx.executeSql('SELECT a.articulo,b.descripcion,(b.precio-((b.precio/100)*b.descuento)) as precio,a.cantidad,b.impuesto FROM TEMFACTURA a left outer join articulo b on b.articulo=a.articulo where a.cliente="'+window.localStorage.getItem("clave")+'"',[],exito,errorconsulta);		
 		
 		}
 		function exito(tx,results){ 		    
