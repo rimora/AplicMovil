@@ -9,7 +9,7 @@ function listafacturas(){
 	function poblarfac(tx){  
 		    
 			var sql='SELECT * FROM ENCHISFAC WHERE CLIENTE="'+window.localStorage.getItem("clave")+'" ORDER BY FACTURA';		
-		
+		     alert(sql);
 		tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error select historico facturas: "+err.code+err.message);
          		});    	
@@ -22,11 +22,13 @@ function listafacturas(){
 			 html+='<li id="'+row['factura']+'">';
 	         html+='<a href=""><h5> '+row['factura']+'</h3>';
 			 html+='Total:'+row['monto']+' Pedido:'+row['pedido']+' Fecha:'+row['fecha']+'</a></li>';
-			 $('#listahistfac').append(html);  			 
+			 alert('antes del append de listfac '+html);
+			 $('#listahistfac').append(html);  			
+			 alert('despues del append de listfac '+html); 
 		 });    
-		 //alert('antes de refresh de lista');  		 
+		 alert('antes de refresh de lista');  		 
 		 $('#listahistfac').listview('refresh'); 
-		 //alert('despues de refresh de lista');
+		 alert('despues de refresh de lista');
  	}
 
  // });	//$('#pclientes').live('pageshow',function(event, ui){
