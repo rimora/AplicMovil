@@ -610,8 +610,8 @@ var longitud=consecutivo.length;
 var inicial=consecutivo.substr(0,3);
 var numpedido= consecutivo.substr(3,(longitud-3));
  alert(numpedido); 
-var incremetarp=Number(pedido)+1;
- alert(incremetarp); 
+var incremetarp=Number(numpedido)+1;
+ alert(numpedido); 
 var pedido=inicial+pad(incremetarp,6);
  alert(pedido); 
    function pad(n, length){
@@ -661,7 +661,7 @@ var pedido=inicial+pad(incremetarp,6);
 				sql+='b.descuento,b.precio ';	
 				sql+='FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo ';
 				sql+='WHERE a.articulo="'+articulo+'" and a.cliente="'+window.localStorage.getItem("clave")+'"  ';
-			
+			    alert(sql);
 								
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error al preparar pedido : "+articulo+err.code+err.message);
