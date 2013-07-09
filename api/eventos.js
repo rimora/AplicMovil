@@ -389,7 +389,11 @@ $("#bimprimirp").tap(function() {
                   pruebalocalizacion();
 				  
      });
-	 
+	 $("#bdevoluciones").tap(function() {                   
+				  //limpiartemp();
+				  listafacturas();
+				  
+     });	
 	 
 	 
   },false);//document.addEventListener("deviceready",function(){	

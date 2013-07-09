@@ -611,7 +611,7 @@ var inicial=consecutivo.substr(0,3);
 var numpedido= consecutivo.substr(3,(longitud-3));
  alert(numpedido); 
 var incremetarp=Number(numpedido)+1;
- alert(numpedido); 
+ alert(incremetarp); 
 var pedido=inicial+pad(incremetarp,6);
  alert(pedido); 
    function pad(n, length){
@@ -647,16 +647,15 @@ var pedido=inicial+pad(incremetarp,6);
 			 tx.executeSql('CREATE TABLE IF NOT EXISTS ENCPEDIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, NUM_PED,COD_ZON,DOC_PRO,COD_CLT,TIP_DOC,HOR_FIN,FEC_PED,FEC_DES,MON_IMP_VT,MON_CIV,MON_SIV,MON_DSC,OBS_PED,ESTADO,COD_CND,COD_BOD)'); 
          tx.executeSql('CREATE TABLE IF NOT EXISTS DETPEDIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, NUM_PED,COD_ART,MON_PRC_MN,POR_DSC_AP,MON_TOT,MON_DSC,MON_PRC_MX,CNT_MAX)'); 
 
-			 */
-			 
-			 
+			 */			 			 
 		 	});
 			alert('antes de llamar a funcion guardaenc');
 		  	 guardaencpedido(pedido,ruta,window.localStorage.getItem("clave"),fechayhora,fechaact,sumivalinea,(sumtotlinea+sumivalinea),sumtotlinea,summontodesc,obs,30,"K01");
 				alert('despues de llamar a funcion guardated');
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
-	function consultatemp(tx){   
+	function consultatemp(tx){  
+	             alert('ENTRA A CONSultatepm'); 
 				var sql='SELECT a.articulo,a.cantidad,b.impuesto,(b.precio-((b.precio/100)*b.descuento)) as preciocdesc,';
 				sql+='b.descuento,b.precio ';	
 				sql+='FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo ';
@@ -672,3 +671,5 @@ var pedido=inicial+pad(incremetarp,6);
          		});		
 				
 }//function imprimirped
+
+
