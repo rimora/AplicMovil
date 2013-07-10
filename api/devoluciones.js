@@ -50,12 +50,7 @@ function mostrarhistfac(factura){
 			
 		      $("#griddethistfac").empty();				  
 			  var html = "";
-			  var tipo="";
-			  var saldot=0;
-			  var montot=0;			  
 		      var precio=0;
-	    	  var total=0;      
-			  var importe=0;         
 			  //agrega encabezado de grid
 			  html+=' <div class="ui-block-a" style="width:110px" ><div class="ui-bar ui-bar-a">Articulo</div></div> ';           
               html+=' <div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-a">Descrip.</div></div>';
@@ -71,19 +66,18 @@ function mostrarhistfac(factura){
 						var devuelto= Number(row['devuelto']);												 
 					 }
 					 else {
-					 	var devuelto= Number(row['devuelto'])+Number(row['devuelto']);												 
+					 	var devuelto= Number(row['devuelto'])+Number(row['temdev']);												 
 					 }
 					 alert (devuelto);
 					 alert( row['cantidad']);
-					 precio=row['preciocdesc'];				 
+					 precio=row['preciocdesc'];	
+					 var disponible=Number(row['cantidad'])-Number(devuelto);			 
 					 //importe=precio*row['cantidad'];
-					 //total+=Number(importe);
-					 
-					html+='<div class="ui-block-a" style="width:110px" ><div class="ui-bar ui-bar-e">'+row['articulo']+'</div></div>';   		 		                    html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
-                    html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-b">'+Number(row['cantidad'])-devuelto+'</div></div>';
-                    html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b"><a href="#pcantidaddev" class="clasedev" name="'+row['linea']+'" id="D'+row['factura']+'"><font color="FFFFFF">'+devuelto+'</font></a></div></div>';
+					 //total+=Number(importe);					 
+					html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-e">'+row['articulo']+'</div></div>';   		 		                    html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
+                    html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-b">'+disponible+'</div></div>';
+                    html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b"><a href="#pcantidaddev" class="clasedev" name="'+row['linea']+'"><font color="FFFFFF">'+devuelto+'</font></a></div></div>';
 	                html+='<div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-b">'+precio.toFixed(2)+'</div></div> ';
-
                   	 
 			  });//.each
 					$("#griddethistfac").append(html); 
