@@ -393,9 +393,10 @@ $("#bimprimirp").tap(function() {
      });
 	 $("#bdevoluciones").tap(function() {                   
 				  //limpiartemp();
+				  window.location.href='#phistfac';
 				  listafacturas();
 				  eliminatempdev();
-				  
+				   
      });	
 	 $("#listahistfac li").live('click',function(){
 		          //al seleccionar un cliente de la lista, muestra sus datos
