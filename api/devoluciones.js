@@ -7,7 +7,7 @@ function listafacturas(){
     	 		 alert("Error poblar facturas para devoluciones : "+err.code+err.message);
          		});		
 	function poblarfac(tx){  
-		    
+		    alert('entra a poblarfac');
 			var sql='SELECT * FROM ENCHISFAC WHERE CLIENTE="'+window.localStorage.getItem("clave")+'" ORDER BY FACTURA';		
 		     alert(sql);
 		tx.executeSql(sql,[],listo,function(err){
@@ -15,6 +15,7 @@ function listafacturas(){
          		});    	
 	}
 	function listo(tx,results){  
+	      alert('entra a listo');
 		 $('#listahistfac').empty(); 		     
 		 $.each(results.rows,function(index){           
 			 var row = results.rows.item(index); 
