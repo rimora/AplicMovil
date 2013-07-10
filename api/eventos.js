@@ -383,6 +383,7 @@ $("#bimprimirp").tap(function() {
                   armacatalogo();
 				  window.location.href='#pcatalogo';
 				  
+				  
      });
 	 $("#binicializar").click(function(){
                  //var clavecli = $(this).attr("id");
@@ -400,6 +401,8 @@ $("#bimprimirp").tap(function() {
 		          //al seleccionar un cliente de la lista, muestra sus datos
                   var factura = $(this).attr("id");
 				  //alert (clavecli);
+				  window.location.href='#phistfac';
+				  $("#gridartdev").empty();	
 				  guardafactura(factura);//almacena localmente la clave de articulo 	
 				  copiadethistempd();//copia a tabla temporal los renglones de la factura a devolver
 				  mostrarhistfac(factura);//muestra el grid con los detalles de los artículos de factura
@@ -438,6 +441,7 @@ $("#bimprimirp").tap(function() {
                 function onConfirm(button) {
 					if (button==1){
 						 eliminatempdev();
+						 window.location.href='#phistfac';
 			
 					}//if (button==1){
 				}			 

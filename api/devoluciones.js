@@ -29,7 +29,7 @@ function listafacturas(){
 			 alert('despues del append de listfac '+html); 
 		 });    
 		 alert('antes de refresh de lista');  		 
-		 //$('#listahistfac').listview('refresh'); 
+		 $('#listahistfac').listview('refresh'); 
 		 alert('despues de refresh de lista');
  	}
 
