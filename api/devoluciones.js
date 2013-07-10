@@ -8,7 +8,8 @@ function listafacturas(){
          		});		
 	function poblarfac(tx){  
 		    alert('entra a poblarfac');
-			var sql='SELECT * FROM ENCHISFAC WHERE CLIENTE="'+window.localStorage.getItem("clave")+'" ORDER BY FACTURA';		
+			//var sql='SELECT * FROM ENCHISFAC WHERE CLIENTE="'+window.localStorage.getItem("clave")+'" ORDER BY FACTURA';		
+			var sql='SELECT * FROM ENCHISFAC ORDER BY FACTURA';		
 		     alert(sql);
 		tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error select historico facturas: "+err.code+err.message);
