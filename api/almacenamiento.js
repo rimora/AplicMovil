@@ -9,6 +9,11 @@ function guardaarticulo(articulo){
 	window.localStorage.setItem("articulo",articulo);
 	//alert (window.localStorage.getItem("clave"));
 }
+function guardafactura(factura){
+	window.localStorage.setItem("factura",factura);
+	//alert (window.localStorage.getItem("clave"));
+}
+
 function actsaldo(importe){
 	//alert(importe);
 	var saldoact=Number(window.localStorage.getItem("saldo"))+Number(importe);

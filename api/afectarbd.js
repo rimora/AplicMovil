@@ -18,6 +18,7 @@ consultadb().transaction(creartb, errorCB, successCB);
 		 tx.executeSql('DROP TABLE IF EXISTS erpadmin_alcxc_pen_cob');
 		 tx.executeSql('DROP TABLE IF EXISTS TEMPEDIDO');
 		 tx.executeSql('DROP TABLE IF EXISTS TEMFACTURA');
+		 tx.executeSql('DROP TABLE IF EXISTS TEMDEV');//
 		 tx.executeSql('DROP TABLE IF EXISTS ARTICULO');//se llena de tablas articulo, articulo_precio,descuento_nivel
 		 tx.executeSql('DROP TABLE IF EXISTS ARTICULO_EXISTENCIA');//se llena de tablas articulo, articulo_precio,descuento_nivel
 		 tx.executeSql('DROP TABLE IF EXISTS SUGERIDO');//
@@ -27,20 +28,25 @@ consultadb().transaction(creartb, errorCB, successCB);
 		 tx.executeSql('DROP TABLE IF EXISTS PARAMETROS');//
 		 tx.executeSql('DROP TABLE IF EXISTS ENCHISFAC');//
 		 tx.executeSql('DROP TABLE IF EXISTS DETHISFAC');//
+		 tx.executeSql('DROP TABLE IF EXISTS ENCDEV');//
+		 tx.executeSql('DROP TABLE IF EXISTS DETDEV');//
+
 		 
-		 
-		 tx.executeSql('CREATE TABLE IF NOT EXISTS ENCHISFAC (id INTEGER PRIMARY KEY AUTOINCREMENT, FACTURA,MONTO,CLIENTE,PEDIDO,FECHA)');  
-		 tx.executeSql('CREATE TABLE IF NOT EXISTS DETHISFAC (id INTEGER PRIMARY KEY AUTOINCREMENT, FACTURA,ARTICULO,LINEA,CANTIDAD,DEVUELTO,PRECIO,TOTLINEA)');  
+		 tx.executeSql('CREATE TABLE IF NOT EXISTS ENCHISFAC (id INTEGER PRIMARY KEY AUTOINCREMENT, factura,monto,cliente,pedido,fecha)');  
+		 tx.executeSql('CREATE TABLE IF NOT EXISTS DETHISFAC (id INTEGER PRIMARY KEY AUTOINCREMENT, factura,articulo,linea,cantidad,devuelto,precio,totlinea)');  
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS PARAMETROS (id INTEGER PRIMARY KEY AUTOINCREMENT, COD_ZON,NUM_PED,NUM_REC,NUM_DEV,NUM_FAC)'); 
          tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL,direccion TEXT NOT NULL,telefono TEXT NOT NULL,tipo TEXT NOT NULL,diasc TEXT NOT NULL,lcredito,saldo )'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS erpadmin_alcxc_pen_cob (id INTEGER PRIMARY KEY AUTOINCREMENT, cod_zon TEXT NOT NULL, cod_tip_dc TEXT NOT NULL,num_doc TEXT NOT NULL,cod_clt TEXT NOT NULL,saldo TEXT NOT NULL,monto TEXT NOT NULL,fec_doc_ft TEXT NOT NULL,fec_ven TEXT NOT NULL,vencida TEXT NOT NULL)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMPEDIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,cantidad,cliente)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMFACTURA (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,cantidad,cliente)'); 
+		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMDEV (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,linea,cantidad)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS ARTICULO (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,descripcion TEXT NOT NULL,clas TEXT NOT NULL,accion TEXT NOT NULL,impuesto,precio,descuento)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS ARTICULO_EXISTENCIA (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,BODEGA TEXT NOT NULL,existencia)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS SUGERIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente TEXT NOT NULL,articulo TEXT NOT NULL,cantidad)'); 
          tx.executeSql('CREATE TABLE IF NOT EXISTS ENCPEDIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, NUM_PED,COD_ZON,DOC_PRO,COD_CLT,TIP_DOC,HOR_FIN,FEC_PED,FEC_DES,MON_IMP_VT,MON_CIV,MON_SIV,MON_DSC,OBS_PED,ESTADO,COD_CND,COD_BOD)'); 
          tx.executeSql('CREATE TABLE IF NOT EXISTS DETPEDIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, NUM_PED,COD_ART,MON_PRC_MN,POR_DSC_AP,MON_TOT,MON_DSC,MON_PRC_MX,CNT_MAX)'); 
+		  tx.executeSql('CREATE TABLE IF NOT EXISTS ENCDEV (id INTEGER PRIMARY KEY AUTOINCREMENT, NUM_DEV,COD_ZON,COD_CLT,HOR_INI,HOR_FIN,FEC_DEV,OBS_DEV,EST_DEV,DOC_PRO,MON_SIV,MON_DSC,POR_DSC_AP,MON_IMP_VT,MON_IMP_CS,COD_BOD,NUM_REF)'); 
+         tx.executeSql('CREATE TABLE IF NOT EXISTS DETDEV  (id INTEGER PRIMARY KEY AUTOINCREMENT, NUM_PED,COD_ART,MON_PRC_MN,POR_DSC_AP,MON_TOT,MON_DSC,MON_PRC_MX,CNT_MAX)'); 
 
 		 }		 
 		 
@@ -61,8 +67,8 @@ function insertar(){
 				
     	function insertarcli(tx) {	
 		tx.executeSql('INSERT INTO PARAMETROS (COD_ZON,NUM_PED,NUM_REC,NUM_DEV,NUM_FAC) VALUES ("S04","S13000216","R13000656","D13000001","F13000646")'); 	
-        tx.executeSql('INSERT INTO ENCHISFAC (FACTURA,MONTO,CLIENTE,PEDIDO,FECHA) VALUES ("00046441",140,"1020","F06000779","03/07/2013")');  		
-		tx.executeSql('INSERT INTO DETHISFAC (FACTURA,ARTICULO,LINEA,CANTIDAD,DEVUELTO,PRECIO,TOTLINEA) VALUES ("00046441","ADE-04",0,2,0,100,140)')
+        tx.executeSql('INSERT INTO ENCHISFAC (factura,monto,cliente,pedido,fecha) VALUES ("00046441",140,"1020","F06000779","03/07/2013")');  		
+		tx.executeSql('INSERT INTO DETHISFAC (factura,articulo,linea,cantidad,devuelto,precio,totlinea) VALUES ("00046441","ADE-04",0,2,0,100,140)')
 		tx.executeSql('INSERT INTO ENCPEDIDO (NUM_PED,COD_ZON,DOC_PRO,COD_CLT,TIP_DOC,HOR_FIN,FEC_PED,FEC_DES,MON_IMP_VT,MON_CIV,MON_SIV,MON_DSC,OBS_PED,ESTADO,COD_CND,COD_BOD) VALUES("F01000597","S04","S","1020","F","10:20 AM","09/07/2013","09/07/2013",116,1116,1000,200,"PEDIDO X","S",30,"K01")'); 
 		tx.executeSql('INSERT INTO DETPEDIDO (NUM_PED,COD_ART,MON_PRC_MN,POR_DSC_AP,MON_TOT,MON_DSC,MON_PRC_MX,CNT_MAX) VALUES("F01000597","AGU-10",102,20,1000,200,102,10)'); 
 		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia UNO", "1020","Lunes","Dirección del cliente","2281545130","C","30",10000.00,9000.00)');      
@@ -264,3 +270,25 @@ function actsaldocliente(importe){
 		}
 	
 }//function limpiartemppedido
+function actualizatempdev(linea,cantidad){
+	   //alert('inserttafactura'+cantidad);
+	    consultadb().transaction(insertadet,function(err){
+    	  alert("Error al modificar renglon temdevolucion: "+err.code+err.message);
+          });
+				
+    	function insertadet(tx) {		
+		tx.executeSql('UPDATE TEMDEV SET cantidad='+cantidad+' where linea='+linea);		
+		}
+	
+}//function actualizatempdev
+function insertatempdev(articulo,linea){
+	   //alert('inserttafactura'+cantidad);
+	    consultadb().transaction(insertadet,function(err){
+    	  alert("Error al insertar renglon temdevolucion: "+err.code+err.message);
+          });
+				
+    	function insertadet(tx) {		
+		   tx.executeSql('INSERT INTO TEMDEV (articulo,linea,cantidad) VALUES ("'+articulo+'",'+linea+','+0+')');		
+		}
+	
+}//function actualizatempdev

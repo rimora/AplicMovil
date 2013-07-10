@@ -673,3 +673,5 @@ var pedido=inicial+pad(incremetarp,6);
 }//function imprimirped
 
 
+
+

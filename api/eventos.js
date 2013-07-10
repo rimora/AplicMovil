@@ -10,7 +10,8 @@ $(document).ready(function() {
 	});*/	
 	window.localStorage.clear();
 	window.localStorage.setItem("saldo",0);
-	window.localStorage.setItem("consepedido","S03000375");
+	window.localStorage.setItem("consepedido","S04000375");
+	window.localStorage.setItem("consedev","D04000375");
 	window.localStorage.setItem("ruta","S04");
 	document.addEventListener("backbutton", function(){
 			
@@ -394,7 +395,44 @@ $("#bimprimirp").tap(function() {
 				  listafacturas();
 				  
      });	
-	 
+	 $("#listahistfac li").live('click',function(){
+		          //al seleccionar un cliente de la lista, muestra sus datos
+                  var factura = $(this).attr("id");
+				  //alert (clavecli);
+				  guardafactura(factura);//almacena localmente la clave de articulo 	
+				  copiadethistempd();//copia a tabla temporal los renglones de la factura a devolver
+				  mostrarhistfac(factura);//muestra el grid con los detalles de los artículos de factura
+				  
+				  //$.mobile.changePage($("#datoscli"));	  			  				  
+    });
+	$("a.clasedev").live('click',function(){//al modificar linea de devolución.
+                  var linea = $(this).attr("name");//el nombre tiene el numero de linea que corresponde al articulo en la tabla de DETHISFAC
+				 /* var id = $(this).attr("id");
+				  var longitud=id.length;
+				  var posicion = id.indexOf('*'); 
+				  var cantidad=Number(id.substring(posicion+1));*/
+				 guardaarticulo(linea);//almacena localmente la linea, usando la función que guarda el articulo
+				
+    });
+	$("#bcantidaddev").tap(function(){
+                 //var cantidad=$('#scantidad').attr('Val');
+				 var cantidad=Number($('#cantidaddev').val());
+				  //alert (cantidad);
+				  if (cantidad<=0){
+					   navigator.notification.alert('Debe indicar cantidad MAYOR A CERO',null,'Error Indicando Cantidad','Aceptar');					
+					  
+				  }
+				  else
+				  {
+				    //obtiene el articulo pulsado en la lista
+    				var linea = window.localStorage.getItem("articulo");
+	     			//alert (cantidad);	  
+					insertalindev(linea,cantidad);
+					mostrarhistfac(window.localStorage.getItem("factura"));
+					 //alert('despues de llamada modificarlineap');
+					 //mostrarpedido();
+				  }
+    });
 	 
   },false);//document.addEventListener("deviceready",function(){	
 });//ultimo
