@@ -94,6 +94,45 @@ function mostrarhistfac(factura){
 //  });	
 
   }//mostrarhistfac
+  
+  function mostrarartdev(){
+		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
+		consultadb().transaction(consulta, errorconsulta);	
+	function consulta(tx) {	
+        	var sql='SELECT a.articulo,a.cantidad ';
+	    	sql+='FROM TEMDEV a ';	
+				
+			tx.executeSql(sql ,[],exito,errorconsulta);
+	}		
+		function exito(tx,results){ 
+			
+		      $("#gridartdev").empty();				  
+			  var html = "";
+		      var precio=0;
+			  //agrega encabezado de grid
+			  html+=' <div class="ui-block-a" style="width:110px" ><div class="ui-bar ui-bar-a">Articulo</div></div> ';           
+              html+=' <div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-a">Cantidad</div></div>';
+              
+			  $.each(results.rows,function(index){				  
+				  var row = results.rows.item(index); 				     			     
+				    html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-e">'+row['articulo']+'</div></div>';   		 		                    html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b">'+row['cantidad']+'</div></div>';                  
+                  	 
+			  });//.each
+					$("#gridartdev").append(html); 
+					//$("#tpedido").attr("value",total); 			
+					//$("#tpedido").val(total.toFixed(2)); 			
+					
+					//alert('total'+total);					 
+			
+	   }//function exito
+ 		
+	function errorconsulta(err) {
+    	alert("Error al llenar detalles devoluciones "+err.code+err.message);
+	}
+//  });	
+
+  }//mostrarartdev
+  
 function guardadev(linea,cantidad){	
 var cabinsertada=false;
 var sumtotlinea=0;
@@ -191,6 +230,8 @@ function insertalindev(linea,cantidad){
 				 }
 				 alert('pasa depues del if');
 				 actualizatempdev(linea,cantidad)
+				 mostrarhistfac(window.localStorage.getItem("factura"));
+				 mostrarartdev();
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
 	function consultatemp(tx){   	       

@@ -429,11 +429,26 @@ $("#bimprimirp").tap(function() {
     				var linea = window.localStorage.getItem("articulo");
 	     			//alert (cantidad);	  
 					insertalindev(linea,cantidad);
-					mostrarhistfac(window.localStorage.getItem("factura"));
+					
 					 //alert('despues de llamada modificarlineap');
 					 //mostrarpedido();
 				  }
     });
+	$("#regresardedev").tap(function(){
+                function onConfirm(button) {
+					if (button==1){
+						 eliminatempdev();
+			
+					}//if (button==1){
+				}			 
+    	navigator.notification.confirm('Se perderán los datos no guardados',     // mensaje (message)
+	    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
+    	'Generar Devolución',            // titulo (title)
+        'ACEPTAR,CANCELAR'       // botones (buttonLabels)
+	    );
+    }); 
+	 
+	 
 	 
   },false);//document.addEventListener("deviceready",function(){	
 });//ultimo

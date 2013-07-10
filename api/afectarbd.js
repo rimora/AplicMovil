@@ -271,7 +271,7 @@ function actsaldocliente(importe){
 	
 }//function limpiartemppedido
 function actualizatempdev(linea,cantidad){
-	   //alert('inserttafactura'+cantidad);
+	   alert('actualiza tempdev'+cantidad+' '+linea);
 	    consultadb().transaction(insertadet,function(err){
     	  alert("Error al modificar renglon temdevolucion: "+err.code+err.message);
           });
