@@ -23,13 +23,13 @@ function listafacturas(){
 			 var html="";               			 
 			 html+='<li id="'+row['factura']+'">';
 	         html+='<a href="#pdethistfac"><h5> Factura: '+row['factura']+'</h5>';
-			 html+='Total:  '+row['monto']+'Pedido:   '+row['pedido']+'Fecha:   '+row['fecha']+'</a></li>';
+			 html+='Total:  '+row['monto']+'    Pedido:   '+row['pedido']+'    Fecha:   '+row['fecha']+'</a></li>';
 			 alert('antes del append de listfac '+html);
 			 $('#listahistfac').append(html);  			
 			 alert('despues del append de listfac '+html); 
 		 });    
 		 alert('antes de refresh de lista');  		 
-		 $('#listahistfac').listview('refresh'); 
+		 //$('#listahistfac').listview('refresh'); 
 		 alert('despues de refresh de lista');
  	}
 
@@ -57,8 +57,7 @@ function mostrarhistfac(factura){
 	    	  var total=0;      
 			  var importe=0;         
 			  //agrega encabezado de grid
-			  html+=' <div class="ui-block-a" style="width:110px" > ';            
-              html+=' <div class="ui-bar ui-bar-a">Articulo</div></div> ';           
+			  html+=' <div class="ui-block-a" style="width:110px" ><div class="ui-bar ui-bar-a">Articulo</div></div> ';           
               html+=' <div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-a">Descrip.</div></div>';
               html+=' <div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-a">Disp.</div></div>';
               html+=' <div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-a">Devuelto</div></div>';
@@ -69,22 +68,20 @@ function mostrarhistfac(factura){
 				     //precio=row['precio']*(1+(row['impuesto']/100));	
 					 alert (row['temdev']);
 					 if (row['temdev']==null){
-						var devuelto= Number(row['temdev']);												 
+						var devuelto= Number(row['devuelto']);												 
 					 }
 					 else {
-					 	var devuelto= Number(row['temdev'])+Number(row['devuelto']);												 
+					 	var devuelto= Number(row['devuelto'])+Number(row['devuelto']);												 
 					 }
 					 alert (devuelto);
-					 			 
+					 alert( row['cantidad']);
 					 precio=row['preciocdesc'];				 
 					 //importe=precio*row['cantidad'];
 					 //total+=Number(importe);
 					 
-					html+='<div class="ui-block-a" style="width:110px" >';              
-           			html+='<div class="ui-bar ui-bar-e"  >'+row['articulo']+'</div></div>';   		 		                    
-					html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
+					html+='<div class="ui-block-a" style="width:110px" ><div class="ui-bar ui-bar-e">'+row['articulo']+'</div></div>';   		 		                    html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
                     html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-b">'+Number(row['cantidad'])-devuelto+'</div></div>';
-                    html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b"><a href="#pcantidaddev" class="clasedev" name="'+row['linea']+'" id="D'+row['factura']+'" ><font color="FFFFFF">'+devuelto+'</font></a></div></div>';
+                    html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b"><a href="#pcantidaddev" class="clasedev" name="'+row['linea']+'" id="D'+row['factura']+'"><font color="FFFFFF">'+devuelto+'</font></a></div></div>';
 	                html+='<div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-b">'+precio.toFixed(2)+'</div></div> ';
 
                   	 

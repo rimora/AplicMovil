@@ -393,6 +393,7 @@ $("#bimprimirp").tap(function() {
 	 $("#bdevoluciones").tap(function() {                   
 				  //limpiartemp();
 				  listafacturas();
+				  eliminatempdev();
 				  
      });	
 	 $("#listahistfac li").live('click',function(){

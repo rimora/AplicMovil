@@ -292,3 +292,14 @@ function insertatempdev(articulo,linea){
 		}
 	
 }//function actualizatempdev
+function eliminatempdev(){
+	   //alert('inserttafactura'+cantidad);
+	    consultadb().transaction(insertadet,function(err){
+    	  alert("Error al eliminar temdevolucion: "+err.code+err.message);
+          });
+				
+    	function insertadet(tx) {		
+		   tx.executeSql('DELETE FROM TEMDEV ');		
+		}
+	
+}//function eliminatempdev
