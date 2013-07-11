@@ -425,7 +425,7 @@ $("#bimprimirp").tap(function() {
 				 
 				
     });
-	$("#bcantidaddev").tap(function(){
+	$("#bcantidaddev").tap(function(){//boton aceptar del cuadro de dialogo
                  //var cantidad=$('#scantidad').attr('Val');
 				 var cantidad=Number($('#cantidaddev').val());
 				 var observa=$('#obsrendev').val()

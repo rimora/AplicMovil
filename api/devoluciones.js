@@ -218,8 +218,11 @@ function insertalindev(linea,cantidad,observa){
 			 	var row = results.rows.item(0); 
 			    var articulo=row['articulo'];
 			 //if (row['cantidad']>0){
-			 	//preparadetalletemp(row['articulo'],row['cantidad']);												
+			 	//preparadetalletemp(row['articulo'],row['cantidad']);																
 				var dif=Number(row['cantidad'])-Number(row['devuelto']);
+				alert ('dif '+dif);
+				alert ('cantidad '+cantidad);
+				alert ('linea '+linea);
  			 	if (cantidad>dif){//se intenta devolver mas de la cantidad disponible para devolución
 					navigator.notification.alert('Se intenta devolver una cantidad mayor que el disponible',null,'Error Indicando Cantidad','Aceptar');						 					return false;				 
 				 }
