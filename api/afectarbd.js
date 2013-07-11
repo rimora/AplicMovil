@@ -269,14 +269,14 @@ function actsaldocliente(importe){
 		}
 	
 }//function limpiartemppedido
-function actualizatempdev(linea,cantidad){
+function actualizatempdev(linea,cantidad,observa){
 	   alert('actualiza tempdev'+cantidad+' '+linea);
 	    consultadb().transaction(insertadet,function(err){
     	  alert("Error al modificar renglon temdevolucion: "+err.code+err.message);
           });
 				
     	function insertadet(tx) {		
-		tx.executeSql('UPDATE TEMDEV SET cantidad='+cantidad+' where linea='+linea);		
+		tx.executeSql('UPDATE TEMDEV SET cantidad='+cantidad+',observa="'+observa+'" where linea='+linea);		
 		}
 	
 }//function actualizatempdev
@@ -287,7 +287,7 @@ function insertatempdev(articulo,linea){
           });
 				
     	function insertadet(tx) {		
-		   tx.executeSql('INSERT INTO TEMDEV (articulo,linea,cantidad) VALUES ("'+articulo+'",'+linea+','+0+')');		
+		   tx.executeSql('INSERT INTO TEMDEV (articulo,linea,cantidad,obs) VALUES ("'+articulo+'",'+linea+','+0+',"")');		
 		}
 	
 }//function actualizatempdev

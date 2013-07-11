@@ -427,6 +427,7 @@ $("#bimprimirp").tap(function() {
                  //var cantidad=$('#scantidad').attr('Val');
 				 var cantidad=Number($('#cantidaddev').val());
 				 var observa=$('#obsrendev').val()
+				 alert('observa '+observa);
 				  //alert (cantidad);
 				  if (cantidad<0){
 					   navigator.notification.alert('Debe indicar cantidad valida',null,'Error Indicando Cantidad','Aceptar');					
