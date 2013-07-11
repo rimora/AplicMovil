@@ -276,7 +276,7 @@ function actualizatempdev(linea,cantidad,observa){
           });
 				
     	function insertadet(tx) {		
-		tx.executeSql('UPDATE TEMDEV SET cantidad='+cantidad+',observa="'+observa+'" where linea='+linea);		
+		tx.executeSql('UPDATE TEMDEV SET cantidad='+cantidad+',obs="'+observa+'" where linea='+linea);		
 		}
 	
 }//function actualizatempdev
