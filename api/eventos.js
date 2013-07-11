@@ -418,6 +418,9 @@ $("#bimprimirp").tap(function() {
 				  var posicion = id.indexOf('*'); 
 				  var cantidad=Number(id.substring(posicion+1));*/
 				 guardaarticulo(linea);//almacena localmente la linea, usando la función que guarda el articulo
+				 window.location.href='#pcantidaddev';
+				 mostrarddev(linea);//muestra dialogo para indicar cantidad a modificar y observaciones.
+				 
 				
     });
 	$("#bcantidaddev").tap(function(){

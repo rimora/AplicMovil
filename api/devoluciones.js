@@ -76,7 +76,7 @@ function mostrarhistfac(factura){
 					 //total+=Number(importe);					 
 					html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-e">'+row['articulo']+'</div></div>';   		 		                    html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
                     html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-b">'+disponible+'</div></div>';
-                    html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b"><a href="#pcantidaddev" class="clasedev" name="'+row['linea']+'"><font color="FFFFFF">'+devuelto+'</font></a></div></div>';
+                    html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b"><a href="#" class="clasedev" name="'+row['linea']+'"><font color="FFFFFF">'+devuelto+'</font></a></div></div>';
 	                html+='<div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-b">'+precio.toFixed(2)+'</div></div> ';
                   	 
 			  });//.each
@@ -275,4 +275,31 @@ function copiadethistempd(){
          		});		
 				
 }//function copiadethistempd
+function mostrarddev(linea){	
+	function listo(tx,results){ 	      
+	      if (results.rows.length>0){			
+			 	var row = results.rows.item(0); 
+			    $("#cantidaddev").val(row['cantidad']);
+				$("#obsrendev").val(row['obs']);
+			
+		  }//if (results.rows.length>0){		  
+ 	}//function listo(tx,results){ 
+	function consultatemp(tx){   	       
+				//alert('articulo de MODIFICAR temPEDIDO '+articulo);
+				 var sql='SELECT a.cantidad,a.obs ';
+	   			 sql+='FROM TEMDEV a ';	
+				 sql+='where a.linea='+linea;	
+		
+								
+			tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error consultar temporal para dialogo: "+articulo+err.code+err.message);
+         		});    									
+	}
+	consultadb().transaction(consultatemp, function(err){
+    	 			 alert("Error select tabla temporal TEMDEV: "+err.code+err.message);
+         		});		
+				
+}//function mostrarddev(linea)
+
+
 
