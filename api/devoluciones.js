@@ -186,6 +186,7 @@ var devolucion=inicial+pad(incremetard,6);
 			 sumivalinea+=sumivalinea+ivalinea;//suma del total de linea sin descuento y sin iva
 			 alert('antes de llamar a funcion guardadev');
 			 guardadetdev(devolucion,ruta,articulo,totalinea,precio,cantidad,observa,montodesc,pordesc);
+			 actexis(articulo,cantidad);
 			 alert('despues de llamar a funcion guardadev');
 			
 		 	});
