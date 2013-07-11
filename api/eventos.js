@@ -423,9 +423,10 @@ $("#bimprimirp").tap(function() {
 	$("#bcantidaddev").tap(function(){
                  //var cantidad=$('#scantidad').attr('Val');
 				 var cantidad=Number($('#cantidaddev').val());
+				 var observa=$('#obsrendev').val()
 				  //alert (cantidad);
-				  if (cantidad<=0){
-					   navigator.notification.alert('Debe indicar cantidad MAYOR A CERO',null,'Error Indicando Cantidad','Aceptar');					
+				  if (cantidad<0){
+					   navigator.notification.alert('Debe indicar cantidad valida',null,'Error Indicando Cantidad','Aceptar');					
 					  
 				  }
 				  else
@@ -433,9 +434,8 @@ $("#bimprimirp").tap(function() {
 				    //obtiene el articulo pulsado en la lista
     				var linea = window.localStorage.getItem("articulo");
 	     			//alert (cantidad);	  
-					insertalindev(linea,cantidad);
-					
-					 //alert('despues de llamada modificarlineap');
+					insertalindev(linea,cantidad,observa);					
+    				 //alert('despues de llamada modificarlineap');
 					 //mostrarpedido();
 				  }
     });

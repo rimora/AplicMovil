@@ -99,8 +99,8 @@ function mostrarhistfac(factura){
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		consultadb().transaction(consulta, errorconsulta);	
 	function consulta(tx) {	
-        	var sql='SELECT a.articulo,a.cantidad ';
-	    	sql+='FROM TEMDEV a ';	
+        	var sql='SELECT a.articulo,a.cantidad,obs ';
+	    	sql+='FROM TEMDEV a where cantidad>0 ';	
 				
 			tx.executeSql(sql ,[],exito,errorconsulta);
 	}		
@@ -112,10 +112,12 @@ function mostrarhistfac(factura){
 			  //agrega encabezado de grid
 			  html+=' <div class="ui-block-a" style="width:110px" ><div class="ui-bar ui-bar-a">Articulo</div></div> ';           
               html+=' <div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-a">Cantidad</div></div>';
+			  html+=' <div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-a">Observaciones</div></div>';
               
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
 				    html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-e">'+row['articulo']+'</div></div>';   		 		                    html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b">'+row['cantidad']+'</div></div>';                  
+					html+='<div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-b">'+row['obs']+'</div></div>';                  
                   	 
 			  });//.each
 					$("#gridartdev").append(html); 
@@ -217,7 +219,7 @@ var pedido=inicial+pad(incremetarp,6);
          		});		
 				
 }//function guardadev
-function insertalindev(linea,cantidad){	
+function insertalindev(linea,cantidad,observa){	
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){			
 			 	var row = results.rows.item(0); 
@@ -229,7 +231,7 @@ function insertalindev(linea,cantidad){
 					navigator.notification.alert('Se intenta devolver una cantidad mayor que el disponible',null,'Error Indicando Cantidad','Aceptar');						 					return false;				 
 				 }
 				 alert('pasa depues del if');
-				 actualizatempdev(linea,cantidad)
+				 actualizatempdev(linea,cantidad,observa)
 				 mostrarhistfac(window.localStorage.getItem("factura"));
 				 mostrarartdev();
 		  }//if (results.rows.length>0){		  
