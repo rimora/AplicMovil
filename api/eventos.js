@@ -391,6 +391,7 @@ $("#bimprimirp").tap(function() {
                   pruebalocalizacion();
 				  
      });
+	 //*****D E V O L U C I O N E S *****
 	 $("#bdevoluciones").tap(function() {                   
 				  //limpiartemp();
 				  window.location.href='#phistfac';
@@ -402,9 +403,9 @@ $("#bimprimirp").tap(function() {
 		          //al seleccionar un cliente de la lista, muestra sus datos
                   var factura = $(this).attr("id");
 				  //alert (clavecli);
-				  window.location.href='#phistfac';
+				  window.location.href='#pdethistfac';
 				  $("#gridartdev").empty();	
-				  guardafactura(factura);//almacena localmente la clave de articulo 	
+				  guardafactura(factura);//almacena localmente el numero de factura	
 				  copiadethistempd();//copia a tabla temporal los renglones de la factura a devolver
 				  mostrarhistfac(factura);//muestra el grid con los detalles de los artículos de factura
 				  
