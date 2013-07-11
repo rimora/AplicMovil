@@ -13,6 +13,7 @@ $(document).ready(function() {
 	window.localStorage.setItem("consepedido","S04000375");
 	window.localStorage.setItem("consedev","D04000375");
 	window.localStorage.setItem("ruta","S04");
+	window.localStorage.setItem("bodega","K01");
 	document.addEventListener("backbutton", function(){
 			
 		    return false;	
@@ -408,6 +409,7 @@ $("#bimprimirp").tap(function() {
 				  guardafactura(factura);//almacena localmente el numero de factura	
 				  copiadethistempd();//copia a tabla temporal los renglones de la factura a devolver
 				  mostrarhistfac(factura);//muestra el grid con los detalles de los artículos de factura
+				  guardafechaactual();
 				  
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
     });
@@ -457,7 +459,22 @@ $("#bimprimirp").tap(function() {
         'ACEPTAR,CANCELAR'       // botones (buttonLabels)
 	    );
     }); 
-	 
+	$("#bguardadev").tap(function(){
+                function onConfirm(button) {
+					if (button==1){
+						 var observagen=$("#obsgendev").val();
+						 guardadev(observagen);//guarda la devolución.
+						 //eliminatempdev();
+						 window.location.href='#phistfac';
+			
+					}//if (button==1){
+				}			 
+    	navigator.notification.confirm('¿Desea terminar y guardar la devolución?',     // mensaje (message)
+	    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
+    	'Guardar Devolución',            // titulo (title)
+        'SI,NO'       // botones (buttonLabels)
+	    );
+    });  
 	 
 	 
   },false);//document.addEventListener("deviceready",function(){	

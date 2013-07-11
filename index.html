@@ -407,6 +407,12 @@
 		<h3>Catálogo</h3>
 	</div>
 	<div data-role="content">
+       <audio controls="controls">
+       		<source src="http://www.w3schools.com/html/horse.mp3" type="audio/mpeg" />
+       
+       </audio>
+    
+    
     	<ul id="mylistview" data-role="listview" data-inset="true"    class="catalogo" data-autodividers="true" data-filter="true" data-filter-placeholder="¿Que producto buscas?">			          <li id="ADE-04">
 	        <a href="#pcantidad"><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> ADEROGYL 15 SOL. C/5 AMP</h3>
 			<p>Detalle del producto... <br/>Clasificación: Catalogo <br/>Precio:$100.00 Existencia:10 ALG:20</p></a></li>
@@ -657,12 +663,16 @@
                 <h1><b>ARTICULOS DEVUELTOS</b></h1> 
                <div class="ui-grid-b" id="gridartdev">				
                </div><!-- /grid-a --> 
+                <div data-role="fieldcontain">		
+			        <label for="obsrendev">Observaciones Generales:</label>
+			        <textarea cols="3"  name="obsgendev" id="obsgendev"></textarea>         
+				</div>
     </div>
     
 	<div data-role="footer">       
         <a href="#" class="ui-btn-right" id="regresardedev" data-role="button" 
             data-theme="b" data-icon="back" data-iconpos="left" >Regresar</a>
-         <a class="ui-btn-left"  href="#" id="guardadev" data-role="button" data-theme="b"
+         <a class="ui-btn-left"  href="#" id="bguardadev" data-role="button" data-theme="b"
         data-icon="plus" data-iconpos="left">Guardar</a>    
 	</div>
 </div>
@@ -676,9 +686,9 @@
 		<label for="cantidaddev">Cantidad:</label>
 		<input type="number" data-type="range" name="cantidaddev" id="cantidaddev" value="0" min="0" max="100" data-theme="a" data-track-theme="b" />
         <label for="obsrendev">Observaciones:</label>
-        <textarea cols="3" rows="1" name="obsrendev" id="obsrendev"></textarea> 
+        <textarea cols="3"  name="obsrendev" id="obsrendev"></textarea> 
         <a href="#" data-role="button" data-rel="back" id="bcantidaddev">Aceptar</a>
-	</div>
+		</div>
     </div>
 </div>
 

@@ -112,12 +112,12 @@ function mostrarhistfac(factura){
 			  //agrega encabezado de grid
 			  html+=' <div class="ui-block-a" style="width:110px" ><div class="ui-bar ui-bar-a">Articulo</div></div> ';           
               html+=' <div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-a">Cantidad</div></div>';
-			  html+=' <div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-a">Observaciones</div></div>';
+			  html+=' <div class="ui-block-c" style="width:500px"><div class="ui-bar ui-bar-a">Observaciones</div></div>';
               
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
 				    html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-e">'+row['articulo']+'</div></div>';   		 		                    html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b">'+row['cantidad']+'</div></div>';                  
-					html+='<div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-b">'+row['obs']+'</div></div>';                  
+					html+='<div class="ui-block-c" style="width:500px"><div class="ui-bar ui-bar-b">'+row['obs']+'</div></div>';                  
                   	 
 			  });//.each
 					$("#gridartdev").append(html); 
@@ -135,26 +135,28 @@ function mostrarhistfac(factura){
 
   }//mostrarartdev
   
-function guardadev(linea,cantidad){	
+function guardadev(observagen){	
 var cabinsertada=false;
+var renglones=0;
 var sumtotlinea=0;
 var summontodesc=0;
 var sumivalinea=0;
+var cliente=window.localStorage.getItem("clave");
 var consecutivo=window.localStorage.getItem("consedev");
 var ruta=window.localStorage.getItem("ruta");
-var fecha = new Date();
-var fechaact=fecha.getFullYear()+"/"+(fecha.getMonth()+1)+"/"+fecha.getDate();
-var hora=fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds();
-var fechayhora=fechaact+" "+hora;
-//+"\nMilisegundo: "+fecha.getMilliseconds());
+var bodega=window.localStorage.getItem("bodega");
+var horaini=window.localStorage.getItem("fechahora");//fecha y hora actual guardada cuando inicio la devolución de la factura.
+guardafechaactual();//guarda en memoria la fecha con hora, actuales
+var horafin= window.localStorage.getItem("fechahora");//recuperamos la nueva fecha y hora actual
+var fechadev=window.localStorage.getItem("fecha");//recuperamos la fecha actual
 var longitud=consecutivo.length;
 var inicial=consecutivo.substr(0,3);
-var numpedido= consecutivo.substr(3,(longitud-3));
- alert(numpedido); 
-var incremetarp=Number(numpedido)+1;
- alert(incremetarp); 
-var pedido=inicial+pad(incremetarp,6);
- alert(pedido); 
+var numdev= consecutivo.substr(3,(longitud-3));
+ alert(numdev); 
+var incremetard=Number(numdev)+1;
+ alert(incremetard); 
+var devolucion=inicial+pad(incremetard,6);
+ alert(devolucion); 
    function pad(n, length){
 	   alert('entra a funcion'+n); 
   	 n = n.toString();
@@ -162,56 +164,47 @@ var pedido=inicial+pad(incremetarp,6);
   	 return n;
    }
 	function listo(tx,results){ 	      
-	      if (results.rows.length>0){		
+	      if (results.rows.length>0){
+			  renglones=results.rows.length;
 		  	 $.each(results.rows,function(index){           			 
 			 var row = results.rows.item(index);  
-			 var cantidadven=row['cantidad'];//cantidad vendida
-			 var cantidaddev=row['cantidad'];//cantidad devuelta
+			 var cantidad=row['cantidad'];//cantidad vendida			 
 			 var precio=row['precio'];//precio sin descuento y sin iva			 
 			 var pordesc=row['descuento'];//porcentaje de descuento que se aplica 
-			 var totlinea=Number(row['cantidad'])*Number(row['precio']);//total de linea sin descuento y sin iva
+			 var totalinea=Number(row['cantidad'])*Number(row['precio']);//total de linea sin descuento y sin iva
 			 var montodesc=(Number(totlinea)/100)*Number(row['descuento']); 
-			 var lineacdes=totlinea-montodesc;//importe de linea con descuento
+			 var lineacdes=totalinea-montodesc;//importe de linea con descuento
 			 var ivalinea=lineacdes*(row['impuesto']/100);			 
 			 var preciocdesc=row['preciocdesc'];	//precio con descuento sin iva		 
 			 var preciociva=preciocdesc*(1+(row['impuesto']/100));			 			 
 			 var articulo=row['articulo'];
 			 var dif=cantidadven-cantidaddev;
- 			 if (cantidad>dif){//se intenta devolver mas de la cantidad disponible para devolución
-				navigator.notification.alert('Se intenta devolver una cantidad mayor que el disponible',null,'Error Indicando Cantidad','Aceptar');						 				return false;				 
-			 }
+			 var observa=row['obs'];
 			
-			 
-			 sumtotlinea+=sumtotlinea+totlinea;//suma del total de linea sin descuento y sin iva
-			 summontodesc+=summontodesc+montodesc;//suma del total de linea sin descuento y sin iva
+			 sumtotlinea+=sumtotlinea+totalinea;//suma del total de linea sin descuento y sin iva
+			 //summontodesc+=summontodesc+montodesc;//suma del total de linea sin descuento y sin iva
 			 sumivalinea+=sumivalinea+ivalinea;//suma del total de linea sin descuento y sin iva
-			 alert('antes de llamar a funcion guardated');
-			 guardadetpedido(pedido,articulo,precio,pordesc,totlinea,montodesc,precio,cantidad);
-			alert('despues de llamar a funcion guardated');
-			 
-			 
-			/* 
-			 tx.executeSql('CREATE TABLE IF NOT EXISTS ENCPEDIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, NUM_PED,COD_ZON,DOC_PRO,COD_CLT,TIP_DOC,HOR_FIN,FEC_PED,FEC_DES,MON_IMP_VT,MON_CIV,MON_SIV,MON_DSC,OBS_PED,ESTADO,COD_CND,COD_BOD)'); 
-         tx.executeSql('CREATE TABLE IF NOT EXISTS DETPEDIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, NUM_PED,COD_ART,MON_PRC_MN,POR_DSC_AP,MON_TOT,MON_DSC,MON_PRC_MX,CNT_MAX)'); 
-
-			 */			 			 
+			 alert('antes de llamar a funcion guardadev');
+			 guardadetdev(devolucion,ruta,articulo,totalinea,precio,cantidad,observa,montodesc,pordesc);
+			 alert('despues de llamar a funcion guardadev');
+			
 		 	});
-			alert('antes de llamar a funcion guardaenc');
-		  	 guardaencpedido(pedido,ruta,window.localStorage.getItem("clave"),fechayhora,fechaact,sumivalinea,(sumtotlinea+sumivalinea),sumtotlinea,summontodesc,obs,30,"K01");
+			alert('antes de llamar a funcion guardaencdev');
+			 guardaencdev(devolucion,ruta,cliente,horaini,horafin,fechadev,observagen,renglones,sumtotlinea,sumivalinea,bodega,factura)
 				alert('despues de llamar a funcion guardated');
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
 	function consultatemp(tx){  
 	             alert('ENTRA A CONSultatepm'); 
-				  var sql='SELECT a.factura,a.articulo,a.cantidad,a.devuelto,a.precio,a.totlinea,a.linea, ';
-	  			  sql+='(a.precio-((a.precio/100)*b.descuento)) as preciocdesc,b.descripcion,c.cantidad as temdev FROM DETHISFAC a ';					  
-			      sql+='left outer join articulo b on b.articulo=a.articulo left outer join TEMDEV c on c.linea=a.linea ';
-				  sql+=' where a.factura="'+window.localStorage.getItem("factura")+'"';	
-				  sql+=' and a.linea="'+linea+'"';
+				  var sql='SELECT b.factura,a.articulo,a.cantidad,b.pre_uni as precio,a.obs, ';
+	  			  sql+='c.impuesto,c.descuento FROM TEMDEV a left outer join DETHISFAC b on b.linea=a.linea ';					  
+			      sql+='left outer join articulo c on c.articulo=a.articulo  ';
+				  sql+=' where a.cantidad > 0 and b.factura="'+window.localStorage.getItem("factura")+'"';	
+
 			    alert(sql);
 								
 			tx.executeSql(sql,[],listo,function(err){
-    	 		 alert("Error al insertar devolución : "+linea+err.code+err.message);
+    	 		 alert("Error al preparar guardar devolución : "+linea+err.code+err.message);
          		});    									
 	}
 	consultadb().transaction(consultatemp, function(err){
@@ -244,11 +237,11 @@ function insertalindev(linea,cantidad,observa){
 		
 								
 			tx.executeSql(sql,[],listo,function(err){
-    	 		 alert("Error consultar temporal TEMDEV : "+articulo+err.code+err.message);
+    	 		 alert("Error consultar DETHISFAC : "+articulo+err.code+err.message);
          		});    									
 	}
 	consultadb().transaction(consultatemp, function(err){
-    	 			 alert("Error select tabla temporal TEMDEV: "+err.code+err.message);
+    	 			 alert("Error select tabla DETHISFAC: "+err.code+err.message);
          		});		
 				
 }//function insertalindev

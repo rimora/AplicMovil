@@ -13,7 +13,6 @@ function guardafactura(factura){
 	window.localStorage.setItem("factura",factura);
 	//alert (window.localStorage.getItem("clave"));
 }
-
 function actsaldo(importe){
 	//alert(importe);
 	var saldoact=Number(window.localStorage.getItem("saldo"))+Number(importe);
@@ -21,6 +20,15 @@ function actsaldo(importe){
 	window.localStorage.setItem("saldo",saldoact);
 	actsaldocliente(saldoact)
 	//alert (window.localStorage.getItem("clave"));
+}
+function guardafechaactual(){
+var fecha = new Date();
+var fechaact=fecha.getFullYear()+"/"+(fecha.getMonth()+1)+"/"+fecha.getDate();
+var hora=fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds();
+var fechaactual=fechaact+" "+hora;	
+//+"\nMilisegundo: "+fecha.getMilliseconds());
+window.localStorage.setItem("fechahora",fechaactual);
+window.localStorage.setItem("fecha",fechaact);
 }
 function tempdetalle(cantidad){	
 	//alert(cantidad);	
