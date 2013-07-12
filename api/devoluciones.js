@@ -170,6 +170,7 @@ var devolucion=inicial+pad(incremetard,6);
 		  	 $.each(results.rows,function(index){           			 
 			 var row = results.rows.item(index);  
 			 var cantidad=row['cantidad'];//cantidad vendida			 
+			 var linea=row['linea'];//linea afectada			 
 			 var precio=row['precio'];//precio sin descuento y sin iva			 
 			 var pordesc=row['descuento'];//porcentaje de descuento que se aplica 
 			 var totalinea=Number(row['cantidad'])*Number(row['precio']);//total de linea sin descuento y sin iva
@@ -184,7 +185,7 @@ var devolucion=inicial+pad(incremetard,6);
 			 //summontodesc+=summontodesc+montodesc;//suma del total de linea sin descuento y sin iva
 			 sumivalinea+=sumivalinea+ivalinea;//suma del total de linea sin descuento y sin iva
 			 alert('antes de llamar a funcion guardadev');
-			 guardadetdev(devolucion,ruta,articulo,totalinea.toFixed(2),precio,cantidad,observa,montodesc.toFixed(2),pordesc,factura);
+			 guardadetdev(devolucion,ruta,articulo,totalinea.toFixed(2),precio,cantidad,observa,montodesc.toFixed(2),pordesc,factura,linea);
 			 actexis(articulo,cantidad);
 			 alert('despues de llamar a funcion guardadev');
 			
@@ -196,7 +197,7 @@ var devolucion=inicial+pad(incremetard,6);
  	}//function listo(tx,results){ 
 	function consultatemp(tx){  
 	             alert('ENTRA A CONSultatepm'); 
-				  var sql='SELECT b.factura,a.articulo,a.cantidad,b.precio,a.obs, ';
+				  var sql='SELECT b.factura,a.articulo,a.cantidad,b.precio,a.obs,a.linea, ';
 	  			  sql+='c.impuesto,c.descuento FROM TEMDEV a left outer join DETHISFAC b on b.linea=a.linea ';					  
 			      sql+='left outer join articulo c on c.articulo=a.articulo  ';
 				  sql+=' where a.cantidad > 0 and b.factura="'+window.localStorage.getItem("factura")+'"';	

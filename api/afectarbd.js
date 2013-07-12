@@ -300,6 +300,7 @@ function eliminatempdev(){
           });
 				
     	function insertadet(tx) {		
+		alert('entra a eliminar tempdev');
 		   tx.executeSql('DELETE FROM TEMDEV ');		
 		}
 	
@@ -325,7 +326,7 @@ function guardaencdev(devolucion,ruta,cliente,horaini,horafin,fecha,obs,renglone
 		}
 	
 }//function guardaencdev
-function guardadetdev(devolucion,ruta,articulo,totalinea,precio,cantidad,obs,descuento,pordescuento,factura){
+function guardadetdev(devolucion,ruta,articulo,totalinea,precio,cantidad,obs,descuento,pordescuento,factura,linea){
 	  alert(devolucion+ruta+articulo+' '+totalinea+' '+precio+' '+cantidad+' '+obs+' '+descuento+' '+pordescuento);
 	consultadb().transaction(insertadet,function(err){
     	  alert("Error al insertar en DETDEV: "+err.code+err.message);
