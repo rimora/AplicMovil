@@ -299,3 +299,22 @@ function mostrarddev(linea){
 
 
 
+function f1(){	
+	function listo(tx,results){ 	      
+	         alert('antes de listo de f1');
+			 f1_1();			 
+			 alert('despues de listo de f1');
+ 	}//function listo(tx,results){ 
+	function consultatemp(tx){  
+	             alert('ENTRA A CONSultatepm'); 
+				  var sql='SELECT * FROM TEMDEV ';
+								
+				  tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error en select: "+err.code+err.message);
+         		  },alert('funcion ok, del select'));    									
+	}
+	consultadb().transaction(consultatemp, function(err){
+    	 			 alert("Error select tabla temporal dethisfac para devolver: "+err.code+err.message);
+         		},alert('funcion ok, del consultadb().transaction'));		
+				
+}//function prueba funcion1

@@ -476,7 +476,20 @@ $("#bimprimirp").tap(function() {
         'SI,NO'       // botones (buttonLabels)
 	    );
     });  
-	 
+	 $("#probarfunciones").tap(function(){
+                function onConfirm(button) {
+					if (button==1){						 
+						alert('antes de llamar a f1');
+						f1();					 
+						alert('despues de llamar a f1');
+					}//if (button==1){
+				}			 
+    	navigator.notification.confirm('¿Desea terminar y guardar la devolución?',     // mensaje (message)
+	    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
+    	'Guardar Devolución',            // titulo (title)
+        'SI,NO'       // botones (buttonLabels)
+	    );
+    });  
 	 
   },false);//document.addEventListener("deviceready",function(){	
 });//ultimo

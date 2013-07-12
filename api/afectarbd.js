@@ -379,3 +379,14 @@ function actdethisfac(articulo,cantidad){//actualiza la cantidad devuelta
 		}	
 		tx.executeSql('CREATE TABLE IF NOT EXISTS DETHISFAC (id INTEGER PRIMARY KEY AUTOINCREMENT, factura,articulo,linea,cantidad,devuelto,precio,totlinea)');  
 }//function actdethisfac
+function f1_1(){
+	  alert('entra a funcion f1_1');
+	consultadb().transaction(insertadet,function(err){
+    	  alert("Error al insertar en DETDEV: "+err.code+err.message);
+          },alert("ok de consultadb().transaction f1_1"));
+				
+    	function insertadet(tx) {		
+		alert('entra a insertadet de f1_1');				
+		}
+
+}//function f1_1
