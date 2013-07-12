@@ -305,10 +305,10 @@ function eliminatempdev(){
 	
 }//function eliminatempdev
 function guardaencdev(devolucion,ruta,cliente,horaini,horafin,fecha,obs,renglones,subtotal,impuesto,bodega,factura){
-	  
+	  alert(devolucion+' '+ruta+' '+cliente+' '+horaini+' '+horafin+' '+fecha+' '+obs+' '+renglones+' '+subtotal+' '+impuesto+' '+bodega+' '+factura);
 	consultadb().transaction(insertadet,function(err){
     	  alert("Error al insertar encabezado devolucion: "+err.code+err.message);
-          },alert("Pedido Guardado"));
+          },alert("Devolución Guardada"));
 				
     	function insertadet(tx) {		
 		//alert('entra a modificar detallefactura cantidad: '+cantidad);		
@@ -326,10 +326,10 @@ function guardaencdev(devolucion,ruta,cliente,horaini,horafin,fecha,obs,renglone
 	
 }//function guardaencdev
 function guardadetdev(devolucion,ruta,articulo,totalinea,precio,cantidad,obs,descuento,pordescuento){
-	  alert(devolucion+ruta+articulo+totalinea+precio+cantidad+obs+descuento+pordescuento);
+	  alert(devolucion+ruta+articulo+' '+totalinea+' '+precio+' '+cantidad+' '+obs+' '+descuento+' '+pordescuento);
 	consultadb().transaction(insertadet,function(err){
-    	  alert("Error al insertar en detallepedido: "+err.code+err.message);
-          },alert("Detalle Pedido Guardado"));
+    	  alert("Error al insertar en DETDEV: "+err.code+err.message);
+          },alert("Detalle Devolucion Guardado"));
 				
     	function insertadet(tx) {		
 		//alert('entra a modificar detallefactura cantidad: '+cantidad);				

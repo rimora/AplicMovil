@@ -141,6 +141,7 @@ var renglones=0;
 var sumtotlinea=0;
 var summontodesc=0;
 var sumivalinea=0;
+var factura=window.localStorage.getItem("factura");
 var cliente=window.localStorage.getItem("clave");
 var consecutivo=window.localStorage.getItem("consedev");
 var ruta=window.localStorage.getItem("ruta");
@@ -183,14 +184,14 @@ var devolucion=inicial+pad(incremetard,6);
 			 //summontodesc+=summontodesc+montodesc;//suma del total de linea sin descuento y sin iva
 			 sumivalinea+=sumivalinea+ivalinea;//suma del total de linea sin descuento y sin iva
 			 alert('antes de llamar a funcion guardadev');
-			 guardadetdev(devolucion,ruta,articulo,totalinea,precio,cantidad,observa,montodesc,pordesc);
+			 guardadetdev(devolucion,ruta,articulo,totalinea.toFixed(2),precio,cantidad,observa,montodesc.toFixed(2),pordesc);
 			 actexis(articulo,cantidad);
 			 alert('despues de llamar a funcion guardadev');
 			
 		 	});
 			alert('antes de llamar a funcion guardaencdev');
-			 guardaencdev(devolucion,ruta,cliente,horaini,horafin,fechadev,observagen,renglones,sumtotlinea,sumivalinea,bodega,factura)
-				alert('despues de llamar a funcion guardated');
+			 guardaencdev(devolucion,ruta,cliente,horaini,horafin,fechadev,observagen,renglones,sumtotlinea.toFixed(2),sumivalinea.toFixed(2),bodega,factura)
+				alert('despues de llamar a funcion guardaencdev');
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
 	function consultatemp(tx){  
