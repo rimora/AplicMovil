@@ -172,13 +172,11 @@ var devolucion=inicial+pad(incremetard,6);
 			 var precio=row['precio'];//precio sin descuento y sin iva			 
 			 var pordesc=row['descuento'];//porcentaje de descuento que se aplica 
 			 var totalinea=Number(row['cantidad'])*Number(row['precio']);//total de linea sin descuento y sin iva
-			 var montodesc=(Number(totlinea)/100)*Number(row['descuento']); 
+			 var montodesc=(Number(totalinea)/100)*Number(row['descuento']); 
 			 var lineacdes=totalinea-montodesc;//importe de linea con descuento
-			 var ivalinea=lineacdes*(row['impuesto']/100);			 
-			 var preciocdesc=row['preciocdesc'];	//precio con descuento sin iva		 
-			 var preciociva=preciocdesc*(1+(row['impuesto']/100));			 			 
-			 var articulo=row['articulo'];
-			 var dif=cantidadven-cantidaddev;
+			 var ivalinea=lineacdes*(row['impuesto']/100);			 			 
+			 //var preciociva=preciocdesc*(1+(row['impuesto']/100));			 			 
+			 var articulo=row['articulo'];			 
 			 var observa=row['obs'];
 			
 			 sumtotlinea+=sumtotlinea+totalinea;//suma del total de linea sin descuento y sin iva
@@ -277,13 +275,13 @@ function mostrarddev(linea){
 	      if (results.rows.length>0){			
 			 	var row = results.rows.item(0); 
 			    $("#cantidaddev").val(row['cantidad']);
-				$("#obsrendev").val(row['obs']);
-			
+				$("#obsrendev").val(row['obs']);			
+				$("#encdialogodev").val('Indica Cantidad a Devolver para: '+row['articulo']);
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
 	function consultatemp(tx){   	       
 				//alert('articulo de MODIFICAR temPEDIDO '+articulo);
-				 var sql='SELECT a.cantidad,a.obs ';
+				 var sql='SELECT a.cantidad,a.obs,a.articulo ';
 	   			 sql+='FROM TEMDEV a ';	
 				 sql+='where a.linea='+linea;	
 		

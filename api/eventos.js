@@ -406,6 +406,7 @@ $("#bimprimirp").tap(function() {
 				  //alert (clavecli);
 				  window.location.href='#pdethistfac';
 				  $("#gridartdev").empty();	
+				  $("#obsgendev").val('');
 				  guardafactura(factura);//almacena localmente el numero de factura	
 				  copiadethistempd();//copia a tabla temporal los renglones de la factura a devolver
 				  mostrarhistfac(factura);//muestra el grid con los detalles de los artículos de factura
@@ -420,8 +421,8 @@ $("#bimprimirp").tap(function() {
 				  var posicion = id.indexOf('*'); 
 				  var cantidad=Number(id.substring(posicion+1));*/
 				 guardaarticulo(linea);//almacena localmente la linea, usando la función que guarda el articulo
-				 window.location.href='#pcantidaddev';
-				 mostrarddev(linea);//muestra dialogo para indicar cantidad a modificar y observaciones.
+				 window.location.href='#pcantidaddev';//muestra dialogo para indicar cantidad a modificar y observaciones.
+				 mostrarddev(linea);
 				 
 				
     });
