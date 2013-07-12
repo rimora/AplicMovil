@@ -191,7 +191,7 @@ var devolucion=inicial+pad(incremetard,6);
 		 	});
 			alert('antes de llamar a funcion guardaencdev');
 			 guardaencdev(devolucion,ruta,cliente,horaini,horafin,fechadev,observagen,renglones,sumtotlinea.toFixed(2),sumivalinea.toFixed(2),bodega,factura)
-				alert('despues de llamar a funcion guardaencdev');
+			alert('despues de llamar a funcion guardaencdev');
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
 	function consultatemp(tx){  
