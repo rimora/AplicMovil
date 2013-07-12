@@ -401,7 +401,7 @@ $("#bimprimirp").tap(function() {
 				   
      });	
 	 $("#listahistfac li").live('click',function(){
-		          //al seleccionar un cliente de la lista, muestra sus datos
+		          //al seleccionar una factura de la lista, muestra los articulos
                   var factura = $(this).attr("id");
 				  //alert (clavecli);
 				  window.location.href='#pdethistfac';
@@ -463,9 +463,9 @@ $("#bimprimirp").tap(function() {
                 function onConfirm(button) {
 					if (button==1){
 						 var observagen=$("#obsgendev").val();
-						 guardadev(observagen);//guarda la devolución.
-						 //eliminatempdev();
+						 guardadev(observagen);//guarda la devolución.						 
 						 window.location.href='#phistfac';
+						 eliminatempdev();
 			
 					}//if (button==1){
 				}			 

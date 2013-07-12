@@ -334,6 +334,7 @@ function guardadetdev(devolucion,ruta,articulo,totalinea,precio,cantidad,obs,des
     	function insertadet(tx) {		
 		//alert('entra a modificar detallefactura cantidad: '+cantidad);				
 			tx.executeSql('INSERT INTO DETDEV (num_dev,cod_zon,cod_art,ind_dev,mon_tot,mon_prc_mx,mon_prc_mn,cnt_max,obs_dev,mon_dsc,por_dsc_ap) VALUES("'+devolucion+'","'+ruta+'","'+articulo+'","B",'+totalinea+','+precio+','+precio+','+cantidad+',"'+obs+'",'+descuento+','+pordescuento+')'); 
+			tx.executeSql('UPDATE DETHISFAC SET devuelto=devuelto+'+cantidad+' where linea='+linea);		
 		}
 //mon_tot:total de la linea sin iva,ni descuento (precio*cantidad)
 //mon_prc_mx:precio
