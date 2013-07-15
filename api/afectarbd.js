@@ -15,9 +15,10 @@ consultadb().transaction(creartb, errorCB, successCB);
 		function creartb(tx) {
 			//alert('funcion creartb');	
     	 tx.executeSql('DROP TABLE IF EXISTS CLIENTES');
-		 tx.executeSql('DROP TABLE IF EXISTS erpadmin_alcxc_pen_cob');
+		 tx.executeSql('DROP TABLE IF EXISTS PENCOBRO');
 		 tx.executeSql('DROP TABLE IF EXISTS TEMPEDIDO');
 		 tx.executeSql('DROP TABLE IF EXISTS TEMFACTURA');
+		 tx.executeSql('DROP TABLE IF EXISTS TEMCOBROS');
 		 tx.executeSql('DROP TABLE IF EXISTS TEMDEV');//
 		 tx.executeSql('DROP TABLE IF EXISTS ARTICULO');//se llena de tablas articulo, articulo_precio,descuento_nivel
 		 tx.executeSql('DROP TABLE IF EXISTS ARTICULO_EXISTENCIA');//se llena de tablas articulo, articulo_precio,descuento_nivel
@@ -36,10 +37,11 @@ consultadb().transaction(creartb, errorCB, successCB);
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS DETHISFAC (id INTEGER PRIMARY KEY AUTOINCREMENT, factura,articulo,linea,cantidad,devuelto,precio,totlinea)');  
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS PARAMETROS (id INTEGER PRIMARY KEY AUTOINCREMENT, COD_ZON,NUM_PED,NUM_REC,NUM_DEV,NUM_FAC)'); 
          tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL,direccion TEXT NOT NULL,telefono TEXT NOT NULL,tipo TEXT NOT NULL,diasc TEXT NOT NULL,lcredito,saldo )'); 
-		 tx.executeSql('CREATE TABLE IF NOT EXISTS erpadmin_alcxc_pen_cob (id INTEGER PRIMARY KEY AUTOINCREMENT, cod_zon TEXT NOT NULL, cod_tip_dc TEXT NOT NULL,num_doc TEXT NOT NULL,cod_clt TEXT NOT NULL,saldo TEXT NOT NULL,monto TEXT NOT NULL,fec_doc_ft TEXT NOT NULL,fec_ven TEXT NOT NULL,vencida TEXT NOT NULL)'); 
+		 tx.executeSql('CREATE TABLE IF NOT EXISTS PENCOBRO (id INTEGER PRIMARY KEY AUTOINCREMENT, tipo TEXT NOT NULL,documento TEXT NOT NULL,cliente TEXT NOT NULL,saldo,monto,fecha,fechaven,vencida)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMPEDIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,cantidad,cliente)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMFACTURA (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,cantidad,cliente)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMDEV (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,linea,cantidad,obs)'); 
+		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMCOBROS (id INTEGER PRIMARY KEY AUTOINCREMENT, factura TEXT NOT NULL,abonado)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS ARTICULO (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,descripcion TEXT NOT NULL,clas TEXT NOT NULL,accion TEXT NOT NULL,impuesto,precio,descuento)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS ARTICULO_EXISTENCIA (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,bodega TEXT NOT NULL,existencia)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS SUGERIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente TEXT NOT NULL,articulo TEXT NOT NULL,cantidad)'); 
@@ -74,11 +76,11 @@ function insertar(){
 		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia UNO", "1020","Lunes","Dirección del cliente","2281545130","C","30",10000.00,9000.00)');      
         tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia DOS", "1030","Martes","Dirección del cliente  DOS","2281545130","C","30",10000.00,5000.00)'); 
 		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia TRES", "1040","Miercoles","Dirección del cliente","2281545130","C","30",3000.00,10000.00)');        
-        tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia CUATRO", "1050","Jueves","Dirección del cliente  CUATRO","2281545130","C","30",5000.00,8000.00)'); 
-		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven,vencida) VALUES ("S04", "1","00041534","1020","437.55","437.55","08/05/2013","08/05/2013","S")');        
-		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven,vencida) VALUES ("S04", "1","00041535","1020","888.55","1000.55","15/05/2013","15/05/2013","S")');  
-		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven,vencida) VALUES ("S04", "1","00041537","1020","998.55","1000.55","15/05/2013","15/06/2013","N")');        
-		 tx.executeSql('INSERT INTO erpadmin_alcxc_pen_cob (cod_zon,cod_tip_dc,num_doc,cod_clt,saldo,monto,fec_doc_ft,fec_ven,vencida) VALUES ("S04", "1","00041536","1030","5000.00","5000.00","08/06/2013","08/06/2013","N")');        
+        tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia CUATRO", "1050","Jueves","Dirección del cliente  CUATRO","2281545130","C","30",5000.00,8000.00)'); 		
+		 tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida) VALUES ("1","00041534","1020",437.55,437.55,"08/05/2013","08/05/2013","S")');  		       
+		 tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida) VALUES ( "1","00041535","1020",888.55,1000.55,"15/05/2013","15/05/2013","S")');  
+		 tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida) VALUES ( "1","00041537","1020",998.55,1000.55,"15/05/2013","15/06/2013","N")');        
+		 tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida) VALUES ( "1","00041536","1030",5000.00,5000.00,"08/06/2013","08/06/2013","N")');        
  		 tx.executeSql('INSERT INTO ARTICULO (articulo,descripcion,clas,accion,impuesto,precio,descuento) VALUES ("ADE-04","ADEROGYL 15 SOL. C/5 AMP","OFERTA","ANTIDEA",16,100,30)'); 		  //cod_cl=clasificacion_2 de articulo (CLIE,CATA,OFER), cod_fam=clasificacion_1 de articulo (RESU)
 		 tx.executeSql('INSERT INTO ARTICULO (articulo,descripcion,clas,accion,impuesto,precio,descuento) VALUES ("AGU-10","AGUA OXIGENADA CON 100 ML.","CATA","ANTIGRIPAL",0,50,30)'); 
 		 tx.executeSql('INSERT INTO ARTICULO (articulo,descripcion,clas,accion,impuesto,precio,descuento) VALUES ("AMO-19","AMOXIL SUSP. 500 MG. C/75 ML.","OFERTA","ANTIDEA",16,40,30)'); 
@@ -365,24 +367,41 @@ function actexis(articulo,cantidad){
 			}
 		}	
 }//function  actexis
-function actdethisfac(articulo,cantidad){//actualiza la cantidad devuelta 
-	   
-	consultadb().transaction(insertadet,function(err){
-    	  alert("Error al actualizar existencia: "+err.code+err.message);
+function insertatempcob(factura){
+	   //alert('inserttafactura'+cantidad);
+	    consultadb().transaction(insertadet,function(err){
+    	  alert("Error al insertar renglon temdevolucion: "+err.code+err.message);
           });
 				
-    	function insertadet(tx) {				
-			if (Number(cantidad)>0){
-			tx.executeSql('UPDATE ARTICULO_EXISTENCIA SET existencia=existencia+'+cantidad+' WHERE articulo="'+articulo+'" and bodega="'+window.localStorage.getItem("bodega")+'"');
-			}
-			else{
-			cantidad=Number(cantidad)*-1
-			alert('cantidad menor a cero');			      
-			tx.executeSql('UPDATE ARTICULO_EXISTENCIA SET existencia=existencia-'+cantidad+' WHERE articulo="'+articulo+'" and bodega="'+window.localStorage.getItem("bodega")+'"');	
-			}
-		}	
-		tx.executeSql('CREATE TABLE IF NOT EXISTS DETHISFAC (id INTEGER PRIMARY KEY AUTOINCREMENT, factura,articulo,linea,cantidad,devuelto,precio,totlinea)');  
-}//function actdethisfac
+    	function insertadet(tx) {		
+		   tx.executeSql('INSERT INTO TEMCOBROS (factura,abonado) VALUES ("'+factura+'",'+0+')');		
+		}
+	
+}//function insertatempcob(factura)
+function actualizatempcob(factura,cantidad){
+	   alert('actualiza tempcob'+factura+' '+cantidad);
+	    consultadb().transaction(insertadet,function(err){
+    	  alert("Error al modificar renglon TEMCOBROS: "+err.code+err.message);
+          });
+				
+    	function insertadet(tx) {		
+		tx.executeSql('UPDATE TEMCOBROS SET abonado='+cantidad+' where factura="'+factura+'"');		
+		}
+	
+}//function actualizatempcob(factura,cantidad)
+function eliminatempcob(){
+	   //alert('inserttafactura'+cantidad);
+	    consultadb().transaction(insertadet,function(err){
+    	  alert("Error al eliminar temcobros: "+err.code+err.message);
+          });
+				
+    	function insertadet(tx) {		
+		alert('entra a eliminar temcobros');
+		   tx.executeSql('DELETE FROM TEMCOBROS ');		
+		}
+	
+}//function eliminatempcob()
+
 function f1_1(){
 	  alert('entra a funcion f1_1');
 	consultadb().transaction(insertadet,function(err){

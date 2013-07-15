@@ -490,7 +490,66 @@ $("#bimprimirp").tap(function() {
         'SI,NO'       // botones (buttonLabels)
 	    );
     });  
-	 
+	$("input").blur(function(){
+     
+	
+	
+	});
+ //*****C O B R O S *****	 
+	  $("#bcobros").tap(function() {                   				  
+				  window.location.href='#pcobros';
+				  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
+				  eliminatempcob();
+				  copiatemcobros(cliente);//copia a tabla temporal las facturas pendientes de cobro
+				  listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado				  				  
+				  guardafechaactual();
+				  			  
+				   
+     });
+	 $("a.clasecob").live('click',function(){//para indicar importe a pagar de la factura
+                  var factura = $(this).attr("name");//el nombre tiene el numero de documento en la tabla PENCOBRO
+				 /* var id = $(this).attr("id");
+				  var longitud=id.length;
+				  var posicion = id.indexOf('*'); 
+				  var cantidad=Number(id.substring(posicion+1));*/				 
+				 window.location.href='#pimportecob';//muestra dialogo para indicar cantidad a modificar y observaciones.
+				 mostrardcob(factura);//muestra dialogo de cobro
+				 guardafactura(factura);//almacena localmente el numero de factura
+				 
+				
+    });
+	$("#bcantidadcob").tap(function(){//boton aceptar del cuadro de dialogo
+                 //var cantidad=$('#scantidad').attr('Val');
+				 var cantidad=Number($('#cantidadcob').val());				 				 
+				  //alert (cantidad);
+				  if (cantidad<0){
+					   navigator.notification.alert('Debe indicar cantidad valida',null,'Error Indicando Cantidad','Aceptar');					
+					  
+				  }
+				  else
+				  {
+				    //obtiene el articulo pulsado en la lista
+    				var factura = window.localStorage.getItem("factura");
+	     			//alert (cantidad);	  
+					insertacobro(factura,cantidad);					
+    				 //alert('despues de llamada modificarlineap');
+					 //mostrarpedido();
+				  }
+    });
+	$("#regresardecob").tap(function(){
+                function onConfirm(button) {
+					if (button==1){
+						 eliminatempcob();
+						 window.location.href='#pcobros';
+			
+					}//if (button==1){
+				}			 
+    	navigator.notification.confirm('Se perderán los datos no guardados',     // mensaje (message)
+	    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
+    	'Generar Cobro',            // titulo (title)
+        'ACEPTAR,CANCELAR'       // botones (buttonLabels)
+	    );
+    }); 
   },false);//document.addEventListener("deviceready",function(){	
 });//ultimo
 			   
