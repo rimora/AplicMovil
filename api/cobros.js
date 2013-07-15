@@ -27,7 +27,7 @@ function listafacturaspend(cliente){
 			  html+=' <div class="ui-block-a" style="width:110px" ><div class="ui-bar ui-bar-a">Factura</div></div> ';           
               html+=' <div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-a">A pagar</div></div>';
               html+=' <div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-a">Saldo</div></div>';
-              html+=' <div class="ui-block-d" style="width:110px"><div class="ui-bar ui-bar-a">Venc.</div></div>';
+              html+=' <div class="ui-block-d" style="width:150px"><div class="ui-bar ui-bar-a">Venc.</div></div>';
               html+=' <div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-a">Monto</div></div>';
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
@@ -41,7 +41,7 @@ function listafacturaspend(cliente){
 					html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-e">'+row['documento']+'</div></div>';   		 		
 					html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b"><a href="#" class="clasecob" name="'+row['documento']+'"><font color="FFFFFF">'+abonado.toFixed(2)+'</font></a></div></div>';
 					html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-b">'+row['saldo']+'</div></div>';
-                    html+='<div class="ui-block-d" style="width:110px"><div class="ui-bar ui-bar-b">'+row['fechaven']+'</div></div>';                    
+                    html+='<div class="ui-block-d" style="width:150px"><div class="ui-bar ui-bar-b">'+row['fechaven']+'</div></div>';                    
 	                html+='<div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-b">'+row['monto']+'</div></div> ';
 					
                   	 

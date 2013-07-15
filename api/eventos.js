@@ -541,7 +541,7 @@ $("#bimprimirp").tap(function() {
                 function onConfirm(button) {
 					if (button==1){
 						 eliminatempcob();
-						 window.location.href='#pcobros';
+						 window.location.href='#poperaciones';
 			
 					}//if (button==1){
 				}			 

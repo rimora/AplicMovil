@@ -689,10 +689,12 @@
 		<label style="width:18%;font-size:20px; color:#F00; text-align:center" id="labelencpcobros" ></label>
         <div data-role="navbar">  
        	 <div class=ui-grid-c id="gridencabcobros">
+         <!--
 	    	<div class=ui-block-a style="width:100px">Saldo Total:</div>
             <div class=ui-block-b style="width:100px"><label style="width:18%;font-size:20px; color:#F00">1,000000.00</label></div>
             <div class=ui-block-c style="width:70px">A Pagar:</div>
             <div class=ui-block-d style="width:100px"><label style="width:18%;font-size:20px; color:#F00">1,000000.00</label></div>
+            -->
 	    </div>
       </div>  
 	</div>
@@ -704,7 +706,7 @@
 	<div data-role="footer" data-position="fixed">       
         <a href="#" class="ui-btn-right" id="regresardecob" data-role="button" 
             data-theme="b" data-icon="back" data-iconpos="left" >Regresar</a>
-         <a class="ui-btn-left"  href="#" id="baceptarcob" data-role="button" data-theme="b"
+         <a class="ui-btn-left"  href="#paplicobros" id="baceptarcob" data-role="button" data-theme="b"
         data-icon="plus" data-iconpos="left">Aceptar</a>    
 	</div>
 </div>
@@ -723,5 +725,35 @@
 		</div>
     </div>
 </div>
+<!--PAGINA APLICACION DE COBRO -->
+<div data-role="page" id="paplicobros">
+	<div data-role="header" data-position="fixed">
+		<label style="width:18%;font-size:20px; color:#F00; text-align:center" id="labelaplicobros" >Aplicación de Pago</label>       
+	</div>
+	<div data-role="content">		        
+                <div class=ui-grid-a id="gridaplicobros">
+         
+	    	<div class=ui-block-a style="width:100px">Saldo Total:</div>
+            <div class=ui-block-b style="width:100px"><label style="width:18%;font-size:20px; color:#F00">1,000000.00</label></div>
+            <div class=ui-block-a style="width:70px">Efectivo:</div>
+            <div class=ui-block-b style="width:300px"><input type="number" id="efectivo" style="width:18%" > </div>
+            <div class=ui-block-a style="width:70px">Chequees:</div>
+            <div class=ui-block-b style="width:300px"><a href="#" data-role="button" id="bcheques">Aceptar</a> </div>
+            <div class=ui-block-a style="width:100px">Total a Pagar:</div>
+            <div class=ui-block-b style="width:100px"><label style="width:18%;font-size:20px; color:#F00">1,000000.00</label></div>
+            <div class=ui-block-a style="width:100px">Saldo Pendiente:</div>
+            <div class=ui-block-b style="width:100px"><label style="width:18%;font-size:20px; color:#F00">1,000000.00</label></div>
+            
+         
+	    		</div>             
+    </div>    
+	<div data-role="footer" data-position="fixed">       
+        <a href="#" class="ui-btn-right" id="regresardeaplic" data-role="button" 
+            data-theme="b" data-icon="back" data-iconpos="left" >Regresar</a>
+         <a class="ui-btn-left"  href="#" id="baceptaraplic" data-role="button" data-theme="b"
+        data-icon="plus" data-iconpos="left">Guardar</a>    
+	</div>
+</div>
+
 </body>
 </html>
