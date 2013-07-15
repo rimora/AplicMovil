@@ -81,6 +81,9 @@ function insertar(){
 		 tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida) VALUES ( "1","00041535","1020",888.55,1000.55,"15/05/2013","15/05/2013","S")');  
 		 tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida) VALUES ( "1","00041537","1020",998.55,1000.55,"15/05/2013","15/06/2013","N")');        
 		 tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida) VALUES ( "1","00041536","1030",5000.00,5000.00,"08/06/2013","08/06/2013","N")');        
+		  tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida) VALUES ( "1","00041540","1030",5000.00,5000.00,"08/06/2013","08/06/2013","N")');        
+		   tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida) VALUES ( "1","00041538","1030",5000.00,5000.00,"08/06/2013","08/06/2013","N")');        
+		    tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida) VALUES ( "1","00041539","1030",5000.00,5000.00,"08/06/2013","08/06/2013","N")');        
  		 tx.executeSql('INSERT INTO ARTICULO (articulo,descripcion,clas,accion,impuesto,precio,descuento) VALUES ("ADE-04","ADEROGYL 15 SOL. C/5 AMP","OFERTA","ANTIDEA",16,100,30)'); 		  //cod_cl=clasificacion_2 de articulo (CLIE,CATA,OFER), cod_fam=clasificacion_1 de articulo (RESU)
 		 tx.executeSql('INSERT INTO ARTICULO (articulo,descripcion,clas,accion,impuesto,precio,descuento) VALUES ("AGU-10","AGUA OXIGENADA CON 100 ML.","CATA","ANTIGRIPAL",0,50,30)'); 
 		 tx.executeSql('INSERT INTO ARTICULO (articulo,descripcion,clas,accion,impuesto,precio,descuento) VALUES ("AMO-19","AMOXIL SUSP. 500 MG. C/75 ML.","OFERTA","ANTIDEA",16,40,30)'); 

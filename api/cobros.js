@@ -15,36 +15,44 @@ function listafacturaspend(cliente){
 	}
 	function listo(tx,results){  
 		 $("#gridfacpendientes").empty();	
+		 $("#gridencabcobros").empty();	
 			  //$("#tpedido").attr("value",0.0); 					  
 			  var html = "";			  
+			  var html2 = "";			  
 			  var saldot=0;
-			  var montot=0;			  
-		      var precio=0;
-	    	  var total=0;      
-			  var importe=0;         
+			  var abonot=0;			  
+		      var resta=0;	    	  
 			  //agrega encabezado de grid
 			  //agrega encabezado de grid
 			  html+=' <div class="ui-block-a" style="width:110px" ><div class="ui-bar ui-bar-a">Factura</div></div> ';           
               html+=' <div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-a">A pagar</div></div>';
               html+=' <div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-a">Saldo</div></div>';
-              html+=' <div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-a">Vencimiento</div></div>';
+              html+=' <div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-a">Venc.</div></div>';
               html+=' <div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-a">Monto</div></div>';
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
 				     //descuento=(row['precio']/100)*row['descuento'];
 				     //precio=row['precio']*(1+(row['impuesto']/100));											
 						var abonado= Number(row['abonado']);												 						
+						saldot=Number(row['saldo']);
+						abonot=abonado;
 					 //importe=precio*row['cantidad'];
 					 //total+=Number(importe);					 
 					html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-e">'+row['documento']+'</div></div>';   		 		
 					html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b"><a href="#" class="clasecob" name="'+row['documento']+'"><font color="FFFFFF">'+abonado.toFixed(2)+'</font></a></div></div>';
 					html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-b">'+row['saldo']+'</div></div>';
-                    html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b">'+row['vencimiento']+'</div></div>';                    
+                    html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b">'+row['fechaven']+'</div></div>';                    
 	                html+='<div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-b">'+row['monto']+'</div></div> ';
 					
                   	 
 			  });//.each
-					$("#gridfacpendientes").append(html); 
+			         resta=saldot-abonot;
+		    	html2+='<div class=ui-block-a style="width:100px">Saldo Total:</div>';
+	            html2+='<div class=ui-block-b style="width:200px"><label style="width:18%;font-size:20px; color:#F00">'+resta.toFixed(2)+'</label></div>';
+            	html2+='<div class=ui-block-c style="width:70px">A Pagar:</div>';
+            	html2+='<div class=ui-block-d style="width:100px"><label style="width:18%;font-size:20px; color:#F00">'+resta.toFixed(2)+'</label></div>';
+				$("#gridfacpendientes").append(html); 
+				$("#gridencabcobros").append(html2); 
 					//$("#tpedido").attr("value",total); 			
 					//$("#tpedido").val(total.toFixed(2)); 			
 					
@@ -120,7 +128,7 @@ function insertacobro(factura,cantidad){
  	}//function listo(tx,results){ 
 	function consultatemp(tx){   	       
 				//alert('articulo de MODIFICAR temPEDIDO '+articulo);
-				 var sql='SELECT a.factura,a.saldo ';
+				 var sql='SELECT a.documento,a.saldo ';
 	   			 sql+=' FROM PENCOBRO a ';	
 				 sql+=' where a.factura="'+factura+'"';	
 		

@@ -497,8 +497,9 @@ $("#bimprimirp").tap(function() {
 	});
  //*****C O B R O S *****	 
 	  $("#bcobros").tap(function() {                   				  
-				  window.location.href='#pcobros';
 				  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
+				  window.location.href='#pcobros';
+				  $("#labelencpcobros").append("Facturas pendientes del cliente: "+cliente);				  
 				  eliminatempcob();
 				  copiatemcobros(cliente);//copia a tabla temporal las facturas pendientes de cobro
 				  listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado				  				  
