@@ -27,21 +27,21 @@ function listafacturaspend(cliente){
 			  html+=' <div class="ui-block-a" style="width:110px" ><div class="ui-bar ui-bar-a">Factura</div></div> ';           
               html+=' <div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-a">A pagar</div></div>';
               html+=' <div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-a">Saldo</div></div>';
-              html+=' <div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-a">Venc.</div></div>';
+              html+=' <div class="ui-block-d" style="width:110px"><div class="ui-bar ui-bar-a">Venc.</div></div>';
               html+=' <div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-a">Monto</div></div>';
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
 				     //descuento=(row['precio']/100)*row['descuento'];
 				     //precio=row['precio']*(1+(row['impuesto']/100));											
 						var abonado= Number(row['abonado']);												 						
-						saldot=Number(row['saldo']);
-						abonot=abonado;
+						saldot+=Number(row['saldo']);
+						abonot+=abonado;
 					 //importe=precio*row['cantidad'];
 					 //total+=Number(importe);					 
 					html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-e">'+row['documento']+'</div></div>';   		 		
 					html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b"><a href="#" class="clasecob" name="'+row['documento']+'"><font color="FFFFFF">'+abonado.toFixed(2)+'</font></a></div></div>';
 					html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-b">'+row['saldo']+'</div></div>';
-                    html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b">'+row['fechaven']+'</div></div>';                    
+                    html+='<div class="ui-block-d" style="width:110px"><div class="ui-bar ui-bar-b">'+row['fechaven']+'</div></div>';                    
 	                html+='<div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-b">'+row['monto']+'</div></div> ';
 					
                   	 
@@ -89,7 +89,7 @@ function mostrardcob(factura){
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){			
 			 	var row = results.rows.item(0); 
-			    $("#cantidadcob").val(row['cantidad']);				
+			    $("#cantidadcob").val(row['abonado']);				
 				$("#encdialogocob").val('Indica Cantidad a Pagar: '+row['factura']);
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
@@ -130,7 +130,7 @@ function insertacobro(factura,cantidad){
 				//alert('articulo de MODIFICAR temPEDIDO '+articulo);
 				 var sql='SELECT a.documento,a.saldo ';
 	   			 sql+=' FROM PENCOBRO a ';	
-				 sql+=' where a.factura="'+factura+'"';	
+				 sql+=' where a.documento="'+factura+'"';	
 		
 								
 			tx.executeSql(sql,[],listo,function(err){
