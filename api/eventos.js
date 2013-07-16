@@ -29,7 +29,7 @@ $(document).ready(function() {
 		  		}else{		  		  
 				alert('Usuario No Válio');
 				}  	
-	});
+	}); 
 	
 	$("#carga").tap(function() { 	           
                  //var clavecli = $(this).attr("id");
@@ -187,8 +187,7 @@ $("a.clasef").live('click',function(){//al modificar linea de factura
 $("#beliminarp").tap(function() { 
                  //var clavecli = $(this).attr("id");				 
 	function onConfirm(button) {
-		if (button==1){
-			alert('boton si pulsado');
+		if (button==1){			
 			$('input:checkbox.clasep').each(function () {
            		if (this.checked) {
              	  alert($(this).attr("name"));
@@ -590,9 +589,11 @@ $("#bimprimirp").tap(function() {
                
 	     //intento convertir a entero. 
     	 //si era un entero no le afecta, si no lo era lo intenta convertir 
-	     var valor = parseInt(valor); 
+	     var valor = parseInt($("#efectivo").val()); 
 		 var abono=Number(window.localStorage.getItem("abono"));
 		 var cheque=Number(window.localStorage.getItem("cheque"));
+		 var pendiente=abono-valor-cheque;
+		 alert(valor);
 	    //Compruebo si es un valor numérico 
     	 if (isNaN(valor)) { 
         //entonces (no es numero) 
@@ -602,19 +603,71 @@ $("#bimprimirp").tap(function() {
     	    //En caso contrario (Si era un número) devuelvo el valor 
 			if (valor>pendiente){
 				navigator.notification.alert('Cantidad indicada mayor al saldo pendiente por abonar',null,'Cantidad inválida','Aceptar');
-				return false;
+				$("#efectivo").focus();
 			}
 			else{
         	guardaefectivo(valor); 
-			guardapendiente(abono-valor-cheque);
+			guardapendiente(pendiente);
 			actgridsaldo();
 			}
 	     } 
 	   
     });
+	$("#bcheque").tap(function() {                   			
+		  	window.location.href='#pcheque';
+			poblarcuenta();	         
+			$("#numcheque").val("");
+			$("#numcuenta").val("");  
+			$("#monto").val(0); 
+			poblarcheques();
+				  
+     }); 
+	 $("#bagregacheque").tap(function() {                   				  
+	        var nche=$("#numcheque").val();  			  
+			var ncta=$("#numcuenta").val();  			  
+			var banco=$("#menucuentab").val();
+			var monto=$("#monto").val();
+			if (nche=="" || ncta=="" || banco=="Banco" || monto==0){
+				navigator.notification.alert('Debe indicar numero de cheque, de cuenta,seleccionar banco y monto válidos',null,'Faltan Datos','Aceptar');
+				$("#numcheque").focus();	
+							
+			}
+			insertarcheque(nche,ncta,banco,monto);
+			$("select#menucuentab").val("Banco").selectmenu("refresh"); 
+			$("#numcheque").val("");
+			$("#numcuenta").val("");  
+			$("#monto").val(0); 
+			poblarcheques();
+				  
+     });
+	$("#eliminarche").tap(function() {                   				  
+	       	function onConfirm(button) {
+				if (button==1){
+					$('input:checkbox.clasech').each(function () {
+        		   		if (this.checked) {
+						   alert('nombre '+$(this).attr("name")+' valor '+$(this).attr("value"));
+						   eliminacheque($(this).attr("name"))				    				   
+						   
+						   //alert($("#"+"c"+$(this).val()).val());
+    		      		 }
+					});//$('input:checkbox.clasep').each(function () {	
+					poblarcheques();
+				}//if (button==1){
+			}			 
+    	navigator.notification.confirm('¿Estas seguro de eliminar los registros seleccionados?',     // mensaje (message)
+	    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
+    	'Eliminar Cheque',            // titulo (title)
+        'SI,NO'       // botones (buttonLabels)
+    );
+				 
+				  
+  }); 
+  $("#salirdecheque").tap(function(){
+    	actgridsaldo();
+  }); 
 	 
   },false);//document.addEventListener("deviceready",function(){	
-});//ultimo
+});//$(document).ready(function() 
 			   
 			   
 

@@ -169,46 +169,94 @@ function actgridsaldo(){
 	$("#gridaplicobros2").append(html); 	
 				
 }//function actgridsaldo()
-
-  function mostrardcobbb(factura){
-		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
-		consultadb().transaction(consulta, errorconsulta);	
-	function consulta(tx) {	
-        	var sql='SELECT a.factura,a.abonado ';
-	    	sql+='FROM TEMCOBROS a where abonado>0 ';	
-				
-			tx.executeSql(sql ,[],exito,errorconsulta);
-	}		
-		function exito(tx,results){ 
-			
-		      $("#gridartdev").empty();				  
-			  var html = "";
-		      var precio=0;
-			  //agrega encabezado de grid
-			  html+=' <div class="ui-block-a" style="width:110px" ><div class="ui-bar ui-bar-a">Articulo</div></div> ';           
-              html+=' <div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-a">Cantidad</div></div>';
-			  html+=' <div class="ui-block-c" style="width:500px"><div class="ui-bar ui-bar-a">Observaciones</div></div>';
-              
+function poblarcuenta(){
+		consultadb().transaction(poblarc, function(err){
+    	 		 alert("Error poblar cuentasbancarias: "+err.code+err.message);
+         		});		
+		function poblarc(tx){  
+			var sql='SELECT a.codigo,a.descripcion FROM CUENTASB a ';		
+			tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error select CUENTASB : "+err.code+err.message);
+         		});    	
+		}
+		function listo(tx,results){  
+			 $("#menucuentab").empty();				 
+			  var html = "";			  
+ 				    html+='    <option value="Banco">';
+		            html+='        Banco';
+        		    html+='    </option>';
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
-				    html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-e">'+row['articulo']+'</div></div>';   		 		                    html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b">'+row['cantidad']+'</div></div>';                  
-					html+='<div class="ui-block-c" style="width:500px"><div class="ui-bar ui-bar-b">'+row['obs']+'</div></div>';                  
+				    html+='    <option value="'+row['codigo']+'">';
+		            html+='        '+row['descripcion'];
+        		    html+='    </option>';
+			  });//.each
+				$("#menucuentab").append(html); 
+				$("select#menucuentab").val("Banco").selectmenu("refresh");
+ 	}
+
+ // });	//$('#pclientes').live('pageshow',function(event, ui){
+	
+}// poblarcuenta()
+function poblarcheques(cliente){	
+ 	consultadb().transaction(consulta, errorconsulta);	
+	function consulta(tx) {		
+		tx.executeSql('SELECT a.id,a.codbanco,a.monto,a.numcheque,b.descripcion left outer join CUENTASB b on b.codigo=a.codbanco where a.recibo="99999"',[],exito,errorconsulta);
+		}
+		
+	
+		
+		function exito(tx,results){ 
+			
+		      $("#gridcheques").empty();				  
+			  var html = "";
+			  var montot=0;			  
+		      var efectivo=window.localStorage.getItem("efectivo");       
+			  //agrega encabezado de grid
+			  html+=' <div class="ui-block-a" style="width:70px;height:20px" > ';            
+              html+=' <div class="ui-bar ui-bar-a">Elim.</div></div> ';           
+              html+=' <div class="ui-block-b" style="width:110px"><div class="ui-bar ui-bar-a">Cheque</div></div>';
+              html+=' <div class="ui-block-c" style="width:110px"><div class="ui-bar ui-bar-a">Banco</div></div>';
+              html+=' <div class="ui-block-d" style="width:110px"><div class="ui-bar ui-bar-a">Monto</div></div>';
+			if (results.rows.length>0){
+			  $.each(results.rows,function(index){				  
+				  var row = results.rows.item(index); 				     			     
+					 var monto=Number(row['monto']);
+					 montot+=monto;
+					html+='<div class="ui-block-a" style="width:70px;height:20px" >';              
+           			html+='<div class="ui-bar ui-bar-e"  >';      		 		
+                   	html+='<div style="padding:0px; margin-top:-8px; margin-left:-10px">'; 
+			        html+='     <label for="CH'+row['numcheque']+'" >&nbsp</label>';  
+            		html+='     <input type="checkbox" id="CH'+row['numcheque']+'" name="'+row['id']+'" value="'+row['monto']+'" class="clasech"  />';
+                   	html+='		</div>';	
+		            html+='   </div>';
+            		html+='</div>';            
+                    html+='<div class="ui-block-b" style="width:110px"><div class="ui-bar ui-bar-b">'+row['numcheque']+'</div></div>';
+                    html+='<div class="ui-block-c" style="width:110px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
+	                html+='<div class="ui-block-e" style="width:110px"><div class="ui-bar ui-bar-b">'+monto.toFixed(2)+'</div></div> ';
+
                   	 
 			  });//.each
-					$("#gridartdev").append(html); 
+			} 
+			  		var pendiente=Number(window.localStorage.getItem("abono"))-efectivo-montot;
+					$("#gridcheques").append(html); 
 					//$("#tpedido").attr("value",total); 			
-					//$("#tpedido").val(total.toFixed(2)); 			
-					
+					$("#totalcheques").val(montot.toFixed(2)); 			
+					$("#cheque").val(montot.toFixed(2)); 			
+					$("#spendiente").val(pendiente.toFixed(2)); 
+					guardacheque(montot);
 					//alert('total'+total);					 
 			
 	   }//function exito
  		
 	function errorconsulta(err) {
-    	alert("Error al llenar detalles devoluciones "+err.code+err.message);
+    	alert("Error SQL al llenar detalles pedido: "+err.code+err.message);
 	}
 //  });	
 
-  }//mostrarartdev
+  }//mostrarpedido
+
+
   
 function guardacob(observagen){	
 var cabinsertada=false;

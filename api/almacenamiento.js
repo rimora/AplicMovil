@@ -39,7 +39,7 @@ function guardaabono(abono){
 function guardaefectivo(efectivo){
 	window.localStorage.setItem("efectivo",efectivo);
 }
-function guardaefectivo(cheque){
+function guardacheque(cheque){
 	window.localStorage.setItem("cheque",efectivo);
 }
 function guardapendiente(pendiente){

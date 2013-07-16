@@ -34,7 +34,8 @@
     	<h1>Ingreso</h1>	      
     </div>
     <div data-role="content">
-    <img src="imagenes/m_10.png" alt="mee" />
+  	<center><img src="imagenes/m_10.png" alt="mee" /></center>
+    	    
     
     				<label> Usuario </label>
           			<input type="text" id="nombredeusuario" name="nombredeusuario"> 
@@ -738,15 +739,15 @@
             <div class=ui-grid-a id="gridaplicobros2">         
 		    	
     		</div>   
-            <div data-role="fieldcontain">';			
-    			<label for="efectivo">Efectivo</label>';
-				<input type="number" id="efectivo" style="height:18px; width:18%">';			
-			</div>';
-			<div data-role="fieldcontain">';	
-				<label for="cheque">Cheque</label>';
-				 <input type="number" id="cheque" readonly style="height:18px; width:18%">';			
-			    <a href="" data-role="button" data-icon="plus" data-inline="true" data-theme="b" id="bcheque"></a>';
-			</div>';  
+            <div data-role="fieldcontain">			
+    			<label for="efectivo">Efectivo</label>
+				<input type="number" id="efectivo" style="height:18px; width:18%">			
+			</div>
+			<div data-role="fieldcontain">	
+				<label for="cheque">Cheque</label>
+				 <input type="number" id="cheque" readonly style="height:18px; width:18%">			
+			    <a href="" data-role="button" data-icon="plus" data-iconpos="top"  data-inline="true" data-theme="b" id="bcheque"></a>
+			</div> 
     </div>    
 	<div data-role="footer" data-position="fixed">       
         <a href="#" class="ui-btn-right" id="regresardeaplic" data-role="button" 
@@ -755,33 +756,49 @@
         data-icon="plus" data-iconpos="left">Guardar</a>    
 	</div>
 </div>
-<!--PAGINA APLICACION DE COBRO -->
+<!--PAGINA CHEQUES -->
 <div data-role="page" id="pcheque">
 	<div data-role="header" data-position="fixed">
-		<h3 style="text-align:center">Aplicación de Pago</h3>      
+		<h3 style="text-align:center"REGISTRO DE CHEQUES</h3>      
 	</div>
-	<div data-role="content">		        
-            <div class=ui-grid-a id="gridaplicobros">         
-		    	
-    		</div> 
-            <div class=ui-grid-a id="gridaplicobros2">         
-		    	
-    		</div>   
-            <div data-role="fieldcontain">';			
-    			<label for="efectivo">Efectivo</label>';
-				<input type="number" id="efectivo" style="height:18px; width:18%">';			
-			</div>';
-			<div data-role="fieldcontain">';	
-				<label for="cheque">Cheque</label>';
-				 <input type="number" id="cheque" readonly style="height:18px; width:18%">';			
-			    <a href="" data-role="button" data-icon="plus" data-inline="true" data-theme="b" id="bcheque"></a>';
-			</div>';  
+	<div data-role="content">	
+            <div data-role="fieldcontain" data-theme="c">           		
+		            <select name="menucuentab" id="menucuentab" data-theme="b" >
+		                  
+		            </select>
+	        </div>	
+            <div data-role="fieldcontain">			
+    			<label for="numcheque">Numero de Cheque:</label>
+				<input type="text" id="numcheque" style="height:18px; width:30%">			
+			</div>
+			<div data-role="fieldcontain">
+				<label for="numcuenta">Numero de Cuenta:</label>
+				<input type="text" id="numcuenta" style="height:18px; width:30%">						    
+			</div> 
+            <div data-role="fieldcontain"	
+				<label for="monto">Monto:</label>
+				<input type="number" id="monto" style="height:18px; width:30%">						    
+			</div>  
+            <div data-role="fieldcontain">	
+				<label for="totalcheques">Total Cheques:</label>
+				<input type="number" id="totalcheques" readonly style="height:18px; width:30%">						    
+			</div> 
+            <div data-role="fieldcontain">
+				<label for="spendiente">Saldo Pendiente:</label>
+				<input type="number" id="spendiente" readonly style="height:18px; width:30%">					    
+			</div> 
+            <a href="" data-role="button" data-icon="plus" data-theme="b" id="bagregacheque">Agregar Cheque</a>
+             <div data-role="collapsible" data-theme="b" data-content-theme="c" id="agrupacheques">
+             <h3>Cheques Ingresados</h3>
+            	 <div class=ui-grid-a id="gridcheques">         
+		    	   
+    			</div> 
+            	<a href="" id ="beliminarche"  data-role="button" data-theme="b"  data-inline="true">Eliminar</a>   
+        	</div>   
     </div>    
 	<div data-role="footer" data-position="fixed">       
-        <a href="#" class="ui-btn-right" id="regresardeaplic" data-role="button" 
-            data-theme="b" data-icon="back" data-iconpos="left" >Regresar</a>
-         <a class="ui-btn-left"  href="#" id="baceptaraplic" data-role="button" data-theme="b"
-        data-icon="plus" data-iconpos="left">Guardar</a>    
+        <a href="#paplicobros" class="ui-btn-right" id="salirdecheque" data-role="button" 
+         data-theme="b" data-icon="back" data-iconpos="left" >Regresar</a>        
 	</div>
 </div>
 

@@ -20,8 +20,7 @@ consultadb().transaction(creartb, errorCB, successCB);
 		 tx.executeSql('DROP TABLE IF EXISTS PENCOBRO');
 		 tx.executeSql('DROP TABLE IF EXISTS TEMPEDIDO');
 		 tx.executeSql('DROP TABLE IF EXISTS TEMFACTURA');
-		 tx.executeSql('DROP TABLE IF EXISTS TEMCOBROS');
-		 tx.executeSql('DROP TABLE IF EXISTS TEMAPLICOBRO');
+		 tx.executeSql('DROP TABLE IF EXISTS TEMCOBROS');		 
 		 tx.executeSql('DROP TABLE IF EXISTS TEMDEV');//
 		 tx.executeSql('DROP TABLE IF EXISTS ARTICULO');//se llena de tablas articulo, articulo_precio,descuento_nivel
 		 tx.executeSql('DROP TABLE IF EXISTS ARTICULO_EXISTENCIA');//se llena de tablas articulo, articulo_precio,descuento_nivel
@@ -45,9 +44,8 @@ consultadb().transaction(creartb, errorCB, successCB);
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMPEDIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,cantidad,cliente)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMFACTURA (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,cantidad,cliente)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMDEV (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,linea,cantidad,obs)'); 
-		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMCOBROS (id INTEGER PRIMARY KEY AUTOINCREMENT, factura TEXT NOT NULL,abonado)'); 
-		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMAPLICOBRO (id INTEGER PRIMARY KEY AUTOINCREMENT, efectivo,cheque)'); 
-		 tx.executeSql('CREATE TABLE IF NOT EXISTS CHEQUES (id INTEGER PRIMARY KEY AUTOINCREMENT, codigo,cliente,ruta,fecha,monto,numero,cuenta,recibo,tipo)'); 
+		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMCOBROS (id INTEGER PRIMARY KEY AUTOINCREMENT, factura TEXT NOT NULL,abonado)'); 		 
+		 tx.executeSql('CREATE TABLE IF NOT EXISTS CHEQUES (id INTEGER PRIMARY KEY AUTOINCREMENT, codbanco,cliente,ruta,fecha,monto,numcheque,cuenta,recibo,tipo)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS ARTICULO (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,descripcion TEXT NOT NULL,clas TEXT NOT NULL,accion TEXT NOT NULL,impuesto,precio,descuento)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS ARTICULO_EXISTENCIA (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,bodega TEXT NOT NULL,existencia)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS SUGERIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente TEXT NOT NULL,articulo TEXT NOT NULL,cantidad)'); 
@@ -417,6 +415,31 @@ function eliminatempcob(){
 		}
 	
 }//function eliminatempcob()
+function insertarcheque(nche,ncta,banco,monto){
+	   //alert('inserttafactura'+cantidad);
+	    consultadb().transaction(insertadet,function(err){
+    	  alert("Error al insertar renglon temdevolucion: "+err.code+err.message);
+          });
+				
+    	function insertadet(tx) {
+			var sql='INSERT INTO CHEQUES (codbanco,cliente,ruta,fecha,monto,numcheque,cuenta,recibo,tipo) VALUES("'+banco+'","'+cliente+'","'+ruta+'", ';		
+				sql+='"'+fecha+'",'+monto+',"'+nche+'","'+ncta+'","99999","5")';		
+		   tx.executeSql(sql);		
+		}
+	
+}//function insertarcheque(nche,ncta,banco,monto)
+function eliminacheque(id){
+	   //alert('inserttafactura'+cantidad);
+	    consultadb().transaction(insertadet,function(err){
+    	  alert("Error al eliminar cheque: "+err.code+err.message);
+          });
+				
+    	function insertadet(tx) {		
+		alert('entra a eliminar cheque');
+		   tx.executeSql('DELETE FROM CHEQUES where id='+id);		
+		}
+	
+}//function eliminacheque
 
 function f1_1(){
 	  alert('entra a funcion f1_1');
