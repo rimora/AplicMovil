@@ -15,10 +15,13 @@ consultadb().transaction(creartb, errorCB, successCB);
 		function creartb(tx) {
 			//alert('funcion creartb');	
     	 tx.executeSql('DROP TABLE IF EXISTS CLIENTES');
+		 tx.executeSql('DROP TABLE IF EXISTS CUENTASB');
+		 tx.executeSql('DROP TABLE IF EXISTS CHEQUES');		 
 		 tx.executeSql('DROP TABLE IF EXISTS PENCOBRO');
 		 tx.executeSql('DROP TABLE IF EXISTS TEMPEDIDO');
 		 tx.executeSql('DROP TABLE IF EXISTS TEMFACTURA');
 		 tx.executeSql('DROP TABLE IF EXISTS TEMCOBROS');
+		 tx.executeSql('DROP TABLE IF EXISTS TEMAPLICOBRO');
 		 tx.executeSql('DROP TABLE IF EXISTS TEMDEV');//
 		 tx.executeSql('DROP TABLE IF EXISTS ARTICULO');//se llena de tablas articulo, articulo_precio,descuento_nivel
 		 tx.executeSql('DROP TABLE IF EXISTS ARTICULO_EXISTENCIA');//se llena de tablas articulo, articulo_precio,descuento_nivel
@@ -36,12 +39,15 @@ consultadb().transaction(creartb, errorCB, successCB);
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS ENCHISFAC (id INTEGER PRIMARY KEY AUTOINCREMENT, factura,monto,cliente,pedido,fecha)');  
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS DETHISFAC (id INTEGER PRIMARY KEY AUTOINCREMENT, factura,articulo,linea,cantidad,devuelto,precio,totlinea)');  
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS PARAMETROS (id INTEGER PRIMARY KEY AUTOINCREMENT, COD_ZON,NUM_PED,NUM_REC,NUM_DEV,NUM_FAC)'); 
+		 tx.executeSql('CREATE TABLE IF NOT EXISTS CUENTASB (id INTEGER PRIMARY KEY AUTOINCREMENT, codigo TEXT NOT NULL,descripcion)'); 
          tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL,direccion TEXT NOT NULL,telefono TEXT NOT NULL,tipo TEXT NOT NULL,diasc TEXT NOT NULL,lcredito,saldo )'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS PENCOBRO (id INTEGER PRIMARY KEY AUTOINCREMENT, tipo TEXT NOT NULL,documento TEXT NOT NULL,cliente TEXT NOT NULL,saldo,monto,fecha,fechaven,vencida)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMPEDIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,cantidad,cliente)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMFACTURA (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,cantidad,cliente)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMDEV (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,linea,cantidad,obs)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMCOBROS (id INTEGER PRIMARY KEY AUTOINCREMENT, factura TEXT NOT NULL,abonado)'); 
+		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMAPLICOBRO (id INTEGER PRIMARY KEY AUTOINCREMENT, efectivo,cheque)'); 
+		 tx.executeSql('CREATE TABLE IF NOT EXISTS CHEQUES (id INTEGER PRIMARY KEY AUTOINCREMENT, codigo,cliente,ruta,fecha,monto,numero,cuenta,recibo,tipo)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS ARTICULO (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,descripcion TEXT NOT NULL,clas TEXT NOT NULL,accion TEXT NOT NULL,impuesto,precio,descuento)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS ARTICULO_EXISTENCIA (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,bodega TEXT NOT NULL,existencia)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS SUGERIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente TEXT NOT NULL,articulo TEXT NOT NULL,cantidad)'); 
@@ -69,7 +75,14 @@ function insertar(){
 				
     	function insertarcli(tx) {	
 		tx.executeSql('INSERT INTO PARAMETROS (COD_ZON,NUM_PED,NUM_REC,NUM_DEV,NUM_FAC) VALUES ("S04","S13000216","R13000656","D13000001","F13000646")'); 	
-        tx.executeSql('INSERT INTO ENCHISFAC (factura,monto,cliente,pedido,fecha) VALUES ("00046441",483,"1020","F06000779","03/07/2013")');  		
+        tx.executeSql('INSERT INTO CUENTASB (codigo,descripcion) VALUES("ND","NO DEFINIDA")'); 
+		tx.executeSql('INSERT INTO CUENTASB (codigo,descripcion) VALUES("BANCOMER","BBVA BANCOMER")'); 
+		tx.executeSql('INSERT INTO CUENTASB (codigo,descripcion) VALUES("BANAMEX","Banamex")'); 
+		tx.executeSql('INSERT INTO CUENTASB (codigo,descripcion) VALUES("HSBC","HSBC")'); 
+		tx.executeSql('INSERT INTO CUENTASB (codigo,descripcion) VALUES("BSANTAND","Banco Nacional Santander Mexicano")'); 
+		tx.executeSql('INSERT INTO CUENTASB (codigo,descripcion) VALUES("BITAL","Grupo Financiero Bital")'); 
+		
+		tx.executeSql('INSERT INTO ENCHISFAC (factura,monto,cliente,pedido,fecha) VALUES ("00046441",483,"1020","F06000779","03/07/2013")');  		
 		tx.executeSql('INSERT INTO DETHISFAC (factura,articulo,linea,cantidad,devuelto,precio,totlinea) VALUES ("00046441","ADE-04",0,2,0,100,140)')		
 		tx.executeSql('INSERT INTO DETHISFAC (factura,articulo,linea,cantidad,devuelto,precio,totlinea) VALUES ("00046441","AGU-10",1,5,0,50,175)')		
 		tx.executeSql('INSERT INTO DETHISFAC (factura,articulo,linea,cantidad,devuelto,precio,totlinea) VALUES ("00046441","AMO-19",2,6,0,38,168)')		

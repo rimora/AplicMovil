@@ -34,6 +34,7 @@
     	<h1>Ingreso</h1>	      
     </div>
     <div data-role="content">
+    <img src="imagenes/m_10.png" alt="mee" />
     
     				<label> Usuario </label>
           			<input type="text" id="nombredeusuario" name="nombredeusuario"> 
@@ -728,24 +729,53 @@
 <!--PAGINA APLICACION DE COBRO -->
 <div data-role="page" id="paplicobros">
 	<div data-role="header" data-position="fixed">
-		<label style="width:18%;font-size:20px; color:#F00; text-align:center" id="labelaplicobros" >Aplicación de Pago</label>       
+		<h3 style="text-align:center">Aplicación de Pago</h3>      
 	</div>
 	<div data-role="content">		        
-                <div class=ui-grid-a id="gridaplicobros">
-         
-	    	<div class=ui-block-a style="width:100px">Saldo Total:</div>
-            <div class=ui-block-b style="width:100px"><label style="width:18%;font-size:20px; color:#F00">1,000000.00</label></div>
-            <div class=ui-block-a style="width:70px">Efectivo:</div>
-            <div class=ui-block-b style="width:300px"><input type="number" id="efectivo" style="width:18%" > </div>
-            <div class=ui-block-a style="width:70px">Chequees:</div>
-            <div class=ui-block-b style="width:300px"><a href="#" data-role="button" id="bcheques">Aceptar</a> </div>
-            <div class=ui-block-a style="width:100px">Total a Pagar:</div>
-            <div class=ui-block-b style="width:100px"><label style="width:18%;font-size:20px; color:#F00">1,000000.00</label></div>
-            <div class=ui-block-a style="width:100px">Saldo Pendiente:</div>
-            <div class=ui-block-b style="width:100px"><label style="width:18%;font-size:20px; color:#F00">1,000000.00</label></div>
-            
-         
-	    		</div>             
+            <div class=ui-grid-a id="gridaplicobros">         
+		    	
+    		</div> 
+            <div class=ui-grid-a id="gridaplicobros2">         
+		    	
+    		</div>   
+            <div data-role="fieldcontain">';			
+    			<label for="efectivo">Efectivo</label>';
+				<input type="number" id="efectivo" style="height:18px; width:18%">';			
+			</div>';
+			<div data-role="fieldcontain">';	
+				<label for="cheque">Cheque</label>';
+				 <input type="number" id="cheque" readonly style="height:18px; width:18%">';			
+			    <a href="" data-role="button" data-icon="plus" data-inline="true" data-theme="b" id="bcheque"></a>';
+			</div>';  
+    </div>    
+	<div data-role="footer" data-position="fixed">       
+        <a href="#" class="ui-btn-right" id="regresardeaplic" data-role="button" 
+            data-theme="b" data-icon="back" data-iconpos="left" >Regresar</a>
+         <a class="ui-btn-left"  href="#" id="baceptaraplic" data-role="button" data-theme="b"
+        data-icon="plus" data-iconpos="left">Guardar</a>    
+	</div>
+</div>
+<!--PAGINA APLICACION DE COBRO -->
+<div data-role="page" id="pcheque">
+	<div data-role="header" data-position="fixed">
+		<h3 style="text-align:center">Aplicación de Pago</h3>      
+	</div>
+	<div data-role="content">		        
+            <div class=ui-grid-a id="gridaplicobros">         
+		    	
+    		</div> 
+            <div class=ui-grid-a id="gridaplicobros2">         
+		    	
+    		</div>   
+            <div data-role="fieldcontain">';			
+    			<label for="efectivo">Efectivo</label>';
+				<input type="number" id="efectivo" style="height:18px; width:18%">';			
+			</div>';
+			<div data-role="fieldcontain">';	
+				<label for="cheque">Cheque</label>';
+				 <input type="number" id="cheque" readonly style="height:18px; width:18%">';			
+			    <a href="" data-role="button" data-icon="plus" data-inline="true" data-theme="b" id="bcheque"></a>';
+			</div>';  
     </div>    
 	<div data-role="footer" data-position="fixed">       
         <a href="#" class="ui-btn-right" id="regresardeaplic" data-role="button" 

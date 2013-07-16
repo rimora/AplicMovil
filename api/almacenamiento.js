@@ -18,7 +18,7 @@ function actsaldo(importe){
 	var saldoact=Number(window.localStorage.getItem("saldo"))+Number(importe);
 	//alert(saldoact);
 	window.localStorage.setItem("saldo",saldoact);
-	actsaldocliente(saldoact)
+	actsaldocliente(saldoact);//actualiza el saldo del cliente en la tabla clientes
 	//alert (window.localStorage.getItem("clave"));
 }
 function guardafechaactual(){
@@ -30,6 +30,25 @@ var fechaactual=fechaact+" "+hora;
 window.localStorage.setItem("fechahora",fechaactual);
 window.localStorage.setItem("fecha",fechaact);
 }
+function guardasaldofac(saldo){
+	window.localStorage.setItem("saldofac",saldo);
+}
+function guardaabono(abono){
+	window.localStorage.setItem("abono",abono);
+}
+function guardaefectivo(efectivo){
+	window.localStorage.setItem("efectivo",efectivo);
+}
+function guardaefectivo(cheque){
+	window.localStorage.setItem("cheque",efectivo);
+}
+function guardapendiente(pendiente){
+	window.localStorage.setItem("pendiente",pendiente);
+}
+
+
+
+
 function tempdetalle(cantidad){	
 	//alert(cantidad);	
 	alert (window.localStorage.getItem("articulo"));	

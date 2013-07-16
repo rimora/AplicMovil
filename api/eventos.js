@@ -551,6 +551,68 @@ $("#bimprimirp").tap(function() {
         'ACEPTAR,CANCELAR'       // botones (buttonLabels)
 	    );
     }); 
+	
+	$("#baceptarcob").tap(function() {                   				  
+	            var saldofac=window.localStorage.getItem("saldofac");
+				var abono=window.localStorage.getItem("abono");
+				if (abono==0){
+					 navigator.notification.alert('Debe indicar abono para alguna factura',null,'Cantidad abonada igual a CERO','Aceptar');
+					
+				}
+				 else{
+					window.location.href='#paplicobros';
+					guardaefectivo(0);//inicia valor de cobrado en efectivo
+					guardacheque(0);//inicia valor de cobrado en cheque				 	  
+					guardapendiente(abono);//inicia valor de lo que se tiene que abonar (distribuir lo abonado)
+				  	aplicacionpago(saldofac,abono);//muestra grid con datos de lo abonado y saldo pendiente de facturas 
+				 }
+				  
+				  
+     });
+	 $("#baceptaraplic").tap(function() {                   				  
+	            			  
+				  
+     });
+	 $("#regresardeaplic").tap(function(){
+                function onConfirm(button) {
+					if (button==1){						 
+						 window.location.href='#pcobros';
+			
+					}//if (button==1){
+				}			 
+    	navigator.notification.confirm('Se perderán los datos no guardados',     // mensaje (message)
+	    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
+    	'Generar Cobro',            // titulo (title)
+        'ACEPTAR,CANCELAR'       // botones (buttonLabels)
+	    );
+    });
+	 $("#efectivo").blur(function(){
+               
+	     //intento convertir a entero. 
+    	 //si era un entero no le afecta, si no lo era lo intenta convertir 
+	     var valor = parseInt(valor); 
+		 var abono=Number(window.localStorage.getItem("abono"));
+		 var cheque=Number(window.localStorage.getItem("cheque"));
+	    //Compruebo si es un valor numérico 
+    	 if (isNaN(valor)) { 
+        //entonces (no es numero) 
+        	 navigator.notification.alert('Debe indicar un valor válido',null,'Cantidad inválida','Aceptar');
+			 $("#efectivo").focus();
+	     }else{ 
+    	    //En caso contrario (Si era un número) devuelvo el valor 
+			if (valor>pendiente){
+				navigator.notification.alert('Cantidad indicada mayor al saldo pendiente por abonar',null,'Cantidad inválida','Aceptar');
+				return false;
+			}
+			else{
+        	guardaefectivo(valor); 
+			guardapendiente(abono-valor-cheque);
+			actgridsaldo();
+			}
+	     } 
+	   
+    });
+	 
   },false);//document.addEventListener("deviceready",function(){	
 });//ultimo
 			   

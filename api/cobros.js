@@ -50,9 +50,11 @@ function listafacturaspend(cliente){
 		    	html2+='<div class=ui-block-a style="width:100px">Saldo Total:</div>';
 	            html2+='<div class=ui-block-b style="width:200px"><label style="width:18%;font-size:20px; color:#F00">'+resta.toFixed(2)+'</label></div>';
             	html2+='<div class=ui-block-c style="width:70px">A Pagar:</div>';
-            	html2+='<div class=ui-block-d style="width:100px"><label style="width:18%;font-size:20px; color:#F00">'+resta.toFixed(2)+'</label></div>';
+            	html2+='<div class=ui-block-d style="width:100px"><label style="width:18%;font-size:20px; color:#F00">'+abonot.toFixed(2)+'</label></div>';
 				$("#gridfacpendientes").append(html); 
 				$("#gridencabcobros").append(html2); 
+				guardasaldofac(saldot);
+				guardaabono(abonot);
 					//$("#tpedido").attr("value",total); 			
 					//$("#tpedido").val(total.toFixed(2)); 			
 					
@@ -109,6 +111,7 @@ function mostrardcob(factura){
          		});		
 				
 }//function mostrardcob(factura)
+
 function insertacobro(factura,cantidad){	
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){			
@@ -142,8 +145,30 @@ function insertacobro(factura,cantidad){
          		});		
 				
 }//function insertacobro
-
-
+function aplicacionpago(saldofac,abono){	
+	var pendiente=Number(saldofac)-Number(abono);
+	var html="";
+	var html2="";
+	html+='         <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b">Saldo Total:</div></div>';
+    html+='	        <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-e" style="font-size:16px; color:#F00">'+saldofac+'</div></div>';
+	html+='    		<div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b">Total a Pagar:</div></div>';
+	html+='         <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-e">'+abono+'</div></div>';
+    html+='    	    <br><br';           
+    html2+='	    <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b">Saldo Pendiente:</div></div>';
+    html2+='        <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-e" style="font-size:16px; color:#F00">'+pendiente+'</div></div>';
+	
+	$("#gridaplicobros").append(html); 	
+	$("#gridaplicobros2").append(html2); 	
+				
+}//function aplicacionpago()
+function actgridsaldo(){	
+	var pendiente=Number(window.localStorage.getItem("pendiente"));
+	var html="";
+    html+='	    <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b">Saldo Pendiente:</div></div>';
+    html+='     <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-e" style="font-size:16px; color:#F00">'+pendiente+'</div></div>';
+	$("#gridaplicobros2").append(html); 	
+				
+}//function actgridsaldo()
 
   function mostrardcobbb(factura){
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
@@ -185,7 +210,7 @@ function insertacobro(factura,cantidad){
 
   }//mostrarartdev
   
-function guardadev(observagen){	
+function guardacob(observagen){	
 var cabinsertada=false;
 var renglones=0;
 var sumtotlinea=0;
