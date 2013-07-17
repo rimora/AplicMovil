@@ -498,6 +498,7 @@ $("#bimprimirp").tap(function() {
 	  $("#bcobros").tap(function() {                   				  
 				  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
 				  window.location.href='#pcobros';
+				  $("#labelencpcobros").empty();	
 				  $("#labelencpcobros").append("Facturas pendientes del cliente: "+cliente);				  
 				  eliminatempcob();
 				  copiatemcobros(cliente);//copia a tabla temporal las facturas pendientes de cobro
@@ -560,8 +561,7 @@ $("#bimprimirp").tap(function() {
 				 else{
 					window.location.href='#paplicobros';
 					guardaefectivo(0);//inicia valor de cobrado en efectivo
-					guardacheque(0);//inicia valor de cobrado en cheque				 	  
-					guardapendiente(abono);//inicia valor de lo que se tiene que abonar (distribuir lo abonado)					
+					guardacheque(0);//inicia valor de cobrado en cheque				 	  					
 				  	aplicacionpago(saldofac,abono);//muestra grid con datos de lo abonado y saldo pendiente de facturas 
 					eliminachequexrecibo();//elimina los cheques temporales.
 					

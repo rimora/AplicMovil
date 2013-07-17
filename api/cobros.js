@@ -269,6 +269,10 @@ var abono=Number(window.localStorage.getItem("abono"));//lo que el usuario indic
 var efectivo=Number(window.localStorage.getItem("efectivo"));//el importe indicado en efectivo hasta el momento
 var cheque=Number(window.localStorage.getItem("cheque"));//el importe indicado en cheque hasta el momento
 var pendiente=abono-efectivo-cheque;	
+alert('abono '+abono);
+alert('efectivo '+abono);
+alert('cheque '+abono);
+alert('pendiente '+abono);
 
 return pendiente;
 
