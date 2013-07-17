@@ -201,7 +201,7 @@ function poblarcuenta(){
 function poblarcheques(cliente){	
  	consultadb().transaction(consulta, errorconsulta);	
 	function consulta(tx) {		
-		tx.executeSql('SELECT a.id,a.codbanco,a.monto,a.numcheque,b.descripcion left outer join CUENTASB b on b.codigo=a.codbanco where a.recibo="99999"',[],exito,errorconsulta);
+		tx.executeSql('SELECT a.id,a.codbanco,a.monto,a.numcheque,b.descripcion from CHEQUES a left outer join CUENTASB b on b.codigo=a.codbanco where a.recibo="99999"',[],exito,errorconsulta);
 		}
 		
 	
