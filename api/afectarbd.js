@@ -417,6 +417,9 @@ function eliminatempcob(){
 }//function eliminatempcob()
 function insertarcheque(nche,ncta,banco,monto){
 	   //alert('inserttafactura'+cantidad);
+	   var cliente=window.localStorage.getItem("clave");
+	   var ruta=window.localStorage.getItem("ruta");
+	   var fecha=window.localStorage.getItem("fecha");
 	    consultadb().transaction(insertadet,function(err){
     	  alert("Error al insertar renglon temdevolucion: "+err.code+err.message);
           });
@@ -440,6 +443,19 @@ function eliminacheque(id){
 		}
 	
 }//function eliminacheque
+function eliminachequexrecibo(){
+	   //alert('inserttafactura'+cantidad);
+	    consultadb().transaction(insertadet,function(err){
+    	  alert("Error al eliminar cheque: "+err.code+err.message);
+          });
+				
+    	function insertadet(tx) {		
+		alert('entra a eliminar cheque');
+		   tx.executeSql('DELETE FROM CHEQUES where recibo="99999"');		
+		}
+	
+}//function eliminacheque
+
 
 function f1_1(){
 	  alert('entra a funcion f1_1');

@@ -146,29 +146,32 @@ function insertacobro(factura,cantidad){
 				
 }//function insertacobro
 function aplicacionpago(saldofac,abono){	
-	var pendiente=Number(saldofac)-Number(abono);
+	var pendiente=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
+	alert('pendiente '+pendiente);
 	var html="";
 	var html2="";
 	$("#gridaplicobros").empty();	
 	$("#gridaplicobros2").empty();	
 	html+='         <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b">Saldo Total:</div></div>';
-    html+='	        <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-e" style="font-size:16px; color:#F00">'+saldofac+'</div></div>';
+    html+='	        <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-e" style="font-size:16px; color:#F00">'+saldofac.toFixed(2)+'</div></div>';
 	html+='    		<div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b">Total a Pagar:</div></div>';
-	html+='         <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-e">'+abono+'</div></div>';
+	html+='         <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-e">'+abono.toFixed(2)+'</div></div>';
     html+='    	    <br><br';           
     html2+='	    <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b">Saldo Pendiente:</div></div>';
-    html2+='        <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-e" style="font-size:16px; color:#F00">'+pendiente+'</div></div>';
+    html2+='        <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-e" style="font-size:16px; color:#F00">'+pendiente.toFixed(2)+'</div></div>';
 	
 	$("#gridaplicobros").append(html); 	
-	$("#gridaplicobros2").append(html2); 	
+	$("#gridaplicobros2").append(html2); 
+	$("#efectivo").val(0);
 				
 }//function aplicacionpago()
 function actgridsaldo(){	
-	var pendiente=Number(window.localStorage.getItem("pendiente"));
+	var pendiente=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
+	alert('pendiente '+pendiente);
 	var html="";
 	$("#gridaplicobros2").empty();
     html+='	    <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b">Saldo Pendiente:</div></div>';
-    html+='     <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-e" style="font-size:16px; color:#F00">'+pendiente+'</div></div>';
+    html+='     <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-e" style="font-size:16px; color:#F00">'+pendiente.toFixed(2)+'</div></div>';
 	$("#gridaplicobros2").append(html); 	
 				
 }//function actgridsaldo()
@@ -201,7 +204,8 @@ function poblarcuenta(){
  // });	//$('#pclientes').live('pageshow',function(event, ui){
 	
 }// poblarcuenta()
-function poblarcheques(cliente){	
+function poblarcheques(){	
+alert('entra poblar cheques ');
  	consultadb().transaction(consulta, errorconsulta);	
 	function consulta(tx) {		
 		tx.executeSql('SELECT a.id,a.codbanco,a.monto,a.numcheque,b.descripcion from CHEQUES a left outer join CUENTASB b on b.codigo=a.codbanco where a.recibo="99999"',[],exito,errorconsulta);
@@ -213,8 +217,7 @@ function poblarcheques(cliente){
 			
 		      $("#gridcheques").empty();				  
 			  var html = "";
-			  var montot=0;			  
-		      var efectivo=window.localStorage.getItem("efectivo");       
+			  var montot=0;			  		      
 			  //agrega encabezado de grid
 			  html+=' <div class="ui-block-a" style="width:70px;height:20px" > ';            
               html+=' <div class="ui-bar ui-bar-a">Elim.</div></div> ';           
@@ -241,13 +244,16 @@ function poblarcheques(cliente){
                   	 
 			  });//.each
 			} 
-			  		var pendiente=Number(window.localStorage.getItem("abono"))-efectivo-montot;
+			  		guardacheque(montot);
+					var pendiente=saldopendiente();
+					alert('pendiente '+pendiente);					
+					alert('montot '+montot);					
 					$("#gridcheques").append(html); 
 					//$("#tpedido").attr("value",total); 			
 					$("#totalcheques").val(montot.toFixed(2)); 			
 					$("#cheque").val(montot.toFixed(2)); 			
 					$("#spendiente").val(pendiente.toFixed(2)); 
-					guardacheque(montot);
+					
 					//alert('total'+total);					 
 			
 	   }//function exito
@@ -258,7 +264,15 @@ function poblarcheques(cliente){
 //  });	
 
   }//mostrarpedido
+function saldopendiente(){//lo que resta por distribuir del importe del recibo indicado por el usuario
+var abono=Number(window.localStorage.getItem("abono"));//lo que el usuario indicó que se abonará (el total del recibo)			
+var efectivo=Number(window.localStorage.getItem("efectivo"));//el importe indicado en efectivo hasta el momento
+var cheque=Number(window.localStorage.getItem("cheque"));//el importe indicado en cheque hasta el momento
+var pendiente=abono-efectivo-cheque;	
 
+return pendiente;
+
+}
 
   
 function guardacob(observagen){	
