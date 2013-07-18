@@ -11,6 +11,7 @@ $(document).ready(function() {
 	window.localStorage.clear();
 	window.localStorage.setItem("saldo",0);
 	window.localStorage.setItem("consepedido","S04000375");
+	window.localStorage.setItem("consefactura","F04000375");
 	window.localStorage.setItem("consedev","D04000375");
 	window.localStorage.setItem("conserec","R04000375");
 	window.localStorage.setItem("ruta","S04");

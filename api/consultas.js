@@ -547,7 +547,7 @@ var cabinsertada=false;
 var sumtotlinea=0;
 var summontodesc=0;
 var sumivalinea=0;
-var consecutivo=window.localStorage.getItem("consepedido");
+var consecutivo=window.localStorage.getItem("consefactura");
 var ruta=window.localStorage.getItem("ruta");
 var fecha = new Date();
 var fechaact=fecha.getFullYear()+"/"+(fecha.getMonth()+1)+"/"+fecha.getDate();
@@ -587,7 +587,7 @@ var pedido=inicial+pad(incremetarp,6);
 			 summontodesc+=summontodesc+montodesc;//suma del total de linea sin descuento y sin iva
 			 sumivalinea+=sumivalinea+ivalinea;//suma del total de linea sin descuento y sin iva
 			 alert('antes de llamar a funcion guardated');
-			 guardadetpedido(pedido,articulo,precio,pordesc,totlinea,montodesc,precio,cantidad);
+			 guardadetfactura(pedido,articulo,precio,pordesc,totlinea,montodesc,precio,cantidad);
 			alert('despues de llamar a funcion guardated');
 			 
 			 
@@ -598,7 +598,7 @@ var pedido=inicial+pad(incremetarp,6);
 			 */			 			 
 		 	});
 			alert('antes de llamar a funcion guardaenc');
-		  	 guardaencpedido(pedido,ruta,window.localStorage.getItem("clave"),fechayhora,fechaact,sumivalinea,(sumtotlinea+sumivalinea),sumtotlinea,summontodesc,obs,30,"K01");
+		  	 guardaencfactura(pedido,ruta,window.localStorage.getItem("clave"),fechayhora,fechaact,sumivalinea,(sumtotlinea+sumivalinea),sumtotlinea,summontodesc,obs,30,"K01");
 				alert('despues de llamar a funcion guardated');
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
