@@ -12,6 +12,7 @@ $(document).ready(function() {
 	window.localStorage.setItem("saldo",0);
 	window.localStorage.setItem("consepedido","S04000375");
 	window.localStorage.setItem("consedev","D04000375");
+	window.localStorage.setItem("conserec","R04000375");
 	window.localStorage.setItem("ruta","S04");
 	window.localStorage.setItem("bodega","K01");
 	document.addEventListener("backbutton", function(){
@@ -79,12 +80,7 @@ $(document).ready(function() {
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
     });
 	 
-	$("#depositos").tap(function() { 
-                 //var clavecli = $(this).attr("id");
-				  
-				  llamadascxc();
-				  //$.mobile.changePage($("#datoscli"));	  			  				  
-     });				   
+				   
   /*
    $("#checkcli").bind("change",function(event){
 				  alert($("#menu").val());
@@ -238,7 +234,7 @@ $("#bimprimirp").tap(function() {
 		function onConfirm(button) {
 		if (button==1){
 			imprimirped($("#pcomentario").val());
-			
+			mostrarpedido();
 		}//if (button==1){
 	}			 
     navigator.notification.confirm('¿Confirma generar pedido?',     // mensaje (message)
@@ -483,17 +479,12 @@ $("#bimprimirp").tap(function() {
 						alert('despues de llamar a f1');
 					}//if (button==1){
 				}			 
-    	navigator.notification.confirm('¿Desea terminar y guardar la devolución?',     // mensaje (message)
+    	navigator.notification.confirm('¿Deseas terminar y guardar la devolución?',     // mensaje (message)
 	    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
     	'Guardar Devolución',            // titulo (title)
         'SI,NO'       // botones (buttonLabels)
 	    );
-    });  
-	$("input").blur(function(){
-     
-	
-	
-	});
+    });  	
  //*****C O B R O S *****	 
 	  $("#bcobros").tap(function() {                   				  
 				  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
@@ -501,7 +492,7 @@ $("#bimprimirp").tap(function() {
 				  $("#labelencpcobros").empty();	
 				  $("#labelencpcobros").append("Facturas pendientes del cliente: "+cliente);				  
 				  eliminatempcob();
-				  copiatemcobros(cliente);//copia a tabla temporal las facturas pendientes de cobro
+				  copiatemcobros(cliente);//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
 				  listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado				  				  
 				  guardafechaactual();
 				  			  
@@ -532,7 +523,7 @@ $("#bimprimirp").tap(function() {
 				    //obtiene el articulo pulsado en la lista
     				var factura = window.localStorage.getItem("factura");
 	     			//alert (cantidad);	  
-					insertacobro(factura,cantidad);					
+					insertacobro(factura,cantidad);	//actualiza cantidad a pagar de factura en tabla temporal de fac pend de cobro.Funcion en cobros.js				
     				 //alert('despues de llamada modificarlineap');
 					 //mostrarpedido();
 				  }
@@ -552,14 +543,14 @@ $("#bimprimirp").tap(function() {
     }); 
 	
 	$("#baceptarcob").tap(function() {                   				  
-	            var saldofac=window.localStorage.getItem("saldofac");
-				var abono=window.localStorage.getItem("abono");
+	            var saldofac=Number(window.localStorage.getItem("saldofac")); //saldo nuevo de facturas, guardado en funcion listafacturaspend de cobros.js
+				var abono=Number(window.localStorage.getItem("abono")); //cantidad a pagar, guardada en funcion listafacturaspend de cobros.js
 				if (abono==0){
 					 navigator.notification.alert('Debe indicar abono para alguna factura',null,'Cantidad abonada igual a CERO','Aceptar');
 					
 				}
 				 else{
-					window.location.href='#paplicobros';
+					window.location.href='#paplicobros';									 	
 					guardaefectivo(0);//inicia valor de cobrado en efectivo
 					guardacheque(0);//inicia valor de cobrado en cheque				 	  					
 				  	aplicacionpago(saldofac,abono);//muestra grid con datos de lo abonado y saldo pendiente de facturas 
@@ -570,7 +561,18 @@ $("#bimprimirp").tap(function() {
 				  
      });
 	 $("#baceptaraplic").tap(function() {                   				  
-	            			  
+	        function onConfirm(button) {
+					if (button==1){	
+					     guardacob();	//prepara datos para guardar las tablas cabecera y detalles de recibos.funcion en cobros.js 				 
+						 window.location.href='#poperaciones';
+			
+					}//if (button==1){
+				}			 
+    	navigator.notification.confirm('¿Deseas terminar y guardar la devolución?',     // mensaje (message)
+	    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
+    	'Guardar Cobro',            // titulo (title)
+        'ACEPTAR,CANCELAR'       // botones (buttonLabels)
+	    );    			  
 				  
      });
 	 $("#regresardeaplic").tap(function(){
@@ -587,11 +589,12 @@ $("#bimprimirp").tap(function() {
 	    );
     });
 	 $("#efectivo").blur(function(){
-               
+          //al salir del input de efectivo     
 	     //intento convertir a entero. 
     	 //si era un entero no le afecta, si no lo era lo intenta convertir 
 	     var montoefe = parseInt($("#efectivo").val()); 		 		 
-		 var pendiente=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
+		 var pendiente1=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
+		 var pendiente=pendiente1+Number(window.localStorage.getItem("efectivo"));//aumentamos el efectivo que tenga guardado, es decir, si es modificación del importe, se anula para tomar este nuevo importe y actualizar el abono pendiente de distribuir en efectivo y cheque.
 		 alert(montoefe);
 		 alert(pendiente);
 	    //Compruebo si es un valor numérico 
@@ -599,11 +602,13 @@ $("#bimprimirp").tap(function() {
         //entonces (no es numero) 
         	 navigator.notification.alert('Debe indicar un valor válido',null,'Cantidad inválida','Aceptar');
 			 $("#efectivo").focus();
+			 
 	     }else{ 
     	    //En caso contrario (Si era un número) devuelvo el valor 
 			if (montoefe>pendiente || montoefe<0){
 				navigator.notification.alert('La cantidad indicada excede el saldo pendiente por abonar o es inválida',null,'Cantidad inválida','Aceptar');
 				$("#efectivo").focus();
+				$("#efectivo").val(0);
 			}
 			else{
         	guardaefectivo(montoefe); 			
@@ -631,13 +636,14 @@ $("#bimprimirp").tap(function() {
 			 alert(pendiente);
 
 			if (nche=="" || ncta=="" || banco=="Banco" || monto==0){
-				navigator.notification.alert('Debe indicar numero de cheque, de cuenta,seleccionar banco y monto válidos',null,'Faltan Datos','Aceptar');
-				 ;	
-							
+				navigator.notification.alert('Debe indicar numero de cheque, de cuenta,seleccionar banco y monto válidos',null,'Faltan Datos','Aceptar');				 	
+				$("#monto").focus();			
+				return false;
 			}
-			if (monto>pendiente || valor<0){
+			if (monto>pendiente || monto<0){
 				navigator.notification.alert('La cantidad indicada excede el saldo pendiente por abonar o es inválida',null,'Cantidad inválida','Aceptar');
 				$("#monto").focus();
+				$("#monto").val(0); 
 			}			
 			else{
 				insertarcheque(nche,ncta,banco,monto);			
@@ -648,7 +654,7 @@ $("#bimprimirp").tap(function() {
 				poblarcheques();
 			}
      });
-	$("#eliminarche").tap(function() {                   				  
+	$("#beliminarche").tap(function() {                   				  
 	       	function onConfirm(button) {
 				if (button==1){
 					$('input:checkbox.clasech').each(function () {
@@ -677,6 +683,7 @@ $("#bimprimirp").tap(function() {
  $("#bdepositos").tap(function() {                   				  				  
 				  window.location.href='#pdepositos';
 				  listarecibos();
+				  poblarcuentadep();
 				  guardafechaactual();
   });
   $("#regresardep").tap(function(){

@@ -65,11 +65,11 @@ function listafacturaspend(cliente){
  // });	//$('#pclientes').live('pageshow',function(event, ui){
 	
 }// listafacturaspend(cliente)
-function copiatemcobros(cliente){	
+function copiatemcobros(cliente){	//llamada de eventos.js
 	function listo(tx,results){
 		   $.each(results.rows,function(index){           
 			 var row = results.rows.item(index); 
-			 insertatempcob(row['documento']);
+			 insertatempcob(row['documento']); //funcion de afectarbd.js
 		 });    		 	      
  	}//function listo(tx,results){ 
 	function consultatemp(tx){   	       
@@ -113,7 +113,7 @@ function mostrardcob(factura){
 				
 }//function mostrardcob(factura)
 
-function insertacobro(factura,cantidad){	
+function insertacobro(factura,cantidad){ //llamada de eventos.js
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){			
 			 	var row = results.rows.item(0); 
@@ -125,7 +125,7 @@ function insertacobro(factura,cantidad){
 					return false;				 
 				 }
 				 alert('pasa depues del if');
-				 actualizatempcob(factura,cantidad);
+				 actualizatempcob(factura,cantidad); //funcion de afectarbd.js
 				 listafacturaspend(window.localStorage.getItem("clave"));
 				
 		  }//if (results.rows.length>0){		  
@@ -147,8 +147,8 @@ function insertacobro(factura,cantidad){
 				
 }//function insertacobro
 function aplicacionpago(saldofac,abono){	
-	var pendiente=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
-	alert('pendiente '+pendiente);
+	var pendiente=Number(saldopendiente());//obtiene el saldo pendiente de distribuir en los tipos de cobro
+	alert('pendiente de aplicacionpago'+pendiente);
 	var html="";
 	var html2="";
 	$("#gridaplicobros").empty();	
@@ -163,7 +163,8 @@ function aplicacionpago(saldofac,abono){
 	
 	$("#gridaplicobros").append(html); 	
 	$("#gridaplicobros2").append(html2); 
-	$("#efectivo").val(0);
+	$("#efectivo").val(0); 	
+	$("#cheque").val(0);
 				
 }//function aplicacionpago()
 function actgridsaldo(){	
@@ -223,7 +224,7 @@ alert('entra poblar cheques ');
 			  html+=' <div class="ui-block-a" style="width:70px;height:20px" > ';            
               html+=' <div class="ui-bar ui-bar-a">Elim.</div></div> ';           
               html+=' <div class="ui-block-b" style="width:110px"><div class="ui-bar ui-bar-a">Cheque</div></div>';
-              html+=' <div class="ui-block-c" style="width:110px"><div class="ui-bar ui-bar-a">Banco</div></div>';
+              html+=' <div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-a">Banco</div></div>';
               html+=' <div class="ui-block-d" style="width:110px"><div class="ui-bar ui-bar-a">Monto</div></div>';
 			if (results.rows.length>0){
 			  $.each(results.rows,function(index){				  
@@ -239,7 +240,7 @@ alert('entra poblar cheques ');
 		            html+='   </div>';
             		html+='</div>';            
                     html+='<div class="ui-block-b" style="width:110px"><div class="ui-bar ui-bar-b">'+row['numcheque']+'</div></div>';
-                    html+='<div class="ui-block-c" style="width:110px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
+                    html+='<div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
 	                html+='<div class="ui-block-e" style="width:110px"><div class="ui-bar ui-bar-b">'+monto.toFixed(2)+'</div></div> ';
 
                   	 
@@ -270,41 +271,35 @@ var abono=window.localStorage.getItem("abono");//lo que el usuario indicó que s
 var montoefe=window.localStorage.getItem("efectivo");//el importe indicado en efectivo hasta el momento
 var montoche=window.localStorage.getItem("cheque");//el importe indicado en cheque hasta el momento
 var pendiente=Number(abono)-Number(montoefe)-Number(montoche);	
-alert('abono '+abono);
-alert('efectivo '+montoefe);
-alert('cheque '+montoche);
-alert('pendiente '+pendiente);
 
 return pendiente;
 
 }
 
   
-function guardacob(observagen){	
-var cabinsertada=false;
-var renglones=0;
-var sumtotlinea=0;
-var summontodesc=0;
-var sumivalinea=0;
-var factura=window.localStorage.getItem("factura");
+function guardacob(){	
+
+var totalrecibo=0;
+var tipo='5';//recibo 5 o nt credito 7
+var tipoasp='1';//documento abonado,factura 1 o nt credito 7
+var estado='A'; //A=activo, N=anulado
+var monefe=window.localStorage.getItem("efectivo");
+var monche=window.localStorage.getItem("cheque");
 var cliente=window.localStorage.getItem("clave");
-var consecutivo=window.localStorage.getItem("consedev");
+var consecutivo=window.localStorage.getItem("conserec");
 var ruta=window.localStorage.getItem("ruta");
-var bodega=window.localStorage.getItem("bodega");
 var horaini=window.localStorage.getItem("fechahora");//fecha y hora actual guardada cuando inicio la devolución de la factura.
 guardafechaactual();//guarda en memoria la fecha con hora, actuales
 var horafin= window.localStorage.getItem("fechahora");//recuperamos la nueva fecha y hora actual
-var fechadev=window.localStorage.getItem("fecha");//recuperamos la fecha actual
+var fecharec=window.localStorage.getItem("fecha");//recuperamos la fecha actual
 var longitud=consecutivo.length;
 var inicial=consecutivo.substr(0,3);
-var numdev= consecutivo.substr(3,(longitud-3));
- alert(numdev); 
-var incremetard=Number(numdev)+1;
- alert(incremetard); 
-var devolucion=inicial+pad(incremetard,6);
- alert(devolucion); 
+var numrec= consecutivo.substr(3,(longitud-3));
+var incrementarec=Number(numrec)+1;
+var recibo=inicial+pad(incrementarec,6);
+
    function pad(n, length){
-	   alert('entra a funcion'+n); 
+	   //alert('entra a funcion'+n); 
   	 n = n.toString();
    	 while(n.length < length) n = "0" + n;
   	 return n;
@@ -314,50 +309,38 @@ var devolucion=inicial+pad(incremetard,6);
 			  renglones=results.rows.length;
 		  	 $.each(results.rows,function(index){           			 
 			 var row = results.rows.item(index);  
-			 var cantidad=row['cantidad'];//cantidad vendida			 
-			 var linea=row['linea'];//linea afectada			 
-			 var precio=row['precio'];//precio sin descuento y sin iva			 
-			 var pordesc=row['descuento'];//porcentaje de descuento que se aplica 
-			 var totalinea=Number(row['cantidad'])*Number(row['precio']);//total de linea sin descuento y sin iva
-			 var montodesc=(Number(totalinea)/100)*Number(row['descuento']); 
-			 var lineacdes=totalinea-montodesc;//importe de linea con descuento
-			 var ivalinea=lineacdes*(row['impuesto']/100);			 			 
-			 //var preciociva=preciocdesc*(1+(row['impuesto']/100));			 			 
-			 var articulo=row['articulo'];			 
-			 var observa=row['obs'];
-			
-			 sumtotlinea+=sumtotlinea+totalinea;//suma del total de linea sin descuento y sin iva
-			 //summontodesc+=summontodesc+montodesc;//suma del total de linea sin descuento y sin iva
-			 sumivalinea+=sumivalinea+ivalinea;//suma del total de linea sin descuento y sin iva
-			 alert('antes de llamar a funcion guardadev');
-			 guardadetdev(devolucion,ruta,articulo,totalinea.toFixed(2),precio,cantidad,observa,montodesc.toFixed(2),pordesc,factura,linea);
-			 actexis(articulo,cantidad);
+			 var monto=row['abonado'];//importe abonado a la factura
+			 var factura=row['factura'];//factura afectada 
+			 var saldo=row['saldo'];//saldo de la factura sin aplicar el abono
+			 var saldo_doc=Number(saldo)-Number(monto);//saldo nuevo de la factura
+			 
+			 totalrecibo+=monto;//suma de los abonos a facturas			
+			 alert('antes de llamar a funcion guardadetcob');
+			 guardadetcob(cliente,tipo,tipoaso,ruta,recibo,factura,estado,monto.toFixed(2),saldo_doc.toFixed(2));			 
 			 alert('despues de llamar a funcion guardadev');
 			
 		 	});
-			alert('antes de llamar a funcion guardaencdev');
-			 guardaencdev(devolucion,ruta,cliente,horaini,horafin,fechadev,observagen,renglones,sumtotlinea.toFixed(2),sumivalinea.toFixed(2),bodega,factura)
+			alert('antes de llamar a funcion guardaenccob');
+			 guardaenccob(cliente,tipo,ruta,recibo,horaini,horafin,estado,monche.toFixed(2),monefe.toFixed(2),totalrecibo.toFixed(2))
 			alert('despues de llamar a funcion guardaencdev');
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
 	function consultatemp(tx){  
 	             alert('ENTRA A CONSultatepm'); 
-				  var sql='SELECT b.factura,a.articulo,a.cantidad,b.precio,a.obs,a.linea, ';
-	  			  sql+='c.impuesto,c.descuento FROM TEMDEV a left outer join DETHISFAC b on b.linea=a.linea ';					  
-			      sql+='left outer join articulo c on c.articulo=a.articulo  ';
-				  sql+=' where a.cantidad > 0 and b.factura="'+window.localStorage.getItem("factura")+'"';	
-
-			    alert(sql);
+				  var sql='SELECT a.factura,a.abonado,b.saldo,b.vencida, ';
+	  			  sql+='FROM TEMCOBROS a left outer join PENCOBRO b on b.documento=a.factura ';					  
+				  sql+=' where a.abonado > 0 ';		    				 
+				alert(sql);				
 								
 			tx.executeSql(sql,[],listo,function(err){
-    	 		 alert("Error al preparar guardar devolución : "+linea+err.code+err.message);
+    	 		 alert("Error al preparar guardar cobro : "+linea+err.code+err.message);
          		});    									
 	}
 	consultadb().transaction(consultatemp, function(err){
-    	 			 alert("Error select tabla temporal dethisfac para devolver: "+err.code+err.message);
+    	 			 alert("Error select tabla temporal temcobros: "+err.code+err.message);
          		});		
 				
-}//function guardadev
+}//function guardacob
 
 
 
