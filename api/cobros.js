@@ -320,18 +320,7 @@ var recibo=inicial+pad(incrementarec,6);
 			 alert('despues de llamar a funcion guardadev');
 			
 		 	});
-			alert('antes de llamar a funcion guardaenccob');
-			alert('cliente '+cliente);
-			alert('cliente '+tipo);
-			alert('cliente '+ruta);
-			alert('cliente '+recibo);
-			alert('cliente '+horaini);
-			alert('cliente '+horafin);
-			alert('cliente '+estado);
-			alert('cliente '+monche);
-			alert('cliente '+monefe);
-			alert('cliente '+totalrecibo);
-			
+			alert('antes de llamar a funcion guardaenccob');			
 			alert(cliente+','+tipo+','+ruta+','+recibo+','+horaini+','+horafin+','+estado+','+monche.toFixed(2)+','+monefe.toFixed(2)+','+totalrecibo.toFixed(2));
 			 guardaenccob(cliente,tipo,ruta,recibo,horaini,horafin,estado,monche.toFixed(2),monefe.toFixed(2),totalrecibo.toFixed(2));
 			alert('despues de llamar a funcion guardaenccob');

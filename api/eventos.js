@@ -715,6 +715,20 @@ $("#bimprimirf").tap(function() {
         'ACEPTAR,CANCELAR'       // botones (buttonLabels)
 	    );
     }); 
+	$("#bcontinuardep").tap(function(){
+                function onConfirm(button) {
+					if (button==1){						 						 
+						 alert('deposito terminado');
+						 window.location.href='#page';
+			
+					}//if (button==1){
+				}			 
+    	navigator.notification.confirm('¿Desea terminar el deposito?',     // mensaje (message)
+	    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
+    	'Generar Deposito',            // titulo (title)
+        'ACEPTAR,CANCELAR'       // botones (buttonLabels)
+	    );
+    }); 
 	 
   },false);//document.addEventListener("deviceready",function(){	
 });//$(document).ready(function() 

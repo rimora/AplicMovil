@@ -509,7 +509,7 @@ function guardaenccob(cliente,tipo,ruta,recibo,horaini,horafin,estado,monche,mon
 				
     	function insertadet(tx) {		
 		//alert('entra a modificar detallefactura cantidad: '+cantidad);				
-			tx.executeSql('INSERT INTO ENCOBROS (cliente,tipo,ruta,recibo,hor_ini,hor_fin,impreso,estado,monche,monefe,mondoc) VALUES("'+cliente+'","'+tipo+'","'+ruta+'","'+recibo+'","'+horaini+'","'+horafin+'","N",'+estado+'",'+monche+','+monefe+','+totalrecibo+')'); 
+			tx.executeSql('INSERT INTO ENCOBROS (cliente,tipo,ruta,recibo,hor_ini,hor_fin,impreso,estado,monche,monefe,mondoc) VALUES("'+cliente+'","'+tipo+'","'+ruta+'","'+recibo+'","'+horaini+'","'+horafin+'","N","'+estado+'",'+monche+','+monefe+','+totalrecibo+')'); 
 		}
 	
 }//function guardaenccob
