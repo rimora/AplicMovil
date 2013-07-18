@@ -12,7 +12,7 @@ function listarecibos(){
          		});    	
 	}
 	function listo(tx,results){ 
-			
+			  alert('entra de depositos');
 		      $("#gridrecibosdep").empty();				  
 			  var html = "";			 
 			  var montot=0;			  		      

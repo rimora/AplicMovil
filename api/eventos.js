@@ -250,7 +250,7 @@ $("#bimprimirf").tap(function() {
 		function onConfirm(button) {
 		if (button==1){
 			imprimirfac($("#fcomentario").val());
-			mostrarfactura();
+			//mostrarfactura();
 		}//if (button==1){
 	}			 
     navigator.notification.confirm('¿Confirma generar Factura?',     // mensaje (message)

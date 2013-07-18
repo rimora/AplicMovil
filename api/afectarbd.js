@@ -233,7 +233,11 @@ function guardaencpedido(pedido,ruta,cliente,hora,fecha,impuesto,total,subtotal,
 	   alert (pedido+ruta+cliente+hora+fecha+impuesto+total+subtotal+descuento+obs+cond+bodega);
 	consultadb().transaction(insertadet,function(err){
     	  alert("Error al insertar en pedido: "+err.code+err.message);
-          },alert("Pedido Guardado"));
+          },function(){
+			mostrarpedido();  
+			  
+			  
+		  });
 				
     	function insertadet(tx) {		
 		//alert('entra a modificar detallefactura cantidad: '+cantidad);		
@@ -261,7 +265,12 @@ function guardaencfactura(pedido,ruta,cliente,hora,fecha,impuesto,total,subtotal
 	   alert (pedido+ruta+cliente+hora+fecha+impuesto+total+subtotal+descuento+obs+cond+bodega);
 	consultadb().transaction(insertadet,function(err){
     	  alert("Error al insertar en factura: "+err.code+err.message);
-          },alert("Pedido Guardado"));
+          },function(){
+			  
+			mostrarfactura();  
+			  
+			  
+		  });
 				
     	function insertadet(tx) {		
 		//alert('entra a modificar detallefactura cantidad: '+cantidad);		
@@ -503,7 +512,7 @@ function guardaenccob(cliente,tipo,ruta,recibo,horaini,horafin,estado,monche,mon
 		    	  alert("Error al actualizar recibo en cheques: "+err.code+err.message); });				
     			function actcheque(tx) {		
 					alert('entra a modificar recibo de cheque: '+recibo);				
-					tx.executeSql('UPDATE CHEQUES SET recibo='+recibo+' where recibo="99999" and cliente="'+cliente+'"');							
+					tx.executeSql('UPDATE CHEQUES SET recibo="'+recibo+'" where recibo="99999" and cliente="'+cliente+'"');							
 				}  
 		  });
 				
