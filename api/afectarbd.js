@@ -490,7 +490,7 @@ function guardadetcob(cliente,tipo,tipoaso,ruta,recibo,factura,estado,monto,sald
 	consultadb().transaction(insertadet,function(err){
     	  alert("Error al insertar en DETCOBROS: "+err.code+err.message);
           },function(){ //actualiza el saldo en las facturas pendientes de cobro de la tabla PENCOBRO
-			   
+			   alert('entra aqui');
 			   
 			 consultadb().transaction(actsaldofac,function(err){
 		    	  alert("Error al actualizar saldo de factura: "+err.code+err.message); });

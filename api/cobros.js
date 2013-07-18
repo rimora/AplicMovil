@@ -281,7 +281,7 @@ function guardacob(){
 
 var totalrecibo=0;
 var tipo='5';//recibo 5 o nt credito 7
-var tipoasp='1';//documento abonado,factura 1 o nt credito 7
+var tipoaso='1';//documento abonado,factura 1 o nt credito 7
 var estado='A'; //A=activo, N=anulado
 var monefe=window.localStorage.getItem("efectivo");
 var monche=window.localStorage.getItem("cheque");
@@ -321,7 +321,7 @@ var recibo=inicial+pad(incrementarec,6);
 			
 		 	});
 			alert('antes de llamar a funcion guardaenccob');
-			 guardaenccob(cliente,tipo,ruta,recibo,horaini,horafin,estado,monche.toFixed(2),monefe.toFixed(2),totalrecibo.toFixed(2))
+			 guarsidaenccob(cliente,tipo,ruta,recibo,horaini,horafin,estado,monche.toFixed(2),monefe.toFixed(2),totalrecibo.toFixed(2))
 			alert('despues de llamar a funcion guardaencdev');
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
