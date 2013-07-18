@@ -244,6 +244,21 @@ $("#bimprimirp").tap(function() {
     );
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
 });
+$("#bimprimirf").tap(function() { 
+                 //var clavecli = $(this).attr("id");
+		function onConfirm(button) {
+		if (button==1){
+			imprimirfac($("#fcomentario").val());
+			mostrarfactura();
+		}//if (button==1){
+	}			 
+    navigator.notification.confirm('¿Confirma generar Factura?',     // mensaje (message)
+    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
+    'Generar Factura',            // titulo (title)
+        'SI,NO'       // botones (buttonLabels)
+    );
+				  //$.mobile.changePage($("#datoscli"));	  			  				  
+});
 
 	$("#bpruebas").tap(function() { 	
      //llama a funcion que prepara las tablas temporales, insertando el articulo y cantidad

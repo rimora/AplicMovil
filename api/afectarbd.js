@@ -467,7 +467,7 @@ function eliminachequexrecibo(){
 function guardaenccob(cliente,tipo,ruta,recibo,horaini,horafin,estado,monche,monefe,totalrecibo){
 	  alert(cliente+','+tipo+','+ruta+','+recibo+','+horaini+','+horafin+','+estado+','+monche+','+monefe+','+totalrecibo);
 	consultadb().transaction(insertadet,function(err){
-    	  alert("Error al insertar encabezado devolucion: "+err.code+err.message);
+    	  alert("Error al insertar encabezado de cobro: "+err.code+err.message);
           },function(){
 			actsaldo(totalrecibo*-1);  
 			 
