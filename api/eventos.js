@@ -568,7 +568,7 @@ $("#bimprimirp").tap(function() {
 			
 					}//if (button==1){
 				}			 
-    	navigator.notification.confirm('¿Deseas terminar y guardar la devolución?',     // mensaje (message)
+    	navigator.notification.confirm('¿Deseas terminar y guardar el Cobro?',     // mensaje (message)
 	    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
     	'Guardar Cobro',            // titulo (title)
         'ACEPTAR,CANCELAR'       // botones (buttonLabels)

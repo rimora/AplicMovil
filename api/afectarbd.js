@@ -465,12 +465,18 @@ function eliminachequexrecibo(){
 }//function eliminacheque
 
 function guardaenccob(cliente,tipo,ruta,recibo,horaini,horafin,estado,monche,monefe,totalrecibo){
-	  alert(devolucion+' '+ruta+' '+cliente+' '+horaini+' '+horafin+' '+fecha+' '+obs+' '+renglones+' '+subtotal+' '+impuesto+' '+bodega+' '+factura);
+	  alert(cliente+','+tipo+','+ruta+','+recibo+','+horaini+','+horafin+','+estado+','+monche+','+monefe+','+totalrecibo);
 	consultadb().transaction(insertadet,function(err){
     	  alert("Error al insertar encabezado devolucion: "+err.code+err.message);
           },function(){
 			actsaldo(totalrecibo*-1);  
-			  
+			 
+			 	consultadb().transaction(actcheque,function(err){
+		    	  alert("Error al actualizar recibo en cheques: "+err.code+err.message); });				
+    			function actcheque(tx) {		
+					alert('entra a modificar recibo de cheque: '+recibo);				
+					tx.executeSql('UPDATE CHEQUES SET recibo='+recibo+' where recibo="99999" and cliente="'+cliente+'"');							
+				}  
 		  });
 				
     	function insertadet(tx) {		
