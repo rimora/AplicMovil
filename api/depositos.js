@@ -5,8 +5,10 @@ function listarecibos(){
     	 		 alert("Error poblar recibos para deposito: "+err.code+err.message);
          		});		
 	function poblarfac(tx){  
+				alert('entra poblarfac');
 			var sql='SELECT a.recibo,a.mondoc,b.nombre FROM ENCOBROS a ';		
 				sql+=' left outer join CLIENTES b on b.clave=a.cliente WHERE a.cliente="'+cliente+'" ORDER BY a.recibo';
+				alert(sql);
 				tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error select recibos: "+err.code+err.message);
          		});    	
