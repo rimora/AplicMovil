@@ -124,7 +124,7 @@ function insertacobro(factura,cantidad){ //llamada de eventos.js
 					navigator.notification.alert('Cantidad a pagar debe ser menor o igual al saldo '+cantidad+'  '+saldo,null,'Error Indicando Cantidad','Aceptar');						 					
 					return false;				 
 				 }
-				 alert('pasa depues del if');
+				 //alert('pasa depues del if');
 				 actualizatempcob(factura,cantidad); //funcion de afectarbd.js
 				 listafacturaspend(window.localStorage.getItem("clave"));
 				
@@ -148,7 +148,7 @@ function insertacobro(factura,cantidad){ //llamada de eventos.js
 }//function insertacobro
 function aplicacionpago(saldofac,abono){	
 	var pendiente=Number(saldopendiente());//obtiene el saldo pendiente de distribuir en los tipos de cobro
-	alert('pendiente de aplicacionpago'+pendiente);
+	//alert('pendiente de aplicacionpago'+pendiente);
 	var html="";
 	var html2="";
 	$("#gridaplicobros").empty();	
@@ -169,7 +169,7 @@ function aplicacionpago(saldofac,abono){
 }//function aplicacionpago()
 function actgridsaldo(){	
 	var pendiente=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
-	alert('pendiente '+pendiente);
+	//alert('pendiente '+pendiente);
 	var html="";
 	$("#gridaplicobros2").empty();
     html+='	    <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b">Saldo Pendiente:</div></div>';
@@ -207,7 +207,7 @@ function poblarcuenta(){
 	
 }// poblarcuenta()
 function poblarcheques(){	
-alert('entra poblar cheques ');
+//alert('entra poblar cheques ');
  	consultadb().transaction(consulta, errorconsulta);	
 	function consulta(tx) {		
 		tx.executeSql('SELECT a.id,a.codbanco,a.monto,a.numcheque,b.descripcion from CHEQUES a left outer join CUENTASB b on b.codigo=a.codbanco where a.recibo="99999"',[],exito,errorconsulta);
@@ -248,8 +248,8 @@ alert('entra poblar cheques ');
 			} 
 			  		guardacheque(montot);
 					var pendiente=saldopendiente();
-					alert('pendiente '+pendiente);					
-					alert('montot '+montot);					
+					//alert('pendiente '+pendiente);					
+					//alert('montot '+montot);					
 					$("#gridcheques").append(html); 
 					//$("#tpedido").attr("value",total); 			
 					$("#totalcheques").val(montot.toFixed(2)); 			
@@ -315,23 +315,23 @@ var recibo=inicial+pad(incrementarec,6);
 			 var saldo_doc=Number(saldo)-Number(monto);//saldo nuevo de la factura
 			 
 			 totalrecibo+=monto;//suma de los abonos a facturas			
-			 alert('antes de llamar a funcion guardadetcob');
+			 //alert('antes de llamar a funcion guardadetcob');
 			 guardadetcob(cliente,tipo,tipoaso,ruta,recibo,factura,estado,monto.toFixed(2),saldo_doc.toFixed(2));			 
-			 alert('despues de llamar a funcion guardadev');
+			 //alert('despues de llamar a funcion guardadev');
 			
 		 	});
-			alert('antes de llamar a funcion guardaenccob');			
-			alert(cliente+','+tipo+','+ruta+','+recibo+','+horaini+','+horafin+','+estado+','+monche.toFixed(2)+','+monefe.toFixed(2)+','+totalrecibo.toFixed(2));
+			//alert('antes de llamar a funcion guardaenccob');			
+			//alert(cliente+','+tipo+','+ruta+','+recibo+','+horaini+','+horafin+','+estado+','+monche.toFixed(2)+','+monefe.toFixed(2)+','+totalrecibo.toFixed(2));
 			 guardaenccob(cliente,tipo,ruta,recibo,horaini,horafin,estado,monche.toFixed(2),monefe.toFixed(2),totalrecibo.toFixed(2));
-			alert('despues de llamar a funcion guardaenccob');
+			//alert('despues de llamar a funcion guardaenccob');
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
 	function consultatemp(tx){  
-	             alert('ENTRA A CONSultatepm'); 
+	             //alert('ENTRA A CONSultatepm'); 
 				  var sql='SELECT a.factura,a.abonado,b.saldo,b.vencida ';
 	  			  sql+='FROM TEMCOBROS a left outer join PENCOBRO b on b.documento=a.factura ';					  
 				  sql+=' where a.abonado > 0 ';		    				 
-				alert(sql);				
+				//alert(sql);				
 								
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error al preparar guardar cobro : "+linea+err.code+err.message);

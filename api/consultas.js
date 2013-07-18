@@ -394,7 +394,7 @@ function modificalineaf(articulo,cantidad){
 						   	 }
 						   	 else{
 								 if (cantpedido>0){//existe en pedido, agrega la diferencia
-								    alert('existe en pedido');
+								    //alert('existe en pedido');
 									 modificatemppedido(articulo,cantpedido+difexis);//la funcion modificatemppedido inserta directo el valor, por eso la suma
 								 }
 								 else
@@ -479,13 +479,13 @@ var fechayhora=fechaact+" "+hora;
 var longitud=consecutivo.length;
 var inicial=consecutivo.substr(0,3);
 var numpedido= consecutivo.substr(3,(longitud-3));
- alert(numpedido); 
+ //alert(numpedido); 
 var incremetarp=Number(numpedido)+1;
- alert(incremetarp); 
+ //alert(incremetarp); 
 var pedido=inicial+pad(incremetarp,6);
- alert(pedido); 
+ //alert(pedido); 
    function pad(n, length){
-	   alert('entra a funcion'+n); 
+	   //alert('entra a funcion'+n); 
   	 n = n.toString();
    	 while(n.length < length) n = "0" + n;
   	 return n;
@@ -508,9 +508,9 @@ var pedido=inicial+pad(incremetarp,6);
 			 sumtotlinea+=sumtotlinea+totlinea;//suma del total de linea sin descuento y sin iva
 			 summontodesc+=summontodesc+montodesc;//suma del total de linea sin descuento y sin iva
 			 sumivalinea+=sumivalinea+ivalinea;//suma del total de linea sin descuento y sin iva
-			 alert('antes de llamar a funcion guardated');
+			 //alert('antes de llamar a funcion guardated');
 			 guardadetpedido(pedido,articulo,precio,pordesc,totlinea,montodesc,precio,cantidad);
-			alert('despues de llamar a funcion guardated');
+			//alert('despues de llamar a funcion guardated');
 			 
 			 
 			/* 
@@ -519,18 +519,18 @@ var pedido=inicial+pad(incremetarp,6);
 
 			 */			 			 
 		 	});
-			alert('antes de llamar a funcion guardaenc');
+			//alert('antes de llamar a funcion guardaenc');
 		  	 guardaencpedido(pedido,ruta,window.localStorage.getItem("clave"),fechayhora,fechaact,sumivalinea,(sumtotlinea+sumivalinea),sumtotlinea,summontodesc,obs,30,"K01");
-				alert('despues de llamar a funcion guardated');
+				//alert('despues de llamar a funcion guardated');
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
 	function consultatemp(tx){  
-	             alert('ENTRA A CONSultatepm'); 
+	             //alert('ENTRA A CONSultatepm'); 
 				var sql='SELECT a.articulo,a.cantidad,b.impuesto,(b.precio-((b.precio/100)*b.descuento)) as preciocdesc,';
 				sql+='b.descuento,b.precio ';	
 				sql+='FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo ';
 				sql+='WHERE  a.cliente="'+window.localStorage.getItem("clave")+'"  ';
-			    alert(sql);
+			    //alert(sql);
 								
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error al preparar pedido : "+articulo+err.code+err.message);
@@ -557,13 +557,13 @@ var fechayhora=fechaact+" "+hora;
 var longitud=consecutivo.length;
 var inicial=consecutivo.substr(0,3);
 var numpedido= consecutivo.substr(3,(longitud-3));
- alert(numpedido); 
+ //alert(numpedido); 
 var incremetarp=Number(numpedido)+1;
- alert(incremetarp); 
+// alert(incremetarp); 
 var pedido=inicial+pad(incremetarp,6);
- alert(pedido); 
+// alert(pedido); 
    function pad(n, length){
-	   alert('entra a funcion'+n); 
+	   //alert('entra a funcion'+n); 
   	 n = n.toString();
    	 while(n.length < length) n = "0" + n;
   	 return n;
@@ -586,9 +586,9 @@ var pedido=inicial+pad(incremetarp,6);
 			 sumtotlinea+=sumtotlinea+totlinea;//suma del total de linea sin descuento y sin iva
 			 summontodesc+=summontodesc+montodesc;//suma del total de linea sin descuento y sin iva
 			 sumivalinea+=sumivalinea+ivalinea;//suma del total de linea sin descuento y sin iva
-			 alert('antes de llamar a funcion guardated');
+			 //alert('antes de llamar a funcion guardated');
 			 guardadetfactura(pedido,articulo,precio,pordesc,totlinea,montodesc,precio,cantidad);
-			alert('despues de llamar a funcion guardated');
+			//alert('despues de llamar a funcion guardated');
 			 
 			 
 			/* 
@@ -597,18 +597,18 @@ var pedido=inicial+pad(incremetarp,6);
 
 			 */			 			 
 		 	});
-			alert('antes de llamar a funcion guardaenc');
+			//alert('antes de llamar a funcion guardaenc');
 		  	 guardaencfactura(pedido,ruta,window.localStorage.getItem("clave"),fechayhora,fechaact,sumivalinea,(sumtotlinea+sumivalinea),sumtotlinea,summontodesc,obs,30,"K01");
-				alert('despues de llamar a funcion guardated');
+				//alert('despues de llamar a funcion guardated');
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
 	function consultatemp(tx){  
-	             alert('ENTRA A CONSultatepm'); 
+	             //alert('ENTRA A CONSultatepm'); 
 				var sql='SELECT a.articulo,a.cantidad,b.impuesto,(b.precio-((b.precio/100)*b.descuento)) as preciocdesc,';
 				sql+='b.descuento,b.precio ';	
 				sql+='FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo ';
 				sql+='WHERE  a.cliente="'+window.localStorage.getItem("clave")+'"  ';
-			    alert(sql);
+			    //alert(sql);
 								
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error al preparar pedido : "+articulo+err.code+err.message);
