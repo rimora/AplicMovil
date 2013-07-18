@@ -590,23 +590,23 @@ $("#bimprimirp").tap(function() {
                
 	     //intento convertir a entero. 
     	 //si era un entero no le afecta, si no lo era lo intenta convertir 
-	     var efectivo = parseInt($("#efectivo").val()); 		 		 
+	     var montoefe = parseInt($("#efectivo").val()); 		 		 
 		 var pendiente=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
-		 alert(efectivo);
+		 alert(montoefe);
 		 alert(pendiente);
 	    //Compruebo si es un valor numérico 
-    	 if (isNaN(efectivo)) { 
+    	 if (isNaN(montoefe)) { 
         //entonces (no es numero) 
         	 navigator.notification.alert('Debe indicar un valor válido',null,'Cantidad inválida','Aceptar');
 			 $("#efectivo").focus();
 	     }else{ 
     	    //En caso contrario (Si era un número) devuelvo el valor 
-			if (efectivo>pendiente || efectivo<0){
+			if (montoefe>pendiente || montoefe<0){
 				navigator.notification.alert('La cantidad indicada excede el saldo pendiente por abonar o es inválida',null,'Cantidad inválida','Aceptar');
 				$("#efectivo").focus();
 			}
 			else{
-        	guardaefectivo(efectivo); 			
+        	guardaefectivo(montoefe); 			
 			actgridsaldo();
 			}
 	     } 
@@ -673,6 +673,25 @@ $("#bimprimirp").tap(function() {
   $("#salirdecheque").tap(function(){
     	actgridsaldo();
   }); 
+//**********D E P O S I T O S	 *************
+ $("#bdepositos").tap(function() {                   				  				  
+				  window.location.href='#pdepositos';
+				  listarecibos();
+				  guardafechaactual();
+  });
+  $("#regresardep").tap(function(){
+                function onConfirm(button) {
+					if (button==1){						 
+						 window.location.href='#page';
+			
+					}//if (button==1){
+				}			 
+    	navigator.notification.confirm('Se perderán los datos no guardados',     // mensaje (message)
+	    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
+    	'Generar Deposito',            // titulo (title)
+        'ACEPTAR,CANCELAR'       // botones (buttonLabels)
+	    );
+    }); 
 	 
   },false);//document.addEventListener("deviceready",function(){	
 });//$(document).ready(function() 

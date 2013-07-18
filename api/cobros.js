@@ -60,6 +60,7 @@ function listafacturaspend(cliente){
 					
 					//alert('total'+total);					
  	}
+	
 
  // });	//$('#pclientes').live('pageshow',function(event, ui){
 	
@@ -266,12 +267,12 @@ alert('entra poblar cheques ');
   }//mostrarpedido
 function saldopendiente(){//lo que resta por distribuir del importe del recibo indicado por el usuario
 var abono=window.localStorage.getItem("abono");//lo que el usuario indicó que se abonará (el total del recibo)			
-var efectivo=window.localStorage.getItem("efectivo");//el importe indicado en efectivo hasta el momento
-var cheque=window.localStorage.getItem("cheque");//el importe indicado en cheque hasta el momento
-var pendiente=Number(abono)-Number(efectivo)-Number(cheque);	
+var montoefe=window.localStorage.getItem("efectivo");//el importe indicado en efectivo hasta el momento
+var montoche=window.localStorage.getItem("cheque");//el importe indicado en cheque hasta el momento
+var pendiente=Number(abono)-Number(montoefe)-Number(montoche);	
 alert('abono '+abono);
-alert('efectivo '+efectivo);
-alert('cheque '+cheque);
+alert('efectivo '+montoefe);
+alert('cheque '+montoche);
 alert('pendiente '+pendiente);
 
 return pendiente;
