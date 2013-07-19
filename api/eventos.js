@@ -703,6 +703,7 @@ $("#bimprimirf").tap(function() {
 				  guardafechaactual();
 				  $("#numficha").val(""); 
 				  $("#totaldep").val(0); 
+				  $("#obsdep").val("");
   });
   $("#regresardep").tap(function(){
                 function onConfirm(button) {
