@@ -701,6 +701,8 @@ $("#bimprimirf").tap(function() {
 				  listarecibos();
 				  poblarcuentadep();
 				  guardafechaactual();
+				  $("#numficha").val(""); 
+				  $("#totaldep").val(0); 
   });
   $("#regresardep").tap(function(){
                 function onConfirm(button) {
@@ -715,21 +717,50 @@ $("#bimprimirf").tap(function() {
         'ACEPTAR,CANCELAR'       // botones (buttonLabels)
 	    );
     }); 
-	$("#bcontinuardep").tap(function(){
+	$("#bguardadep").tap(function(){
+		var recibos='';
                 function onConfirm(button) {
 					if (button==1){						 						 
-						 alert('deposito terminado');
+						 if ($("#numficha").val().length==0 || $("#totaldep").val()==0){
+							 navigator.notification.alert('Debe indicar numero de ficha y seleccionar algun recibo',null,'Faltan Datos','Aceptar');
+							 return false;
+							 
+						 }
+						 else{
+							 $('input:checkbox.clasedep').each(function () {
+        		   				if (this.checked) {
+						 		  alert('nombre '+$(this).attr("name")+' valor '+$(this).attr("value"));
+						   		//guardadep($(this).attr("name"))		//funcion en depositos.js		    				   
+						          recibos='"'+$(this).attr("name")+'",'
+						   //alert($("#"+"c"+$(this).val()).val());
+    		      		 		}
+							});//$('input:checkbox.clasep').each(function () {								 
+							 alert(recibos);
+						 }				 
+						 
 						 window.location.href='#page';
 			
 					}//if (button==1){
-				}			 
+				}			  
     	navigator.notification.confirm('¿Desea terminar el deposito?',     // mensaje (message)
 	    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
     	'Generar Deposito',            // titulo (title)
-        'ACEPTAR,CANCELAR'       // botones (buttonLabels)
+        'SI,NO'       // botones (buttonLabels)
 	    );
     }); 
-	 
+	 $("input:checkbox.clasedep").bind("change",function(event){
+
+		if ($(this).prop("checked")){
+		   alert("checado");
+		   alert($(this).val());
+		   
+	   }
+	   else{
+		   alert("NO checado");
+		   alert($(this).val());
+	   }
+  
+     });	
   },false);//document.addEventListener("deviceready",function(){	
 });//$(document).ready(function() 
 			   
