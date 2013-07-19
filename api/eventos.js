@@ -141,7 +141,7 @@ $(document).ready(function() {
 		});
 $("a.clasep").live('click',function(){//al modificar linea de pedido
                   var articulo = $(this).attr("name");
-				  alert (articulo);
+				  //alert (articulo);
 				 guardaarticulo(articulo);//almacena localmente la clave de articulo 	
     });
 $("a.clasef").live('click',function(){//al modificar linea de factura
@@ -187,15 +187,15 @@ $("#beliminarp").tap(function() {
 		if (button==1){			
 			$('input:checkbox.clasep').each(function () {
            		if (this.checked) {
-             	  alert($(this).attr("name"));
-				  alert($(this).attr("value"));
+             	  //alert($(this).attr("name"));
+				  //alert($(this).attr("value"));
 				   eliminalinea($(this).attr("name"),$(this).attr("value"),"P")				    
 			   //alert($("#"+"c"+$(this).val()).val());
           		 }
 				 else{
-					alert('no checado'); 
-					alert($(this).attr("name"));
-				  	alert($(this).attr("value"));
+					//alert('no checado'); 
+					//alert($(this).attr("name"));
+				  	//alert($(this).attr("value"));
 				 }
 			});//$('input:checkbox.clasep').each(function () {	
 			//mostrarpedido();
@@ -214,7 +214,7 @@ $("#beliminarf").tap(function() {
 		if (button==1){
 			$('input:checkbox.clasef').each(function () {
            		if (this.checked) {
-				   alert('nombre '+$(this).attr("name")+' valor '+$(this).attr("value"));
+				   //alert('nombre '+$(this).attr("name")+' valor '+$(this).attr("value"));
 				   eliminalinea($(this).attr("name"),Number($(this).attr("value")),"F")				    
 				   
 			   //alert($("#"+"c"+$(this).val()).val());
@@ -266,18 +266,18 @@ $("#bimprimirf").tap(function() {
 	//alert($("#scantidad").val());	
 	
 	//preparadetalletemp(window.localStorage.getItem("articulo"),$("#scantidad").val())
-	  alert('boton pruebas2');
-	  alert('ya');
+	  //alert('boton pruebas2');
+	  //alert('ya');
 	    
 	  var c=0;
 	  
 	  var c=consultaexis2("ADE-04");
-      alert('despues de llamada'+c);	
+      //alert('despues de llamada'+c);	
 	  function consultaexis2(articulo){	
      
-	  alert('entra a función');
+	  //alert('entra a función');
 	  consultadb().transaction(existencia,function(err){
-    	  alert("Error al insertar renglon factura: "+err.code+err.message);
+    	  //alert("Error al insertar renglon factura: "+err.code+err.message);
           },function()
 		  	{
 			  alert(exi);
@@ -318,7 +318,7 @@ $("#bimprimirf").tap(function() {
 	$("#botoncantidad").tap(function(){
                  //var cantidad=$('#scantidad').attr('Val');
 				 var cantidad=$('#scantidad').val();
-				  alert (cantidad);
+				  //alert (cantidad);
 				  if (cantidad<=0){
 					  navigator.notification.alert('Debe indicar cantidad MAYOR A CERO',null,'Error Indicando Cantidad','Aceptar');					
 					  
@@ -441,7 +441,7 @@ $("#bimprimirf").tap(function() {
                  //var cantidad=$('#scantidad').attr('Val');
 				 var cantidad=Number($('#cantidaddev').val());
 				 var observa=$('#obsrendev').val()
-				 alert('observa '+observa);
+				 //alert('observa '+observa);
 				  //alert (cantidad);
 				  if (cantidad<0){
 					   navigator.notification.alert('Debe indicar cantidad valida',null,'Error Indicando Cantidad','Aceptar');					
@@ -611,8 +611,8 @@ $("#bimprimirf").tap(function() {
 	     var montoefe = parseInt($("#efectivo").val()); 		 		 
 		 var pendiente1=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
 		 var pendiente=pendiente1+Number(window.localStorage.getItem("efectivo"));//aumentamos el efectivo que tenga guardado, es decir, si es modificación del importe, se anula para tomar este nuevo importe y actualizar el abono pendiente de distribuir en efectivo y cheque.
-		 alert(montoefe);
-		 alert(pendiente);
+		 //alert(montoefe);
+		 //alert(pendiente);
 	    //Compruebo si es un valor numérico 
     	 if (isNaN(montoefe)) { 
         //entonces (no es numero) 
@@ -648,8 +648,8 @@ $("#bimprimirf").tap(function() {
 			var banco=$("#menucuentab").val();
 			var monto=$("#monto").val();
 		    var pendiente=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
-			 alert(monto);
-			 alert(pendiente);
+			 //alert(monto);
+			 //alert(pendiente);
 
 			if (nche=="" || ncta=="" || banco=="Banco" || monto==0){
 				navigator.notification.alert('Debe indicar numero de cheque, de cuenta,seleccionar banco y monto válidos',null,'Faltan Datos','Aceptar');				 	
@@ -675,7 +675,7 @@ $("#bimprimirf").tap(function() {
 				if (button==1){
 					$('input:checkbox.clasech').each(function () {
         		   		if (this.checked) {
-						   alert('nombre '+$(this).attr("name")+' valor '+$(this).attr("value"));
+						   //alert('nombre '+$(this).attr("name")+' valor '+$(this).attr("value"));
 						   eliminacheque($(this).attr("name"))				    				   
 						   
 						   //alert($("#"+"c"+$(this).val()).val());
@@ -739,14 +739,14 @@ $("#bimprimirf").tap(function() {
 					         var cuenta=banco.substr(pos+1,longitud-(pos+1));
 							 $('input:checkbox.clasedep').each(function () {
         		   				if (this.checked) {
-						 		  alert('nombre '+$(this).attr("name")+' valor '+$(this).val()+'banco '+banco+' codigo '+codigo+' cuenta '+cuenta);
+						 		  //alert('nombre '+$(this).attr("name")+' valor '+$(this).val()+'banco '+banco+' codigo '+codigo+' cuenta '+cuenta);
 								  
 						   		guardadep($(this).attr("name"),$("#numficha").val())		//funcion en depositos.js		    				   
 						          recibos='"'+$(this).attr("name")+'",'
 						   //alert($("#"+"c"+$(this).val()).val());
     		      		 		}
 							});//$('input:checkbox.clasep').each(function () {								 
-							 alert(recibos);
+							 //alert(recibos);
 							 guardaencdep(codigo,cuenta,$("#numficha").val(),fecha,$("#totaldep").val(),$("#obsdep").val())
 							 
 						 }				 
@@ -762,22 +762,22 @@ $("#bimprimirf").tap(function() {
 	    );
     }); 
 	 $("input:checkbox.clasedep").live("change",function(event){
-			alert('entra');
+			//alert('entra');
 		if ($(this).prop("checked")){
 			var total=$("#totaldep").val();
 			var importe=$(this).val();
-		   alert("checado");
-		   alert($(this).val());
+		   //alert("checado");
+		   //alert($(this).val());
 		   $("#totaldep").val(Number(total)+Number(importe));
 		   
 	   }
 	   else{
-		   alert("NO checado");
-		   alert($(this).val());	
+		   //alert("NO checado");
+		   //alert($(this).val());	
 		   var total=$("#totaldep").val();
 			var importe=$(this).val();
-		   alert("checado");
-		   alert($(this).val());
+		   //alert("checado");
+		   //alert($(this).val());
 		   $("#totaldep").val(Number(total)-Number(importe));
 	   }
   

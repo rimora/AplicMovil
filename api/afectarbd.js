@@ -551,7 +551,7 @@ function guardadetcob(cliente,tipo,tipoaso,ruta,recibo,factura,estado,monto,sald
 
 }//function guardadetcob
 function guardadetdep(monche,monefe,deposito,recibo){
-	  alert(monche+' '+monefe+' '+deposito+' '+recibo);
+	  //alert(monche+' '+monefe+' '+deposito+' '+recibo);
 	consultadb().transaction(insertadet,function(err){
     	  alert("Error al insertar en DETDEP: "+err.code+err.message);
           },function(){ //actualiza el saldo en las facturas pendientes de cobro de la tabla PENCOBRO
