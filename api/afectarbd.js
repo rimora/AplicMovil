@@ -546,11 +546,54 @@ function guardadetcob(cliente,tipo,tipoaso,ruta,recibo,factura,estado,monto,sald
 		//alert('entra a insertadet');				
 			tx.executeSql('INSERT INTO DETCOBROS (cliente,tipo,tipoaso,ruta,recibo,docafectado,estado,monto,saldo_doc) VALUES("'+cliente+'","'+tipo+'","'+tipoaso+'","'+ruta+'","'+recibo+'","'+factura+'","'+estado+'",'+monto+','+saldo_doc+')'); 
 			//alert('despues de insertadet');				
-			/*tx.executeSql('UPDATE DETHISFAC SET devuelto=devuelto+'+cantidad+' where linea='+linea+' and factura="'+factura+'"');		
-			alert('despues de actualizar dethisfac');				*/	
+			
 		}
 
 }//function guardadetcob
+function guardadetdep(monche,monefe,deposito,recibo){
+	  //alert(cliente+' '+tipo+' '+tipoaso+' '+ruta+' '+recibo+' '+factura+' '+estado+' '+monto+' '+saldo_doc);
+	consultadb().transaction(insertadet,function(err){
+    	  alert("Error al insertar en DETDEP: "+err.code+err.message);
+          },function(){ //actualiza el saldo en las facturas pendientes de cobro de la tabla PENCOBRO
+			   //alert('entra aqui');
+			   
+			 consultadb().transaction(actsaldofac,function(err){
+		    	  alert("Error al actualizar recibo: "+err.code+err.message); });
+				
+    			function actsaldofac(tx) {		
+					//alert('entra a modificar saldo de factura: '+saldo_doc);				
+					tx.executeSql('UPDATE ENCOBROS SET depositado="S" where recibo="'+recibo+'"');		
+				}  			  
+		  });
+				
+    	function insertadet(tx) {		
+		//alert('entra a insertadet');				
+			tx.executeSql('INSERT INTO DETDEP (monche,monefe,deposito,recibo) VALUES('+monche+','+monefe+',"'+deposito+'","'+recibo+'")'); 
+			//alert('despues de insertadet');							
+		}
+
+}//function guardadetdep
+function guardaencdep(codigo,cuenta,deposito,fecha,monto,obs){
+	  //alert(cliente+' '+tipo+' '+tipoaso+' '+ruta+' '+recibo+' '+factura+' '+estado+' '+monto+' '+saldo_doc);
+	consultadb().transaction(insertadet,function(err){
+    	  alert("Error al insertar en DETDEP: "+err.code+err.message);
+          });
+				
+    	function insertadet(tx) {		
+		//alert('entra a insertadet');				
+			tx.executeSql('INSERT INTO ENCDEP (codigo,cuenta,deposito,fec_dep,mon_dep,obs) VALUES("'+codigo+'","'+cuenta+'","'+deposito+'","'+fecha+'",'+monto+','+obs+')'); 
+			//alert('despues de insertadet');				
+			
+							/*	 tx.executeSql('CREATE TABLE IF NOT EXISTS ENCDEP (id INTEGER PRIMARY KEY AUTOINCREMENT, codigo,cuenta,deposito,doc_pro,fec_dep,mon_dep,obs)'); 
+		  tx.executeSql('CREATE TABLE IF NOT EXISTS DETDEP (id INTEGER PRIMARY KEY AUTOINCREMENT, monche,monefe,deposito,recibo,obs)'); 
+		  */
+		}
+
+}//function guardaencdep
+
+
+
+
 function f1_1(){
 	  alert('entra a funcion f1_1');
 	consultadb().transaction(insertadet,function(err){

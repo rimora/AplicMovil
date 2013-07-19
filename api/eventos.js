@@ -719,23 +719,35 @@ $("#bimprimirf").tap(function() {
     }); 
 	$("#bguardadep").tap(function(){
 		var recibos='';
+		var banco=$("#menucuentad").val();		
+		guardafechaactual();//guarda en memoria la fecha con hora, actuales
+		var fecha= window.localStorage.getItem("fechahora");//recuperamos la nueva fecha y hora actual
+		var longitud=banco.length;
+		
+
                 function onConfirm(button) {
 					if (button==1){						 						 
-						 if ($("#numficha").val().length==0 || $("#totaldep").val()==0){
-							 navigator.notification.alert('Debe indicar numero de ficha y seleccionar algun recibo',null,'Faltan Datos','Aceptar');
+						 if ($("#numficha").val().length==0 || $("#totaldep").val()==0 || banco=='Banco'){
+							 navigator.notification.alert('Debe indicar numero de ficha,banco y seleccionar algun recibo',null,'Faltan Datos','Aceptar');
 							 return false;
 							 
 						 }
 						 else{
+							 var pos=banco.indexOf("@");
+						     var codigo= banco.substr(0,(pos));
+					         var cuenta=banco.substr(pos+1,longitud-(pos+1));
 							 $('input:checkbox.clasedep').each(function () {
         		   				if (this.checked) {
-						 		  alert('nombre '+$(this).attr("name")+' valor '+$(this).attr("value"));
-						   		//guardadep($(this).attr("name"))		//funcion en depositos.js		    				   
+						 		  alert('nombre '+$(this).attr("name")+' valor '+$(this).val()+'banco '+banco+' codigo '+codigo+' cuenta '+cuenta);
+								  
+						   		guardadep($(this).attr("name"),$("#numficha").val())		//funcion en depositos.js		    				   
 						          recibos='"'+$(this).attr("name")+'",'
 						   //alert($("#"+"c"+$(this).val()).val());
     		      		 		}
 							});//$('input:checkbox.clasep').each(function () {								 
 							 alert(recibos);
+							 guardaencdep(codigo,cuenta,$("#numficha").val(),fecha,$("#totaldep").val(),$("#obsdep").val())
+							 
 						 }				 
 						 
 						 window.location.href='#page';
@@ -748,16 +760,24 @@ $("#bimprimirf").tap(function() {
         'SI,NO'       // botones (buttonLabels)
 	    );
     }); 
-	 $("input:checkbox.clasedep").bind("change",function(event){
-
+	 $("input:checkbox.clasedep").live("change",function(event){
+			alert('entra');
 		if ($(this).prop("checked")){
+			var total=$("#totaldep").val();
+			var importe=$(this).val();
 		   alert("checado");
 		   alert($(this).val());
+		   $("#totaldep").val(Number(total)+Number(importe));
 		   
 	   }
 	   else{
 		   alert("NO checado");
+		   alert($(this).val());	
+		   var total=$("#totaldep").val();
+			var importe=$(this).val();
+		   alert("checado");
 		   alert($(this).val());
+		   $("#totaldep").val(Number(total)-Number(importe));
 	   }
   
      });	
