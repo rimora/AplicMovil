@@ -227,21 +227,21 @@ function repvisitas(){
 			  var html = "";			 
 			 		  		      
 			  //agrega encabezado de grid
-			  html+=' <div class="ui-block-a" style="width:300px" > ';            
+			  html+=' <div class="ui-block-a" style="width:200px" > ';            
               html+=' <div class="ui-bar ui-bar-a">Cliente</div></div> ';           
-              html+=' <div class="ui-block-b" style="width:200px"><div class="ui-bar ui-bar-a">Razon</div></div>';
-              html+=' <div class="ui-block-c" style="width:150px"><div class="ui-bar ui-bar-a">Inicio</div></div>';
-			  html+=' <div class="ui-block-d" style="width:150px"><div class="ui-bar ui-bar-a">Fin</div></div>';
+              html+=' <div class="ui-block-b" style="width:150px"><div class="ui-bar ui-bar-a">Razon</div></div>';
+              html+=' <div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-a">Inicio</div></div>';
+			  html+=' <div class="ui-block-d" style="width:200px"><div class="ui-bar ui-bar-a">Fin</div></div>';
 			  html+=' <div class="ui-block-e" style="width:200px"><div class="ui-bar ui-bar-a">Notas</div></div>';
 			  
 
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
 				     //descuento=(row['precio']/100)*row['descuento'];
-					html+='<div class="ui-block-a" style="width:300px" ><div class="ui-bar ui-bar-e"  >'+row['nombre']+'</div></div>';
-                    html+='<div class="ui-block-b" style="width:200px"><div class="ui-bar ui-bar-b">'+row['razon']+'</div></div>';
-					html+='<div class="ui-block-c" style="width:150px"><div class="ui-bar ui-bar-b">'+row['inicio']+'</div></div>';
-					html+='<div class="ui-block-d" style="width:150px"><div class="ui-bar ui-bar-b">'+row['fin']+'</div></div>';
+					html+='<div class="ui-block-a" style="width:200px" ><div class="ui-bar ui-bar-e"  >'+row['nombre']+'</div></div>';
+                    html+='<div class="ui-block-b" style="width:150px"><div class="ui-bar ui-bar-b">'+row['razon']+'</div></div>';
+					html+='<div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-b">'+row['inicio']+'</div></div>';
+					html+='<div class="ui-block-d" style="width:200px"><div class="ui-bar ui-bar-b">'+row['fin']+'</div></div>';
 					html+='<div class="ui-block-e" style="width:200px"><div class="ui-bar ui-bar-b">'+row['notas']+'</div></div>';
 					
 

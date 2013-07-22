@@ -18,14 +18,16 @@ function configuravisita(){
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 			
 				    var razon=row['cod_rzn'];	     			     
+					alert(row['des_rzn']);
 				    html+='    <option value="'+razon+'">';
 		            html+='        '+row['des_rzn'];
-        		    html+='    </option>';
+        		    html+='    </option>';				
 			  });//.each
 				$("#menurazonv").append(html); 
 				$("select#menurazonv").val("Razon").selectmenu("refresh");
-				$("#visitaini").val("");
-				$("#visitafin").val("");
+				$("#visitaini").val(window.localStorage.getItem("visitaini"));
+     			guardafechaactual();//guarda en memoria la fecha con hora, actuales
+				$("#visitafin").val(window.localStorage.getItem("fechahora"));
 				$("#obsvisita").val("");
  	}
 

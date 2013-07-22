@@ -9,7 +9,7 @@ $(document).ready(function() {
 	
 	});*/	
 	window.localStorage.clear();
-	obtenerconse();
+	obtenerconse();//funcion que almacena localmente los consecutivos de documentos actuales.funcion en configuraciones.js
 	window.localStorage.setItem("saldo",0);	
 	window.localStorage.setItem("ruta","S04");
 	window.localStorage.setItem("bodega","K01");
@@ -66,7 +66,7 @@ $(document).ready(function() {
                });*/
 			   
 	//*****PAGINA DATOS DEL CLIENTE *******
-   $("#bvisita").tap(function() {                   				  
+   $("#bvisita").tap(function() {    //inicia visita               				  
 				  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
 				  window.location.href='#pcobros';
 				  $("#labelencpcobros").empty();	
@@ -176,12 +176,12 @@ $(document).ready(function() {
 //****PAGINA DE REGISTRO VISITA******
 		 $("#bguardavisita").tap(function() {                   				  				  	
 			var razon=$("#menurazonv").val();	
-			var notas=$("#obsvisita").val();	
+			var notas=$("#obsvisita").val();				
 			var cliente=window.localStorage.getItem("clave");//recuperamos la clave del cliente
 			var ruta=window.localStorage.getItem("ruta");//recuperamos la clave del cliente
-			var visitaini=window.localStorage.getItem("visitaini");//recuperamos la fecha y hora de inicio de visita
-			guardafechaactual();//guarda en memoria la fecha con hora, actuales
-			var visitafin= window.localStorage.getItem("fechahora");//recuperamos la nueva fecha y hora actual					
+			var visitaini=$("#visitaini").val();	
+			var visitafin=$("#visitafin").val();	
+			alert(razon);
 			if (razon=='Razon') {
 				navigator.notification.alert('Debe indicar razon de visita',null,'Error al guardar visita','Aceptar');					
 			}else{
