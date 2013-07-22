@@ -9,11 +9,8 @@ $(document).ready(function() {
 	
 	});*/	
 	window.localStorage.clear();
-	window.localStorage.setItem("saldo",0);
-	window.localStorage.setItem("consepedido","S04000375");
-	window.localStorage.setItem("consefactura","F04000375");
-	window.localStorage.setItem("consedev","D04000375");
-	window.localStorage.setItem("conserec","R04000375");
+	obtenerconse();
+	window.localStorage.setItem("saldo",0);	
 	window.localStorage.setItem("ruta","S04");
 	window.localStorage.setItem("bodega","K01");
 	document.addEventListener("backbutton", function(){
@@ -66,7 +63,22 @@ $(document).ready(function() {
 				var telefono = $("#telnuevocli").val()	  					
 				guardacliente(nombre,empresa,rfc,direccion,colonia,estado,municipio,telefono);
 				 
-               });*/			   
+               });*/
+			   
+	//*****PAGINA DATOS DEL CLIENTE *******
+   $("#bvisita").tap(function() {                   				  
+				  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
+				  window.location.href='#pcobros';
+				  $("#labelencpcobros").empty();	
+				  $("#labelencpcobros").append("Facturas pendientes del cliente: "+cliente);				  
+				  eliminatempcob();
+				  copiatemcobros(cliente);//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
+				  listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado				  				  
+				  guardafechaactual();
+				  iniciavisita();//guarda registro de fecha y hora de visita.funcion en almacenamiento.js
+				  			  
+				   
+     });			   			   
     $("#menu").bind("change",function(event,ui){
 		//alert($("#menu").val());
 	    mostrarclientes($("#menu").val());	
@@ -139,6 +151,58 @@ $(document).ready(function() {
 			$("#gridprueba").append(html);  
 
 		});
+//****PAGINA DE OPERACIONES ******
+		 $("#regresarop").tap(function() {                   				  				  
+				  var operaciones=window.localStorage.getItem("sioperacion");//devuelve S si realizó alguna operacion de venta, cobro, devolucion.
+				  if (operaciones=='S'){
+					  window.location.href='#pvisita';					  
+					  configuravisita();
+				  }
+				  else{
+					  navigator.notification.confirm('¿Deseas Registrar la Visita?',onConfirm,'Registrar Visita','SI,NO');// botones 
+					  function onConfirm(button) {
+						if (button==1){			
+							window.location.href='#pvisita';					  
+							configuravisita();
+        		  		 }
+						 else{
+							 window.location.href='#pdatoscli';					  
+							 return false;
+						 }
+					  }//if (button==1){
+				  }		  
+					 
+     	});//$("#regresarop").tap(function()		
+//****PAGINA DE REGISTRO VISITA******
+		 $("#bguardavisita").tap(function() {                   				  				  	
+			var razon=$("#menurazonv").val();	
+			var notas=$("#obsvisita").val();	
+			var cliente=window.localStorage.getItem("clave");//recuperamos la clave del cliente
+			var ruta=window.localStorage.getItem("ruta");//recuperamos la clave del cliente
+			var visitaini=window.localStorage.getItem("visitaini");//recuperamos la fecha y hora de inicio de visita
+			guardafechaactual();//guarda en memoria la fecha con hora, actuales
+			var visitafin= window.localStorage.getItem("fechahora");//recuperamos la nueva fecha y hora actual					
+			if (razon=='Razon') {
+				navigator.notification.alert('Debe indicar razon de visita',null,'Error al guardar visita','Aceptar');					
+			}else{
+				navigator.notification.confirm('¿Deseas Registrar la Visita?',onConfirm,'Registrar Visita','SI,NO');// botones 
+					  function onConfirm(button) {
+						if (button==1){			
+							guardavisita(cliente,visitaini,visitafin,visitaini,notas,razon,ruta);
+							window.location.href='#pdatoscli';					  
+
+        		  		 }
+						 else{							 
+							 return false;
+						 }
+					  
+				  	 }		  
+			
+			
+			
+			 }
+     	});//$("#bguardavisita").tap(function() {                   				  				  	
+//****************************			
 $("a.clasep").live('click',function(){//al modificar linea de pedido
                   var articulo = $(this).attr("name");
 				  //alert (articulo);
@@ -364,13 +428,72 @@ $("#bimprimirf").tap(function() {
 					modificalineaf(articulo,cantidad);
 				  }
     });
-	$("#guardapros").tap(function() { 
-                 //var clavecli = $(this).attr("id");
-				  
-				 alert('Prospecto Guardado');
-				  $.mobile.changePage($("#pclientes"));	  			  				  
-				  
+	$("#fotopros").tap(function() { 
+				$('#fotopros').empty();
+                tomarfotopros();  
      });	
+	$("#bguardapros").tap(function() { 
+                 var nom =  $("#prosnombre").val();
+				 var cal =  $("#proscalle").val();
+				 var ent=  $("#prosentre").val();
+				 var num =  $("#prosnumero").val();
+				 var tel =  $("#prostel").val();
+				 var cel =  $("#proscel").val();
+				 var col =  $("#proscol").val();
+				 var edo =  $("#prosedo").val();
+				 var mun =  $("#prosmun").val();
+				 var loc =  $("#prosloc").val();
+				 var nota =  $("#prosnotas").val();
+				 var foto=$('#fotopros').attr('rel');			 
+				 
+				if (nom.length==0 || cal.length==0 || ent.length==0 || num.length==0 || tel.length==0 || cel.length==0 || col.length==0 || edo.length==0 || mun.length==0 || foto== undefined || foto =='' ){
+					
+				navigator.notification.alert('Faltan datos Obligatorios *',null,'Faltan Datos','Aceptar');					
+					
+				}else
+				{
+				  navigator.notification.alert('Prospecto Guardado',null,'Datos Guardados','Aceptar');					
+				  $.mobile.changePage($("#pclientes"));	  			  				  
+				}
+				 
+				  
+     });
+	 $("#fotoife").tap(function() { 
+	 			$("#fotoife").empty();
+                tomarfotoife();  
+     });	
+	 $("#fotoneg").tap(function() { 
+	 			$("#fotoneg").empty();
+                tomarfotoneg();  
+     });
+	$("#bguardacli").tap(function() { 
+                 var nom =  $("#clinombre").val();
+				 var ife =  $("#cliife").val();
+				 var cal =  $("#clicalle").val();
+				 var ent=  $("#clientre").val();
+				 var num =  $("#clinumero").val();
+				 var tel =  $("#clitel").val();
+				 var cel =  $("#clicel").val();
+				 var col =  $("#clicol").val();
+				 var edo =  $("#cliedo").val();
+				 var mun =  $("#climun").val();
+				 var loc =  $("#cliloc").val();
+				 var nota =  $("#clinotas").val();
+				 //var fotoife=$('#fotoife').attr('rel');			 
+				 var fotoneg=$('#fotoneg').attr('rel');			 
+				 
+				if (nom.length==0 || ife.length==0 || cal.length==0 || ent.length==0 || num.length==0 || tel.length==0 || cel.length==0 || col.length==0 || edo.length==0 || mun.length==0 || fotoneg== undefined || fotoneg =='' ){
+					
+				navigator.notification.alert('Faltan datos Obligatorios *',null,'Faltan Datos','Aceptar');					
+					
+				}else
+				{
+				  navigator.notification.alert('Cliente Guardado',null,'Datos Guardados','Aceptar');					
+				  $.mobile.changePage($("#pclientes"));	  			  				  
+				}
+				 
+				  
+     });		
 	 $("#bgenerav").tap(function() { //boton aceptar del catalogo
                  //var clavecli = $(this).attr("id");
 				 //muestra el pedido o factura armados				 
@@ -501,12 +624,16 @@ $("#bimprimirf").tap(function() {
         'SI,NO'       // botones (buttonLabels)
 	    );
     });  	
+  
+	
  //*****C O B R O S *****	 
 	  $("#bcobros").tap(function() {                   				  
 				  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
 				  window.location.href='#pcobros';
 				  $("#labelencpcobros").empty();	
 				  $("#labelencpcobros").append("Facturas pendientes del cliente: "+cliente);				  
+				  $("#labellimcred").empty();	
+				  $("#labellimcred").append("Limite de Credito: "+window.localStorage.getItem("limite"));	
 				  eliminatempcob();
 				  copiatemcobros(cliente);//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
 				  listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado				  				  
@@ -637,22 +764,22 @@ $("#bimprimirf").tap(function() {
 		  	window.location.href='#pcheque';
 			poblarcuenta();	         
 			$("#numcheque").val("");
-			$("#numcuenta").val("");  
+			//$("#numcuenta").val("");  
 			$("#monto").val(0); 
 			poblarcheques();
 				  
      }); 
 	 $("#bagregacheque").tap(function() {                   				  
 	        var nche=$("#numcheque").val();  			  
-			var ncta=$("#numcuenta").val();  			  
+			//var ncta=$("#numcuenta").val();  			  
 			var banco=$("#menucuentab").val();
 			var monto=$("#monto").val();
 		    var pendiente=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
 			 //alert(monto);
 			 //alert(pendiente);
 
-			if (nche=="" || ncta=="" || banco=="Banco" || monto==0){
-				navigator.notification.alert('Debe indicar numero de cheque, de cuenta,seleccionar banco y monto válidos',null,'Faltan Datos','Aceptar');				 	
+			if (nche=="" || banco=="Banco" || monto==0){
+				navigator.notification.alert('Debe indicar numero de cheque,seleccionar banco y monto válidos',null,'Faltan Datos','Aceptar');				 	
 				$("#monto").focus();			
 				return false;
 			}
@@ -662,10 +789,10 @@ $("#bimprimirf").tap(function() {
 				$("#monto").val(0); 
 			}			
 			else{
-				insertarcheque(nche,ncta,banco,monto);			
+				insertarcheque(nche,"0",banco,monto);			
 				$("select#menucuentab").val("Banco").selectmenu("refresh"); 
 				$("#numcheque").val("");
-				$("#numcuenta").val("");  
+				//$("#numcuenta").val("");  
 				$("#monto").val(0); 
 				poblarcheques();
 			}
@@ -781,7 +908,21 @@ $("#bimprimirf").tap(function() {
 		   $("#totaldep").val(Number(total)-Number(importe));
 	   }
   
-     });	
+     });
+	 //**********R E P O R T E S	 *************	
+	 $("#reporte1").tap(function() {     
+	               navigator.notification.alert('entra tap reporte1',null,'pruebas','Aceptar');             				  				  
+				  window.location.href='#prepcobven';
+				  repvencob();								  
+	  });
+	 $("#reporte2").tap(function() {                   				  				  
+				  window.location.href='#prepcierrecob';
+				  repcierrecobro();								  
+	  });
+	 $("#reporte3").tap(function() {                   				  				  
+				  window.location.href='#prepinventario';
+				  repinventario();								  
+	  });
   },false);//document.addEventListener("deviceready",function(){	
 });//$(document).ready(function() 
 			   

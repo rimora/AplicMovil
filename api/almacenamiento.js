@@ -30,6 +30,13 @@ var fechaactual=fechaact+" "+hora;
 window.localStorage.setItem("fechahora",fechaactual);
 window.localStorage.setItem("fecha",fechaact);
 }
+function iniciavisita(){
+var fecha = new Date();
+var fechaact=fecha.getFullYear()+"/"+(fecha.getMonth()+1)+"/"+fecha.getDate();
+var hora=fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds();
+var fechaactual=fechaact+" "+hora;	
+window.localStorage.setItem("visitaini",fechaactual);
+}
 function guardasaldofac(saldo){
 	window.localStorage.setItem("saldofac",saldo);
 }
@@ -47,8 +54,61 @@ function guardapendiente(pendiente){
 }
 
 
+function tomarfotopros(){
+	
+// capture callback
 
+navigator.device.capture.captureImage(function(mediaFiles){
+	
+    path = mediaFiles[0].fullPath;
+	$('#fotopros').append('<img src="'+path+'" width="50%" />').attr('rel',path);
+        // do something interesting with the file
+    
+	
+	
+	},function(error){
+// capture error callback
+    navigator.notification.alert('Error al tomar foto: ' + error.code, null, 'Error al capturar foto');
+}, {limit:1});
 
+}
+
+function tomarfotoife(){
+	
+// capture callback
+
+navigator.device.capture.captureImage(function(mediaFiles){
+	
+    path = mediaFiles[0].fullPath;
+	$('#fotoife').append('<img src="'+path+'" width="50%" />').attr('rel',path);
+        // do something interesting with the file
+    
+	
+	
+	},function(error){
+// capture error callback
+    navigator.notification.alert('Error al tomar foto: ' + error.code, null, 'Error al capturar foto');
+}, {limit:1});
+
+}
+function tomarfotoneg(){
+	
+// capture callback
+
+navigator.device.capture.captureImage(function(mediaFiles){
+	
+    path = mediaFiles[0].fullPath;
+	$('#fotoneg').append('<img src="'+path+'" width="50%" />').attr('rel',path);
+        // do something interesting with the file
+    
+	
+	
+	},function(error){
+// capture error callback
+    navigator.notification.alert('Error al tomar foto: ' + error.code, null, 'Error al capturar foto');
+}, {limit:1});
+
+}
 function tempdetalle(cantidad){	
 	//alert(cantidad);	
 	alert (window.localStorage.getItem("articulo"));	
