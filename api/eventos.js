@@ -9,7 +9,7 @@ $(document).ready(function() {
 	
 	});*/	
 	window.localStorage.clear();
-	obtenerconse();//funcion que almacena localmente los consecutivos de documentos actuales.funcion en configuraciones.js
+	//obtenerconse();//funcion que almacena localmente los consecutivos de documentos actuales.funcion en configuraciones.js
 	window.localStorage.setItem("saldo",0);	
 	window.localStorage.setItem("ruta","S04");
 	window.localStorage.setItem("bodega","K01");
@@ -34,12 +34,14 @@ $(document).ready(function() {
                  //var clavecli = $(this).attr("id");
 				  //alert ("llama a iniciar");
 				  iniciar();
+				  
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });
      $("#envia").tap(function() { 
                  //var clavecli = $(this).attr("id");
 				  //alert (oID);
 				  insertar();
+				  obtenerconse();//funcion que almacena localmente los consecutivos de documentos actuales.funcion en configuraciones.js
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });			   
 			  
