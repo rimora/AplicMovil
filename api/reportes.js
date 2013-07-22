@@ -209,3 +209,49 @@ function repinventario(){
  // });	//$('#pclientes').live('pageshow',function(event, ui){
 	
 }//repinventario
+function repvisitas(){
+		consultadb().transaction(poblarfac, function(err){
+    	 		 alert("Error al obtener información para reporte de visitas: "+err.code+err.message);
+         		});		
+	function poblarfac(tx){  				
+			var sql='SELECT a.cliente,b.nombre,a.inicio,a.fin,a.notas,c.des_rzn as razon FROM VISITA a ';		
+				sql+=' left outer join CLIENTES b on b.clave=a.cliente left outer join RAZONVISITA c on c.cod_rzn=a.razon';			
+
+				alert(sql);
+				tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error select visita: "+err.code+err.message);
+         		});    	
+	}
+	function listo(tx,results){ 			  
+		      $("#gridrepvisitas").empty();	              	  
+			  var html = "";			 
+			 		  		      
+			  //agrega encabezado de grid
+			  html+=' <div class="ui-block-a" style="width:300px" > ';            
+              html+=' <div class="ui-bar ui-bar-a">Cliente</div></div> ';           
+              html+=' <div class="ui-block-b" style="width:200px"><div class="ui-bar ui-bar-a">Razon</div></div>';
+              html+=' <div class="ui-block-c" style="width:150px"><div class="ui-bar ui-bar-a">Inicio</div></div>';
+			  html+=' <div class="ui-block-d" style="width:150px"><div class="ui-bar ui-bar-a">Fin</div></div>';
+			  html+=' <div class="ui-block-e" style="width:200px"><div class="ui-bar ui-bar-a">Notas</div></div>';
+			  
+
+			  $.each(results.rows,function(index){				  
+				  var row = results.rows.item(index); 				     			     
+				     //descuento=(row['precio']/100)*row['descuento'];
+					html+='<div class="ui-block-a" style="width:300px" ><div class="ui-bar ui-bar-e"  >'+row['nombre']+'</div></div>';
+                    html+='<div class="ui-block-b" style="width:200px"><div class="ui-bar ui-bar-b">'+row['razon']+'</div></div>';
+					html+='<div class="ui-block-c" style="width:150px"><div class="ui-bar ui-bar-b">'+row['inicio']+'</div></div>';
+					html+='<div class="ui-block-d" style="width:150px"><div class="ui-bar ui-bar-b">'+row['fin']+'</div></div>';
+					html+='<div class="ui-block-e" style="width:200px"><div class="ui-bar ui-bar-b">'+row['notas']+'</div></div>';
+					
+
+
+                  	 
+			  });//.each
+					$("#gridrepvisitas").append(html); 
+
+	   }//function exito
+
+ // });	//$('#pclientes').live('pageshow',function(event, ui){
+	
+}// repvisitas()

@@ -166,7 +166,7 @@ $(document).ready(function() {
 							configuravisita();
         		  		 }
 						 else{
-							 window.location.href='#pdatoscli';					  
+							 window.location.href='#datoscli';					  
 							 return false;
 						 }
 					  }//if (button==1){
@@ -189,7 +189,7 @@ $(document).ready(function() {
 					  function onConfirm(button) {
 						if (button==1){			
 							guardavisita(cliente,visitaini,visitafin,visitaini,notas,razon,ruta);
-							window.location.href='#pdatoscli';					  
+							window.location.href='#pclientes';					  
 
         		  		 }
 						 else{							 
@@ -922,6 +922,10 @@ $("#bimprimirf").tap(function() {
 	 $("#reporte3").tap(function() {                   				  				  
 				  window.location.href='#prepinventario';
 				  repinventario();								  
+	  });
+	   $("#reporte4").tap(function() {                   				  				  
+				  window.location.href='#prepvisitas';
+				  repvisitas();								  
 	  });
   },false);//document.addEventListener("deviceready",function(){	
 });//$(document).ready(function() 
