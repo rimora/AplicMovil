@@ -28,7 +28,7 @@ function mostrarclientes(dia){
 		 
 		 //alert('despues de refresh de lista');
  	}
-	//$('#listaclientes').listview('refresh'); 
+	$('#listaclientes').listview('refresh'); 
  // });	//$('#pclientes').live('pageshow',function(event, ui){
 	
 }// mostrarclientes

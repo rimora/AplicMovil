@@ -18,7 +18,7 @@ function configuravisita(){
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 			
 				    var razon=row['cod_rzn'];	     			     
-					alert(row['des_rzn']);
+					//alert(row['des_rzn']);
 				    html+='    <option value="'+razon+'">';
 		            html+='        '+row['des_rzn'];
         		    html+='    </option>';				
