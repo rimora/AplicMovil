@@ -210,7 +210,8 @@ function poblarcuenta(){
         		    html+='    </option>';
 			  });//.each
 				$("#menucuentab").append(html); 
-				$("select#menucuentab").val("Banco").selectmenu("refresh");
+				//$("select#menucuentab").val("Banco").selectmenu("refresh");
+				$("select#menucuentab").val("Banco");
  	}
 
  // });	//$('#pclientes').live('pageshow',function(event, ui){

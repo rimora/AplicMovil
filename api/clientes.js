@@ -22,13 +22,13 @@ function mostrarclientes(dia){
 		 $('#listaclientes').empty();        
 		 $.each(results.rows,function(index){           
 			 var row = results.rows.item(index);            
-			 $('#listaclientes').append('<li id="'+row['clave']+'"><a href="#datoscli"><h3>'+row['clave']+'  '+row['nombre']+'</h3></a></li>');        
+			 $('#listaclientes').append('<li id="'+row['clave']+'"><a href="#"><h3>'+row['clave']+'  '+row['nombre']+'</h3></a></li>');        
 		 });    
 		 //alert('antes de refresh de lista');  		 
-		 $('#listaclientes').listview('refresh'); 
+		 
 		 //alert('despues de refresh de lista');
  	}
-
+	//$('#listaclientes').listview('refresh'); 
  // });	//$('#pclientes').live('pageshow',function(event, ui){
 	
 }// mostrarclientes

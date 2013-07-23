@@ -51,7 +51,8 @@ $(document).ready(function() {
 				  //alert ('llama a mostrar clientes');
 				  window.location.href='#pclientes';				                    
 				  mostrarclientes("Lunes");
-				  $("select#menu").val("Lunes").selectmenu("refresh");   
+				  //$("select#menu").val("Lunes").selectmenu("refresh");   
+				  $("select#menu").val("Lunes");   
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });
   /*  $("#bguardacli").tap(function() { 
@@ -92,6 +93,7 @@ $(document).ready(function() {
                   var clavecli = $(this).attr("id");
 				  //alert (clavecli);
 				  mostrarcliente(clavecli);
+				  window.location.href='#datoscli';
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
     });
 	 
