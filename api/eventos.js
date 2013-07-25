@@ -931,6 +931,15 @@ $("#bimprimirf").tap(function() {
 				  window.location.href='#prepvisitas';
 				  repvisitas();								  
 	  });
+	   $("#b1").tap(function() {
+	       navigator.notification.alert('entra tap reporte1',null,'pruebas','Aceptar');  
+           toggleWatchPosition();                             
+       });
+       $("#b2").tap(function() {                                                   
+           getCurrentPosition();                          
+       }); 
+	   
+	   
   },false);//document.addEventListener("deviceready",function(){	
 });//$(document).ready(function() 
 			   
