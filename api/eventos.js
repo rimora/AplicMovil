@@ -93,7 +93,7 @@ $(document).ready(function() {
                   var clavecli = $(this).attr("id");
 				  //alert (clavecli);
 				  mostrarcliente(clavecli);
-				  window.location.href='#datoscli';
+				 // window.location.href='#datoscli';
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
     });
 	 
@@ -170,7 +170,7 @@ $(document).ready(function() {
 							configuravisita();
         		  		 }
 						 else{
-							 window.location.href='#datoscli';					  
+							 window.location.href='#pclientes';					  
 							 return false;
 						 }
 					  }//if (button==1){
