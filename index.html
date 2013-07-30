@@ -116,62 +116,48 @@
 	<div data-role="header" data-theme="b" >
 		<h3>Catálogo de clientes</h3>
     </div>
-    <div data-role="content" style="position:relative">
-      <!--<div style="width:300px">-->
-       <div class="ui-grid-a" >
-        <div class="ui-block-a" style="width:300px" >
-        	<div data-role="fieldcontain" data-theme="b" >
-            <label for="menu"><b>Día:</b></label>
-            <select name="Dia" id="menu" data-theme="b" class="diasruta">
-                <option value="Lunes">
-                    Lunes
-                </option>
-                <option value="Martes">
-                    Martes
-                </option>
-                <option value="Miercoles">
-                    Miercoles
-                </option>
-                <option value="Jueves">
-                    Jueves
-                </option>
-                <option value="Viernes">
-                    Viernes
-                </option>
-                <option value="Todos">
-                    Todos
-                </option>
-            </select>
-        	</div>	
-            <ul data-role="listview" data-inset="true" id="listaclientes" data-filter="true" data-filter-placeholder="Escribe Nombre" class="claselistac" data-theme="b">        	        		
-       	   </ul>
-        </div>
-        <div class="ui-block-b"></div>
-        
-      </div>
-       
-        <!--   <div id="ordencli" data-role="fieldcontain">
-            <fieldset data-role="controlgroup" data-type="vertical">
-                <input name="ordencli" id="checkcli" type="checkbox" data-theme="c">
-                <label for="checkcli">
-                    Orden Alfabético
-                </label>
-            </fieldset>
-        </div>-->
-       
-         
-
-   	 <!--  </div>-->
-    <div style="width: 466px; position: absolute; left: 350px; top: 3px; height: 169px;">
-    	<div data-role="fieldcontain" data-theme="b" > 
-		        <label for="limitecli" style="font-weight:bold">Limite de Credito:</label>
-                <input type="number" id="limitecli" readonly style="width:15%;font-size:16px; color:#F00;left: 450px;" > 
-   				<label for="ocupadocli" style="font-weight:bold;margin-top:10px;">Ocupado:</label>
-                <input type="number" id="ocupadocli" readonly style="width:15%;font-size:16px; margin-left:-20px;  color:#F00" > 
-                <center><label for="dispcli" style="font-weight:bold; margin-top:10px">Disponible: </label>
-                <input type="number" id="dispcli" readonly style="width:15%;font-size:16px; color:#F00;left: 450px;"> </center>
+    <div data-role="content" data-theme="d" >
+            <div style="width: 300px; float:left ">
+                <div data-role="fieldcontain" data-theme="b" style="width:300px">
+                <label for="menu"><b>Día:</b></label>
+                <select name="Dia" id="menu" data-theme="b" class="diasruta">
+                    <option value="Lunes">
+                        Lunes
+                    </option>
+                    <option value="Martes">
+                        Martes
+                    </option>
+                    <option value="Miercoles">
+                        Miercoles
+                    </option>
+                    <option value="Jueves">
+                        Jueves
+                    </option>
+                    <option value="Viernes">
+                        Viernes
+                    </option>
+                    <option value="Todos">
+                        Todos
+                    </option>
+                </select>
+                </div>	
+            
+            	<ul data-role="listview" data-inset="true" id="listaclientes" data-filter="true" data-filter-placeholder="Escribe Nombre" class="claselistac" data-theme="b">        	
+        		<li>hola</li>
+           
+          
+   	   		   </ul>
+            </div>
+            <div style="width: 400px; float:left;  margin-left:20px  ">   
+           		<div data-role="fieldcontain" data-theme="b" > 
+		        <label for="limitecli" style="font-weight:bold; font-size:16px">Limite de Credito:</label>
+                <input type="number" id="limitecli" readonly style="width:20%;font-size:16px; color:#F00;left: 450px;" > 
+   				<label for="ocupadocli" style="font-weight:bold; font-size:16px; margin-top:10px;">Ocupado:</label>
+                <input type="number" id="ocupadocli" readonly style="width:20%;font-size:16px; margin-left:-16px;  color:#F00" > 
+                <center><label for="dispcli" style="font-weight:bold; margin-top:10px; font-size:16px">Disponible: </label>
+                <input type="number" id="dispcli" readonly style="width:20%;font-size:16px; color:#F00"> </center>
         </div>  
-     	<div data-role="collapsible" data-theme="b" data-content-theme="e" id="agrupadatoscli">
+     			<div data-role="collapsible" data-theme="b" data-content-theme="e" id="agrupadatoscli">
 	       <h3>
                     <b>Datos del cliente</b>
            </h3>
@@ -185,7 +171,7 @@
            <h5 id="clacli">Clave</h5>           	   
            <h5 id="saldo">Saldo</h5> --> 			
         </div>   
-       <div data-role="collapsible" data-theme="b" data-content-theme="e" id="agrupacomentario">
+       			<div data-role="collapsible" data-theme="b" data-content-theme="e" id="agrupacomentario">
             
                 <h3>
                     <b>Notas de Cuentas por Cobrar</b>
@@ -193,8 +179,9 @@
                 <textarea cols="8" rows="50" name="textarea" id="notascxc" readonly></textarea>
             
         </div>   
-              
-   </div>
+         	
+            
+            </div>
   </div> 
  
 	<div data-role="footer" data-position="fixed">        
@@ -209,7 +196,6 @@
         data-icon="star" data-iconpos="left">Visita</a>     
 	</div>
 </div>
-
 
 
 <!-- P A G I N A  MUESTRA DATOS DEL CLIENTE-->
@@ -282,14 +268,12 @@
 		<h3>Operaciones del Cliente</h3>
 	</div>
 	<div data-role="content">
-       <ul data-role="listview" data-inset="true" data-theme="b">     
-        
-            <a href="#pventas" id ="bventa" data-mini="true" data-role="button"  data-icon="sardel-clientes" data-iconpos="left"> Ventas</a>        
-        
-            <a href="#" id ="bcobros" data-role="button"> Cobros</a>
-        
-          <a href="#" id ="bdevoluciones" data-role="button"> Devoluciones</a>
-		</ul>	
+        <center><a href="#pventas" id ="bventa"  data-role="button" data-theme="e" style="width: 150px"><img style="margin-left:-14px" src="jquery-mobile/images/ventas128.png"/></a></center>
+             <center><a href="#" id ="bcobros"  data-role="button" data-theme="c" style="width: 150px"><img style="margin-left:-14px" src="jquery-mobile/images/cobrar128.png"/></a></center>
+             <center> <a href="#" id ="bdevoluciones"  data-role="button" data-theme="c" style="width: 150px"><img style="margin-left:-14px" src="jquery-mobile/images/devoluciones128.png"/></a></center>
+           
+              
+      
     </div>
 	<div data-role="footer" data-position="fixed">        			
          <a href="#" class="ui-btn-right" id="regresarop" data-role="button" 
