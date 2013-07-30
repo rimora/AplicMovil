@@ -114,9 +114,11 @@
 	<div data-role="header" data-theme="b" >
 		<h3>Catálogo de clientes</h3>
     </div>
-    <div data-role="content" data-theme="e" style="position:relative">
-      <div style="width:300px">
-        <div data-role="fieldcontain" data-theme="b" >
+    <div data-role="content" style="position:relative">
+      <!--<div style="width:300px">-->
+       <div class="ui-grid-a" >
+        <div class="ui-block-a" style="width:300px" >
+        	<div data-role="fieldcontain" data-theme="b" >
             <label for="menu"><b>Día:</b></label>
             <select name="Dia" id="menu" data-theme="b" class="diasruta">
                 <option value="Lunes">
@@ -138,7 +140,14 @@
                     Todos
                 </option>
             </select>
-        </div>	
+        	</div>	
+            <ul data-role="listview" data-inset="true" id="listaclientes" data-filter="true" data-filter-placeholder="Escribe Nombre" class="claselistac" data-theme="b">        	        		
+       	   </ul>
+        </div>
+        <div class="ui-block-b"></div>
+        
+      </div>
+       
         <!--   <div id="ordencli" data-role="fieldcontain">
             <fieldset data-role="controlgroup" data-type="vertical">
                 <input name="ordencli" id="checkcli" type="checkbox" data-theme="c">
@@ -147,43 +156,44 @@
                 </label>
             </fieldset>
         </div>-->
-        <ul data-role="listview" data-inset="true" id="listaclientes" data-filter="true" data-filter-placeholder="Escribe Nombre" class="claselistac" data-theme="b" >        	
-        	<li>hola</li>
-            <li>hola</li>
-            <li>hola</li>
-            <li>hola</li>
-            <li>hola</li>
-            <li>hola</li>		
-        </ul>
+       
          
 
-   	 </div>
+   	 <!--  </div>-->
     <div style="width: 466px; position: absolute; left: 350px; top: 3px; height: 169px;">
-      <div data-role="collapsible" data-theme="b" data-content-theme="c" id="agrupadatoscli">
+    	<div data-role="fieldcontain" data-theme="b" > 
+		        <label for="limitecli" style="font-weight:bold">Limite de Credito:</label>
+                <input type="number" id="limitecli" readonly style="width:15%;font-size:16px; color:#F00;left: 450px;" > 
+   				<label for="ocupadocli" style="font-weight:bold;margin-top:10px;">Ocupado:</label>
+                <input type="number" id="ocupadocli" readonly style="width:15%;font-size:16px; margin-left:-20px;  color:#F00" > 
+                <center><label for="dispcli" style="font-weight:bold; margin-top:10px">Disponible: </label>
+                <input type="number" id="dispcli" readonly style="width:15%;font-size:16px; color:#F00;left: 450px;"> </center>
+        </div>  
+     	<div data-role="collapsible" data-theme="b" data-content-theme="e" id="agrupadatoscli">
 	       <h3>
                     <b>Datos del cliente</b>
            </h3>
            <h5 id="nomcli">Nombre</h5>     
 	       <h5 id="direccion">Dirección</h5>
 	       <h5 id="tipo">Tipo</h5>       
-   	       <h5 id="limitecredito">Límite de Crédito</h5> 
- 			<!--
+   	      <!-- <h5 id="limitecredito">Límite de Crédito</h5> 
+ 			
     	   <h5 id="diascredito">Días de Crédito</h5>       
        	   <h5 id="telefono">Telefono</h5>  
            <h5 id="clacli">Clave</h5>           	   
            <h5 id="saldo">Saldo</h5> --> 			
         </div>   
-       <div data-role="collapsible" data-theme="b" data-content-theme="c" id="agrupacomentario">
+       <div data-role="collapsible" data-theme="b" data-content-theme="e" id="agrupacomentario">
             
                 <h3>
                     <b>Notas de Cuentas por Cobrar</b>
                 </h3>
                 <textarea cols="8" rows="50" name="textarea" id="notascxc" readonly></textarea>
             
-        </div>    
-   
+        </div>   
+              
    </div>
-   </div> 
+  </div> 
  
 	<div data-role="footer" data-position="fixed">        
 
@@ -249,10 +259,7 @@
                      <div class="ui-block-e"><strong>Monto</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>
                      --> 
 				</div><!-- /grid-d --> 
-                <label> Saldo </label>
-                <input type="number" id="saldocli" readonly style="width:15%;font-size:16px; color:#F00" > 
-                <label> Monto </label>
-                <input type="number" id="montocli" readonly style="width:15%;font-size:16px; color:#F00"> 
+                
 				
 				
         </div>     
