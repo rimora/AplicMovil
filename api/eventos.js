@@ -45,7 +45,7 @@ $(document).ready(function() {
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });			   
 			  
-	$("#clientes").tap(function() { 
+	$("#bclientes").tap(function() { 
                  //var clavecli = $(this).attr("id");
 				 //botón clientes, genera lista con los clientes del día lunes
 				  //alert ('llama a mostrar clientes');
