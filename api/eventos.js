@@ -8,6 +8,7 @@ $(document).ready(function() {
 		
 	
 	});*/	
+	 $('#apDiv1').show(); 
 	window.localStorage.clear();
 	//obtenerconse();//funcion que almacena localmente los consecutivos de documentos actuales.funcion en configuraciones.js
 	window.localStorage.setItem("saldo",0);	
@@ -931,14 +932,19 @@ $("#bimprimirf").tap(function() {
 				  window.location.href='#prepvisitas';
 				  repvisitas();								  
 	  });
-	   $("#b1").tap(function() {
+	   $("#b11").tap(function() {
 	       navigator.notification.alert('entra tap reporte1',null,'pruebas','Aceptar');  
            toggleWatchPosition();                             
        });
-       $("#b2").tap(function() {                                                   
+       $("#b22").tap(function() {                                                   
            getCurrentPosition();                          
        }); 
-	   
+	    $("#bpagarimp").tap(function() {                                                   
+          $('#apDiv1').show();                         
+       });
+	   $("#blimpiar").tap(function() {                                                   
+          $('#apDiv1').hide();                         
+       });
 	   
   },false);//document.addEventListener("deviceready",function(){	
 });//$(document).ready(function() 

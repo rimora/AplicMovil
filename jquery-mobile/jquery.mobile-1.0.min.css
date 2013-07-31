@@ -4,9 +4,7 @@
 	border: 0;
 	float: left;
 	min-height: 1px;
-	margin-top: 0px;
-	margin-right: -60px;
-	margin-bottom: -10px;
+	margin-top: 0px;	
 	margin-left: 0;
 }.ui-grid-solo .ui-block-a{width:100%;float:none}.ui-grid-a .ui-block-a,.ui-grid-a .ui-block-b{width:50%}.ui-grid-a .ui-block-a{clear:left}.ui-grid-b .ui-block-a,.ui-grid-b .ui-block-b,.ui-grid-b .ui-block-c{
 	width: 33.333%;
