@@ -47,8 +47,8 @@
 				<h4 class="help"><b>Toggle</b> to stop/start
 				geolocation watch. <br/><b>Get Current</b> for one-time geolocation reading.</h4>
 				<div class="ui-grid-a">
-					<div class="ui-block-a"><div data-role="button" id="b1">Toggle</div></div>
-					<div class="ui-block-b"><div data-role="button" id="b2">Get Current</div></div>
+					<div class="ui-block-a"><div data-role="button" id="b11">Toggle</div></div>
+					<div class="ui-block-b"><div data-role="button" id="b22">Get Current</div></div>
 				</div>
    				<div id="cur_position"></div>
    				<img id="map"/>								
@@ -72,10 +72,10 @@
 	</div>
 	<div data-role="content">	
 		
-            <a href="#" id ="bclientes"  data-role="button" data-theme="e" style="left: 20px; position: relative; width: 150px"><img src="jquery-mobile/images/clientes.png"/></a>
-            <a href="#" id ="bdepositos"  data-role="button" data-theme="c" style="left: 70px; position: relative; width: 150px"><img src="jquery-mobile/images/depositos128.png"/></a>
-             <a href="#" id ="breportes"  data-role="button" data-theme="c" style="left: 120px; position: relative; width: 150px"><img src="jquery-mobile/images/reportes128.png"/></a>
-             <a href="#pdatos" id ="bdatos"  data-role="button" data-theme="c" style="left: 170px; position: relative; width: 150px"><img src="jquery-mobile/images/datos128.png"/></a>
+            <a href="#" id ="bclientes"  data-role="button" data-theme="e" style="left: 20px; position:absolute; width: 150px"><img src="jquery-mobile/images/clientes.png"/></a>
+            <a href="#" id ="bdepositos"  data-role="button" data-theme="c" style="left: 236px; position: absolute; width: 150px; top: 53px;"><img src="jquery-mobile/images/depositos128.png"/></a>
+             <a href="#" id ="breportes"  data-role="button" data-theme="c" style="left: 465px; position: absolute; width: 150px; top: 53px;"><img src="jquery-mobile/images/reportes128.png"/></a>
+             <a href="#pdatos" id ="bdatos"  data-role="button" data-theme="c" style="left: 698px; position: absolute; width: 150px; top: 53px;"><img src="jquery-mobile/images/datos128.png"/></a>
             
             
             
@@ -596,7 +596,7 @@
 	     </div><!--div grid c-->	                        
                 <div class="ui-grid-d" id="gridfacpendientes" style="float: left; position: absolute; left: 10px; width: 572px; height: auto">
 					<div class="ui-block-a" style="width:110px" ><div class="ui-bar ui-bar-a">Documento</div></div>
-              		<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-a">Ven.</div></div>
+              		<div class="ui-block-b" style="width:130px"><div class="ui-bar ui-bar-a">Ven.</div></div>
 		            <div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-a">Dias V.</div></div>
         		    <div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-a">Importe</div></div>
 		            <div class="ui-block-e"  >
@@ -611,13 +611,13 @@
                     
 				</div>
       	<!-- /grid-d --> 
-                <div id="divencnum" style="position: absolute; left: 742px; top:50px; width: 224px; height: auto">
-                <label for="importecobro" style="font-weight: bold">Distribuir Importe en Facturas:</label>
+                <div id="divencnum" style="position: absolute; left: 742px; top:60px; width: 224px; height: auto">
+                <label style="font-weight: bold">Distribuir Importe en Facturas:</label>
                 <a href="#" id ="bcopiarsaldofac" data-role="button" data-theme="b" >Copiar Saldo a Pagar</a>
                 </div>
-                <div id="divnumcobros" style="position: absolute; left: 742px; top: 180px; width: 224px; height: auto">
+                <div id="divnumcobros" style="position: absolute; left: 742px; top: 190px; width: 224px; height: auto">
       <label for="importecobro" style="position: absolute; left: 7px; top: -23px; font-weight: bold">Importe:</label>
-      <input type="text" id="importecobro" style="width: 76px; float: left; position: absolute; right: 10px; top: -31px" maxlength="8" readonly>
+      <input type="text" id="importecobro" style="width: 76px; float: left; position: absolute; right: 10px; top: -31px" maxlength="7" readonly>
       <div class="ui-grid-b">
         <div class="ui-block-a"><a href="#" id ="b1" data-role="button" data-theme="b" class="tecladonuma" >1</a></div>
         <div class="ui-block-b"><a href="#" id ="b2"  data-role="button" data-theme="b" class="tecladonumb">2</a></div>

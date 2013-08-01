@@ -26,7 +26,7 @@ function listafacturaspend(cliente){
 			 var disponible=0;
 			 //agrega encabezado de grid
 			  html+='<div class="ui-block-a" style="width:110px" ><div class="ui-bar ui-bar-a">Documento</div></div>';
-              html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-a">Ven.</div></div>';
+              html+='<div class="ui-block-b" style="width:130px"><div class="ui-bar ui-bar-a">Ven.</div></div>';
 		      html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-a">Dias V.</div></div>';
         	  html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-a">Importe</div></div>';
 		      html+='<div class="ui-block-e"  >';
@@ -56,7 +56,7 @@ function listafacturaspend(cliente){
 						html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-b">'+row['documento']+'</div></div>';
 					}
 					
-					 html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b">'+row['fechaven']+'</div></div>';
+					 html+='<div class="ui-block-b" style="width:130px"><div class="ui-bar ui-bar-b">'+row['fechaven']+'</div></div>';
 		      html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-b">'+row['diasv']+'</div></div>';
         	  html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b">'+monto.toFixed(2)+'</div></div>';
 		      html+='<div class="ui-block-e"  >';
@@ -70,7 +70,7 @@ function listafacturaspend(cliente){
 			  });//.each
 			         resta=saldot-abonot;
 					 disponible=Number(limite)-Number(resta);
-					 html+='<div class=ui-block-a style="width:170px; font-size:18px;font-weight:bold">Limite de Credito:</div>';
+					 html2+='<div class=ui-block-a style="width:170px; font-size:18px;font-weight:bold">Limite de Credito:</div>';
            	 html2+='<div class=ui-block-b style="width:100px"><label style="width:18%;font-size:18px; color:#F00;font-weight:bold">'+limite.toFixed(2)+'</label></div>';
              html2+='<div class=ui-block-c style="width:100px; font-size:18px;font-weight:bold">Disponible:</div>';
              html2+='<div class=ui-block-d style="width:100px"><label style="width:18%;font-size:18px; color:#F00;font-weight:bold">'+disponible.toFixed(2)+'</label></div>';
@@ -93,7 +93,7 @@ function listafacturaspend(cliente){
 	
 }// listafacturaspend(cliente)
 function copiatemcobros(cliente,copiar){	//llamada de eventos.js
-//el parametro copiar indica si el usuario seleccion el boton de copiar la columna saldo a la columna a pagar
+//el parametro copiar indica si el usuario selecciono el boton de copiar la columna saldo a la columna a pagar
 //
 	function listo(tx,results){
 		   $.each(results.rows,function(index){           
@@ -124,11 +124,13 @@ function copiatemcobros(cliente,copiar){	//llamada de eventos.js
 }//function copiatemcobros()
 function mostrardcob(factura){	
 	var html="";
+	alert('entra mostrardcob');
 	$("#divencnum").empty();
 	html+='<label style="font-weight: bold">Indicar Abono a Factura:'+factura+'</label>';
-    html+='<a href="#" id ="bcopiarsaldofac" data-role="button" data-theme="b" >Copiar Saldo a Pagar</a>';
+    html+=' <a href="#" id ="bcopiarsaldofac" data-role="button" data-theme="b">Copiar Saldo a Pagar</a>';
 	$("#divencnum").append(html); 	
 	$("#divencnum").show();
+alert('despues de agregar en el div');
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){			
 			 	var row = results.rows.item(0); 

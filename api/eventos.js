@@ -635,6 +635,7 @@ $("#bimprimirf").tap(function() {
 	  $("#bcobros").tap(function() {                   				  
 				  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
 				  window.location.href='#pcobros';
+				  $("#divencnum").hide();
 				  $("#labelencpcobros").empty();	
 				  $("#labelencpcobros").append("Cobrar Facturas pendientes del cliente: "+cliente);				  				 				  
 				  eliminatempcob();
@@ -649,15 +650,18 @@ $("#bimprimirf").tap(function() {
 		  pagarximp();
 		  
        });
-	    $("#blimpiar").tap(function() { //limpiar la columna "A pagar" del grid que muestra las facturas pendientes de cobro                                                  
+	    $("#blimpiar").tap(function() { //limpiar la columna "A pagar" del grid que muestra las facturas pendientes de cobro
+		  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente                                                   
           $('#divnumcobros').hide();//oculta el teclado numerico con el input                         
 		   eliminatempcob();
 		   listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado	
        });
 	   $("#bcopiarsaldo").tap(function() { //limpiar la columna "A pagar" del grid que muestra las facturas pendientes de cobro
+	       var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
 	       $('#divnumcobros').hide();//oculta el teclado numerico con el input
+		   $("#divencnum").hide(); 
 		   eliminatempcob();
-	       copiatemcobros(cliente);//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
+	       copiatemcobros(cliente,'S');//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
 		   listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado	
        });
 	 $("a.clasecob").live('click',function(){//para indicar importe a pagar de la factura
@@ -956,9 +960,11 @@ $("#bimprimirf").tap(function() {
 	   //**********TECLADO NUMERICO	 *************	
 	   $("#baceptarimp").tap(function() {                                                   
            $('#divnumcobros').hide(); 
+		   $("#divencnum").hide(); 
        }); 
 	   $("#bcancelarimp").tap(function() {                                                   
            $('#divnumcobros').hide(); 
+		   $("#divencnum").hide(); 
        }); 
 	   $("#b1").tap(function() {  
 	    var importe=$('#importecobro').val();	                                                    

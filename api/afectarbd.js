@@ -449,14 +449,14 @@ function actexis(articulo,cantidad){
 			}
 		}	
 }//function  actexis
-function insertatempcob(factura,saldo){
+function insertatempcob(factura,abono,saldo){
 	   //alert('inserttafactura'+cantidad);
 	    consultadb().transaction(insertadet,function(err){
     	  alert("Error al insertar renglon temcobros: "+err.code+err.message);
           });
 				
     	function insertadet(tx) {		
-		   tx.executeSql('INSERT INTO TEMCOBROS (factura,abonado,saldo) VALUES ("'+factura+'",'+0+','+saldo+')');		
+		   tx.executeSql('INSERT INTO TEMCOBROS (factura,abonado,saldo) VALUES ("'+factura+'",'+abono+','+saldo+')');		
 		}
 	
 }//function insertatempcob(factura)
@@ -625,7 +625,7 @@ function guardavisita(cliente,visitaini,visitafin,visitaini,notas,razon,ruta){
 		//alert('entra a insertadet');				
 			tx.executeSql('INSERT INTO VISITA (cliente,fecha_plan,fin,inicio,notas,razon,ruta) VALUES("'+cliente+'","'+visitaini+'","'+visitafin+'","'+visitaini+'","'+notas+'","'+razon+'","'+ruta+'")'); 
 		}
-
+ 
 }//function guardavisita
 
 function f1_1(){
