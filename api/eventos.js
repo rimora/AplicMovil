@@ -8,7 +8,7 @@ $(document).ready(function() {
 		
 	
 	});*/	
-	 $('#divnumcobros').hide(); 
+	 //$('#divnumcobros').hide(); 
 	window.localStorage.clear();
 	//obtenerconse();//funcion que almacena localmente los consecutivos de documentos actuales.funcion en configuraciones.js
 	window.localStorage.setItem("saldo",0);	

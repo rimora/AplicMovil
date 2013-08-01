@@ -399,35 +399,36 @@ function pagarximp(factura){
 	$("#divencnum").append(html); 	
 	$('#importecobro').val('');
 	$("#divencnum").show();
-	 
-/*
-	function listo(tx,results){ 	      
+	 function listo(tx,results){ 	      
 	      if (results.rows.length>0){			
 			 	var row = results.rows.item(0); 
-				if (row['abonado']==0){
-					$("#importecobro").val(row['saldo']);
-				}
-				else{
-					$("#importecobro").val(row['abonado']);
-					
-				}
+			    var saldo=Number(row['saldo']);
+			 //if (row['cantidad']>0){
+			 	//preparadetalletemp(row['articulo'],row['cantidad']);																
+ 			 	if (cantidad>saldo){//
+					navigator.notification.alert('Cantidad a pagar debe ser menor o igual al saldo '+cantidad+'  '+saldo,null,'Error Indicando Cantidad','Aceptar');						 					
+					return false;				 
+				 }
+				 //alert('pasa depues del if');
+				 actualizatempcob(factura,cantidad); //funcion de afectarbd.js
+				 listafacturaspend(window.localStorage.getItem("clave"));
+				
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
 	function consultatemp(tx){   	       
 				//alert('articulo de MODIFICAR temPEDIDO '+articulo);
-				 var sql='SELECT a.factura,a.abonado,a.saldo ';
-	   			 sql+='FROM TEMCOBROS a ';	
-				 sql+='where a.factura="'+factura+'"';	
+				 var sql='SELECT a.documento,a.saldo ';
+	   			 sql+=' FROM PENCOBRO a ';	
+				 sql+=' where a.documento="'+factura+'"';	
 		
 								
 			tx.executeSql(sql,[],listo,function(err){
-    	 		 alert("Error consultar temporal TEMCOBROS para dialogo: "+articulo+err.code+err.message);
+    	 		 alert("Error consultar PENCOBRO : "+articulo+err.code+err.message);
          		});    									
 	}
 	consultadb().transaction(consultatemp, function(err){
-    	 			 alert("Error select tabla temporal TEMCOBROS: "+err.code+err.message);
-         		});		
-	*/			
+    	 			 alert("Error select tabla PENCOBRO: "+err.code+err.message);
+         		});	
 }//function pagarximp
 
 
