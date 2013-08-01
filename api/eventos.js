@@ -663,6 +663,7 @@ $("#bimprimirf").tap(function() {
 		  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente                                                   
           $('#divnumcobros').hide();//oculta el teclado numerico con el input                         
 		   eliminatempcob();
+		   copiatemcobros(cliente);
 		   listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado	
 		   $('#divnumcobros').hide(); 
 		   $("#divencnum").hide();
