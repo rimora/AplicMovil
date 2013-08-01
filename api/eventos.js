@@ -74,6 +74,7 @@ $(document).ready(function() {
 				  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
 				  window.location.href='#pcobros';
 				  $("#divencnum").hide();
+				  $("#divnumcobros").hide();
 				  $("#labelencpcobros").empty();	
 				  $("#labelencpcobros").append("Cobrar Facturas pendientes del cliente: "+cliente);				  				 				  
 				  eliminatempcob();
@@ -648,9 +649,9 @@ $("#bimprimirf").tap(function() {
 				   
      });
 	  $("#bpagarimp").tap(function() {  //indicar importe para distribuir entre facturas                                                 
-          $('#divnumcobros').show(); //muestra el teclado numerico con el input                        
+		  $('#divnumcobros').show(); //muestra el teclado numerico con el input                        
 		  $("#divencnum").empty();
-		  html+='<label style="font-weight: bold">Distribuir Importe en Facturas</label>';    
+		  var html='<label style="font-weight: bold">Distribuir Importe en Facturas</label>';    
 		  $("#divencnum").append(html); 	
           $('#importecobro').val('');
           $("#divencnum").show();
@@ -672,6 +673,8 @@ $("#bimprimirf").tap(function() {
 		   $("#divencnum").hide(); 
 		   eliminatempcob();
 	       copiatemcobros(cliente,'S');//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
+		   navigator.notification.alert('Despues de copiar saldo',null,'Error Indicando Cantidad','Aceptar');		
+		   navigator.notification.alert(cliente,null,'Error Indicando Cantidad','Aceptar');		
 		   listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado	
        });
 	   $("#bcopiarsaldofac").tap(function() { //copiar el saldo de la fac seleccionada a la columna de A pagar

@@ -450,7 +450,7 @@ function actexis(articulo,cantidad){
 		}	
 }//function  actexis
 function insertatempcob(factura,abono,saldo){
-	   //alert('inserttafactura'+cantidad);
+	   alert('inserttafactura'+factura);
 	    consultadb().transaction(insertadet,function(err){
     	  alert("Error al insertar renglon temcobros: "+err.code+err.message);
           });
