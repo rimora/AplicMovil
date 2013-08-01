@@ -674,11 +674,11 @@ $("#bimprimirf").tap(function() {
 		   $("#divencnum").hide(); 
 		   eliminatempcob();
 	       copiatemcobros(cliente,'S');//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
-		   navigator.notification.alert('Despues de copiar saldo',null,'Error Indicando Cantidad','Aceptar');		
-		   navigator.notification.alert(cliente,null,'Error Indicando Cantidad','Aceptar');		
+		   navigator.notification.alert('Despues de copiar saldo',null,'Error Indicando Cantidad','Aceptar');				   
 		   listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado	
        });
 	   $("#bcopiarsaldofac").tap(function() { //copiar el saldo de la fac seleccionada a la columna de A pagar
+	   alert('holA');
 	       var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 		   
 		   var factura=window.localStorage.getItem("factura");//Obtiene clave del cliente 		   
 	       copiarsaldoapagar(factura);

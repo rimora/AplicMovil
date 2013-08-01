@@ -46,6 +46,7 @@ function listafacturaspend(cliente){
 						var saldo= Number(row['saldo']);												 						
 						saldot+=Number(saldo);
 						abonot+=abonado;
+						navigator.notification.alert('entra listo '+row['documento']+' '+abonado+' '+saldo,null,'','Aceptar');	
 					 //importe=precio*row['cantidad'];
 					 //total+=Number(importe);					 
 					if (row['vencida']=='S') {
@@ -96,10 +97,13 @@ function listafacturaspend(cliente){
 function copiatemcobros(cliente,copiar){	//llamada de eventos.js
 //el parametro copiar indica si el usuario selecciono el boton de copiar la columna saldo a la columna a pagar
 //
+navigator.notification.alert('copiatemcobros '+cliente+' '+copiar,null,'','Aceptar');	
 	function listo(tx,results){
 		   $.each(results.rows,function(index){           
 			 var row = results.rows.item(index); 
+			 navigator.notification.alert('entra a each '+cliente+' '+copiar,null,'','Aceptar');	
 			 if (copiar=='S'){
+				 navigator.notification.alert('entra si copiar es S '+cliente+' '+copiar,null,'','Aceptar');	
 			 insertatempcob(row['documento'],row['saldo'],row['saldo']); //funcion de afectarbd.js
 			 }
 			 else{
@@ -127,7 +131,7 @@ function mostrardcob(factura){
 	var html="";
 	
 	$("#divencnum").empty();
-	html+='<label style="font-weight: bold">Indicar Abono a Factura:'+factura+'</label>';
+	html='<label style="font-weight: bold">Indicar Abono a Factura:'+factura+'</label>';
     html+=' <a href="#" id ="bcopiarsaldofac" data-role="button" data-theme="b">Copiar Saldo a Pagar</a>';
 	$("#divencnum").append(html); 	
 	$("#divencnum").show();
@@ -402,9 +406,10 @@ function pagarximp(cliente,cantidad){
 				var factura=Number(row['documento']);
 			 //if (row['cantidad']>0){
 			 	//preparadetalletemp(row['articulo'],row['cantidad']);																
- 			 	if (cantidad>saldo){//
+ 			 	if (cantidad>=saldo){//
 				   actualizatempcob(factura,saldo); //funcion de afectarbd.js
 				   cantidad=cantidad-saldo;
+				   alert('cantidad de pagarximp '+cantidad);
 				 			 
 				 }
 				 else
