@@ -392,16 +392,13 @@ var recibo=inicial+pad(incrementarec,6);
          		});		
 				
 }//function guardacob
-function pagarximp(factura){	
+function pagarximp(cliente,cantidad){	
 	var html="";
-	$("#divencnum").empty();
-	html+='<label style="font-weight: bold">Distribuir Importe en Facturas</label>';    
-	$("#divencnum").append(html); 	
-	$('#importecobro').val('');
-	$("#divencnum").show();
-	 function listo(tx,results){ 	      
-	      if (results.rows.length>0){			
-			 	var row = results.rows.item(0); 
+	
+	 function listo(tx,results){ 	      	       
+			  $.each(results.rows,function(index){				  
+				var row = results.rows.item(index); 				
+			 	
 			    var saldo=Number(row['saldo']);
 			 //if (row['cantidad']>0){
 			 	//preparadetalletemp(row['articulo'],row['cantidad']);																
@@ -413,13 +410,12 @@ function pagarximp(factura){
 				 actualizatempcob(factura,cantidad); //funcion de afectarbd.js
 				 listafacturaspend(window.localStorage.getItem("clave"));
 				
-		  }//if (results.rows.length>0){		  
+		  });//.each	  
  	}//function listo(tx,results){ 
 	function consultatemp(tx){   	       
 				//alert('articulo de MODIFICAR temPEDIDO '+articulo);
-				 var sql='SELECT a.documento,a.saldo ';
-	   			 sql+=' FROM PENCOBRO a ';	
-				 sql+=' where a.documento="'+factura+'"';	
+				var sql='SELECT a.documento,a.saldo,a.monto,a.fechaven,b.abonado,a.vencida,a.diasv FROM PENCOBRO a ';		
+				sql+=' left outer join TEMCOBROS b on b.factura=a.documento WHERE a.cliente="'+cliente+'" ORDER BY fechaven'
 		
 								
 			tx.executeSql(sql,[],listo,function(err){

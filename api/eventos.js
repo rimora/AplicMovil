@@ -649,7 +649,13 @@ $("#bimprimirf").tap(function() {
      });
 	  $("#bpagarimp").tap(function() {  //indicar importe para distribuir entre facturas                                                 
           $('#divnumcobros').show(); //muestra el teclado numerico con el input                        
-		  pagarximp();
+		  $("#divencnum").empty();
+		  html+='<label style="font-weight: bold">Distribuir Importe en Facturas</label>';    
+		  $("#divencnum").append(html); 	
+          $('#importecobro').val('');
+          $("#divencnum").show();
+		  window.localStorage.setItem("tipo","I");
+		  
 		  
        });
 	    $("#blimpiar").tap(function() { //limpiar la columna "A pagar" del grid que muestra las facturas pendientes de cobro
@@ -971,7 +977,9 @@ $("#bimprimirf").tap(function() {
        }); 
 	   //**********TECLADO NUMERICO	 *************	
 	   $("#baceptarimp").tap(function() {                                                   
-	       var cantidad=Number($('#importecobro').val());				 				 
+	       var tipo=window.localStorage.getItem("tipo");
+		   
+		   var cantidad=Number($('#importecobro').val());				 				 
 				  //alert (cantidad);
 				  if (cantidad.length==0){
 					   navigator.notification.alert('Debe indicar cantidad valida',null,'Error Indicando Cantidad','Aceptar');					
@@ -979,15 +987,23 @@ $("#bimprimirf").tap(function() {
 				  }
 				  else
 				  {
+					  if (tipo=='I'){
+						  var cliente= window.localStorage.getItem("clave");
+						  pagarximp(cliente,cantidad);
+			   			  window.localStorage.setItem("tipo",'O')
+					   }
+		   			 else{
 				    
     				var factura = window.localStorage.getItem("factura");
 	     			//alert (cantidad);	  
 					insertacobro(factura,cantidad);	//actualiza cantidad a pagar de factura en tabla temporal de fac pend de cobro.Funcion en cobros.js				
     				 //alert('despues de llamada modificarlineap');
 					 //mostrarpedido();
+					 }
 				  }
            $('#divnumcobros').hide(); 
 		   $("#divencnum").hide(); 
+		   
        }); 
 	   $("#bcancelarimp").tap(function() {                                                   
            $('#divnumcobros').hide(); 
