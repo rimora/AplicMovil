@@ -988,15 +988,21 @@ $("#bimprimirf").tap(function() {
 				  else
 				  {
 					  if (tipo=='I'){
+						  if (cantidad==0 || cantidad.length==0){//
+							navigator.notification.alert('Cantidad a pagar debe ser mayor a cero ',null,'Error Indicando Cantidad','Aceptar');						 					
+							return false;				 
+				 			}
 						  var cliente= window.localStorage.getItem("clave");
 						  pagarximp(cliente,cantidad);
 			   			  window.localStorage.setItem("tipo",'O')
+						  listafacturaspend(cliente);
 					   }
 		   			 else{
 				    
     				var factura = window.localStorage.getItem("factura");
 	     			//alert (cantidad);	  
 					insertacobro(factura,cantidad);	//actualiza cantidad a pagar de factura en tabla temporal de fac pend de cobro.Funcion en cobros.js				
+					
     				 //alert('despues de llamada modificarlineap');
 					 //mostrarpedido();
 					 }

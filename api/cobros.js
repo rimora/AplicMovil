@@ -394,21 +394,29 @@ var recibo=inicial+pad(incrementarec,6);
 }//function guardacob
 function pagarximp(cliente,cantidad){	
 	var html="";
-	
+	var disponible=0;
 	 function listo(tx,results){ 	      	       
 			  $.each(results.rows,function(index){				  
-				var row = results.rows.item(index); 				
-			 	
+				var row = results.rows.item(index);
 			    var saldo=Number(row['saldo']);
+				var factura=Number(row['documento']);
 			 //if (row['cantidad']>0){
 			 	//preparadetalletemp(row['articulo'],row['cantidad']);																
  			 	if (cantidad>saldo){//
-					navigator.notification.alert('Cantidad a pagar debe ser menor o igual al saldo '+cantidad+'  '+saldo,null,'Error Indicando Cantidad','Aceptar');						 					
-					return false;				 
+				   actualizatempcob(factura,saldo); //funcion de afectarbd.js
+				   cantidad=cantidad-saldo;
+				 			 
 				 }
+				 else
+				 {
+                   actualizatempcob(factura,cantidad); //funcion de afectarbd.js
+				   cantidad=0;
+					 
+				 }
+				 
+				 
 				 //alert('pasa depues del if');
-				 actualizatempcob(factura,cantidad); //funcion de afectarbd.js
-				 listafacturaspend(window.localStorage.getItem("clave"));
+				 
 				
 		  });//.each	  
  	}//function listo(tx,results){ 
