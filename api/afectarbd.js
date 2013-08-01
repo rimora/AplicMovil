@@ -109,7 +109,7 @@ function insertar(){
         tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia CUATRO", "1050","Jueves","Dirección del cliente  CUATRO","2281545130","C","30",5000.00,8000.00)'); 		
 		 tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ("1","00041534","1020",437.55,437.55,"08/05/2013","08/06/2013","S",54)');  		       
 		 tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ( "1","00041535","1020",888.55,1000.55,"15/05/2013","15/06/2013","S",31)');  
-		 tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ( "1","00041537","1020",998.55,1000.55,"15/05/2013","15/06/2013","N",31)');        
+		 tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ( "1","00041537","1020",998.55,1000.55,"15/05/2013","15/06/2013","S",31)');        
 		 tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ( "1","00041536","1030",5000.00,5000.00,"08/06/2013","08/07/2013","N",24)');        
 		  tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ( "1","00041540","1030",5000.00,5000.00,"08/06/2013","08/07/2013","N",24)');        
 		   tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ( "1","00041538","1030",5000.00,5000.00,"08/06/2013","08/07/2013","N",24)');        
@@ -471,6 +471,17 @@ function actualizatempcob(factura,cantidad){
 		}
 	
 }//function actualizatempcob(factura,cantidad)
+function copiarsaldoapagar(factura){
+	   //alert('actualiza tempcob'+factura+' '+cantidad);
+	    consultadb().transaction(insertadet,function(err){
+    	  alert("Error al modificar renglon TEMCOBROS: "+err.code+err.message);
+          });
+				
+    	function insertadet(tx) {		
+		tx.executeSql('UPDATE TEMCOBROS SET abonado=saldo where factura="'+factura+'"');		
+		}
+	
+}//function  copiarsaldoapagar
 function eliminatempcob(){
 	   //alert('inserttafactura'+cantidad);
 	    consultadb().transaction(insertadet,function(err){

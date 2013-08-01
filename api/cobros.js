@@ -26,7 +26,7 @@ function listafacturaspend(cliente){
 			 var disponible=0;
 			 //agrega encabezado de grid
 			  html+='<div class="ui-block-a" style="width:110px" ><div class="ui-bar ui-bar-a">Documento</div></div>';
-              html+='<div class="ui-block-b" style="width:130px"><div class="ui-bar ui-bar-a">Ven.</div></div>';
+              html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-a">Vencimiento</div></div>';
 		      html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-a">Dias V.</div></div>';
         	  html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-a">Importe</div></div>';
 		      html+='<div class="ui-block-e"  >';
@@ -49,14 +49,14 @@ function listafacturaspend(cliente){
 					 //importe=precio*row['cantidad'];
 					 //total+=Number(importe);					 
 					if (row['vencida']=='S') {
-						html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-e">'+row['documento']+'</div></div>';
+						html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-e"><a href="#" class="clasecob" name="'+row['documento']+'"><font color="FFFFFF">'+row['documento']+'</font></a></div></div>';
 					}
 					else
 					{
-						html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-b">'+row['documento']+'</div></div>';
+						html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-b"><a href="#" class="clasecob" name="'+row['documento']+'"><font color="FFFFFF">'+row['documento']+'</font></a></div></div>';
 					}
 					
-					 html+='<div class="ui-block-b" style="width:130px"><div class="ui-bar ui-bar-b">'+row['fechaven']+'</div></div>';
+					 html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b">'+row['fechaven']+'</div></div>';
 		      html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-b">'+row['diasv']+'</div></div>';
         	  html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b">'+monto.toFixed(2)+'</div></div>';
 		      html+='<div class="ui-block-e"  >';
@@ -64,7 +64,8 @@ function listafacturaspend(cliente){
               html+='<div class="ui-block-a" style="width:90px">';
               html+='<div class="ui-bar ui-bar-b">'+saldo.toFixed(2)+'</div></div>';
               html+='<div class="ui-block-b" style="width:100px">';
-              html+='<div class="ui-bar ui-bar-b"><a href="#" class="clasecob" name="'+row['documento']+'"><font color="FFFFFF">'+abonado.toFixed(2)+'</font></a></div></div>';
+             // html+='<div class="ui-bar ui-bar-b"><a href="#" class="clasecob" name="'+row['documento']+'"><font color="FFFFFF">'+abonado.toFixed(2)+'</font></a></div></div>';
+			  html+='<div class="ui-bar ui-bar-b">'+abonado.toFixed(2)+'</div></div>';
               html+='</div>';                    
               html+='</div>';	                  	 
 			  });//.each
@@ -124,13 +125,13 @@ function copiatemcobros(cliente,copiar){	//llamada de eventos.js
 }//function copiatemcobros()
 function mostrardcob(factura){	
 	var html="";
-	alert('entra mostrardcob');
+	
 	$("#divencnum").empty();
 	html+='<label style="font-weight: bold">Indicar Abono a Factura:'+factura+'</label>';
     html+=' <a href="#" id ="bcopiarsaldofac" data-role="button" data-theme="b">Copiar Saldo a Pagar</a>';
 	$("#divencnum").append(html); 	
 	$("#divencnum").show();
-alert('despues de agregar en el div');
+
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){			
 			 	var row = results.rows.item(0); 
@@ -335,7 +336,7 @@ var monefe=Number(window.localStorage.getItem("efectivo"));
 var monche=Number(window.localStorage.getItem("cheque"));
 var cliente=window.localStorage.getItem("clave");
 var consecutivo=window.localStorage.getItem("conserec");
-alert(consecutivo);
+//alert(consecutivo);
 var ruta=window.localStorage.getItem("ruta");
 var horaini=window.localStorage.getItem("fechahora");//fecha y hora actual guardada cuando inicio la devolución de la factura.
 guardafechaactual();//guarda en memoria la fecha con hora, actuales
@@ -396,7 +397,9 @@ function pagarximp(factura){
 	$("#divencnum").empty();
 	html+='<label style="font-weight: bold">Distribuir Importe en Facturas</label>';    
 	$("#divencnum").append(html); 	
+	$('#importecobro').val('');
 	$("#divencnum").show();
+	 
 /*
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){			

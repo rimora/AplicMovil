@@ -73,13 +73,15 @@ $(document).ready(function() {
    $("#bvisita").tap(function() {    //inicia visita               				  
 				  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
 				  window.location.href='#pcobros';
+				  $("#divencnum").hide();
 				  $("#labelencpcobros").empty();	
-				  $("#labelencpcobros").append("Facturas pendientes del cliente: "+cliente);				  
+				  $("#labelencpcobros").append("Cobrar Facturas pendientes del cliente: "+cliente);				  				 				  
 				  eliminatempcob();
 				  copiatemcobros(cliente);//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
 				  listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado				  				  
 				  guardafechaactual();
-				  iniciavisita();//guarda registro de fecha y hora de visita.funcion en almacenamiento.js
+				  iniciavisita();//guarda registro de fecha y hora de visita.funcion en almacenamiento.js			  
+				  
 				  			  
 				   
      });			   			   
@@ -655,6 +657,8 @@ $("#bimprimirf").tap(function() {
           $('#divnumcobros').hide();//oculta el teclado numerico con el input                         
 		   eliminatempcob();
 		   listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado	
+		   $('#divnumcobros').hide(); 
+		   $("#divencnum").hide();
        });
 	   $("#bcopiarsaldo").tap(function() { //limpiar la columna "A pagar" del grid que muestra las facturas pendientes de cobro
 	       var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
@@ -664,6 +668,14 @@ $("#bimprimirf").tap(function() {
 	       copiatemcobros(cliente,'S');//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
 		   listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado	
        });
+	   $("#bcopiarsaldofac").tap(function() { //copiar el saldo de la fac seleccionada a la columna de A pagar
+	       var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 		   
+		   var factura=window.localStorage.getItem("factura");//Obtiene clave del cliente 		   
+	       copiarsaldoapagar(factura);
+		   listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado	
+       });
+	   
+	   
 	 $("a.clasecob").live('click',function(){//para indicar importe a pagar de la factura
                   var factura = $(this).attr("name");//el nombre tiene el numero de documento en la tabla PENCOBRO
 				 /* var id = $(this).attr("id");
@@ -959,6 +971,21 @@ $("#bimprimirf").tap(function() {
        }); 
 	   //**********TECLADO NUMERICO	 *************	
 	   $("#baceptarimp").tap(function() {                                                   
+	       var cantidad=Number($('#importecobro').val());				 				 
+				  //alert (cantidad);
+				  if (cantidad.length==0){
+					   navigator.notification.alert('Debe indicar cantidad valida',null,'Error Indicando Cantidad','Aceptar');					
+					  
+				  }
+				  else
+				  {
+				    
+    				var factura = window.localStorage.getItem("factura");
+	     			//alert (cantidad);	  
+					insertacobro(factura,cantidad);	//actualiza cantidad a pagar de factura en tabla temporal de fac pend de cobro.Funcion en cobros.js				
+    				 //alert('despues de llamada modificarlineap');
+					 //mostrarpedido();
+				  }
            $('#divnumcobros').hide(); 
 		   $("#divencnum").hide(); 
        }); 
@@ -1009,6 +1036,9 @@ $("#bimprimirf").tap(function() {
 	   $("#bpunto").tap(function() {                                                   
           var importe=$('#importecobro').val();	                                                    
           $('#importecobro').val(importe+'.');                         
+       });
+	    $("#blimpiarinput").tap(function() {                                                                                                                
+          $('#importecobro').val('');                         
        });
 
 
