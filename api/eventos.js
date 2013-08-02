@@ -665,8 +665,7 @@ $("#bimprimirf").tap(function() {
           $('#divnumcobros').hide();//oculta el teclado numerico con el input                         
 		   eliminatempcob();
 		   copiatemcobros(cliente);
-		   //listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado	
-		   $('#divnumcobros').hide(); 
+		   //listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado			    
 		   $("#divencnum").hide();
        });
 	   $("#bcopiarsaldo").tap(function() { //limpiar la columna "A pagar" del grid que muestra las facturas pendientes de cobro
@@ -988,7 +987,7 @@ $("#bimprimirf").tap(function() {
 	       var tipo=window.localStorage.getItem("tipo");
 		   
 		   var cantidad=Number($('#importecobro').val());				 				 
-				  alert (cantidad);
+				  //alert (cantidad);
 				  if (cantidad.length==0){
 					   navigator.notification.alert('Debe indicar cantidad valida',null,'Error Indicando Cantidad','Aceptar');					
 					  

@@ -1,6 +1,6 @@
 // cobros
 function listafacturaspend(cliente){
-	alert('entra a listafacturaspend '+cliente);
+	//alert('entra a listafacturaspend '+cliente);
 	 // $('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);		
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);
@@ -413,12 +413,12 @@ function pagarximp(cliente,cantidad){
  			 	if (cantidad>=saldo){//
 				   actualizatempcob(factura,saldo); //funcion de afectarbd.js
 				   cantidad=cantidad-saldo;
-				   alert('cantidad de pagarximp '+cantidad);
+				   //alert('cantidad de pagarximp '+cantidad);
 				 			 
 				 }
 				 else
 				 {
-				   alert('cantidad menor a saldo '+cantidad);	 
+				   //alert('cantidad menor a saldo '+cantidad);	 
                    actualizatempcob(factura,cantidad); //funcion de afectarbd.js
 				   cantidad=0;
 					 
@@ -467,7 +467,7 @@ function mostrarnotascob(factura){
  	}//function listo(tx,results){ 
 	function consultatemp(tx){   	       
 				//alert('articulo de MODIFICAR temPEDIDO '+articulo);
-				 var sql='SELECT a.nota';
+				 var sql='SELECT a.nota ';
 	   			 sql+='FROM NOTASCOB a ';	
 				 sql+='where a.factura="'+factura+'"';	
 		

@@ -473,7 +473,7 @@ function actexis(articulo,cantidad){
 		}	
 }//function  actexis
 function insertatempcob(factura,abono,saldo){
-	  navigator.notification.alert('entra insertatempcob '+factura+' '+abono+' '+saldo,null,'','Aceptar');	
+	 // navigator.notification.alert('entra insertatempcob '+factura+' '+abono+' '+saldo,null,'','Aceptar');	
 	    consultadb().transaction(insertadet,function(err){
     	  alert("Error al insertar renglon temcobros: "+err.code+err.message);
           });
@@ -484,7 +484,7 @@ function insertatempcob(factura,abono,saldo){
 	
 }//function insertatempcob(factura)
 function actualizatempcob(factura,cantidad){
-	   alert('actualiza tempcob'+factura+' '+cantidad);
+	   //alert('actualiza tempcob'+factura+' '+cantidad);
 	    consultadb().transaction(insertadet,function(err){
     	  alert("Error al modificar renglon TEMCOBROS: "+err.code+err.message);
           });
