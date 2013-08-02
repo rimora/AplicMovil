@@ -63,7 +63,7 @@ function listafacturaspend(cliente){
 		      html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-b">'+row['diasv']+'</div></div>';
         	  html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b">'+monto.toFixed(2)+'</div></div>';
 		      html+='<div class="ui-block-e"  >';
-              html+='<div class="ui-grid-b"  style="margin-top:0px;width:190px">';
+              html+='<div class="ui-grid-b"  style="margin-top:0px;width:280px">';
               html+='<div class="ui-block-a" style="width:90px">';
               html+='<div class="ui-bar ui-bar-b">'+saldo.toFixed(2)+'</div></div>';
               html+='<div class="ui-block-b" style="width:100px">';
@@ -453,13 +453,13 @@ function mostrarnotascob(factura){
 	
 	$("#divencnum").empty();
 	html='<label style="font-weight: bold">Notas para factura:'+factura+'</label><br>';
-	html+='<textarea cols="3">';
+	html+='<textarea style="width:auto; height:auto">';
 
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){			
 			 	var row = results.rows.item(0); 
 				
-				html+='<p>'+row['nota']+'</p>';
+				html+=row['nota']+'\n';
 		  }//if (results.rows.length>0){
 			html+='</textarea>';   
 			$("#divencnum").append(html);	
