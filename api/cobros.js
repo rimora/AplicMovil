@@ -1,6 +1,7 @@
 // cobros
 function listafacturaspend(cliente){
- // $('#pclientes').live('pageshow',function(event, ui){
+	alert('entra a listafacturaspend '+cliente);
+	 // $('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);		
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);
 		consultadb().transaction(poblarfac, function(err){
@@ -30,11 +31,13 @@ function listafacturaspend(cliente){
 		      html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-a">Dias V.</div></div>';
         	  html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-a">Importe</div></div>';
 		      html+='<div class="ui-block-e"  >';
-              html+='<div class="ui-grid-a"  style="margin-top:0px;width:190px">';
+              html+='<div class="ui-grid-b"  style="margin-top:0px;width:280px">';
               html+='<div class="ui-block-a" style="width:90px">';
               html+='<div class="ui-bar ui-bar-a">Saldo</div></div>';
               html+='<div class="ui-block-b" style="width:100px">';
               html+='<div class="ui-bar ui-bar-a">A pagar</div></div>';
+			  html+='<div class="ui-block-c" style="width:90px">';
+              html+='<div class="ui-bar ui-bar-a">Notas</div></div>';
               html+='</div>';                    
               html+='</div>';			  
 			  $.each(results.rows,function(index){				  
@@ -45,8 +48,7 @@ function listafacturaspend(cliente){
 						var monto= Number(row['monto']);												 						
 						var saldo= Number(row['saldo']);												 						
 						saldot+=Number(saldo);
-						abonot+=abonado;
-						navigator.notification.alert('entra listo '+row['documento']+' '+abonado+' '+saldo,null,'','Aceptar');	
+						abonot+=abonado;						
 					 //importe=precio*row['cantidad'];
 					 //total+=Number(importe);					 
 					if (row['vencida']=='S') {
@@ -61,12 +63,14 @@ function listafacturaspend(cliente){
 		      html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-b">'+row['diasv']+'</div></div>';
         	  html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b">'+monto.toFixed(2)+'</div></div>';
 		      html+='<div class="ui-block-e"  >';
-              html+='<div class="ui-grid-a"  style="margin-top:0px;width:190px">';
+              html+='<div class="ui-grid-b"  style="margin-top:0px;width:190px">';
               html+='<div class="ui-block-a" style="width:90px">';
               html+='<div class="ui-bar ui-bar-b">'+saldo.toFixed(2)+'</div></div>';
               html+='<div class="ui-block-b" style="width:100px">';
              // html+='<div class="ui-bar ui-bar-b"><a href="#" class="clasecob" name="'+row['documento']+'"><font color="FFFFFF">'+abonado.toFixed(2)+'</font></a></div></div>';
 			  html+='<div class="ui-bar ui-bar-b">'+abonado.toFixed(2)+'</div></div>';
+			  html+='<div class="ui-block-c" style="width:90px">';
+			  html+='<div class="ui-bar ui-bar-b"><a href="#" class="clasenotcob" name="'+row['documento']+'"><font color="FFFFFF">Notas</font></div></div>';
               html+='</div>';                    
               html+='</div>';	                  	 
 			  });//.each
@@ -97,13 +101,11 @@ function listafacturaspend(cliente){
 function copiatemcobros(cliente,copiar){	//llamada de eventos.js
 //el parametro copiar indica si el usuario selecciono el boton de copiar la columna saldo a la columna a pagar
 //
-navigator.notification.alert('copiatemcobros '+cliente+' '+copiar,null,'','Aceptar');	
+
 	function listo(tx,results){
 		   $.each(results.rows,function(index){           
-			 var row = results.rows.item(index); 
-			 navigator.notification.alert('entra a each '+cliente+' '+copiar,null,'','Aceptar');	
+			 var row = results.rows.item(index); 			 
 			 if (copiar=='S'){
-				 navigator.notification.alert('entra si copiar es S '+cliente+' '+copiar,null,'','Aceptar');	
 			 insertatempcob(row['documento'],row['saldo'],row['saldo']); //funcion de afectarbd.js
 			 }
 			 else{
@@ -133,9 +135,9 @@ function mostrardcob(factura){
 	var html="";
 	
 	$("#divencnum").empty();
-	html='<label style="font-weight: bold">Indicar Abono a Factura:'+factura+'</label>';
-    html+=' <a href="#" id ="bcopiarsaldofac" data-role="button" data-theme="b">Copiar Saldo a Pagar</a>';
-	$("#divencnum").append(html); 	
+	html='<label style="font-weight: bold">Indicar Abono a Factura:'+factura+'</label><br>';
+    //html+=' <a href="#" id ="bcopiarsaldofac" data-role="button" data-theme="b">Copiar Saldo a Pagar</a>';
+	$("#divencnum").append(html);	
 	$("#divencnum").show();
 
 	function listo(tx,results){ 	      
@@ -405,7 +407,7 @@ function pagarximp(cliente,cantidad){
 			  $.each(results.rows,function(index){				  
 				var row = results.rows.item(index);
 			    var saldo=Number(row['saldo']);
-				var factura=Number(row['documento']);
+				var factura=row['documento'];
 			 //if (row['cantidad']>0){
 			 	//preparadetalletemp(row['articulo'],row['cantidad']);																
  			 	if (cantidad>=saldo){//
@@ -416,6 +418,7 @@ function pagarximp(cliente,cantidad){
 				 }
 				 else
 				 {
+				   alert('cantidad menor a saldo '+cantidad);	 
                    actualizatempcob(factura,cantidad); //funcion de afectarbd.js
 				   cantidad=0;
 					 
@@ -439,9 +442,45 @@ function pagarximp(cliente,cantidad){
 	}
 	consultadb().transaction(consultatemp, function(err){
     	 			 alert("Error select tabla PENCOBRO: "+err.code+err.message);
-         		});	
+         		}, function(){
+					
+				listafacturaspend(cliente);	
+					
+				});	
 }//function pagarximp
+function mostrarnotascob(factura){	
+	var html="";
+	
+	$("#divencnum").empty();
+	html='<label style="font-weight: bold">Notas para factura:'+factura+'</label><br>';
+	html+='<textarea cols="3">';
 
+	function listo(tx,results){ 	      
+	      if (results.rows.length>0){			
+			 	var row = results.rows.item(0); 
+				
+				html+='<p>'+row['nota']+'</p>';
+		  }//if (results.rows.length>0){
+			html+='</textarea>';   
+			$("#divencnum").append(html);	
+			$("#divencnum").show();	  		  
+ 	}//function listo(tx,results){ 
+	function consultatemp(tx){   	       
+				//alert('articulo de MODIFICAR temPEDIDO '+articulo);
+				 var sql='SELECT a.nota';
+	   			 sql+='FROM NOTASCOB a ';	
+				 sql+='where a.factura="'+factura+'"';	
+		
+								
+			tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error consultar notas NOTASCOB : "+factura+err.code+err.message);
+         		});    									
+	}
+	consultadb().transaction(consultatemp, function(err){
+    	 			 alert("Error select tabla NOTAS NOTASCOB: "+err.code+err.message);
+         		});		
+				
+}//function mostrarnotascob(factura)
 
 
 

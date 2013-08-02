@@ -639,6 +639,7 @@ $("#bimprimirf").tap(function() {
 				  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
 				  window.location.href='#pcobros';
 				  $("#divencnum").hide();
+				  $('#divnumcobros').hide();
 				  $("#labelencpcobros").empty();	
 				  $("#labelencpcobros").append("Cobrar Facturas pendientes del cliente: "+cliente);				  				 				  
 				  eliminatempcob();
@@ -674,18 +675,9 @@ $("#bimprimirf").tap(function() {
 		   $("#divencnum").hide(); 
 		   eliminatempcob();
 	       copiatemcobros(cliente,'S');//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
-		   navigator.notification.alert('Despues de copiar saldo',null,'Error Indicando Cantidad','Aceptar');				   
+		   
 		   	
-       });
-	   $("#bcopiarsaldofac").tap(function() { //copiar el saldo de la fac seleccionada a la columna de A pagar
-	   alert('holA');
-	       var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 		   
-		   var factura=window.localStorage.getItem("factura");//Obtiene clave del cliente 		   
-	       copiarsaldoapagar(factura);
-		   listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado	
-       });
-	   
-	   
+       });	   
 	 $("a.clasecob").live('click',function(){//para indicar importe a pagar de la factura
                   var factura = $(this).attr("name");//el nombre tiene el numero de documento en la tabla PENCOBRO
 				 /* var id = $(this).attr("id");
@@ -696,6 +688,18 @@ $("#bimprimirf").tap(function() {
 				 $('#divnumcobros').show();
 				 mostrardcob(factura);//muestra dialogo de cobro				
 				 guardafactura(factura);//almacena localmente el numero de factura
+				
+    });
+	$("a.clasenotcob").live('click',function(){//para mostrar las notas de la factura seleccionada
+                  var factura = $(this).attr("name");//el nombre tiene el numero de documento en la tabla PENCOBRO
+				 /* var id = $(this).attr("id");
+				  var longitud=id.length;
+				  var posicion = id.indexOf('*'); 
+				  var cantidad=Number(id.substring(posicion+1));*/				 
+				 //window.location.href='#pimportecob';//muestra dialogo para indicar cantidad a modificar y observaciones.
+				 $('#divnumcobros').hide();
+				 mostrarnotascob(factura);//muestra dialogo de cobro				
+				 
 				
     });
 	$("#bcantidadcob").tap(function(){//boton aceptar del cuadro de dialogo
@@ -984,7 +988,7 @@ $("#bimprimirf").tap(function() {
 	       var tipo=window.localStorage.getItem("tipo");
 		   
 		   var cantidad=Number($('#importecobro').val());				 				 
-				  //alert (cantidad);
+				  alert (cantidad);
 				  if (cantidad.length==0){
 					   navigator.notification.alert('Debe indicar cantidad valida',null,'Error Indicando Cantidad','Aceptar');					
 					  
@@ -992,14 +996,14 @@ $("#bimprimirf").tap(function() {
 				  else
 				  {
 					  if (tipo=='I'){
-						  if (cantidad==0 || cantidad.length==0){//
+						  if (cantidad==0 || cantidad.length==0 || isNaN(cantidad)){//
 							navigator.notification.alert('Cantidad a pagar debe ser mayor a cero ',null,'Error Indicando Cantidad','Aceptar');						 					
 							return false;				 
 				 			}
 						  var cliente= window.localStorage.getItem("clave");
 						  pagarximp(cliente,cantidad);
 			   			  window.localStorage.setItem("tipo",'O')
-						  listafacturaspend(cliente);
+						  
 					   }
 		   			 else{
 				    

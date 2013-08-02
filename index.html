@@ -106,11 +106,11 @@
     
 </div>
 <!--  P A G I N A  C L I E N T E S   -->
-<div data-role="page" id="pclientes">
+<div data-role="page" id="pclientes" style="background-color:#FFF">
 	<div data-role="header" data-theme="b" >
 		<h3>Catálogo de clientes</h3>
     </div>
-    <div data-role="content" style="background-color: #FFF" >
+    <div data-role="content">
             <div style="width: 300px; float:left ">
                 <div data-role="fieldcontain" data-theme="b" style="width:300px">
                 <label for="menu"><b>Día:</b></label>
@@ -136,7 +136,7 @@
                 </select>
                 </div>	
             
-            	<ul data-role="listview" data-inset="true" id="listaclientes" data-filter="true" data-filter-placeholder="Escribe Nombre" class="claselistac">        	
+            	<ul data-role="listview" data-inset="true" id="listaclientes" data-filter="true" data-filter-placeholder="Escribe Nombre" class="claselistac" data-theme="b">        	
         		<li>hola</li>
            
           
@@ -612,8 +612,7 @@
 				</div>
       	<!-- /grid-d --> 
                 <div id="divencnum" style="position: absolute; left: 742px; top:60px; width:auto; height: auto">
-                <label style="font-weight: bold">Distribuir Importe en Facturas</label>
-                <a href="#" id ="bcopiarsaldofac" data-role="button" data-theme="b" >Copiar Saldo a Pagar</a>
+                <label style="font-weight: bold">Distribuir Importe en Facturas</label>                
                 </div>
                 <div id="divnumcobros" style="position: absolute; left: 742px; top: 190px; width: 224px; height: auto">
       <label for="importecobro" style="position: absolute; left: 7px; top: -23px; font-weight: bold">Importe:</label>
