@@ -217,7 +217,7 @@ function aplicacionpago(saldofac,abono){
 	html+='         <div class=ui-block-b style="width:100px"><div class="ui-bar ui-bar-a" style="font-size:18px;font-weight:bold">'+abono.toFixed(2)+'</div></div>';
     html+='    	    <br><br';           
     html2+='	    <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b" style="font-size:18px;font-weight:bold">Saldo Pendiente:</div></div>';
-    html2+='        <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-a" style="font-size:18px;font-weight:bold">'+pendiente.toFixed(2)+'</div></div>';
+    html2+='        <div class=ui-block-b style="width:100px"><div class="ui-bar ui-bar-a" style="font-size:18px;font-weight:bold">'+pendiente.toFixed(2)+'</div></div>';
 	
 	$("#gridaplicobros").append(html); 	
 	$("#gridaplicobros2").append(html2); 
@@ -230,8 +230,8 @@ function actgridsaldo(){
 	//alert('pendiente '+pendiente);
 	var html="";
 	$("#gridaplicobros2").empty();
-    html+='	    <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b">Saldo Pendiente:</div></div>';
-    html+='     <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-e" style="font-size:16px; color:#F00">'+pendiente.toFixed(2)+'</div></div>';
+    html+='	    <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b" style="font-size:18px;font-weight:bold">Saldo Pendiente:</div></div>';
+    html+='     <div class=ui-block-b style="width:100px"><div class="ui-bar ui-bar-e" style="font-size:18px;font-weight:bold">'+pendiente.toFixed(2)+'</div></div>';
 	$("#gridaplicobros2").append(html); 	
 				
 }//function actgridsaldo()

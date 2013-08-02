@@ -753,6 +753,14 @@ $("#bimprimirf").tap(function() {
 				  
 				  
      });
+	 $("#befectivo").tap(function() {//boton para cobrar con efectivo.                   				  
+	 			$('#divnumaplicob').show();
+				$('#importeapli').val('');
+				 window.localStorage.setItem("tipocob","E");
+				
+
+				  
+     });
 	 $("#baceptaraplic").tap(function() {                   				  
 	        function onConfirm(button) {
 					if (button==1){	
@@ -984,7 +992,7 @@ $("#bimprimirf").tap(function() {
        $("#b22").tap(function() {                                                   
            getCurrentPosition();                          
        }); 
-	   //**********TECLADO NUMERICO	 *************	
+	   //**********TECLADO NUMERICO	USADO EN COBROS *************	
 	   $("#baceptarimp").tap(function() {                                                   
 	       var tipo=window.localStorage.getItem("tipo");
 		   
@@ -1033,6 +1041,90 @@ $("#bimprimirf").tap(function() {
           $('#importecobro').val(importe+'2');                         
        });
 	   $("#b3").tap(function() {                                                   
+          var importe=$('#importecobro').val();	                                                    
+          $('#importecobro').val(importe+'3');                         
+       });
+	    $("#b4").tap(function() {  
+	    var importe=$('#importecobro').val();	                                                    
+          $('#importecobro').val(importe+'4');                         
+       });
+	   $("#b5").tap(function() {                                                   
+          var importe=$('#importecobro').val();	                                                    
+          $('#importecobro').val(importe+'5');                         
+       });
+	   $("#b6").tap(function() {                                                   
+          var importe=$('#importecobro').val();	                                                    
+          $('#importecobro').val(importe+'6');                         
+       });
+	     $("#b7").tap(function() {  
+	    var importe=$('#importecobro').val();	                                                    
+          $('#importecobro').val(importe+'7');                         
+       });
+	   $("#b8").tap(function() {                                                   
+          var importe=$('#importecobro').val();	                                                    
+          $('#importecobro').val(importe+'8');                         
+       });
+	   $("#b9").tap(function() {                                                   
+          var importe=$('#importecobro').val();	                                                    
+          $('#importecobro').val(importe+'9');                         
+       });
+	     $("#b0").tap(function() {  
+	    var importe=$('#importecobro').val();	                                                    
+          $('#importecobro').val(importe+'0');                         
+       });
+	   $("#bpunto").tap(function() {                                                   
+          var importe=$('#importecobro').val();	                                                    
+          $('#importecobro').val(importe+'.');                         
+       });
+	    $("#blimpiarinput").tap(function() {                                                                                                                
+          $('#importecobro').val('');                         
+       });
+	   //**********TECLADO NUMERICO	USADO EN APLICACION DE COBROS *************	
+	   $("#bacepapli").tap(function() {                                                   
+	       var tipocob=window.localStorage.getItem("tipocob");
+		  if (tipocob=='E'){  //efectivo
+		   
+	     //intento convertir a entero. 
+    	 //si era un entero no le afecta, si no lo era lo intenta convertir 
+	     var montoefe = parseInt($("#importeapli").val()); 		 		 
+		 var pendiente1=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
+		 var pendiente=pendiente1+Number(window.localStorage.getItem("efectivo"));//aumentamos el efectivo que tenga guardado, es decir, 
+		 //si es modificación del importe, se anula para tomar este nuevo importe y actualizar el abono pendiente de distribuir en efectivo y cheque.
+		 //alert(montoefe);
+		 //alert(pendiente);
+	    //Compruebo si es un valor numérico 
+    	 if (isNaN(montoefe)) { 
+        //entonces (no es numero) 
+        	 navigator.notification.alert('Debe indicar un valor válido',null,'Cantidad inválida','Aceptar');			 
+			 return false;
+	     }else{ 
+    	    //En caso contrario (Si era un número) devuelvo el valor 
+			if (montoefe>pendiente || montoefe<0){
+				navigator.notification.alert('La cantidad indicada excede el saldo pendiente por abonar o es inválida',null,'Cantidad inválida','Aceptar');				
+				$("#importeapli").val(0);
+				return false;
+			}
+			else{
+        	guardaefectivo(montoefe); 			
+			actgridsaldo();
+			$('#divnumaplicob').hide(); 		    
+			}
+	     }//else 
+		  }//if (isNaN(montoefe)) 
+		   
+       }); 
+	   $("#bcanapli").tap(function() {                                                   
+          $('#divnumaplicob').hide(); 		   
+       }); 
+	   $("#b11").tap(function() {  
+	    var importe=$('#importecobro').val();	                                                    
+          $('#importecobro').val(importe+'1');                         
+       });
+	   $("#b22").tap(function() {                                                   
+          var importe=$('#importecobro').val();	                                                    
+          $('#importecobro').val(importe+'2');                         
+       });
+	   $("#b33").tap(function() {                                                   
           var importe=$('#importecobro').val();	                                                    
           $('#importecobro').val(importe+'3');                         
        });
