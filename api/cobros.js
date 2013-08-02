@@ -135,7 +135,8 @@ function mostrardcob(factura){
 	var html="";
 	
 	$("#divencnum").empty();
-	html='<label style="font-weight: bold">Indicar Abono a Factura:'+factura+'</label><br>';
+	html='<label style="font-weight: bold">Indicar Abono a Factura:</label><br>';
+	html+='</center><label style="font-weight: bold; font-size:20px">'+factura+'</label></center>';
     //html+=' <a href="#" id ="bcopiarsaldofac" data-role="button" data-theme="b">Copiar Saldo a Pagar</a>';
 	$("#divencnum").append(html);	
 	$("#divencnum").show();
@@ -453,7 +454,7 @@ function mostrarnotascob(factura){
 	
 	$("#divencnum").empty();
 	html='<label style="font-weight: bold">Notas para factura:'+factura+'</label><br>';
-	html+='<textarea style="width:auto; height:auto">';
+	html+='<textarea cols="5" rows="50">';
 
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){			

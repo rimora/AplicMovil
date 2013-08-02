@@ -68,19 +68,15 @@
 <!--  MENU PRINCIPAL   -->
 <div data-role="page" id="page">
 	<div data-role="header" data-theme="b" data-position="fixed">
-		<h3>Menu principal</h3>
+		<h5>Menu principal</h5>
 	</div>
-	<div data-role="content">	
-		
-            <a href="#" id ="bclientes"  data-role="button" data-theme="e" style="left: 18px; position: absolute; width: 150px; top: 200px;"><img src="jquery-mobile/images/clientes.png"/></a>
-            <a href="#" id ="bdepositos"  data-role="button" data-theme="c" style="left: 236px; position: absolute; width: 150px; top: 200px;"><img src="jquery-mobile/images/depositos128.png"/></a>
-             <a href="#" id ="breportes"  data-role="button" data-theme="c" style="left: 465px; position: absolute; width: 150px; top: 200px;"><img src="jquery-mobile/images/reportes128.png"/></a>
-             <a href="#pdatos" id ="bdatos"  data-role="button" data-theme="c" style="left: 698px; position: absolute; width: 150px; top: 200px;"><img src="jquery-mobile/images/datos128.png"/></a>
+	<div data-role="content">
+    		 <a href="#" id ="bclientes"  data-role="button" data-theme="e" style="left: 19px; position: absolute; width: 150px; top: 148px;"><img src="jquery-mobile/images/clientes.png"/></a>
+             <a href="#" id ="bdepositos"  data-role="button" data-theme="c" style="left: 277px; position: absolute; width: 150px; top: 147px;"><img src="jquery-mobile/images/depositos128.png"/></a>
+             <a href="#" id ="breportes"  data-role="button" data-theme="c" style="left: 522px; position: absolute; width: 150px; top: 148px;"><img src="jquery-mobile/images/reportes128.png"/></a>
+             <a href="#pdatos" id ="bdatos"  data-role="button" data-theme="c" style="left: 776px; position: absolute; width: 150px; top: 148px;"><img src="jquery-mobile/images/datos128.png"/></a>
             
-            
-            
-            
-            	<div data-role="collapsible" data-theme="b" data-content-theme="e" id="agrupareportes">
+            <div data-role="collapsible" data-theme="b" data-content-theme="e" id="agrupareportes" style="position: absolute; left: 16px; top: 310px;">
 	     		  <h3>
                     <center><b>Reportes</b></center>
 	              </h3>
@@ -90,7 +86,7 @@
 	                    <li id="reporte3">Reporte de Inventario</li>
         	            <li id="reporte4">Reporte de Visitas</li>                    
                     </ul>
-      </div>  
+			</div>  
           
       
             <!--  PRUEBAS
@@ -108,7 +104,7 @@
 <!--  P A G I N A  C L I E N T E S   -->
 <div data-role="page" id="pclientes" style="background-color:#FFF">
 	<div data-role="header" data-theme="b" >
-		<h3>Catálogo de clientes</h3>
+		<h5>Catálogo de clientes</h5>
     </div>
     <div data-role="content">
             <div style="width: 300px; float:left ">
@@ -142,7 +138,8 @@
           
    	   		   </ul>
             </div>
-            <div style="width: 400px; float:left;  margin-left:20px  ">   
+            <div style="width: 400px; float:left;  margin-left:20px  ">   				
+            <label id="clienteselec" style="font-weight:bold; font-size:20px">Cliente Seleccionado:</label>
            		<div data-role="fieldcontain" data-theme="b" > 
 		        <label for="limitecli" style="font-weight:bold; font-size:16px">Limite de Credito:</label>
                 <input type="number" id="limitecli" readonly style="width:20%;font-size:16px; color:#F00;left: 450px;" > 
