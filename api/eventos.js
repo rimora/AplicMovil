@@ -745,6 +745,8 @@ $("#bimprimirf").tap(function() {
 					guardaefectivo(0);//inicia valor de cobrado en efectivo
 					guardacheque(0);//inicia valor de cobrado en cheque				 	  					
 				  	aplicacionpago(saldofac,abono);//muestra grid con datos de lo abonado y saldo pendiente de facturas 
+					$('#divencaplic').show();
+					$('#divnumaplicob').hide();					
 					eliminachequexrecibo();//elimina los cheques temporales.
 					
 				 }

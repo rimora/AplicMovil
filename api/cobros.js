@@ -135,8 +135,8 @@ function mostrardcob(factura){
 	var html="";
 	
 	$("#divencnum").empty();
-	html='<label style="font-weight: bold">Indicar Abono a Factura:</label><br>';
-	html+='</center><label style="font-weight: bold; font-size:20px">'+factura+'</label></center>';
+	html='<label style="font-weight: bold;font-size:18px">Indicar Abono a Factura:</label><br>';
+	html+='</center><label style="font-weight: bold; font-size:40px">'+factura+'</label></center>';
     //html+=' <a href="#" id ="bcopiarsaldofac" data-role="button" data-theme="b">Copiar Saldo a Pagar</a>';
 	$("#divencnum").append(html);	
 	$("#divencnum").show();
@@ -210,13 +210,14 @@ function aplicacionpago(saldofac,abono){
 	var html2="";
 	$("#gridaplicobros").empty();	
 	$("#gridaplicobros2").empty();	
-	html+='         <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b">Saldo Total:</div></div>';
-    html+='	        <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-e" style="font-size:16px; color:#F00">'+saldofac.toFixed(2)+'</div></div>';
-	html+='    		<div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b">Total a Pagar:</div></div>';
-	html+='         <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-e">'+abono.toFixed(2)+'</div></div>';
+		
+	html+='         <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b" style="font-size:18px;font-weight:bold">Saldo Total:</div></div>';
+    html+='	        <div class=ui-block-b style="width:100px"><div class="ui-bar ui-bar-a" style="font-size:18px;font-weight:bold">'+saldofac.toFixed(2)+'</div></div>';
+	html+='    		<div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b" style="font-size:18px;font-weight:bold">Total a Pagar:</div></div>';
+	html+='         <div class=ui-block-b style="width:100px"><div class="ui-bar ui-bar-a" style="font-size:18px;font-weight:bold">'+abono.toFixed(2)+'</div></div>';
     html+='    	    <br><br';           
-    html2+='	    <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b">Saldo Pendiente:</div></div>';
-    html2+='        <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-e" style="font-size:16px; color:#F00">'+pendiente.toFixed(2)+'</div></div>';
+    html2+='	    <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b" style="font-size:18px;font-weight:bold">Saldo Pendiente:</div></div>';
+    html2+='        <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-a" style="font-size:18px;font-weight:bold">'+pendiente.toFixed(2)+'</div></div>';
 	
 	$("#gridaplicobros").append(html); 	
 	$("#gridaplicobros2").append(html2); 
@@ -454,14 +455,14 @@ function mostrarnotascob(factura){
 	
 	$("#divencnum").empty();
 	html='<label style="font-weight: bold">Notas para factura:'+factura+'</label><br>';
-	html+='<textarea cols="5" rows="50">';
+	html+='<textarea cols="20" rows="30">';
 
 	function listo(tx,results){ 	      
-	      if (results.rows.length>0){			
+	        $.each(results.rows,function(index){			
 			 	var row = results.rows.item(0); 
 				
 				html+=row['nota']+'\n';
-		  }//if (results.rows.length>0){
+		    });//.each
 			html+='</textarea>';   
 			$("#divencnum").append(html);	
 			$("#divencnum").show();	  		  

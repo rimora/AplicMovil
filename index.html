@@ -139,7 +139,7 @@
    	   		   </ul>
             </div>
             <div style="width: 400px; float:left;  margin-left:20px  ">   				
-            <label id="clienteselec" style="font-weight:bold; font-size:20px">Cliente Seleccionado:</label>
+            <label id="clienteselec" style="font-weight:bold; font-size:20px"></label>
            		<div data-role="fieldcontain" data-theme="b" > 
 		        <label for="limitecli" style="font-weight:bold; font-size:16px">Limite de Credito:</label>
                 <input type="number" id="limitecli" readonly style="width:20%;font-size:16px; color:#F00;left: 450px;" > 
@@ -662,14 +662,47 @@
 		<h3 style="text-align:center">Aplicación de Pago</h3>      
 	</div>
 	<div data-role="content">		        
-            <div class=ui-grid-a id="gridaplicobros">         
+            <div class=ui-grid-a id="gridaplicobros" style="text-align:right">         
 		    	
     		</div> 
-            <div class=ui-grid-a id="gridaplicobros2">         
-		    	
-    		</div>   
+            <div class=ui-grid-a id="gridaplicobros2" style="text-align:right">         
+		    
+    		</div> 
+            <div id="divencaplic" style="position: absolute; left: 299px; top: 65px; width: 220px; height: auto">  
+            <label style="width:18%;font-size:18px; color: #00F;font-weight:bold">Indica el tipo de cobro:</label>            
+            
+            <a href="#" id ="befectivo" data-role="button" data-theme="b" style="position: absolute; left: 5px; top: 20px; width:80px">Efectivo</a>
+            <a href="#" id ="befectivo" data-role="button" data-theme="b" style="position: absolute; left: 120px; top: 20px; width:80px">Cheque</a>
+            
+            </div><!--div encabezado de aplic-->
+            <div id="divnumaplicob" style="position: absolute; left: 299px; top: 190px; width: 224px; height: auto">
+      <label for="importeapli" style="position: absolute; left: 7px; top: -23px; font-weight: bold">Importe:</label>
+      <input type="text" id="importeapli" style="width: 76px; float: left; position: absolute; right:60px; top: -31px" maxlength="7" >
+      <a href="#" id ="blimpiarapli" data-role="button" data-theme="b" style="position: absolute; float: left; left: 165px; top: -40px;" class="ui-icon-sardel-limpiar"></a>
+      <div class="ui-grid-b">
+        <div class="ui-block-a"><a href="#" id ="b11" data-role="button" data-theme="b" class="tecladonuma" >1</a></div>
+        <div class="ui-block-b"><a href="#" id ="b22"  data-role="button" data-theme="b" class="tecladonumb">2</a></div>
+        <div class="ui-block-c"><a href="#" id ="b33"  data-role="button" data-theme="b" class="tecladonumc">3</a></div>
+        <div class="ui-block-a"><a href="#" id ="b44" data-role="button" data-theme="b" class="tecladonuma">4</a></div>
+        <div class="ui-block-b"><a href="#" id ="b55" data-role="button" data-theme="b" class="tecladonumb">5</a></div>
+        <div class="ui-block-c"><a href="#" id ="b66" data-role="button" data-theme="b" class="tecladonumc">6</a></div>
+        <div class="ui-block-a"><a href="#" id ="b77" data-role="button" data-theme="b" class="tecladonuma">7</a></div>
+        <div class="ui-block-b"><a href="#" id ="b88" data-role="button" data-theme="b" class="tecladonumb">8</a></div>
+        <div class="ui-block-c"><a href="#" id ="b99" data-role="button" data-theme="b" class="tecladonumc">9</a></div>
+        <div class="ui-block-a"><a href="#" id ="bborrar2" data-role="button" data-theme="b" class="tecladonuma"><</a></div>
+        <div class="ui-block-b"><a href="#" id ="b00" data-role="button" data-theme="b" class="tecladonumb">0</a></div>
+        <div class="ui-block-c"><a href="#" id ="bpunto2" data-role="button" data-theme="b" class="tecladonumc">.</a></div>
+      </div>
+      <a href="#" id="bacepapli" data-role="button" data-theme="b" class="ui-icon-sardel-aceptar" style="float:left" ></a>   
+      <a href="#" id="bcanapli" data-role="button" data-theme="b" class="ui-icon-sardel-cancelar" style="float:left; left:40px"> </a>   
+      </div><!-- divnumaplicob-->
+            
+            
+            
+            
             <div data-role="fieldcontain">			
-    			<label for="efectivo">Efectivo</label>
+    			<label for="efectivo">    			
+   			    Efectivo</label>
 				<input type="number" id="efectivo" style="width:18%">			
 			</div>
 			<div data-role="fieldcontain">	
@@ -677,7 +710,8 @@
 				 <input type="number" id="cheque" readonly style="width:18%">			
 			    <a href="" data-role="button" data-icon="plus" data-iconpos="top"  data-inline="true" data-theme="b" id="bcheque"></a>
 			</div> 
-    </div>    
+    
+  </div>    
 	<div data-role="footer" data-position="fixed">       
         <a href="#" class="ui-btn-right" id="regresardeaplic" data-role="button" 
             data-theme="b" data-icon="back" data-iconpos="left" >Regresar</a>
