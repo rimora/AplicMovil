@@ -124,7 +124,9 @@ navigator.notification.alert('copiatemcobros '+cliente+' '+copiar,null,'','Acept
 	}
 	consultadb().transaction(consultatemp, function(err){
     	 			 alert("Error select copiar a tabla temporal TEMCOBROS: "+err.code+err.message);
-         		});		
+         		},function(){
+					listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado
+					});		
 				
 }//function copiatemcobros()
 function mostrardcob(factura){	

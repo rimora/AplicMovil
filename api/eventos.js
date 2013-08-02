@@ -79,7 +79,7 @@ $(document).ready(function() {
 				  $("#labelencpcobros").append("Cobrar Facturas pendientes del cliente: "+cliente);				  				 				  
 				  eliminatempcob();
 				  copiatemcobros(cliente);//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
-				  listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado				  				  
+				  //listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado				  				  
 				  guardafechaactual();
 				  iniciavisita();//guarda registro de fecha y hora de visita.funcion en almacenamiento.js			  
 				  
@@ -643,7 +643,7 @@ $("#bimprimirf").tap(function() {
 				  $("#labelencpcobros").append("Cobrar Facturas pendientes del cliente: "+cliente);				  				 				  
 				  eliminatempcob();
 				  copiatemcobros(cliente);//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
-				  listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado				  				  
+				  //listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado				  				  
 				  guardafechaactual();
 				  			  
 				   
@@ -664,7 +664,7 @@ $("#bimprimirf").tap(function() {
           $('#divnumcobros').hide();//oculta el teclado numerico con el input                         
 		   eliminatempcob();
 		   copiatemcobros(cliente);
-		   listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado	
+		   //listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado	
 		   $('#divnumcobros').hide(); 
 		   $("#divencnum").hide();
        });
@@ -675,7 +675,7 @@ $("#bimprimirf").tap(function() {
 		   eliminatempcob();
 	       copiatemcobros(cliente,'S');//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
 		   navigator.notification.alert('Despues de copiar saldo',null,'Error Indicando Cantidad','Aceptar');				   
-		   listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado	
+		   	
        });
 	   $("#bcopiarsaldofac").tap(function() { //copiar el saldo de la fac seleccionada a la columna de A pagar
 	   alert('holA');
