@@ -230,7 +230,7 @@ function actgridsaldo(){
 	//alert('pendiente '+pendiente);
 	var html="";
 	$("#gridaplicobros2").empty();
-    html+='	    <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b" style="font-size:18px;font-weight:bold">Saldo Pendiente:</div></div>';
+    html+='	    <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b" style="font-size:22px;font-weight:bold">Saldo Pendiente:</div></div>';
     html+='     <div class=ui-block-b style="width:100px"><div class="ui-bar ui-bar-e" style="font-size:18px;font-weight:bold">'+pendiente.toFixed(2)+'</div></div>';
 	$("#gridaplicobros2").append(html); 	
 				

@@ -1117,51 +1117,51 @@ $("#bimprimirf").tap(function() {
           $('#divnumaplicob').hide(); 		   
        }); 
 	   $("#b11").tap(function() {  
-	    var importe=$('#importecobro').val();	                                                    
-          $('#importecobro').val(importe+'1');                         
+	    var importe=$('#importeapli').val();	                                                    
+          $('#importeapli').val(importe+'1');                         
        });
 	   $("#b22").tap(function() {                                                   
-          var importe=$('#importecobro').val();	                                                    
-          $('#importecobro').val(importe+'2');                         
+          var importe=$('#importeapli').val();	                                                    
+          $('#importeapli').val(importe+'2');                         
        });
 	   $("#b33").tap(function() {                                                   
-          var importe=$('#importecobro').val();	                                                    
-          $('#importecobro').val(importe+'3');                         
+          var importe=$('#importeapli').val();	                                                    
+          $('#importeapli').val(importe+'3');                         
        });
-	    $("#b4").tap(function() {  
-	    var importe=$('#importecobro').val();	                                                    
-          $('#importecobro').val(importe+'4');                         
+	    $("#b44").tap(function() {  
+	    var importe=$('#importeapli').val();	                                                    
+          $('#importeapli').val(importe+'4');                         
        });
-	   $("#b5").tap(function() {                                                   
-          var importe=$('#importecobro').val();	                                                    
-          $('#importecobro').val(importe+'5');                         
+	   $("#b55").tap(function() {                                                   
+          var importe=$('#importeapli').val();	                                                    
+          $('#importeapli').val(importe+'5');                         
        });
-	   $("#b6").tap(function() {                                                   
-          var importe=$('#importecobro').val();	                                                    
-          $('#importecobro').val(importe+'6');                         
+	   $("#b66").tap(function() {                                                   
+          var importe=$('#importeapli').val();	                                                    
+          $('#importeapli').val(importe+'6');                         
        });
-	     $("#b7").tap(function() {  
-	    var importe=$('#importecobro').val();	                                                    
-          $('#importecobro').val(importe+'7');                         
+	     $("#b77").tap(function() {  
+	    var importe=$('#importeapli').val();	                                                    
+          $('#importeapli').val(importe+'7');                         
        });
-	   $("#b8").tap(function() {                                                   
+	   $("#b88").tap(function() {                                                   
           var importe=$('#importecobro').val();	                                                    
           $('#importecobro').val(importe+'8');                         
        });
-	   $("#b9").tap(function() {                                                   
-          var importe=$('#importecobro').val();	                                                    
-          $('#importecobro').val(importe+'9');                         
+	   $("#b99").tap(function() {                                                   
+          var importe=$('#importeapli').val();	                                                    
+          $('#importeapli').val(importe+'9');                         
        });
-	     $("#b0").tap(function() {  
-	    var importe=$('#importecobro').val();	                                                    
-          $('#importecobro').val(importe+'0');                         
+	     $("#b00").tap(function() {  
+	    var importe=$('#importeapli').val();	                                                    
+          $('#importeapli').val(importe+'0');                         
        });
-	   $("#bpunto").tap(function() {                                                   
-          var importe=$('#importecobro').val();	                                                    
-          $('#importecobro').val(importe+'.');                         
+	   $("#bpunto2").tap(function() {                                                   
+          var importe=$('#importeapli').val();	                                                    
+          $('#importeapli').val(importe+'.');                         
        });
-	    $("#blimpiarinput").tap(function() {                                                                                                                
-          $('#importecobro').val('');                         
+	    $("#blimpiarapli").tap(function() {                                                                                                                
+          $('#importeapli').val('');                         
        });
 
 

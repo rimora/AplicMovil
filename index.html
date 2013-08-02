@@ -47,8 +47,8 @@
 				<h4 class="help"><b>Toggle</b> to stop/start
 				geolocation watch. <br/><b>Get Current</b> for one-time geolocation reading.</h4>
 				<div class="ui-grid-a">
-					<div class="ui-block-a"><div data-role="button" id="b11">Toggle</div></div>
-					<div class="ui-block-b"><div data-role="button" id="b22">Get Current</div></div>
+					<div class="ui-block-a"><div data-role="button" id="btoggle">Toggle</div></div>
+					<div class="ui-block-b"><div data-role="button" id="bcurrent">Get Current</div></div>
 				</div>
    				<div id="cur_position"></div>
    				<img id="map"/>								
@@ -613,7 +613,7 @@
                 </div>
                 <div id="divnumcobros" style="position: absolute; left: 742px; top: 190px; width: 224px; height: auto">
       <label for="importecobro" style="position: absolute; left: 7px; top: -23px; font-weight: bold">Importe:</label>
-      <input type="text" id="importecobro" style="width: 76px; float: left; position: absolute; right:60px; top: -31px" maxlength="7" >
+      <input type="text" id="importecobro" style="width: 76px; float: left; position: absolute; right:60px; top: -31px" maxlength="7" readonly >
       <a href="#" id ="blimpiarinput" data-role="button" data-theme="b" style="position: absolute; float: left; left: 165px; top: -40px;" class="ui-icon-sardel-limpiar"></a>
       <div class="ui-grid-b">
         <div class="ui-block-a"><a href="#" id ="b1" data-role="button" data-theme="b" class="tecladonuma" >1</a></div>
@@ -672,12 +672,12 @@
             <label style="width:18%;font-size:18px; color: #00F;font-weight:bold">Indica el tipo de cobro:</label>            
             
             <a href="#" id ="befectivo" data-role="button" data-theme="b" style="position: absolute; left: 5px; top: 20px; width:80px">Efectivo</a>
-            <a href="#" id ="befectivo" data-role="button" data-theme="b" style="position: absolute; left: 120px; top: 20px; width:80px">Cheque</a>
+            <a href="#" id ="bcheque" data-role="button" data-theme="b" style="position: absolute; left: 120px; top: 20px; width:80px">Cheque</a>
             
             </div><!--div encabezado de aplic-->
             <div id="divnumaplicob" style="position: absolute; left: 299px; top: 190px; width: 224px; height: auto">
       <label for="importeapli" style="position: absolute; left: 7px; top: -23px; font-weight: bold">Importe:</label>
-      <input type="text" id="importeapli" style="width: 76px; float: left; position: absolute; right:60px; top: -31px" maxlength="7" >
+      <input type="text" id="importeapli" style="width: 76px; float: left; position: absolute; right:60px; top: -31px" maxlength="7" readonly >
       <a href="#" id ="blimpiarapli" data-role="button" data-theme="b" style="position: absolute; float: left; left: 165px; top: -40px;" class="ui-icon-sardel-limpiar"></a>
       <div class="ui-grid-b">
         <div class="ui-block-a"><a href="#" id ="b11" data-role="button" data-theme="b" class="tecladonuma" >1</a></div>
