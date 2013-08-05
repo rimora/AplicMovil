@@ -746,6 +746,7 @@ $("#bimprimirf").tap(function() {
 					guardacheque(0);//inicia valor de cobrado en cheque				 	  					
 				  	aplicacionpago(saldofac,abono);//muestra grid con datos de lo abonado y saldo pendiente de facturas 
 					$('#divencaplic').show();
+					$('#divcheques').hide();
 					$('#divnumaplicob').hide();					
 					eliminachequexrecibo();//elimina los cheques temporales.
 					
@@ -756,10 +757,29 @@ $("#bimprimirf").tap(function() {
 	 $("#befectivo").tap(function() {//boton para cobrar con efectivo.                   				  
 	 			$('#divnumaplicob').show();
 				$('#importeapli').val('');
-				 window.localStorage.setItem("tipocob","E");
-				
-
-				  
+				$('#divcheques').hide();				
+				window.localStorage.setItem("tipocob","E");
+     });
+	 $("#bcheque").tap(function() {//boton para cobrar con cheque
+				poblarcuenta();	         				
+				$('#divcheques').show();				
+				//window.location.href='#pcheque';								
+				//$("#numcuenta").val("");  				 
+				poblarcheques();				
+     });
+	 $("#bnumche").tap(function() {//boton para cobrar con efectivo.                   				  	 															
+				$('#divnumaplicob').show();
+				$('#etinum').empty();
+				$('#etinum').append('Numero:');				
+				window.localStorage.setItem("tipocob","N");
+				//$("#numcuenta").val("");  				 
+     });
+	 $("#bmontoche").tap(function() {//boton para cobrar con efectivo.                   				  	 															
+				$('#divnumaplicob').show();
+				$('#etinum').empty();
+				$('#etinum').append('Importe:');				
+				window.localStorage.setItem("tipocob","C");
+				//$("#numcuenta").val("");  				 
      });
 	 $("#baceptaraplic").tap(function() {                   				  
 	        function onConfirm(button) {
@@ -818,15 +838,7 @@ $("#bimprimirf").tap(function() {
 	     } 
 	   
     });
-	$("#bcheque").tap(function() {                   			
-		  	window.location.href='#pcheque';
-			poblarcuenta();	         
-			$("#numcheque").val("");
-			//$("#numcuenta").val("");  
-			$("#monto").val(0); 
-			poblarcheques();
-				  
-     }); 
+	
 	 $("#bagregacheque").tap(function() {                   				  
 	        var nche=$("#numcheque").val();  			  
 			//var ncta=$("#numcuenta").val();  			  
@@ -1082,6 +1094,11 @@ $("#bimprimirf").tap(function() {
 	   //**********TECLADO NUMERICO	USADO EN APLICACION DE COBROS *************	
 	   $("#bacepapli").tap(function() {                                                   
 	       var tipocob=window.localStorage.getItem("tipocob");
+		   if (isNaN(montoefe)) { 
+        //entonces (no es numero) 
+        	 navigator.notification.alert('Debe indicar un valor válido',null,'Cantidad inválida','Aceptar');			 
+			 return false;
+	       }
 		  if (tipocob=='E'){  //efectivo
 		   
 	     //intento convertir a entero. 
@@ -1091,14 +1108,7 @@ $("#bimprimirf").tap(function() {
 		 var pendiente=pendiente1+Number(window.localStorage.getItem("efectivo"));//aumentamos el efectivo que tenga guardado, es decir, 
 		 //si es modificación del importe, se anula para tomar este nuevo importe y actualizar el abono pendiente de distribuir en efectivo y cheque.
 		 //alert(montoefe);
-		 //alert(pendiente);
-	    //Compruebo si es un valor numérico 
-    	 if (isNaN(montoefe)) { 
-        //entonces (no es numero) 
-        	 navigator.notification.alert('Debe indicar un valor válido',null,'Cantidad inválida','Aceptar');			 
-			 return false;
-	     }else{ 
-    	    //En caso contrario (Si era un número) devuelvo el valor 
+		 //alert(pendiente);	    
 			if (montoefe>pendiente || montoefe<0){
 				navigator.notification.alert('La cantidad indicada excede el saldo pendiente por abonar o es inválida',null,'Cantidad inválida','Aceptar');				
 				$("#importeapli").val(0);
@@ -1108,9 +1118,44 @@ $("#bimprimirf").tap(function() {
         	guardaefectivo(montoefe); 			
 			actgridsaldo();
 			$('#divnumaplicob').hide(); 		    
+			}	    
+		}//tipocob
+		else if (tipocob=='N'){
+			window.localStorage.setItem("numche",$("#importeapli").val());
+			$('#divnumaplicob').hide();
+			
+			
+		}
+		else if (tipocob=='C'){
+			var nche=window.localStorage.getItem("numche"); 			  			
+			var banco=$("#menucuentab").val();
+			var monto=$("#importeapli").val();
+		    var pendiente=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
+			 //alert(monto);
+			 //alert(pendiente);
+
+			if (nche=="" || banco=="Banco" || monto==0){
+				navigator.notification.alert('Debe indicar numero de cheque,seleccionar banco y monto válidos',null,'Faltan Datos','Aceptar');				 								
+				return false;
 			}
-	     }//else 
-		  }//if (isNaN(montoefe)) 
+			if (monto>pendiente || monto<0){
+				navigator.notification.alert('La cantidad indicada excede el saldo pendiente por abonar o es inválida',null,'Cantidad inválida','Aceptar');				
+				$("#importeapli").val(''); 
+			}			
+			else{
+				insertarcheque(nche,"0",banco,monto);			
+				$("select#menucuentab").val("Banco").selectmenu("refresh"); 
+				window.localStorage.setItem('numche',''); 
+				//$("#numcuenta").val("");  				
+				$('#divnumaplicob').hide();
+				poblarcheques();
+				actgridsaldo();
+			}
+			
+			
+			
+		}
+		  
 		   
        }); 
 	   $("#bcanapli").tap(function() {                                                   

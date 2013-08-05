@@ -227,11 +227,17 @@ function aplicacionpago(saldofac,abono){
 }//function aplicacionpago()
 function actgridsaldo(){	
 	var pendiente=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
+	var montoche=window.localStorage.getItem("cheque");
+	var montoefe=window.localStorage.getItem("efectivo");
 	//alert('pendiente '+pendiente);
 	var html="";
 	$("#gridaplicobros2").empty();
     html+='	    <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b" style="font-size:22px;font-weight:bold">Saldo Pendiente:</div></div>';
     html+='     <div class=ui-block-b style="width:100px"><div class="ui-bar ui-bar-e" style="font-size:18px;font-weight:bold">'+pendiente.toFixed(2)+'</div></div>';
+	html+='	    <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b" style="font-size:22px;font-weight:bold">Efectivo:</div></div>';
+    html+='     <div class=ui-block-b style="width:100px"><div class="ui-bar ui-bar-e" style="font-size:18px;font-weight:bold">'+montoefe.toFixed(2)+'</div></div>';
+	html+='	    <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b" style="font-size:22px;font-weight:bold">Cheque:</div></div>';
+    html+='     <div class=ui-block-b style="width:100px"><div class="ui-bar ui-bar-e" style="font-size:18px;font-weight:bold">'+montoche.toFixed(2)+'</div></div>';
 	$("#gridaplicobros2").append(html); 	
 				
 }//function actgridsaldo()
@@ -305,15 +311,12 @@ function poblarcheques(){
                   	 
 			  });//.each
 			} 
-			  		guardacheque(montot);
-					var pendiente=saldopendiente();
+			  		guardacheque(montot);					
 					//alert('pendiente '+pendiente);					
 					//alert('montot '+montot);					
 					$("#gridcheques").append(html); 
-					//$("#tpedido").attr("value",total); 			
-					$("#totalcheques").val(montot.toFixed(2)); 			
-					$("#cheque").val(montot.toFixed(2)); 			
-					$("#spendiente").val(pendiente.toFixed(2)); 
+					//$("#tpedido").attr("value",total); 													
+					
 					
 					//alert('total'+total);					 
 			
