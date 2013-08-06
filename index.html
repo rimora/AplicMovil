@@ -383,7 +383,7 @@
 		<h5>Catálogo</h5>
 	</div>
 	<div data-role="content">
-    <div id="divcatalogo" style="width: 600px">
+    <div id="divcatalogo" style="width: 500px">
     	<ul id="lcatalogo" data-role="listview" data-inset="true"    class="catalogo" data-autodividers="true" data-filter="true" data-filter-placeholder="¿Que producto buscas?" data-theme="b">			        
                  <li><a href="">Descripción del artículo
 			 Clasificación:Catalogo AcciónT:Antidearreico <br/> Lab:SANOFI,SAL:Loperamida,Precio:100.00 A bordo:40 ALG:10 </a></li>			
@@ -392,9 +392,39 @@
         </ul>    
     </div>    
     </div>
+     	<div class="ui-grid-d" id="gridtotales" style="position:absolute;left: 520px; top: 50px; text-align:right">
+              <div class="ui-block-a" style="width:90px" ><div class="ui-bar ui-bar-a">Lim.Cred.</div></div>
+              <div class="ui-block-b" style="width:80px"><div class="ui-bar ui-bar-a">Disp.</div></div>
+		      <div class="ui-block-c" style="width:80px"><div class="ui-bar ui-bar-a">Subtotal</div></div>
+        	  <div class="ui-block-d" style="width:70px"><div class="ui-bar ui-bar-a">IVA</div></div>
+              <div class="ui-block-e" style="width:80px"><div class="ui-bar ui-bar-a">Total</div></div>
+
+        </div><!--class="ui-grid-d"-->
+         <div id="divnumcat" style="position: absolute; left: 550px; top: 200px; width: 224px; height: auto">
+     	      <label for="cantcat"  style="position: absolute; left: 7px; top: -23px; font-weight: bold">Cant.:</label>
+		      <input type="text" id="cantcat"  readonly style="width: 76px; float: left; position: absolute; right:60px; top:-31px" maxlength="7" >
+		      <a href="#" id ="blimpiarcant" data-role="button" data-theme="b"  class="ui-icon-sardel-limpiar" style="position: absolute; float: left; left: 165px; top: -40px "></a>
+              <div class="ui-grid-b">
+                <div class="ui-block-a"><a href="#" id ="b111" data-role="button" data-theme="b" class="tecladonuma" >1</a></div>
+                <div class="ui-block-b"><a href="#" id ="b222"  data-role="button" data-theme="b" class="tecladonumb">2</a></div>
+                <div class="ui-block-c"><a href="#" id ="b333"  data-role="button" data-theme="b" class="tecladonumc">3</a></div>
+                <div class="ui-block-a"><a href="#" id ="b444" data-role="button" data-theme="b" class="tecladonuma">4</a></div>
+                <div class="ui-block-b"><a href="#" id ="b555" data-role="button" data-theme="b" class="tecladonumb">5</a></div>
+                <div class="ui-block-c"><a href="#" id ="b666" data-role="button" data-theme="b" class="tecladonumc">6</a></div>
+                <div class="ui-block-a"><a href="#" id ="b777" data-role="button" data-theme="b" class="tecladonuma">7</a></div>
+                <div class="ui-block-b"><a href="#" id ="b888" data-role="button" data-theme="b" class="tecladonumb">8</a></div>
+                <div class="ui-block-c"><a href="#" id ="b999" data-role="button" data-theme="b" class="tecladonumc">9</a></div>
+                <div class="ui-block-a"><a href="#" id ="bborrar3" data-role="button" data-theme="b" class="tecladonuma"><</a></div>
+                <div class="ui-block-b"><a href="#" id ="b000" data-role="button" data-theme="b" class="tecladonumb">0</a></div>
+                <div class="ui-block-c"><a href="#" id ="bpunto3" data-role="button" data-theme="b" class="tecladonumc">.</a></div>
+              </div>
+      			<a href="#" id="bacepcat" data-role="button" data-theme="b" class="ui-icon-sardel-aceptar" style="float:left" ></a>   
+      			<a href="#" id="bcancat" data-role="button" data-theme="b" class="ui-icon-sardel-cancelar" style="float:left; left:40px"> </a>   
+     		 </div><!-- divnumcat-->
     <div data-role="footer" data-position="fixed">
         <a href="#pventas" id ="bgenerav"  data-role="button" data-theme="b">Aceptar</a> 
     </div>
+    
     
 </div>
 
