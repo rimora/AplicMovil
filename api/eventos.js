@@ -846,7 +846,7 @@ $("#bimprimirf").tap(function() {
 			}
 			else{
         	guardaefectivo(montoefe); 			
-			actgridsaldo();
+			
 			}
 	     } 
 	   
@@ -903,7 +903,7 @@ $("#bimprimirf").tap(function() {
 				  
   }); 
   $("#salirdecheque").tap(function(){
-    	actgridsaldo();
+    	
   }); 
 //**********D E P O S I T O S	 *************
  $("#bdepositos").tap(function() {                   				  				  
@@ -1131,7 +1131,7 @@ $("#bimprimirf").tap(function() {
 		    alert(monto);	
         	guardaefectivo(monto); 	
 			alert('despues de guardar efectivo');					
-			actgridsaldo();
+			actualizagridsaldo();
 			alert('despues de grid');
 			$('#divnumaplicob').hide(); 		    
 			}	    
@@ -1164,7 +1164,7 @@ $("#bimprimirf").tap(function() {
 				//$("#numcuenta").val("");  				
 				$('#divnumaplicob').hide();
 				poblarcheques();
-				actgridsaldo();
+				actualizagridsaldo();
 			}
 			
 			
@@ -1229,7 +1229,84 @@ $("#bimprimirf").tap(function() {
 	    $("#blimpiarapli").tap(function() {                                                                                                                
           $('#importeapli').val('');                         
        });
-
+ //**********TECLADO NUMERICO	USADO EN CATALOGO *************	
+	   $("#bacepcat").tap(function() {                                                   	       
+           var cantidad = parseInt($("#cantcat").val()); 		  
+		   var articulo = window.localStorage.getItem("articulo");
+		   if (isNaN(cantidad)) { 
+        //entonces (no es numero) 
+        	 navigator.notification.alert('Debe indicar un valor válido',null,'Cantidad inválida','Aceptar');			 
+			 return false;
+	       }
+			if (cantidad<=0){
+				navigator.notification.alert('La cantidad indicada debe ser mayor a cero',null,'Cantidad inválida','Aceptar');				
+				$("#cantcat").val('');
+				return false;
+			}
+			else{			
+            insertalinea(articulo,cantidad);			    
+			//actualizar grid de importes
+			$('#divnumcat').hide(); 		    
+			}	    
+		  
+		   
+       }); 
+	   $("#bcanapli").tap(function() {                                                   
+          $('#divnumcat').hide(); 		   
+       }); 
+	   $("#b111").tap(function() { 	     
+	    var importe=$('#cantcat').val();	                                                    
+		   if (importe.length<longitud){ 
+          $('#cantcat').val(importe+'1');                         
+		   }
+       });
+	   $("#b222").tap(function() {                                                   
+          var importe=$('#cantcat').val();	                                                    
+		  if (importe.length<longitud){ 
+          $('#cantcat').val(importe+'2');                         
+		  }
+       });
+	   $("#b333").tap(function() {                                                   
+          var importe=$('#cantcat').val();	                                                    
+		  if (importe.length<longitud){ 
+          $('#cantcat').val(importe+'3');                         
+		  }
+       });
+	    $("#b444").tap(function() {  
+	    var importe=$('#cantcat').val();	                                                    
+          $('#cantcat').val(importe+'4');                         
+       });
+	   $("#b555").tap(function() {                                                   
+          var importe=$('#cantcat').val();	                                                    
+          $('#cantcat').val(importe+'5');                         
+       });
+	   $("#b666").tap(function() {                                                   
+          var importe=$('#cantcat').val();	                                                    
+          $('#cantcat').val(importe+'6');                         
+       });
+	     $("#b777").tap(function() {  
+	    var importe=$('#cantcat').val();	                                                    
+          $('#cantcat').val(importe+'7');                         
+       });
+	   $("#b888").tap(function() {                                                   
+          var importe=$('#cantcat').val();	                                                    
+          $('#cantcat').val(importe+'8');                         
+       });
+	   $("#b999").tap(function() {                                                   
+          var importe=$('#cantcat').val();	                                                    
+          $('#cantcat').val(importe+'9');                         
+       });
+	     $("#b000").tap(function() {  
+	    var importe=$('#cantcat').val();	                                                    
+          $('#cantcat').val(importe+'0');                         
+       });
+	   $("#bpunto3").tap(function() {                                                   
+          var importe=$('#cantcat').val();	                                                    
+          $('#cantcat').val(importe+'.');                         
+       });
+	    $("#blimpiarcant").tap(function() {                                                                                                                
+          $('#cantcat').val('');                         
+       });
 
 
   },false);//document.addEventListener("deviceready",function(){	

@@ -228,7 +228,7 @@ function aplicacionpago(saldofac,abono){
 	$("#cheque").val(0);
 				
 }//function aplicacionpago()
-function actgridsaldo(){	
+function actualizagridsaldo(){	
 aler('entra');
 	var pendiente=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
 	var montoche=window.localStorage.getItem("cheque");
@@ -296,7 +296,7 @@ function poblarcheques(){
               html+=' <div class="ui-bar ui-bar-a">Elim.</div></div> ';           
               html+=' <div class="ui-block-b" style="width:110px"><div class="ui-bar ui-bar-a">Cheque</div></div>';
               html+=' <div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-a">Banco</div></div>';
-              html+=' <div class="ui-block-d" style="width:110px"><div class="ui-bar ui-bar-a">Monto</div></div>';
+              html+=' <div class="ui-block-d" style="width:100px"><div class="ui-bar ui-bar-a">Monto</div></div>';
 			if (results.rows.length>0){
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
