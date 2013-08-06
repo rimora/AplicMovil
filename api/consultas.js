@@ -80,7 +80,8 @@ function armacatalogo(){
 	function poblarcat(tx){  
 	        //alert('entra al poblarcat armacatalogo');        	   
 			var sql='SELECT a.articulo,a.descripcion,a.clas,a.accion,a.impuesto,a.descuento,b.existencia as ebodega,c.existencia as ealg,';
-			sql+='(a.precio-((a.precio/100)*a.descuento)) as precio ';
+			//sql+='(a.precio-((a.precio/100)*a.descuento)) as precio,a.laboratorio,a.sal ';
+			sql+='a.precio,a.laboratorio,a.sal ';
 			sql+='FROM articulo a left outer join articulo_existencia b on b.articulo=a.articulo and b.bodega="K01" ';
 			sql+=' left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="ALG" order by a.descripcion';
 			//alert('despues del sql armacatalogo');        
@@ -98,7 +99,9 @@ function armacatalogo(){
 			 var row = results.rows.item(index);         
 			 //alert('despues del var row armacatalogo');           
 			 var html="";	
-			 var precio=row['precio']*(1+(row['impuesto']/100));
+			 //var precio=row['precio']*(1+(row['impuesto']/100));
+			 var precio=row['precio'];
+
 			 if   (row['ebodega']==null)       
 			 {
 				var existencia=0; 				
@@ -119,8 +122,9 @@ function armacatalogo(){
 				 var existenciaalg=row['ealg']; 
 			 }			 
 			 html+='<li id='+row['articulo']+'>';
-	         html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> '+row['descripcion']+'</h3>';
-			 html+='Clasificación:'+row['clas']+' AcciónT:'+row['accion']+'<br/>Precio:'+precio.toFixed(2)+'    A bordo:'+existencia+'   ALG:'+existenciaalg+'</p></a></li>';
+	        // html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> '+row['descripcion']+'</h3>';
+			 html+='<a href=""><h3>'+row['descripcion']+'</h3>';
+			 html+='Clas.:'+row['clas']+', AcciónT:'+row['accion']+'<br/> Lab:'+row['laboratorio']+',SAL:'+row['sal']+',Precio:'+precio.toFixed(2)+', A bordo:'+existencia+'   ALG:'+existenciaalg+'</a></li>';
 			 			 
 			 $('#lcatalogo').append(html);        	
 			 //alert('despues de lcatalogo.append armacatalogo');        
