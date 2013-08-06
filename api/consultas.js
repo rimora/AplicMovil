@@ -121,7 +121,7 @@ function armacatalogo(){
 			 {
 				 var existenciaalg=row['ealg']; 
 			 }			 
-			 html+='<li id='+row['articulo']+'>';
+			 html+='<li id='+row['articulo']+' name='+row['descripcion']+'>';
 	        // html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> '+row['descripcion']+'</h3>';
 			 html+='<a href=""><h3>'+row['descripcion']+'</h3>';
 			 html+='Clas.:'+row['clas']+', AcciónT:'+row['accion']+'<br/> Lab:'+row['laboratorio']+',SAL:'+row['sal']+',Precio:'+precio.toFixed(2)+', A bordo:'+existencia+'   ALG:'+existenciaalg+'</a></li>';

@@ -385,6 +385,7 @@ $("#bimprimirf").tap(function() {
 	});
 	$("#lcatalogo li").live('click',function(){
                   var articulo = $(this).attr("id");
+				  
 				 // alert (articulo);
 				 existeenpedido(articulo);
     });
@@ -764,10 +765,10 @@ $("#bimprimirf").tap(function() {
 				$('#etinum').append('Importe:');					
 				window.localStorage.setItem("tipocob","E");
      });
-	 $("#bcheque").tap(function() {//boton para cobrar con cheque
-				poblarcuenta();	         				
+	 $("#bcheque").tap(function() {//boton para cobrar con cheque	 			
+				  poblarcuenta();	         				
 				$('#divcheques').show();
-				('#divnumaplicob').show();				
+				$('#divnumaplicob').show();
 				//window.location.href='#pcheque';								
 				//$("#numcuenta").val("");  				 
 				poblarcheques();				
@@ -1117,16 +1118,14 @@ $("#bimprimirf").tap(function() {
 	    		 		 
 		 var pendiente1=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
 		 var pendiente=pendiente1+Number(window.localStorage.getItem("efectivo"));//aumentamos el efectivo que tenga guardado, es decir, 
-		 //si es modificación del importe, se anula para tomar este nuevo importe y actualizar el abono pendiente de distribuir en efectivo y cheque.
-		 alert(monto);
-		 alert(pendiente);	    
+		 //si es modificación del importe, se anula para tomar este nuevo importe y actualizar el abono pendiente de distribuir en efectivo y cheque.		    
 			if (monto>pendiente || monto<0){
 				navigator.notification.alert('La cantidad indicada excede el saldo pendiente por abonar o es inválida',null,'Cantidad inválida','Aceptar');				
-				$("#importeapli").val('0');
+				$("#importeapli").val('');
 				return false;
 			}
 			else{
-		    alert(monto);		
+		    	
         	guardaefectivo(monto); 			
 			actgridsaldo();
 			$('#divnumaplicob').hide(); 		    
@@ -1207,7 +1206,7 @@ $("#bimprimirf").tap(function() {
           $('#importeapli').val(importe+'7');                         
        });
 	   $("#b88").tap(function() {                                                   
-          var importe=$('#importecobro').val();	                                                    
+          var importe=$('#importeapli').val();	                                                    
           $('#iimporteapli').val(importe+'8');                         
        });
 	   $("#b99").tap(function() {                                                   
