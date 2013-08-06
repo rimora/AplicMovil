@@ -29,15 +29,16 @@ function preparadetalletemp(articulo,cantidad,existencia){
 		   }
 	   }
 }//function insertatemppedido
-function existeenpedido(articulo){
-	var existe=false;	
+function existeenpedido(articulo,des){
+	var existe=false;
 	function listo(tx,results){ 	
 	         //alert('entra a funcion listo de existeenpedido');         	          
 	     	 if (results.rows.length>0){
-				//alert('existe en pedido');  
+				//alert('existe en pedido');  				
 				existe=true;  				
 				//alert('prueba de existe '+existe);  				
 			  }
+			 
 			 
  	}
 	function existep(tx){  	
@@ -62,7 +63,12 @@ function existeenpedido(articulo){
 					else
 					{
 						guardaarticulo(articulo);//almacena localmente la clave de articulo 					 
-						window.location.href='#pcantidad';
+						$('#etiart').empty();
+						$('#etiart').append('Articulo: '+articulo+' '+des)
+						//window.location.href='#pcantidad';
+						$('#cantcat').val('1');						
+						$('#divnumcat').show();
+						
 					}
 				});		
 
@@ -121,7 +127,7 @@ function armacatalogo(){
 			 {
 				 var existenciaalg=row['ealg']; 
 			 }			 
-			 html+='<li id='+row['articulo']+' name='+row['descripcion']+'>';
+			 html+='<li id='+row['articulo']+' title='+row['descripcion']+'>';
 	        // html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> '+row['descripcion']+'</h3>';
 			 html+='<a href=""><h3>'+row['descripcion']+'</h3>';
 			 html+='Clas.:'+row['clas']+', AcciónT:'+row['accion']+'<br/> Lab:'+row['laboratorio']+',SAL:'+row['sal']+',Precio:'+precio.toFixed(2)+', A bordo:'+existencia+'   ALG:'+existenciaalg+'</a></li>';

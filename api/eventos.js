@@ -385,9 +385,10 @@ $("#bimprimirf").tap(function() {
 	});
 	$("#lcatalogo li").live('click',function(){
                   var articulo = $(this).attr("id");
+				  var des = $(this).attr("title");
 				  
 				 // alert (articulo);
-				 existeenpedido(articulo);
+				 existeenpedido(articulo,des);
     });
 	$("#botoncantidad").tap(function(){
                  //var cantidad=$('#scantidad').attr('Val');
@@ -527,6 +528,7 @@ $("#bimprimirf").tap(function() {
 				 //limpia los grid				  
                   armacatalogo();
 				  window.location.href='#pcatalogo';
+				  $('#divnumcat').hide();
 				  
 				  
      });
@@ -1105,7 +1107,7 @@ $("#bimprimirf").tap(function() {
 	   //**********TECLADO NUMERICO	USADO EN APLICACION DE COBROS *************	
 	   $("#bacepapli").tap(function() {                                                   
 	       var tipocob=window.localStorage.getItem("tipocob");
-           var monto = parseInt($("#importeapli").val()); 
+           var monto = parseFloat($("#importeapli").val()); 
 		   alert(tipocob);
 		   if (isNaN(monto)) { 
         //entonces (no es numero) 
@@ -1127,8 +1129,10 @@ $("#bimprimirf").tap(function() {
 			}
 			else{
 		    alert(monto);	
-        	guardaefectivo(monto); 			
+        	guardaefectivo(monto); 	
+			alert('despues de guardar efectivo');					
 			actgridsaldo();
+			alert('despues de grid');
 			$('#divnumaplicob').hide(); 		    
 			}	    
 		}//tipocob
@@ -1208,7 +1212,7 @@ $("#bimprimirf").tap(function() {
        });
 	   $("#b88").tap(function() {                                                   
           var importe=$('#importeapli').val();	                                                    
-          $('#iimporteapli').val(importe+'8');                         
+          $('#importeapli').val(importe+'8');                         
        });
 	   $("#b99").tap(function() {                                                   
           var importe=$('#importeapli').val();	                                                    

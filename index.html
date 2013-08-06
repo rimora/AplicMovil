@@ -705,16 +705,21 @@
 	</div>
 	<div data-role="content">		        
     		<div class=ui-grid-a id="gridaplicobros" style="text-align:right; float:left; position:absolute; top:40px">         
-		    	 
-    		</div> 
-            <div class=ui-grid-b id="gridaplicobros2" style="text-align:right; float:left; position:absolute; top:40px; left:355px">         
+		    	  <div class="ui-block-a" style="width:170px" ><div class="ui-bar ui-bar-a">Documento</div></div>
+              <div class="ui-block-b" style="width:170px"><div class="ui-bar ui-bar-a">Vencimiento</div></div>
 		      
     		</div> 
-            <div id="divencaplic" style="position: absolute; left: 10px; top: 110px; width: 200px; height: auto">  
-            <label style="width:18%;font-size:18px; color: #00F;font-weight:bold">Indica el tipo de cobro:</label>            
+            <div class=ui-grid-b id="gridaplicobros2" style="text-align:right; float:left; position:absolute; top:40px; left:355px">         
+		    <div class="ui-block-a" style="width:110px" ><div class="ui-bar ui-bar-a">Documento</div></div>
+              <div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-a">Vencimiento</div></div>
+              <div class="ui-block-c" style="width:120px"><div class="ui-bar ui-bar-a">Vencimiento</div></div>
+		      
+    		</div> 
+            <div id="divencaplic" style="position: absolute; left: 10px; top: 130px; width: 200px; height: auto">  
+            <label style="width:18%;font-size:18px; color: #00F;font-weight:bold">Cobrar en:</label>            
             
-            <a href="#" id ="befectivo" data-role="button" data-theme="b" style="position: absolute; left: 5px; top: 20px; width:80px">Efectivo</a>
-            <a href="#" id ="bcheque" data-role="button" data-theme="b" style="position: absolute; left: 5px; top: 80px; width:80px">Cheque</a>
+            <a href="#" id ="bcheque" data-role="button" data-theme="b" style="position: absolute; left: 5px; top: 20px; width:80px">Cheque</a>
+            <a href="#" id ="befectivo" data-role="button" data-theme="b" style="position: absolute; left: 5px; top: 80px; width:80px">Efectivo</a>
             
             </div><!--div encabezado de aplic-->
             <div id="divnumaplicob" style="position: absolute; left: 150px; top: 260px; width: 224px; height: auto">
@@ -738,7 +743,7 @@
       			<a href="#" id="bacepapli" data-role="button" data-theme="b" class="ui-icon-sardel-aceptar" style="float:left" ></a>   
       			<a href="#" id="bcanapli" data-role="button" data-theme="b" class="ui-icon-sardel-cancelar" style="float:left; left:40px"> </a>   
      		 </div><!-- divnumaplicob-->
-           	 <div id="divcheques" style="position: absolute; left: 150px; top: 110px; width: 400px; height: auto">
+           	 <div id="divcheques" style="position: absolute; left: 150px; top: 110px; width: auto; height: auto">
              	 <div data-role="fieldcontain" data-theme="c" style="width:400px">           		
 		            <select name="menucuentab" id="menucuentab" data-theme="b" >		                  
 		            </select>
@@ -747,7 +752,7 @@
 			    	<a href="#" id="bnumche" data-role="button" data-theme="b" style="position: absolute; left:0px; top:-25px" >Num. Cheque</a>                       
                     <a href="#" id="bmontoche" data-role="button" data-theme="b" data-ajax="false" style="position: absolute; width:120px; left:125px; top:-25px">Importe</a>                       
                  </div>  
-                 <div data-role="collapsible" data-theme="b" data-content-theme="c" id="agrupacheques" style="position: absolute; left: 260px; top:15px; width:500px; height: auto">
+                 <div data-role="collapsible" data-theme="b" data-content-theme="c" id="agrupacheques" style="position: absolute; left: 260px; top:15px; width:600px; height: auto">
              		<h3>Cheques Ingresados</h3>
             	 	<div class=ui-grid-a id="gridcheques">         
 		    	   
