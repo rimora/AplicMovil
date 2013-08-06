@@ -769,6 +769,7 @@ $("#bimprimirf").tap(function() {
 				  poblarcuenta();	         				
 				$('#divcheques').show();
 				$('#divnumaplicob').show();
+				$('#importeapli').val('');		
 				//window.location.href='#pcheque';								
 				//$("#numcuenta").val("");  				 
 				poblarcheques();				
@@ -1125,7 +1126,7 @@ $("#bimprimirf").tap(function() {
 				return false;
 			}
 			else{
-		    	
+		    alert(monto);	
         	guardaefectivo(monto); 			
 			actgridsaldo();
 			$('#divnumaplicob').hide(); 		    
