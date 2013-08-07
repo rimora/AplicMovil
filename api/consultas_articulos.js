@@ -49,7 +49,7 @@ var total=0;
 
 	consultadb().transaction(consulta, errorconsulta);	
 	function consulta(tx) {		
-		tx.executeSql('SELECT (b.precio-((b.precio/100)*b.descuento)) as precio,b.descuento,a.cantidad,b.impuesto FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo where a.cliente="'+window.localStorage.getItem("clave")+'"',[],exito,errorconsulta);
+		tx.executeSql('SELECT b.precio,b.descuento,a.cantidad,b.impuesto FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo where a.cliente="'+window.localStorage.getItem("clave")+'"',[],exito,errorconsulta);
 		}
 			
 		function exito(tx,results){ 	
@@ -61,10 +61,10 @@ var total=0;
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
 				     //descuento=(row['precio']/100)*row['descuento'];
-					 //preciocdesc=Number(row['precio'])-((Number(row['precio'])/100)*Number(row['descuento']));
-				     precio=row['precio']*(1+(row['impuesto']/100));						 
-					 importe=precio*row['cantidad'];
-					 imporsiva=Number(row['precio'])*Number(row['cantidad']);
+					 preciocdesc=Number(row['precio'])-((Number(row['precio'])/100)*Number(row['descuento']));
+				     precio=preciocdesc*(1+(Number(row['impuesto'])/100));						 
+					 importe=precio*Number(row['cantidad']);
+					 imporsiva=preciocdesc*Number(row['cantidad']);
 					 iva+=importe-imporsiva;
 					 total+=Number(importe);
 			  });//.each

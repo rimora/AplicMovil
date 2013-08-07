@@ -301,7 +301,7 @@ $("#bpreventa").tap(function(){
 				  $('#divtotalesv').show();
 				  $('#etiventa').empty();
 				  $('#etiventa').append('Detalle de Preventa');
-				  
+				  gridvaloresven();
 				  mostrarpedido();
 				  
 });
@@ -312,6 +312,7 @@ $("#babordo").tap(function(){
 				  $('#divtotalesv').show();
 				  $('#etiventa').empty();
 				  $('#etiventa').append('Detalle de Venta a Bordo');
+				  gridvaloresven();
 				  mostrarfactura();
 				  
 });
@@ -349,9 +350,11 @@ $("#beliminarp").live('click',function(){//al eliminar linea de pedido
 				  if (tipov=='P'){
 					 // alert($(this).attr("name")+', '+$(this).attr("value"));
 					eliminalinea($(this).attr("name"),$(this).attr("value"),"P")				    
+					mostrarpedido();
 				  }
 				  else{
 					  eliminalinea($(this).attr("name"),$(this).attr("value"),"F")				    
+					  mostrarfactura();
 				  }
 				   
 			   //alert($("#"+"c"+$(this).val()).val());
@@ -412,9 +415,12 @@ $("#bimprimirp").tap(function() {
 			if (tipov=='P'){
 					imprimirped($("#pcomentario").val());
 					mostrarpedido();
+					gridvaloresven();
 				  }
 				  else{
 					  imprimirfac($("#pcomentario").val());
+					  mostrarfactura();
+					  gridvaloresven()
 				  }
 			
 			
@@ -1316,12 +1322,14 @@ $("#bimprimirf").tap(function() {
 				  {
 				    if (tipov=='P'){					
 					 modificalineap(articulo,cantidad);
+					 gridvaloresven();
 					}
 					else{
 						modificalineaf(articulo,cantidad);
+						gridvaloresven();
 					}
 					$('#divnumventas').hide(); 	
-					gridvaloresven();	    
+						    
 					 //alert('despues de llamada modificarlineap');
 					 //mostrarpedido();
 				  }

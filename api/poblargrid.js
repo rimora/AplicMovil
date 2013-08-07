@@ -168,7 +168,7 @@ function mostrarfactura(){
            			html+='<div class="ui-bar ui-bar-e"  >';      		 		
                    	html+='<div style="padding:0px; margin-top:-8px; margin-left:-10px">'; 
 			        html+='     <label for="P'+row['articulo']+'" >&nbsp</label>';  
-            		html+='     <input type="checkbox" id="P'+row['articulo']+'" name="'+row['articulo']+'" value="'+parcial+'" class="clasef"  />';
+            		html+='     <input type="checkbox" id="P'+row['articulo']+'" name="'+row['articulo']+'" value="'+parcial+'" class="clasep"  />';
                    	html+='		</div>';	
 		            html+='   </div>';
             		html+='</div>';            
