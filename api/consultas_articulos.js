@@ -46,7 +46,7 @@ var subtotal=0;
 var iva=0;
 var total=0;
 
-alert('entra');
+
 	consultadb().transaction(consulta, errorconsulta);	
 	function consulta(tx) {		
 		tx.executeSql('SELECT (b.precio-((b.precio/100)*b.descuento)) as precio,b.descuento,a.cantidad,b.impuesto FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo where a.cliente="'+window.localStorage.getItem("clave")+'"',[],exito,errorconsulta);
@@ -62,8 +62,6 @@ alert('entra');
 				  var row = results.rows.item(index); 				     			     
 				     //descuento=(row['precio']/100)*row['descuento'];
 				     precio=row['precio']*(1+(row['impuesto']/100));						 
-					 alert(row['descuento']);
-					 alert(precio);
 					 importe=precio*row['cantidad'];
 					 imporsiva=Number(row['precio'])*Number(row['cantidad']);
 					 iva+=importe-imporsiva;

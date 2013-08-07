@@ -347,7 +347,7 @@ $("#beliminarp").live('click',function(){//al eliminar linea de pedido
 				  //alert($(this).attr("value"));
 				  
 				  if (tipov=='P'){
-					  alert($(this).attr("name")+', '+$(this).attr("value"));
+					 // alert($(this).attr("name")+', '+$(this).attr("value"));
 					eliminalinea($(this).attr("name"),$(this).attr("value"),"P")				    
 				  }
 				  else{
@@ -362,6 +362,16 @@ $("#beliminarp").live('click',function(){//al eliminar linea de pedido
 				  	//alert($(this).attr("value"));
 				 }
 			});//$('input:checkbox.clasep').each(function () {	
+			gridvaloresven();
+			if (tipov=='P'){
+					 // alert($(this).attr("name")+', '+$(this).attr("value"));
+					mostrarpedido();				    
+				  }
+				  else{
+					mostrarfactura();
+				  }
+			
+			
 			//mostrarpedido();
 		}//if (button==1){
 	}			 
@@ -735,7 +745,7 @@ $("#bimprimirf").tap(function() {
 					$('#divcheques').hide();
 					$('#divnumaplicob').hide();					
 					eliminachequexrecibo();//elimina los cheques temporales.
-					
+					otro();
 				 }
 				  
 				  
@@ -778,6 +788,8 @@ $("#bimprimirf").tap(function() {
 	 $("#baceptaraplic").tap(function() {                   				  
 	        function onConfirm(button) {
 					if (button==1){	
+					   var pendiente=window.localStorage.getItem("pendiente");
+					   alert(pendiente);
 					     guardacob();	//prepara datos para guardar las tablas cabecera y detalles de recibos.funcion en cobros.js 				 
 						 window.location.href='#poperaciones';
 			

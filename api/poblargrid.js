@@ -170,7 +170,7 @@ function mostrarfactura(){
             		html+='</div>';            
                     html+='<div class="ui-block-b" style="width:110px"><div class="ui-bar ui-bar-b">'+row['articulo']+'</div></div>';
                     html+='<div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
-                    html+='<div class="ui-block-d" style="width:80px"><div class="ui-bar ui-bar-b"><a href="#" class="clasep" name="'+row['articulo']+'" id="'+row['articulo']+' '+row['descripcion']+'" ><font color="FFFFFF"></font>'+row['descripcion']+'</a></div></div>';
+                    html+='<div class="ui-block-d" style="width:80px"><div class="ui-bar ui-bar-b"><a href="#" class="clasep" name="'+row['articulo']+'" id="'+row['articulo']+' '+row['descripcion']+'" ><font color="FFFFFF"></font>'+row['cantidad']+'</a></div></div>';
 
 	                
 

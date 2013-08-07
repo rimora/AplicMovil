@@ -317,16 +317,7 @@ function eliminalinea(articulo,importe,tipo){
 	}
 	consultadb().transaction(consultatemp, function(err){
     	 			 alert("Error select tabla temporal: "+err.code+err.message);
-         		},function(){
-				if (tipo=="F"){
-					mostrarpedido();
-				}
-				else {
-					mostrarfactura();
-				}	
-					
-					
-				});		
+         		});		
 				
 }//function eliminalinea
 function modificalineap(articulo,cantidad){	

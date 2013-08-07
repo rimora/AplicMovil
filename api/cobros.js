@@ -229,7 +229,7 @@ function aplicacionpago(saldofac,abono){
 				
 }//function aplicacionpago()
 function otro(){	
-aler('entra');
+aler('entra a otro');
 	var pendiente=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
 	var montoche=window.localStorage.getItem("cheque");
 	var montoefe=window.localStorage.getItem("efectivo");
