@@ -127,7 +127,7 @@ function armacatalogo(){
 			 {
 				 var existenciaalg=row['ealg']; 
 			 }	
-			 alert(row['descripcion']);		 
+			 //alert(row['descripcion']);		 
 			 html+='<li id='+row['articulo']+' title='+row['descripcion']+'>';
 	        // html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> '+row['descripcion']+'</h3>';
 			 html+='<a href=""><h3>'+row['descripcion']+'</h3>';
@@ -175,6 +175,14 @@ var existe=false;
 					if (existe==false){   					
 						sugerido();//inserta sugerido del cliente
 					}
+					else {
+					gridvaloresven(); //poblar grid con valores totales de preventa + a bordo	
+						
+					}
+					
+					
+					
+					
 				});		
 
     
@@ -249,7 +257,7 @@ function sugerido(){
 								preparadetalletemp(artsug[i],cantsug[i],exissug[i]);
 							}
 					   }
-					   
+					   gridvaloresven(); //poblar grid con valores totales de preventa + a bordo
 				 }// for (var i = 0, long = artsug.length; i < long; i++) {   					 
 				 //mostrarpedido();
                  //mostrarfactura(); 

@@ -200,7 +200,7 @@ function insertatemppedido(articulo,cantidad){
 	   
 	consultadb().transaction(insertadet,function(err){
     	  alert("Error al insertar renglon: "+err.code+err.message);
-          },alert("Artículo insertado en pedido"));
+          },alert("Artículo insertado"));
 				
     	function insertadet(tx) {		
 		//alert('entra a insert de detallepedido');
@@ -237,7 +237,7 @@ function eliminatempfactura(articulo,cantidad){
 	   
 	consultadb().transaction(insertadet,function(err){
     	  alert("Error al eliminar renglon de tempfactura: "+err.code+err.message);
-          },alert("Artículo eliminado en tempfac"));
+          });
 				
     	function insertadet(tx) {		
 		//alert('entra a delete de detallefactura');

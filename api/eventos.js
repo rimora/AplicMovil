@@ -508,7 +508,7 @@ $("#bimprimirf").tap(function() {
 				 $('#divtotalesv').hide();                 
 				  //limpiartemp();
 				  validasug();//valida si tiene facturas o pedidos pendientes de imprimir para insertar o no pedido sugerido en caso de tenerlo
-				  gridvaloresven(); //poblar grid con valores totales de preventa + a bordo
+				  
 				  
 				 // mostrarpedido();
 				 // mostrarfactura();
@@ -789,7 +789,7 @@ $("#bimprimirf").tap(function() {
 	        function onConfirm(button) {
 					if (button==1){	
 					   var pendiente=window.localStorage.getItem("pendiente");
-					   alert(pendiente);
+					  // alert(pendiente);
 					     guardacob();	//prepara datos para guardar las tablas cabecera y detalles de recibos.funcion en cobros.js 				 
 						 window.location.href='#poperaciones';
 			
@@ -1121,11 +1121,11 @@ $("#bimprimirf").tap(function() {
 				return false;
 			}
 			else{
-		    alert(monto);	
+		    
         	guardaefectivo(monto); 	
-			alert('despues de guardar efectivo');
+			
 			otro();
-			alert('despues de grid');
+			
 			$('#divnumaplicob').hide(); 		    
 			}	    
 		}//tipocob

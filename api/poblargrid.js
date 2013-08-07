@@ -43,7 +43,7 @@ function mostrarpedido(){
               html+='<div class="ui-bar ui-bar-a">Precio P</div></div>';
 			  */
               html+='<div class="ui-block-b" style="width:90px">';
-              html+='<div class="ui-bar ui-bar-a">Precio U</div></div>';
+              html+='<div class="ui-bar ui-bar-a">Precio</div></div>';
 			  html+='<div class="ui-block-c" style="width:90px">';
               html+='<div class="ui-bar ui-bar-a">Parcial</div></div>';
               html+='</div>';                    
@@ -145,7 +145,7 @@ function mostrarfactura(){
               html+='<div class="ui-bar ui-bar-a">Precio P</div></div>';
 			  */
               html+='<div class="ui-block-b" style="width:90px">';
-              html+='<div class="ui-bar ui-bar-a">Precio U</div></div>';
+              html+='<div class="ui-bar ui-bar-a">Precio</div></div>';
 			  html+='<div class="ui-block-c" style="width:90px">';
               html+='<div class="ui-bar ui-bar-a">Parcial</div></div>';
               html+='</div>';                    
