@@ -292,8 +292,8 @@ function eliminalinea(articulo,importe,tipo){
 				var cantidad=row['cantidad'];
 				var saldoant=Number(window.localStorage.getItem("saldo"));
 				//window.localStorage.setItem("saldo",saldoant-importe);
-				actsaldo(importe*-1);
-				//alert(window.localStorage.getItem("saldo"));
+				actsaldo(Number(importe)*-1);
+				alert(importe);
 				if (tipo=="F"){
 					eliminatempfactura(articulo,cantidad)
 				}

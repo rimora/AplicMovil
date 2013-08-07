@@ -350,13 +350,12 @@ $("#beliminarp").live('click',function(){//al eliminar linea de pedido
 				  if (tipov=='P'){
 					 // alert($(this).attr("name")+', '+$(this).attr("value"));
 					eliminalinea($(this).attr("name"),$(this).attr("value"),"P")				    
-					mostrarpedido();
-					gridvaloresven();
+					
 				  }
 				  else{
 					  eliminalinea($(this).attr("name"),$(this).attr("value"),"F")				    
-					  mostrarfactura();
-					  gridvaloresven();
+					 
+					  
 				  }
 				   
 			   //alert($("#"+"c"+$(this).val()).val());
@@ -367,15 +366,16 @@ $("#beliminarp").live('click',function(){//al eliminar linea de pedido
 				  	//alert($(this).attr("value"));
 				 }
 			});//$('input:checkbox.clasep').each(function () {	
-			gridvaloresven();
-			if (tipov=='P'){
+					
+					gridvaloresven();
+					if (tipov=='P'){
 					 // alert($(this).attr("name")+', '+$(this).attr("value"));
 					mostrarpedido();				    
 				  }
 				  else{
 					mostrarfactura();
 				  }
-			
+				$("#pventas").trigger('refresh');
 			
 			//mostrarpedido();
 		}//if (button==1){

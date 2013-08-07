@@ -219,9 +219,44 @@ var total=0;
 	consultadb().transaction(consulta, errorconsulta);	
 	function consulta(tx) {		
 		tx.executeSql('SELECT b.precio,b.descuento,a.cantidad,b.impuesto FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo where a.cliente="'+window.localStorage.getItem("clave")+'"',[],exito,errorconsulta);
+		tx.executeSql('SELECT b.precio,b.descuento,a.cantidad,b.impuesto FROM TEMFACTURA a left outer join articulo b on b.articulo=a.articulo where a.cliente="'+window.localStorage.getItem("clave")+'"',[],exito2,errorconsulta);
 		}
 			
 		function exito(tx,results){ 	
+			  var saldot=0;
+			  var montot=0;			  
+		      var precio=0;	    	  
+			  var importe=0;         
+			  var imporsiva=0;
+			  var preciocdesc=0;
+			  $.each(results.rows,function(index){				  
+				  var row = results.rows.item(index); 				     			     
+				     preciocdesc=Number(row['precio'])-((Number(row['precio'])/100)*Number(row['descuento']));
+				     precio=preciocdesc*(1+(Number(row['impuesto'])/100));						 
+					// alert(row['descuento']);
+					// alert(precio);
+					 importe=precio*Number(row['cantidad']);
+					 imporsiva=preciocdesc*Number(row['cantidad']);
+					 iva+=importe-imporsiva;
+					 total+=Number(importe);
+			  });//.each	
+			  var html="";
+			  $("#gridtotalesv").empty();
+		      subtotal=total-iva;
+			  html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-a">Lim.Cred.</div></div>';
+              html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-a">Disponible</div></div>';
+		      html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-a">Subtotal</div></div>';
+        	  html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-a">IVA</div></div>';
+              html+='<div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-a">Total</div></div>';
+			  html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-b">'+limite.toFixed(2)+'</div></div>';
+              html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b">'+disp.toFixed(2)+'</div></div>';
+		      html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-b">'+subtotal.toFixed(2)+'</div></div>';
+        	  html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b">'+iva.toFixed(2)+'</div></div>';
+              html+='<div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-b">'+total.toFixed(2)+'</div></div>';
+		$("#gridtotalesv").append(html); 
+		$("#gridtotalesv").trigger('refresh');				
+	   }//function exito
+	   function exito2(tx,results){ 	
 			  var saldot=0;
 			  var montot=0;			  
 		      var precio=0;	    	  
