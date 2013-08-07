@@ -126,7 +126,8 @@ function armacatalogo(){
 			 else 
 			 {
 				 var existenciaalg=row['ealg']; 
-			 }			 
+			 }	
+			 alert(row['descripcion']);		 
 			 html+='<li id='+row['articulo']+' title='+row['descripcion']+'>';
 	        // html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> '+row['descripcion']+'</h3>';
 			 html+='<a href=""><h3>'+row['descripcion']+'</h3>';
@@ -250,8 +251,8 @@ function sugerido(){
 					   }
 					   
 				 }// for (var i = 0, long = artsug.length; i < long; i++) {   					 
-				 mostrarpedido();
-                 mostrarfactura(); 
+				 //mostrarpedido();
+                 //mostrarfactura(); 
 				});		
 				
 }//function sugerido
@@ -292,8 +293,7 @@ function eliminalinea(articulo,importe,tipo){
 					eliminatemppedido(articulo,cantidad)
 				}
 			 //}//if (row['cantidad']>0)			 
-                 mostrarfactura();
-				 mostrarpedido();
+                 
 				 
 		  }//if			  
 		  /*else
@@ -317,7 +317,16 @@ function eliminalinea(articulo,importe,tipo){
 	}
 	consultadb().transaction(consultatemp, function(err){
     	 			 alert("Error select tabla temporal: "+err.code+err.message);
-         		});		
+         		},function(){
+				if (tipo=="F"){
+					mostrarpedido();
+				}
+				else {
+					mostrarfactura();
+				}	
+					
+					
+				});		
 				
 }//function eliminalinea
 function modificalineap(articulo,cantidad){	

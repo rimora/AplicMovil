@@ -228,7 +228,7 @@ function aplicacionpago(saldofac,abono){
 	$("#cheque").val(0);
 				
 }//function aplicacionpago()
-function actualizagridsaldo(){	
+function otro(){	
 aler('entra');
 	var pendiente=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
 	var montoche=window.localStorage.getItem("cheque");

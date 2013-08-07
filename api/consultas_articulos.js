@@ -46,26 +46,8 @@ var subtotal=0;
 var iva=0;
 var total=0;
 
-
-	consultadb().transaction(consulta, errorconsulta,function(){
-		var html="";
-		$("#gridtotales").empty();
-		      subtotal=total-iva;
-			  html+='<div class="ui-block-a" style="width:90px"><div class="ui-bar ui-bar-a">Lim.Cred.</div></div>';
-              html+='<div class="ui-block-b" style="width:80px"><div class="ui-bar ui-bar-a">Disp.</div></div>';
-		      html+='<div class="ui-block-c" style="width:80px"><div class="ui-bar ui-bar-a">Subtotal</div></div>';
-        	  html+='<div class="ui-block-d" style="width:70px"><div class="ui-bar ui-bar-a">IVA</div></div>';
-              html+='<div class="ui-block-e" style="width:80px"><div class="ui-bar ui-bar-a">Total</div></div>';
-			  html+='<div class="ui-block-a" style="width:90px"><div class="ui-bar ui-bar-a">'+limite.toFixed()+'</div></div>';
-              html+='<div class="ui-block-b" style="width:80px"><div class="ui-bar ui-bar-a">'+disp.toFixed()+'</div></div>';
-		      html+='<div class="ui-block-c" style="width:80px"><div class="ui-bar ui-bar-a">'+subtotal.toFixed()+'</div></div>';
-        	  html+='<div class="ui-block-d" style="width:70px"><div class="ui-bar ui-bar-a">'+iva.toFixed()+'</div></div>';
-              html+='<div class="ui-block-e" style="width:80px"><div class="ui-bar ui-bar-a">'+total.toFixed()+'</div></div>';
-		$("#gridtotales").append(html); 	  
-	
-		
-		
-	});	
+alert('entra');
+	consultadb().transaction(consulta, errorconsulta);	
 	function consulta(tx) {		
 		tx.executeSql('SELECT (b.precio-((b.precio/100)*b.descuento)) as precio,b.descuento,a.cantidad,b.impuesto FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo where a.cliente="'+window.localStorage.getItem("clave")+'"',[],exito,errorconsulta);
 		}
@@ -80,11 +62,28 @@ var total=0;
 				  var row = results.rows.item(index); 				     			     
 				     //descuento=(row['precio']/100)*row['descuento'];
 				     precio=row['precio']*(1+(row['impuesto']/100));						 
+					 alert(row['descuento']);
+					 alert(precio);
 					 importe=precio*row['cantidad'];
 					 imporsiva=Number(row['precio'])*Number(row['cantidad']);
 					 iva+=importe-imporsiva;
 					 total+=Number(importe);
-			  });//.each					
+			  });//.each
+			  var html="";
+		$("#gridtotales").empty();
+		      subtotal=total-iva;
+			  html+='<div class="ui-block-a" style="width:90px"><div class="ui-bar ui-bar-a">Lim.Cred.</div></div>';
+              html+='<div class="ui-block-b" style="width:80px"><div class="ui-bar ui-bar-a">Disp.</div></div>';
+		      html+='<div class="ui-block-c" style="width:80px"><div class="ui-bar ui-bar-a">Subtotal</div></div>';
+        	  html+='<div class="ui-block-d" style="width:70px"><div class="ui-bar ui-bar-a">IVA</div></div>';
+              html+='<div class="ui-block-e" style="width:80px"><div class="ui-bar ui-bar-a">Total</div></div>';
+			  html+='<div class="ui-block-a" style="width:90px"><div class="ui-bar ui-bar-b">'+limite.toFixed(2)+'</div></div>';
+              html+='<div class="ui-block-b" style="width:80px"><div class="ui-bar ui-bar-b">'+disp.toFixed(2)+'</div></div>';
+		      html+='<div class="ui-block-c" style="width:80px"><div class="ui-bar ui-bar-b">'+subtotal.toFixed(2)+'</div></div>';
+        	  html+='<div class="ui-block-d" style="width:70px"><div class="ui-bar ui-bar-b">'+iva.toFixed(2)+'</div></div>';
+              html+='<div class="ui-block-e" style="width:80px"><div class="ui-bar ui-bar-b">'+total.toFixed(2)+'</div></div>';
+		$("#gridtotales").append(html); 	  
+		$("#gridtotales").trigger('refresh');					
 	   }//function exito
  		
 	function errorconsulta(err) {
@@ -92,4 +91,4 @@ var total=0;
 	}
 //  });	
 
-  }//mostrarpedido
+  }//
