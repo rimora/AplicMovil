@@ -496,7 +496,7 @@ $("#bimprimirf").tap(function() {
 					  mostrarfactura();  					  
 				  }
 				 $("#divnumventas").hide();
-				  gridtotalesv();
+				  gridvaloresven()
 				  //mostrarfactura();
 				  
      });	
@@ -1171,21 +1171,21 @@ $("#bimprimirf").tap(function() {
        }); 
 	   $("#b11").tap(function() { 	     
 	    var importe=$('#importeapli').val();	                                                    
-		   if (importe.length<longitud){ 
+		  // if (importe.length<longitud){ 
           $('#importeapli').val(importe+'1');                         
-		   }
+		   //}
        });
 	   $("#b22").tap(function() {                                                   
           var importe=$('#importeapli').val();	                                                    
-		  if (importe.length<longitud){ 
+		  //if (importe.length<longitud){ 
           $('#importeapli').val(importe+'2');                         
-		  }
+		  //}
        });
 	   $("#b33").tap(function() {                                                   
           var importe=$('#importeapli').val();	                                                    
-		  if (importe.length<longitud){ 
+		  //if (importe.length<longitud){ 
           $('#importeapli').val(importe+'3');                         
-		  }
+		  //}
        });
 	    $("#b44").tap(function() {  
 	    var importe=$('#importeapli').val();	                                                    
@@ -1250,21 +1250,21 @@ $("#bimprimirf").tap(function() {
        }); 
 	   $("#b111").tap(function() { 	     
 	    var importe=$('#cantcat').val();	                                                    
-		   if (importe.length<longitud){ 
+		   //if (importe.length<longitud){ 
           $('#cantcat').val(importe+'1');                         
-		   }
+		  // }
        });
 	   $("#b222").tap(function() {                                                   
           var importe=$('#cantcat').val();	                                                    
-		  if (importe.length<longitud){ 
+		  //if (importe.length<longitud){ 
           $('#cantcat').val(importe+'2');                         
-		  }
+		  //}
        });
 	   $("#b333").tap(function() {                                                   
           var importe=$('#cantcat').val();	                                                    
-		  if (importe.length<longitud){ 
+		 // if (importe.length<longitud){ 
           $('#cantcat').val(importe+'3');                         
-		  }
+		  //}
        });
 	    $("#b444").tap(function() {  
 	    var importe=$('#cantcat').val();	                                                    
@@ -1331,21 +1331,21 @@ $("#bimprimirf").tap(function() {
        }); 
 	   $("#b1111").tap(function() { 	     
 	    var importe=$('#cantv').val();	                                                    
-		   if (importe.length<longitud){ 
+		   //if (importe.length<longitud){ 
           $('#cantv').val(importe+'1');                         
-		   }
+		   //}
        });
 	   $("#b2222").tap(function() {                                                   
           var importe=$('#cantv').val();	                                                    
-		  if (importe.length<longitud){ 
+		  //if (importe.length<longitud){ 
           $('#cantv').val(importe+'2');                         
-		  }
+		  //}
        });
 	   $("#b3333").tap(function() {                                                   
           var importe=$('#cantv').val();	                                                    
-		  if (importe.length<longitud){ 
+		 // if (importe.length<longitud){ 
           $('#cantv').val(importe+'3');                         
-		  }
+		  //}
        });
 	    $("#b4444").tap(function() {  
 	    var importe=$('#cantv').val();	                                                    
@@ -1380,7 +1380,7 @@ $("#bimprimirf").tap(function() {
           $('#cantv').val(importe+'.');                         
        });
 	    $("#blimpiarcantv").tap(function() {                                                                                                                
-          $('#cantcat').val('');                         
+          $('#cantv').val('');                         
        });
 
 

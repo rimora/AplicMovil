@@ -7,7 +7,7 @@ function mostrarpedido(){
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		consultadb().transaction(consulta, errorconsulta);	
 	function consulta(tx) {		
-		tx.executeSql('SELECT a.articulo,b.descripcion,(b.precio-((b.precio/100)*b.descuento)) as precio,b.descuento,a.cantidad,b.impuesto,b.precio as preciop FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo where a.cliente="'+window.localStorage.getItem("clave")+'"',[],exito,errorconsulta);
+		tx.executeSql('SELECT a.articulo,b.descripcion,b.precio,b.descuento,a.cantidad,b.impuesto,b.precio as preciop FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo where a.cliente="'+window.localStorage.getItem("clave")+'"',[],exito,errorconsulta);
 		}
 	
 		
@@ -25,6 +25,7 @@ function mostrarpedido(){
 			  var descuento=0;
 			  var parcial=0;
 			  var preciop=0;
+			  var preciocdesc=0;
 			  //agrega encabezado de grid
 			  html+=' <div class="ui-block-a" style="width:70px;height:20px" > ';            
               html+=' <div class="ui-bar ui-bar-a"><a href="#" id="beliminarp">Elim.</a></div></div> ';           
@@ -50,11 +51,12 @@ function mostrarpedido(){
               html+='</div>';	
 			  
 			  $.each(results.rows,function(index){				  
-				  var row = results.rows.item(index); 				     			     
+				  var row = results.rows.item(index); 
+				     preciocdesc=Number(row['precio'])-((Number(row['precio'])/100)*Number(row['descuento']));				     			     
 				     descuento=Number(row['descuento']);
 					 iva=Number(row['impuesto']);					 
 					 preciop=Number(row['preciop']);
-				     precio=Number(row['precio'])*(1+(Number(row['impuesto'])/100));				 
+				     precio=Number(preciocdesc)*(1+(Number(row['impuesto'])/100));				 
 					 parcial=precio*Number(row['cantidad']);
 					 total+=Number(parcial);
 					 
@@ -109,7 +111,7 @@ function mostrarfactura(){
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
 		consultadb().transaction(consulta, errorconsulta);	
 	function consulta(tx) {		
-		tx.executeSql('SELECT a.articulo,b.descripcion,(b.precio-((b.precio/100)*b.descuento)) as precio,b.descuento,a.cantidad,b.impuesto,b.precio as preciop FROM TEMFACTURA a left outer join articulo b on b.articulo=a.articulo where a.cliente="'+window.localStorage.getItem("clave")+'"',[],exito,errorconsulta);
+		tx.executeSql('SELECT a.articulo,b.descripcion,b.precio,b.descuento,a.cantidad,b.impuesto,b.precio as preciop FROM TEMFACTURA a left outer join articulo b on b.articulo=a.articulo where a.cliente="'+window.localStorage.getItem("clave")+'"',[],exito,errorconsulta);
 		}
 	
 		
@@ -127,6 +129,7 @@ function mostrarfactura(){
 			  var descuento=0;
 			  var parcial=0;
 			  var preciop=0;
+			   var preciocdesc=0;
 			  //agrega encabezado de grid
 			  html+=' <div class="ui-block-a" style="width:70px;height:20px" > ';            
               html+=' <div class="ui-bar ui-bar-a"><a href="#" id="beliminarp">Elim.</a></div></div> ';           
@@ -153,10 +156,11 @@ function mostrarfactura(){
 			  
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
+				     preciocdesc=Number(row['precio'])-((Number(row['precio'])/100)*Number(row['descuento']));				     			     
 				     descuento=Number(row['descuento']);
 					 iva=Number(row['impuesto']);					 
 					 preciop=Number(row['preciop']);
-				     precio=Number(row['precio'])*(1+(Number(row['impuesto'])/100));				 
+				     precio=Number(preciocdesc)*(1+(Number(row['impuesto'])/100));				 
 					 parcial=precio*Number(row['cantidad']);
 					 total+=Number(parcial);
 					 
@@ -214,7 +218,7 @@ var total=0;
 
 	consultadb().transaction(consulta, errorconsulta);	
 	function consulta(tx) {		
-		tx.executeSql('SELECT (b.precio-((b.precio/100)*b.descuento)) as precio,b.descuento,a.cantidad,b.impuesto FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo where a.cliente="'+window.localStorage.getItem("clave")+'"',[],exito,errorconsulta);
+		tx.executeSql('SELECT b.precio,b.descuento,a.cantidad,b.impuesto FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo where a.cliente="'+window.localStorage.getItem("clave")+'"',[],exito,errorconsulta);
 		}
 			
 		function exito(tx,results){ 	
