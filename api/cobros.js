@@ -229,7 +229,7 @@ function aplicacionpago(saldofac,abono){
 				
 }//function aplicacionpago()
 function otro(){	
-aler('entra a otro');
+alert('entra a otro');
 }
 
 function otros(){	
