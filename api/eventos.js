@@ -351,10 +351,12 @@ $("#beliminarp").live('click',function(){//al eliminar linea de pedido
 					 // alert($(this).attr("name")+', '+$(this).attr("value"));
 					eliminalinea($(this).attr("name"),$(this).attr("value"),"P")				    
 					mostrarpedido();
+					gridvaloresven();
 				  }
 				  else{
 					  eliminalinea($(this).attr("name"),$(this).attr("value"),"F")				    
 					  mostrarfactura();
+					  gridvaloresven();
 				  }
 				   
 			   //alert($("#"+"c"+$(this).val()).val());
