@@ -387,25 +387,9 @@ $("#bimprimirf").tap(function() {
                   var articulo = $(this).attr("id");
 				  var des = $(this).attr("title");
 				  
-				 // alert (articulo);
+				  alert (des);
 				 existeenpedido(articulo,des);
-    });
-	$("#botoncantidad").tap(function(){
-                 //var cantidad=$('#scantidad').attr('Val');
-				 var cantidad=$('#scantidad').val();
-				  //alert (cantidad);
-				  if (cantidad<=0){
-					  navigator.notification.alert('Debe indicar cantidad MAYOR A CERO',null,'Error Indicando Cantidad','Aceptar');					
-					  
-				  }
-				  else
-				  {
-				    //obtiene el articulo pulsado en la lista
-    				var articulo = window.localStorage.getItem("articulo");
-	     			//alert (articulo);	  
-					 insertalinea(articulo,cantidad);
-				  }
-    });
+    });	
 	$("#botonmodcantidadp").tap(function(){
                  //var cantidad=$('#scantidad').attr('Val');
 				 var cantidad=Number($('#modcantidadp').val());
@@ -529,7 +513,7 @@ $("#bimprimirf").tap(function() {
                   armacatalogo();
 				  window.location.href='#pcatalogo';
 				  $('#divnumcat').hide();
-				  
+				  gridvalorescat();
 				  
      });
 	 $("#binicializar").click(function(){
@@ -1130,8 +1114,8 @@ $("#bimprimirf").tap(function() {
 			else{
 		    alert(monto);	
         	guardaefectivo(monto); 	
-			alert('despues de guardar efectivo');					
-			actualizagridsaldo();
+			alert('despues de guardar efectivo');
+			//actualizagridsaldo();
 			alert('despues de grid');
 			$('#divnumaplicob').hide(); 		    
 			}	    
@@ -1246,6 +1230,7 @@ $("#bimprimirf").tap(function() {
 			else{			
             insertalinea(articulo,cantidad);			    
 			//actualizar grid de importes
+			gridvalorescat();			
 			$('#divnumcat').hide(); 		    
 			}	    
 		  

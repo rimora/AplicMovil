@@ -312,9 +312,7 @@ function poblarcheques(){
             		html+='</div>';            
                     html+='<div class="ui-block-b" style="width:110px"><div class="ui-bar ui-bar-b">'+row['numcheque']+'</div></div>';
                     html+='<div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
-	                html+='<div class="ui-block-e" style="width:110px"><div class="ui-bar ui-bar-b">'+monto.toFixed(2)+'</div></div> ';
-
-                  	 
+	                html+='<div class="ui-block-e" style="width:100px"><div class="ui-bar ui-bar-b">'+monto.toFixed(2)+'</div></div> ';                  	 
 			  });//.each
 			} 
 			  		guardacheque(montot);					
