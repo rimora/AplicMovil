@@ -9,6 +9,7 @@ $(document).ready(function() {
 	
 	});*/	
 	 //$('#divnumcobros').hide(); 
+	 var base = window.openDatabase("Database", "1.0", "SARDEL", 10000000);		
 	 var longitud=0;
 	window.localStorage.clear();
 	//obtenerconse();//funcion que almacena localmente los consecutivos de documentos actuales.funcion en configuraciones.js
@@ -508,14 +509,14 @@ $("#bimprimirf").tap(function() {
 				  //mostrarfactura();
 				  
      });	
-	 $("#bventa").tap(function() { 
-                 //var clavecli = $(this).attr("id");
+	 $("#bventa").tap(function() {		 	 
+                 var cliente=window.localStorage.getItem("clave");
 				 //limpia los grid
 				 $("#divnumventas").hide();
-				 $("#divventas").hide(); 
-				 $('#divtotalesv').hide();                 
+				 $("#divventas").show();                 
+				 $('#divtotalesv').show();                 
 				  //limpiartemp();
-				  validasug();//valida si tiene facturas o pedidos pendientes de imprimir para insertar o no pedido sugerido en caso de tenerlo
+				  validasug(cliente);//valida si tiene facturas o pedidos pendientes de imprimir para insertar o no pedido sugerido en caso de tenerlo
 				  
 				  
 				 // mostrarpedido();

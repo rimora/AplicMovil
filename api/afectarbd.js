@@ -151,7 +151,11 @@ function insertar(){
 		 tx.executeSql('INSERT INTO SUGERIDO (cliente,articulo,cantidad) VALUES ("1020","ACE-01",5)'); 
 		 tx.executeSql('INSERT INTO SUGERIDO (cliente,articulo,cantidad) VALUES ("1020","ACE-02",5)'); 
 		 tx.executeSql('INSERT INTO SUGERIDO (cliente,articulo,cantidad) VALUES ("1020","ACF-01",5)'); 
-		 tx.executeSql('INSERT INTO SUGERIDO (cliente,articulo,cantidad) VALUES ("1030","ACL-01",5)'); 
+		 tx.executeSql('INSERT INTO SUGERIDO (cliente,articulo,cantidad) VALUES ("1030","ACL-02",5)');
+		 tx.executeSql('INSERT INTO SUGERIDO (cliente,articulo,cantidad) VALUES ("1030","ACA-01",5)'); 
+		 tx.executeSql('INSERT INTO SUGERIDO (cliente,articulo,cantidad) VALUES ("1030","ACE-01",30)'); 
+		 tx.executeSql('INSERT INTO SUGERIDO (cliente,articulo,cantidad) VALUES ("1030","ACE-02",45)'); 
+		 tx.executeSql('INSERT INTO SUGERIDO (cliente,articulo,cantidad) VALUES ("1030","ACF-01",5)');  
 		 
 tx.executeSql('INSERT INTO ARTICULO (articulo,descripcion,clas,accion,impuesto,precio,descuento,laboratorio,sal,ubi) VALUES ("ACA-01","ACANOL TABS 2MG C/12","CATALOGO","ANTIDIARREICO",0,85.77,55,"SANOFI AVENTIS","LOPERAMIDA","101")'); 
 tx.executeSql('INSERT INTO ARTICULO (articulo,descripcion,clas,accion,impuesto,precio,descuento,laboratorio,sal,ubi) VALUES ("ACE-01","ACTE HIGADO BACALAO PERL C/30","CATALOGO","SUPLEMENTO ALIMENTICIO CON VITAMINAS",0,59.8,75,"SARDEL","ACEITE DE BACALAO","101")'); 
@@ -196,18 +200,7 @@ function guardacliente(nombre,empresa,rfc,direccion,colonia,estado,municipio,tel
 		}
 	
 }//function guardacliente(
-function insertatemppedido(articulo,cantidad){
-	   
-	consultadb().transaction(insertadet,function(err){
-    	  alert("Error al insertar renglon: "+err.code+err.message);
-          },alert("Artículo insertado"));
-				
-    	function insertadet(tx) {		
-		//alert('entra a insert de detallepedido');
-		tx.executeSql('INSERT INTO TEMPEDIDO (articulo,cantidad,cliente) VALUES ("'+articulo+'",'+cantidad+',"'+window.localStorage.getItem("clave")+'")');        
-		}
-	
-}//function insertatemppedido
+
 function insertatempfactura(articulo,cantidad){
 	   //alert('inserttafactura'+cantidad);
 	    consultadb().transaction(insertadet,function(err){
@@ -249,7 +242,7 @@ function eliminatempfactura(articulo,cantidad){
 function modificatemppedido(articulo,cantidad){
 	   
 	consultadb().transaction(insertadet,function(err){
-    	  alert("Error al modifica renglon: "+err.code+err.message);
+    	  alert("Error al modificar renglon: "+err.code+err.message);
           },alert("Artículo modificado en pedido"));
 				
     	function insertadet(tx) {		
