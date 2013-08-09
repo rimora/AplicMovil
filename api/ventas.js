@@ -1,5 +1,6 @@
 // funciones para ventas
 function validasug(cliente){
+	alert(cliente);
 var existe=false;	
 	function listo(tx,results){ 	
 	         //alert('entra a funcion listo de existeenpedido');         	          
@@ -12,6 +13,7 @@ var existe=false;
  	}
 	function existep(tx){  	
 	        //alert('entra a funcion existep');         	    
+			alert('entra a existep');
 			var sql='SELECT articulo FROM TEMPEDIDO WHERE cliente="'+cliente+'"  ';			
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error consultar existeTEMPEDIDO : "+err.code+err.message);
@@ -45,6 +47,7 @@ var existe=false;
 	
 }//VALIDA SUGERIDO
 function sugerido(cliente){
+	alert(cliente);
 	var artsug=[];
 	var cantsug=[];
 	var exissug=[];
@@ -55,6 +58,7 @@ function sugerido(cliente){
 	var i=0;
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){
+			  alert('entra a listo');
 			$.each(results.rows,function(index){           			
 			 var row = results.rows.item(index);            			
 				artsug[i]=row['articulo'];
@@ -74,7 +78,7 @@ function sugerido(cliente){
 			var sql='SELECT a.articulo,a.cantidad ';
 			sql+='FROM SUGERIDO a ';
 			sql+='WHERE a.cliente="'+cliente+'"  ';
-					
+				alert('entra a consultasug');	
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error consultar sugerido del cliente : "+sql+err.code+err.message);
          		});    									
