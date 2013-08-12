@@ -269,7 +269,7 @@ function mostrarpedido(cliente){
 			  
 			  });//.each
 					$("#gridpedido").append(html);					
-					html+="";
+					html="";
 					html+='<center><label style="font-weight:bold; font-size:24px">Disponible:</label></center>';
        			    html+='<center><label style="font-weight:bold; font-size: 36px; color:#00F">'+disp.toFixed(2)+'</label></center>';
 			        html+='<center><label style="font-weight:bold; font-size:24px">Totales Preventa:</label></center>';				
