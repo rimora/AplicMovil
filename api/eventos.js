@@ -316,6 +316,7 @@ $("a.clasep").live('click',function(){//al modificar linea de pedido
 				  $('#etiartv').append(desc);
 				  
 				  //alert (articulo);
+				   $('#cantv').val('');
 				  $('#divnumventas').show();
 				 guardaarticulo(articulo);//almacena localmente la clave de articulo 	
     });
@@ -1207,6 +1208,11 @@ $("#binicializar").click(function(){
 		   var articulo = window.localStorage.getItem("articulo");
 		   var cliente = window.localStorage.getItem("clave");
 				  //alert (cantidad);
+				   if (isNaN(cantidad)) { 
+       					 //entonces (no es numero) 
+        	 			navigator.notification.alert('Debe indicar un valor válido',null,'Cantidad inválida','Aceptar');			 
+						return false;
+			       }
 				  if (cantidad<=0){
 					   navigator.notification.alert('Debe indicar cantidad MAYOR A CERO',null,'Error Indicando Cantidad','Aceptar');					
 					  return false;
