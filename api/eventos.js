@@ -327,7 +327,7 @@ $("#beliminarp").tap(function() {
                  var cliente=window.localStorage.getItem("clave");
 	function onConfirm(button) {
 		if (button==1){			
-			$('input:checkbox.clasep').each(function () {
+			$('input:checkbox.checkv').each(function () {
            		if (this.checked) {
              	  //alert($(this).attr("name"));
 				  //alert($(this).attr("value"));
@@ -343,7 +343,9 @@ $("#beliminarp").tap(function() {
 				  	//alert($(this).attr("value"));
 				 }
 			});//$('input:checkbox.clasep').each(function () {						
-					mostrarpedido();				    			
+					mostrarpedido();
+					$('#divnumventas').hide();
+				 	$('#divtotales').show();				    			
 
 		}//if (button==1){
 	}			 
@@ -380,12 +382,20 @@ $("#bimprimirp").tap(function() {
     );
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
 });
-$("#lcatalogo li").live('click',function(){
+$("#lcatalogo").delegate('.listart','click',function(){//al seleccionar un articulo de la lista
+//$("#lcatalogo li").live('click',function(){
                   var cliente=window.localStorage.getItem("clave");			  
 				  var articulo = $(this).attr("id");				  
 				  alert(articulo);				  
 				  existeenpedido(articulo,cliente);
 });	
+$("#lcatalogo").delegate('.fichaart','click',function(){//al seleccionar el boton de buscar en la lista del catalogo para mostrar ficha
+                  var cliente=window.localStorage.getItem("clave");			  
+				  var articulo = $(this).attr("id");				  
+				  alert(articulo);				  
+				  //existeenpedido(articulo,cliente);
+});	
+
 $("#botonmodcantidadp").tap(function(){
                  //var cantidad=$('#scantidad').attr('Val');
 				 var cantidad=Number($('#modcantidadp').val());
@@ -419,10 +429,9 @@ $("#bcatalogo").tap(function(){
 				 //limpia los grid	
 				  var cliente=window.localStorage.getItem("clave");			  
                   armacatalogo(cliente);
+				  gridvalorescat(cliente);
+				   $('#divnumcat').hide();
 				  window.location.href='#pcatalogo';
-				  $('#divnumcat').hide();
-				  gridvalorescat();
-				  
 });
 $("#binicializar").click(function(){
                  //var clavecli = $(this).attr("id");

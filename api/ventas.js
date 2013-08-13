@@ -239,10 +239,10 @@ function mostrarpedido(cliente){
 					 
           	  html+='<div class="ui-block-a" style="width:60px;height:15px; margin-left:-10px">';              
            			html+='<div class="ui-bar ui-bar-e"  >';      		 		                   				        
-            		html+='<input type="checkbox" name="'+row['articulo']+'" class="clasep" style="position:relative;height:15px">';                   	
+            		html+='<input type="checkbox" name="'+row['articulo']+'" class="checkv" style="position:relative;height:15px">';                   	
 					html+='</div>';
             		html+='</div>';   
-              html+='<div class="ui-block-b" style="width:300px; margin-left:-10px"><div class="ui-bar ui-bar-b" style="padding-left: 0px">'+row['descripcion']+'</div></div>';
+              html+='<div class="ui-block-b" style="width:300px; margin-left:-10px"><div class="ui-bar ui-bar-b" style="padding-left: 0px"><a href="#" class="descv" name="'+row['articulo']+'" id="DES'+row['articulo']+' data-ajax="false" ><font color="FFFFFF"></font>'+cantidad+'</a></div></div>';
 		      html+='<div class="ui-block-c" style="width:80px"><div class="ui-bar ui-bar-b">'+preciop.toFixed(2)+'</div></div>';
               html+='<div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-b" style="text-align:right">'+descuento+'</div></div>';
               html+='<div class="ui-block-e" style="width:360px">';
@@ -364,8 +364,8 @@ function mostrarpedido(cliente){
 			 //alert(row['descripcion']);		 
 			 html+='<li id="'+row['articulo']+'" >';
 	        // html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> '+row['descripcion']+'</h3>';
-			 html+='<a href=""><h5>'+row['descripcion']+'  PP:$'+precio.toFixed(2)+'  DV:'+descuento+'% A bordo:'+existencia+'  ALG:'+existenciaalg+'</h5>';
-			 html+='</a><a id="F'+row['articulo']+'" href="" data-role="button" data-icon="search"></a></li>';
+			 html+='<a href="" class="listart"><h5>'+row['descripcion']+'    PP:$'+precio.toFixed(2)+'    DV:'+descuento+'%    A bordo:'+existencia+'    ALG:'+existenciaalg+'</h5>';
+			 html+='</a><a id="F'+row['articulo']+'" href="" data-role="button" data-icon="search" class="fichaart"></a></li>';
 			 			 
 			 $('#lcatalogo').append(html);        	
 			 //alert('despues de lcatalogo.append armacatalogo');        
@@ -411,8 +411,7 @@ function gridvalorescat(cliente){//muestra en un grid los totales de preventa y 
 					 parcial=precio*cantidad;
 					 total+=Number(parcial);			  
 			  });//.each					
-					disp=disp-total;				
-					html="";
+					disp=disp-total;									
 	                html+='<div class="ui-block-a" style="width:90px"><div class="ui-bar ui-bar-b">'+total.toFixed(2)+'</div></div>';
 		            html+='<div class="ui-block-b" style="width:100px"><div class="ui-bar ui-bar-b">'+disp.toFixed(2)+'</div></div>';
 					$("#gridtotales").append(html);	
@@ -431,16 +430,15 @@ function existeenpedido(articulo,cliente){
 	var existe=false;
 	var descripcion='';
 	function listo(tx,results){ 	
-	         //alert('entra a funcion listo de existeenpedido');         	          
-	     	 if (results.rows.length>0){
-				//alert('existe en pedido');  				
-				existe=true;  				
-				//alert('prueba de existe '+existe);  				
+	         //alert('entra a funcion listo de existeenpedido');         	          			 
+	     	 if (results.rows.length>0){				 			
+				existe=true;  							
 			  }
  	}
 	function listo2(tx,results){ 	
-	         //alert('entra a funcion listo de existeenpedido');         	          
+	         //alert('entra a funcion listo de existeenpedido');         	          			 
 	     	 if (results.rows.length>0){
+				  var row = results.rows.item(0); 				 
 				//alert('existe en pedido');  				
 				descripcion=row['descripcion'];  				
 				//alert('prueba de existe '+existe);  				
