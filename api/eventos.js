@@ -309,7 +309,9 @@ $("#bventa").tap(function() {
 				  
 });	
 
-$("a.clasep").live('click',function(){//al modificar linea de pedido
+//$("a.clasep").live('click',function(){//al modificar linea de pedido
+$("#gridpedido").delegate('.clasep','click',function(){//al modificar linea de pedido
+
                   var articulo = $(this).attr("name");
 				  var desc=$(this).attr("id");
 				  $('#etiartv').empty();
