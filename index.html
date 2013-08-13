@@ -270,9 +270,9 @@
 	<div data-role="header" data-theme="b">
 		<h3>Operaciones del Cliente</h3>
 	</div>
-	<div data-role="content">
-        <center><a href="#pventas" id ="bventa"  data-role="button" data-theme="e" style="width: 150px"><img style="margin-left:-14px" src="jquery-mobile/images/ventas128.png"/></a></center>
+	<div data-role="content">        
              <center><a href="#" id ="bcobros"  data-role="button" data-theme="c" style="width: 150px"><img style="margin-left:-14px" src="jquery-mobile/images/cobrar128.png"/></a></center>
+             <center><a href="#pventas" id ="bventa"  data-role="button" data-theme="e" style="width: 150px"><img style="margin-left:-14px" src="jquery-mobile/images/ventas128.png"/></a></center>
              <center> <a href="#" id ="bdevoluciones"  data-role="button" data-theme="c" style="width: 150px"><img style="margin-left:-14px" src="jquery-mobile/images/devoluciones128.png"/></a></center>
            
               
@@ -530,17 +530,31 @@
     
 </div>
 
-<!-- P A G I N A  DIALOGO-->
-<div data-role="dialog" id="pcantidad">
+<!-- P A G I N A  DIALOGO DE FICHA DE PRODUCTO-->
+<div data-role="page" id="pficha">
     <div data-role="header" data-theme="b">
         <h1>Indica Cantidad</h1>
     </div>
     <div data-role="content">
-       <div data-role="fieldcontain">
-		<label for="scantidad">Cantidad:</label>
-		<input type="number" data-type="range" name="scantidad" id="scantidad" value="1" min="1" max="100" data-theme="a" data-track-theme="b" />
-        <a href="#" data-role="button" data-rel="back" id="botoncantidad">Aceptar</a>
-	</div>
+    <div id="divficha">
+   		 <a href="" style="float:left"> <img src="../AplicMovil/jquery-mobile/images/medicamento.png"> </a>
+    	<div class="ui-grid-a" id="gridficha" style="text-align:left">
+              <div class="ui-block-a" style="width:120px" ><div class="ui-bar ui-bar-a">Articulo</div></div>
+              <div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b">100</div></div>
+		      <div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Laboratorio</div></div>
+              <div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b" >20</div></div>
+              <div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">SAL</div></div>
+              <div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b" >10,000.00</div></div>              		               
+              <div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">P. Activo</div></div>
+              <div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b" >10,000.00</div></div>              		               
+              <div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Clasificacion</div></div>
+              <div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b" >10,000.00</div></div>              		               
+        </div><!--class="ui-grid-a"-->
+    </div>
+    <br /><br /><br /><br />
+    
+    
+    <a href="#" data-role="button" data-rel="back" id="botonficha">Aceptar</a>
     </div>
 </div>
 <!-- P A G I N A  DIALOGO MODIFICAR PEDIDO-->

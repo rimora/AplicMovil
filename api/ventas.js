@@ -1,7 +1,6 @@
 // funciones para ventas
 var base = window.openDatabase("Database", "1.0", "SARDEL", 10000000);	
 function validasug(cliente){
-	alert(cliente);
 var existe=false;	
 	function listo(tx,results){ 	
 	         //alert('entra a funcion listo de existeenpedido');         	          
@@ -14,7 +13,7 @@ var existe=false;
  	}
 	function existep(tx){  	
 	        //alert('entra a funcion existep');         	    
-			alert('entra a existep');
+			
 			var sql='SELECT articulo FROM TEMPEDIDO WHERE cliente="'+cliente+'"  ';			
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error consultar existeTEMPEDIDO : "+err.code+err.message);
@@ -48,7 +47,7 @@ var existe=false;
 	
 }//VALIDA SUGERIDO
 function sugerido(cliente){
-	alert(cliente);
+
 	var artsug=[];
 	var cantsug=[];
 	var exissug=[];
@@ -59,7 +58,7 @@ function sugerido(cliente){
 	var i=0;
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){
-			  alert('entra a listo');
+
 			$.each(results.rows,function(index){           			
 			 var row = results.rows.item(index);            			
 				artsug[i]=row['articulo'];
@@ -79,7 +78,7 @@ function sugerido(cliente){
 			var sql='SELECT a.articulo,a.cantidad ';
 			sql+='FROM SUGERIDO a ';
 			sql+='WHERE a.cliente="'+cliente+'"  ';
-				alert('entra a consultasug');	
+
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error consultar sugerido del cliente : "+sql+err.code+err.message);
          		});    									
@@ -242,7 +241,7 @@ function mostrarpedido(cliente){
             		html+='<input type="checkbox" name="'+row['articulo']+'" class="checkv" style="position:relative;height:15px">';                   	
 					html+='</div>';
             		html+='</div>';   
-              html+='<div class="ui-block-b" style="width:300px; margin-left:-10px"><div class="ui-bar ui-bar-b" style="padding-left: 0px"><a href="#" class="descv" name="'+row['articulo']+'" id="DES'+row['articulo']+' data-ajax="false" ><font color="FFFFFF"></font>'+cantidad+'</a></div></div>';
+              html+='<div class="ui-block-b" style="width:300px; margin-left:-10px"><div class="ui-bar ui-bar-b" style="padding-left: 0px"><a href="#" class="descv" name="'+row['articulo']+'" data-ajax="false" ><font color="FFFFFF"></font>'+cantidad+'</a></div></div>';
 		      html+='<div class="ui-block-c" style="width:80px"><div class="ui-bar ui-bar-b">'+preciop.toFixed(2)+'</div></div>';
               html+='<div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-b" style="text-align:right">'+descuento+'</div></div>';
               html+='<div class="ui-block-e" style="width:360px">';
@@ -362,9 +361,9 @@ function mostrarpedido(cliente){
 				 var existenciaalg=row['ealg']; 
 			 }	
 			 //alert(row['descripcion']);		 
-			 html+='<li id="'+row['articulo']+'" >';
+			 html+='<li>';
 	        // html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> '+row['descripcion']+'</h3>';
-			 html+='<a href="" class="listart"><h5>'+row['descripcion']+'    PP:$'+precio.toFixed(2)+'    DV:'+descuento+'%    A bordo:'+existencia+'    ALG:'+existenciaalg+'</h5>';
+			 html+='<a href="" class="listart" id="'+row['articulo']+'"><h5>'+row['descripcion']+'    PP:$'+precio.toFixed(2)+'    DV:'+descuento+'%    A bordo:'+existencia+'    ALG:'+existenciaalg+'</h5>';
 			 html+='</a><a id="F'+row['articulo']+'" href="" data-role="button" data-icon="search" class="fichaart"></a></li>';
 			 			 
 			 $('#lcatalogo').append(html);        	
@@ -480,4 +479,58 @@ function existeenpedido(articulo,cliente){
 	
 	
 }//function existeenpedido
+function fichaarticulo(articulo){//
+		var bodega='K01';
+		base.transaction(consulta, errorconsulta);	
+	function consulta(tx) {
+		var sql='SELECT a.articulo,a.descripcion,a.clas,a.accion,a.impuesto,a.descuento,b.existencia as ebodega,c.existencia as ealg,';			
+			sql+='a.precio,a.laboratorio,a.sal ';
+			sql+='FROM articulo a left outer join articulo_existencia b on b.articulo=a.articulo and b.bodega="K01" ';
+			sql+=' left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="ALG" order by a.descripcion';
+					
+		tx.executeSql(sql,[],exito,errorconsulta);
+		}
+		
+		function exito(tx,results){ 
+			
+		      $("#divficha").empty();				  			  
+			  var html = "";
+			  var tipo="";
+			  var saldot=0; var montot=0; var precio=0; var total=0; var iva=0; var descuento=0; var parcial=0; var preciop=0; var preciocdesc=0;
+			  var existencia=0; var abordo=0; var preventa=0; var dif=0; var cantidad=0; var arttotal=0; var pietotal=0; var artpre=0; var piepre=0;
+			  var artabordo=0; var pieabordo=0; var totalpre=0; var totalabordo=0;
+			  //agrega encabezado de grid			  			            	  
+			  $.each(results.rows,function(index){				  
+				  var row = results.rows.item(index); 
+					/* cantidad=Number(row['cantidad']);							 			 
+				     preciocdesc=Number(row['precio'])-((Number(row['precio'])/100)*Number(row['descuento']));				     			     
+				     descuento=Number(row['descuento']);
+					 iva=Number(row['impuesto']);					 
+					 preciop=Number(row['precio']);
+				     precio=Number(preciocdesc)*(1+(Number(row['impuesto'])/100));				 
+					 parcial=precio*cantidad;
+					 total+=Number(parcial);			  */
+					 html+='<a href="" style="float:left"> <img src="../AplicMovil/jquery-mobile/images/medicamento.png"> </a>';
+				     html+='<div class="ui-grid-a" id="gridficha" style="text-align:left">';
+			  	     html+='<div class="ui-block-a" style="width:120px" ><div class="ui-bar ui-bar-a">Articulo</div></div>';
+		             html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
+				     html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Laboratorio</div></div>';
+	                 html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b" >'+row['laboratorio']+'</div></div>';
+       	             html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">SAL</div></div>';
+                     html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b" >'+row['sal']+'</div></div>';
+                     html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Accion T</div></div>';
+                     html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b" >'+row['accion']+'</div></div>';             		               
+                     html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Clasificacion</div></div>';
+                     html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b" >'+row['clas']+'</div></div>';         		               
+					 html+='</div>';
+			  });//.each					
+					$("#divficha").append(html);				
+			
+	   }//function exito
+ 		
+	function errorconsulta(err) {
+    	alert("Error SQL al llenar ficha de articulo: "+err.code+err.message);
+	}
+//  });	
 
+  }//

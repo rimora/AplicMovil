@@ -181,6 +181,7 @@ $(document).ready(function() {
 				  
 				  //alert (clavecli);
 				  mostrarcliente(clavecli);
+				  $('#pclientes').trigger('refresh');
 				 // window.location.href='#datoscli';
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
     });
@@ -323,13 +324,18 @@ $("#gridpedido").delegate('.clasep','click',function(){//al modificar linea de p
 				  $('#divtotales').hide();
 				 guardaarticulo(articulo);//almacena localmente la clave de articulo 	
     });
+$("#gridpedido").delegate('.descv','click',function(){//al dar click en la descripcion de un artículo, debe mostrar la ficha del mismo
+                  var articulo = $(this).attr("name");				  
+				  fichaarticulo(articulo);
+				  window.location.href='#pficha';	
+    });
 $("#beliminarp").tap(function() {	
                  var cliente=window.localStorage.getItem("clave");
 	function onConfirm(button) {
 		if (button==1){			
 			$('input:checkbox.checkv').each(function () {
            		if (this.checked) {
-             	  //alert($(this).attr("name"));
+             	  alert($(this).attr("name"));
 				  //alert($(this).attr("value"));
 				  
 				 
@@ -343,7 +349,7 @@ $("#beliminarp").tap(function() {
 				  	//alert($(this).attr("value"));
 				 }
 			});//$('input:checkbox.clasep').each(function () {						
-					mostrarpedido();
+					mostrarpedido(cliente);
 					$('#divnumventas').hide();
 				 	$('#divtotales').show();				    			
 
@@ -391,11 +397,15 @@ $("#lcatalogo").delegate('.listart','click',function(){//al seleccionar un artic
 });	
 $("#lcatalogo").delegate('.fichaart','click',function(){//al seleccionar el boton de buscar en la lista del catalogo para mostrar ficha
                   var cliente=window.localStorage.getItem("clave");			  
-				  var articulo = $(this).attr("id");				  
-				  alert(articulo);				  
+				  var art= $(this).attr("id");				  
+				  var longitud=art.length;
+				  alert(longitud);
+				  var articulo=art.substr(1,(longitud-1));
+				  alert(articulo);	
+				  fichaarticulo(articulo);
+				  window.location.href='#pficha';			  
 				  //existeenpedido(articulo,cliente);
 });	
-
 $("#botonmodcantidadp").tap(function(){
                  //var cantidad=$('#scantidad').attr('Val');
 				 var cantidad=Number($('#modcantidadp').val());
@@ -655,7 +665,7 @@ $("#binicializar").click(function(){
 					$('#divcheques').hide();
 					$('#divnumaplicob').hide();					
 					eliminachequexrecibo();//elimina los cheques temporales.
-					otro();
+					gridtotalescob();
 				 }
 				  
 				  
@@ -1034,7 +1044,7 @@ $("#binicializar").click(function(){
 		    
         	guardaefectivo(monto); 	
 			
-			otro();
+			gridtotalescob();
 			
 			$('#divnumaplicob').hide(); 		    
 			}	    
@@ -1067,7 +1077,7 @@ $("#binicializar").click(function(){
 				//$("#numcuenta").val("");  				
 				$('#divnumaplicob').hide();
 				poblarcheques();
-				otro();
+				gridtotalescob();
 			}
 			
 			
