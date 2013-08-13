@@ -122,7 +122,7 @@ function insertatemppedido(articulo,cantidad,cliente){
 	   
 	base.transaction(insertadet,function(err){
     	  alert("Error al insertar renglon: "+err.code+err.message);
-          },alert("Artículo insertado"));
+          });
 				
     	function insertadet(tx) {		
 		//alert('entra a insert de detallepedido');
@@ -241,7 +241,7 @@ function mostrarpedido(cliente){
             		html+='<input type="checkbox" name="'+row['articulo']+'" class="checkv" style="position:relative;height:15px">';                   	
 					html+='</div>';
             		html+='</div>';   
-              html+='<div class="ui-block-b" style="width:300px; margin-left:-10px"><div class="ui-bar ui-bar-b" style="padding-left: 0px"><a href="#" class="descv" name="'+row['articulo']+'" data-ajax="false" ><font color="FFFFFF"></font>'+cantidad+'</a></div></div>';
+              html+='<div class="ui-block-b" style="width:300px; margin-left:-10px"><div class="ui-bar ui-bar-b" style="padding-left: 0px"><a href="#" class="descv" name="'+row['articulo']+'" data-ajax="false" ><font color="FFFFFF"></font>'+row['descripcion']+'</a></div></div>';
 		      html+='<div class="ui-block-c" style="width:80px"><div class="ui-bar ui-bar-b">'+preciop.toFixed(2)+'</div></div>';
               html+='<div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-b" style="text-align:right">'+descuento+'</div></div>';
               html+='<div class="ui-block-e" style="width:360px">';
@@ -486,7 +486,7 @@ function fichaarticulo(articulo){//
 		var sql='SELECT a.articulo,a.descripcion,a.clas,a.accion,a.impuesto,a.descuento,b.existencia as ebodega,c.existencia as ealg,';			
 			sql+='a.precio,a.laboratorio,a.sal ';
 			sql+='FROM articulo a left outer join articulo_existencia b on b.articulo=a.articulo and b.bodega="K01" ';
-			sql+=' left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="ALG" order by a.descripcion';
+			sql+=' left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="ALG"  WHERE a.articulo="'+articulo+'" order by a.descripcion';
 					
 		tx.executeSql(sql,[],exito,errorconsulta);
 		}

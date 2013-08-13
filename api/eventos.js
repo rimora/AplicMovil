@@ -1159,6 +1159,7 @@ $("#binicializar").click(function(){
 			}
 			else{			
             insertatemppedido(articulo,cantidad,cliente);
+			navigator.notification.alert('Artículo Agregado',null,'Agregar Artículo','Aceptar');					
 			//actualizar grid de importes
 			gridvalorescat();	
 			$('#divnumcat').hide(); 		    
