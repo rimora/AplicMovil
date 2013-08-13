@@ -320,6 +320,7 @@ $("#gridpedido").delegate('.clasep','click',function(){//al modificar linea de p
 				  //alert (articulo);
 				   $('#cantv').val('');
 				  $('#divnumventas').show();
+				  $('#divtotales').hide();
 				 guardaarticulo(articulo);//almacena localmente la clave de articulo 	
     });
 $("#beliminarp").tap(function() {	
@@ -380,9 +381,10 @@ $("#bimprimirp").tap(function() {
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
 });
 $("#lcatalogo li").live('click',function(){
-                  var articulo = $(this).attr("id");
-				  var des = $(this).attr("title");
-				  existeenpedido(articulo,des);
+                  var cliente=window.localStorage.getItem("clave");			  
+				  var articulo = $(this).attr("id");				  
+				  alert(articulo);				  
+				  existeenpedido(articulo,cliente);
 });	
 $("#botonmodcantidadp").tap(function(){
                  //var cantidad=$('#scantidad').attr('Val');
@@ -404,23 +406,19 @@ $("#botonmodcantidadp").tap(function(){
 });
 $("#bgenerav").tap(function() { //boton aceptar del catalogo
                  //var clavecli = $(this).attr("id");
-				 //muestra el pedido o factura armados				 
-				  var tipov=window.localStorage.getItem("tipov");
-				  if (tipov=='P'){
-					mostrarpedido();  
-				  }
-				  else{
-					  mostrarfactura();  					  
-				  }
-				 $("#divnumventas").hide();
-				  gridvaloresven()
-				  //mostrarfactura();
+				 //muestra el pedido 
+     			var cliente=window.localStorage.getItem("clave");			  
+				mostrarpedido(cliente);  
+				$("#divnumventas").hide();
+				$('#divtotales').show(); 	
+				  
 				  
 });	
 $("#bcatalogo").tap(function(){
                  //var clavecli = $(this).attr("id");
-				 //limpia los grid				  
-                  armacatalogo();
+				 //limpia los grid	
+				  var cliente=window.localStorage.getItem("clave");			  
+                  armacatalogo(cliente);
 				  window.location.href='#pcatalogo';
 				  $('#divnumcat').hide();
 				  gridvalorescat();
@@ -1127,6 +1125,7 @@ $("#binicializar").click(function(){
        });
  //**********TECLADO NUMERICO	USADO EN CATALOGO *************	
 	   $("#bacepcat").tap(function() {                                                   	       
+	   	   var cliente = window.localStorage.getItem("clave");
            var cantidad = parseInt($("#cantcat").val()); 		  
 		   var articulo = window.localStorage.getItem("articulo");
 		   if (isNaN(cantidad)) { 
@@ -1140,7 +1139,7 @@ $("#binicializar").click(function(){
 				return false;
 			}
 			else{			
-            insertalinea(articulo,cantidad);			    
+            insertatemppedido(articulo,cantidad,cliente);
 			//actualizar grid de importes
 			gridvalorescat();	
 			$('#divnumcat').hide(); 		    
@@ -1204,7 +1203,7 @@ $("#binicializar").click(function(){
 	    $("#blimpiarcant").tap(function() {                                                                                                                
           $('#cantcat').val('');                         
        });
-//**********TECLADO NUMERICO	USADO EN VENTAS *************	
+//**********TECLADO NUMERICO USADO EN VENTAS *************	
 	   $("#bacepven").tap(function() {                                                   	       
            var cantidad = parseInt($("#cantv").val()); 		  
 		   var articulo = window.localStorage.getItem("articulo");
@@ -1222,13 +1221,14 @@ $("#binicializar").click(function(){
 				  else
 				  {
 					    modificatemppedido(articulo,cantidad,cliente);
-						$('#divnumventas').hide(); 	
+						$('#divnumventas').hide();						
 						mostrarpedido(cliente);
-						
+						$('#divtotales').show(); 	
 				  }
        }); 
 	   $("#bcanven").tap(function() {                                                   
-          $('#divnumventas').hide(); 		   
+          $('#divnumventas').hide(); 
+		  $('#divtotales').show();		   
        }); 
 	   $("#b1111").tap(function() { 	     
 	    var importe=$('#cantv').val();	                                                    

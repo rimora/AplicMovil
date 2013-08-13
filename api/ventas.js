@@ -307,4 +307,179 @@ function mostrarpedido(cliente){
 //  });	
 
   }//mostrarpedido
- 
+ function armacatalogo(){
+ // $('#pclientes').live('pageshow',function(event, ui){
+		//alert('This page was just hidden: '+ ui.prevPage);		
+		//var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);		
+		base.transaction(poblarcat, function(err){
+    	 		 alert("Error select catálogo : "+err.code+err.message);
+         		});		
+	function poblarcat(tx){  	        
+			var sql='SELECT a.articulo,a.descripcion,a.descuento,b.existencia as ebodega,c.existencia as ealg,';			
+			sql+='a.precio ';
+			sql+='FROM articulo a left outer join articulo_existencia b on b.articulo=a.articulo and b.bodega="K01" ';
+			sql+=' left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="ALG" order by a.descripcion';
+			/*
+			var sql='SELECT a.articulo,a.descripcion,a.clas,a.accion,a.impuesto,a.descuento,b.existencia as ebodega,c.existencia as ealg,';			
+			sql+='a.precio,a.laboratorio,a.sal ';
+			sql+='FROM articulo a left outer join articulo_existencia b on b.articulo=a.articulo and b.bodega="K01" ';
+			sql+=' left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="ALG" order by a.descripcion';*/
+			//alert('despues del sql armacatalogo');        			
+			
+		    tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error select catalogo: "+sql+err.code+err.message);
+         	});    	
+	}
+	function listo(tx,results){  
+		 $('#lcatalogo').empty();        
+		 //alert('entra a listo de armacatalogo');
+		 $.each(results.rows,function(index){   
+		   //  alert('entra al each armacatalogo');        
+			 var row = results.rows.item(index);         
+			 //alert('despues del var row armacatalogo');           
+			 var html="";	
+			 //var precio=row['precio']*(1+(row['impuesto']/100));
+			 var precio=row['precio'];
+			 var descuento=row['descuento'];
+
+			 if   (row['ebodega']==null)       
+			 {
+				var existencia=0; 				
+				//alert('existencia es null'+existencia); 
+			 }
+			 else 
+			 {
+				 var existencia=row['ebodega']; 
+				 
+			 }
+			  if   (row['ealg']==null)       
+			 {
+				var existenciaalg=0; 				
+				//alert('existencia es null'+existencia); 
+			 }
+			 else 
+			 {
+				 var existenciaalg=row['ealg']; 
+			 }	
+			 //alert(row['descripcion']);		 
+			 html+='<li id="'+row['articulo']+'" >';
+	        // html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> '+row['descripcion']+'</h3>';
+			 html+='<a href=""><h5>'+row['descripcion']+'  PP:$'+precio.toFixed(2)+'  DV:'+descuento+'% A bordo:'+existencia+'  ALG:'+existenciaalg+'</h5>';
+			 html+='</a><a id="F'+row['articulo']+'" href="" data-role="button" data-icon="search"></a></li>';
+			 			 
+			 $('#lcatalogo').append(html);        	
+			 //alert('despues de lcatalogo.append armacatalogo');        
+		 });         
+		 			 
+		 $('#lcatalogo').listview('refresh'); 
+		 //alert('despues de lcatalogo listview armacatalogo');        
+ 	}
+
+ // });	//$('#pclientes').live('pageshow',function(event, ui){
+	
+}//armacatalogo
+function gridvalorescat(cliente){//muestra en un grid los totales de preventa y venta a bordo, asi como el limite de credito y el disponible
+ var limite=Number(window.localStorage.getItem("limite"));
+ var saldo=Number(window.localStorage.getItem("saldo"));
+ var disp=limite-saldo;
+		var bodega='K01';
+		base.transaction(consulta, errorconsulta);	
+	function consulta(tx) {		
+		tx.executeSql('SELECT a.articulo,b.descripcion,b.precio,b.descuento,a.cantidad,b.impuesto,c.existencia FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo left outer join ARTICULO_EXISTENCIA c on c.articulo=a.articulo and c.bodega="'+bodega+'" where a.cliente="'+cliente+'"',[],exito,errorconsulta);
+		}
+	
+		
+		function exito(tx,results){ 
+			
+		      $("#gridtotales").empty();				  			  
+			  var html = "";
+			  var tipo="";
+			  var saldot=0; var montot=0; var precio=0; var total=0; var iva=0; var descuento=0; var parcial=0; var preciop=0; var preciocdesc=0;
+			  var existencia=0; var abordo=0; var preventa=0; var dif=0; var cantidad=0; var arttotal=0; var pietotal=0; var artpre=0; var piepre=0;
+			  var artabordo=0; var pieabordo=0; var totalpre=0; var totalabordo=0;
+			  //agrega encabezado de grid			  			  
+          	  html+='<div class="ui-block-a" style="width:90px" ><div class="ui-bar ui-bar-a">Total</div></div>';
+              html+='<div class="ui-block-b" style="width:100px"><div class="ui-bar ui-bar-a">Disponible</div></div>';
+			  $.each(results.rows,function(index){				  
+				  var row = results.rows.item(index); 
+					 cantidad=Number(row['cantidad']);							 			 
+				     preciocdesc=Number(row['precio'])-((Number(row['precio'])/100)*Number(row['descuento']));				     			     
+				     descuento=Number(row['descuento']);
+					 iva=Number(row['impuesto']);					 
+					 preciop=Number(row['precio']);
+				     precio=Number(preciocdesc)*(1+(Number(row['impuesto'])/100));				 
+					 parcial=precio*cantidad;
+					 total+=Number(parcial);			  
+			  });//.each					
+					disp=disp-total;				
+					html="";
+	                html+='<div class="ui-block-a" style="width:90px"><div class="ui-bar ui-bar-b">'+total.toFixed(2)+'</div></div>';
+		            html+='<div class="ui-block-b" style="width:100px"><div class="ui-bar ui-bar-b">'+disp.toFixed(2)+'</div></div>';
+					$("#gridtotales").append(html);	
+
+					
+			
+	   }//function exito
+ 		
+	function errorconsulta(err) {
+    	alert("Error SQL al llenar grid de catalogo: "+err.code+err.message);
+	}
+//  });	
+
+  }//
+function existeenpedido(articulo,cliente){
+	var existe=false;
+	var descripcion='';
+	function listo(tx,results){ 	
+	         //alert('entra a funcion listo de existeenpedido');         	          
+	     	 if (results.rows.length>0){
+				//alert('existe en pedido');  				
+				existe=true;  				
+				//alert('prueba de existe '+existe);  				
+			  }
+ 	}
+	function listo2(tx,results){ 	
+	         //alert('entra a funcion listo de existeenpedido');         	          
+	     	 if (results.rows.length>0){
+				//alert('existe en pedido');  				
+				descripcion=row['descripcion'];  				
+				//alert('prueba de existe '+existe);  				
+			  }
+ 	}
+	function existep(tx){  	
+	        //alert('entra a funcion existep');         	    
+			var sql='SELECT articulo FROM TEMPEDIDO WHERE articulo="'+articulo+'" and cliente="'+cliente+'"  ';			
+			tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error consultar existeTEMPEDIDO : "+err.code+err.message);
+         		});    									
+			var sql='SELECT articulo,descripcion FROM ARTICULO WHERE articulo="'+articulo+'" ';			
+			tx.executeSql(sql,[],listo2,function(err){
+    	 		 alert("Error consultar articulo: "+err.code+err.message);
+         		});    										
+				
+				
+	}
+	base.transaction(existep, function(err){
+    	 		 alert("Error select tabla TEMPPEDIDO: "+err.code+err.message);
+         		},function(){
+					//alert(existe);
+					if (existe){
+   					alert('Artículo ya fue ingresado, modifiquelo desde el pedido');
+					}
+					else
+					{
+						guardaarticulo(articulo);//almacena localmente la clave de articulo 					 
+						$('#etiart').empty();
+						$('#etiart').append('Articulo: '+articulo+' '+descripcion)
+						//window.location.href='#pcantidad';
+						$('#cantcat').val('1');						
+						$('#divnumcat').show();
+						
+					}
+				});		
+
+    
+	
+	
+}//function existeenpedido
+
