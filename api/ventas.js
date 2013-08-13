@@ -237,10 +237,9 @@ function mostrarpedido(cliente){
 					 pieabordo+=abordo;						 
 					 piepre+=preventa;		
 					 
-          	  html+='<div class="ui-block-a" style="width:60px;height:20px; margin-left:-10px">';              
+          	  html+='<div class="ui-block-a" style="width:60px;height:15px; margin-left:-10px">';              
            			html+='<div class="ui-bar ui-bar-e"  >';      		 		                   				        
-            		html+='<input type="checkbox" name="'+row['articulo']+'" class="clasep" style="position:relative; margin-left:-15px; height:15px">';                   	
-		            html+='</div>';
+            		html+='<input type="checkbox" name="'+row['articulo']+'" class="clasep" style="position:relative;height:15px">';                   	html+='</div>';
             		html+='</div>';   
               html+='<div class="ui-block-b" style="width:300px; margin-left:-10px"><div class="ui-bar ui-bar-b" style="padding-left: 0px">'+row['descripcion']+'</div></div>';
 		      html+='<div class="ui-block-c" style="width:80px"><div class="ui-bar ui-bar-b">'+preciop.toFixed(2)+'</div></div>';
@@ -263,7 +262,8 @@ function mostrarpedido(cliente){
 			  
 			  
 			  });//.each
-					$("#gridpedido").append(html);					
+					$("#gridpedido").append(html);	
+					disp=disp-total;				
 					html="";
 					html+='<center><label style="font-weight:bold; font-size:24px">Disponible:</label></center>';
        			    html+='<center><label style="font-weight:bold; font-size: 36px; color:#00F">'+disp.toFixed(2)+'</label></center>';

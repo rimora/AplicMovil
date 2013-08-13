@@ -320,7 +320,7 @@ $("a.clasep").live('click',function(){//al modificar linea de pedido
 				  $('#divnumventas').show();
 				 guardaarticulo(articulo);//almacena localmente la clave de articulo 	
     });
-$("#beliminarp").live('click',function(){//al eliminar linea de pedido
+$("#beliminarp").tap(function() {	
                  var cliente=window.localStorage.getItem("clave");
 	function onConfirm(button) {
 		if (button==1){			
