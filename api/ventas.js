@@ -363,7 +363,7 @@ function mostrarpedido(cliente){
 			 //alert(row['descripcion']);		 
 			 html+='<li>';
 	        // html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> '+row['descripcion']+'</h3>';
-			 html+='<a href="" class="listart" id="'+row['articulo']+'"><h5>'+row['descripcion']+'    PP:$'+precio.toFixed(2)+'    DV:'+descuento+'%    A bordo:'+existencia+'    ALG:'+existenciaalg+'</h5>';
+			 html+='<a href="" class="listart" id="'+row['articulo']+'"><h5>'+row['descripcion']+'&nbsp;&nbsp;&nbsp; PP:$'+precio.toFixed(2)+'    DV:'+descuento+'%    A bordo:'+existencia+'    ALG:'+existenciaalg+'</h5>';
 			 html+='</a><a id="F'+row['articulo']+'" href="" data-role="button" data-icon="search" class="fichaart"></a></li>';
 			 			 
 			 $('#lcatalogo').append(html);        	
@@ -461,7 +461,7 @@ function existeenpedido(articulo,cliente){
          		},function(){
 					//alert(existe);
 					if (existe){
-   					alert('Artículo ya fue ingresado, modifiquelo desde el pedido');
+					 navigator.notification.alert('Artículo ya fue ingresado, modifiquelo desde el pedido',null,'Artículo Ingresado','Aceptar');			 
 					}
 					else
 					{
@@ -510,7 +510,7 @@ function fichaarticulo(articulo){//
 				     precio=Number(preciocdesc)*(1+(Number(row['impuesto'])/100));				 
 					 parcial=precio*cantidad;
 					 total+=Number(parcial);			  */
-					 html+='<a href="" style="float:left"> <img src="../AplicMovil/jquery-mobile/images/medicamento.png"> </a>';
+					 html+='<a href="" style="float:left"> <img src="jquery-mobile/images/medicamento.png"> </a>';
 				     html+='<div class="ui-grid-a" id="gridficha" style="text-align:left">';
 			  	     html+='<div class="ui-block-a" style="width:120px" ><div class="ui-bar ui-bar-a">Articulo</div></div>';
 		             html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';

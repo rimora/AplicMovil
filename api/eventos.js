@@ -335,7 +335,7 @@ $("#beliminarp").tap(function() {
 		if (button==1){			
 			$('input:checkbox.checkv').each(function () {
            		if (this.checked) {
-             	  alert($(this).attr("name"));
+             	  //alert($(this).attr("name"));
 				  //alert($(this).attr("value"));
 				  
 				 
