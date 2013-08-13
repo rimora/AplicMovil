@@ -391,17 +391,13 @@ $("#bimprimirp").tap(function() {
 $("#lcatalogo").delegate('.listart','click',function(){//al seleccionar un articulo de la lista
 //$("#lcatalogo li").live('click',function(){
                   var cliente=window.localStorage.getItem("clave");			  
-				  var articulo = $(this).attr("id");				  
-				  alert(articulo);				  
+				  var articulo = $(this).attr("id");				  				  
 				  existeenpedido(articulo,cliente);
 });	
-$("#lcatalogo").delegate('.fichaart','click',function(){//al seleccionar el boton de buscar en la lista del catalogo para mostrar ficha
-                  var cliente=window.localStorage.getItem("clave");			  
+$("#lcatalogo").delegate('.fichaart','click',function(){//al seleccionar el boton de buscar en la lista del catalogo para mostrar ficha                  
 				  var art= $(this).attr("id");				  
-				  var longitud=art.length;
-				  alert(longitud);
+				  var longitud=art.length;				  
 				  var articulo=art.substr(1,(longitud-1));
-				  alert(articulo);	
 				  fichaarticulo(articulo);
 				  window.location.href='#pficha';			  
 				  //existeenpedido(articulo,cliente);
@@ -1161,7 +1157,7 @@ $("#binicializar").click(function(){
             insertatemppedido(articulo,cantidad,cliente);
 			navigator.notification.alert('Artículo Agregado',null,'Agregar Artículo','Aceptar');					
 			//actualizar grid de importes
-			gridvalorescat();	
+			gridvalorescat(cliente);	
 			$('#divnumcat').hide(); 		    
 			}	    
 		  
