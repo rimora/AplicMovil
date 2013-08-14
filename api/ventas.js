@@ -582,8 +582,9 @@ var i=0;
 			 summontodesc+=summontodesc+montodesc;//suma del total de linea sin descuento y sin iva
 			 sumivalinea+=sumivalinea+ivalinea;//suma del total de linea sin descuento y sin iva			 
 			 alert('antes de llenar query');			 
-			 query[i]='INSERT INTO DETPEDIDO (num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max) VALUES("'+pedido+'","'+articulo+'",'+precio+','+pordesc+','+totalinea+','+montodesc+','+precio+','+cantidad+')'; 
+			 query[i]='INSERT INTO DETPEDIDO (num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max) VALUES("'+pedido+'","'+articulo+'",'+precio+','+pordesc+','+totlinea+','+montodesc+','+precio+','+cantidad+')'; 
 			 i++;
+			 alert('despues de llenar query');
 			 //guardadetpedido(pedido,articulo,precio,pordesc,totlinea,montodesc,precio,cantidad);
 			
 			//alert('despues de llamar a funcion guardated');
