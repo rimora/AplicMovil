@@ -176,8 +176,8 @@ function mostrarpedido(cliente){
 			  var existencia=0; var abordo=0; var preventa=0; var dif=0; var cantidad=0; var arttotal=0; var pietotal=0; var artpre=0; var piepre=0;
 			  var artabordo=0; var pieabordo=0; var totalpre=0; var totalabordo=0;
 			  //agrega encabezado de grid			  			  
-			  html+='<div class="ui-block-a" style="width:10px" ><div class="ui-bar ui-bar-a" style="padding-left:0px">T</div></div>';
-          	  html+='<div class="ui-block-b" style="width:60px; margin-left:-10px" ><div class="ui-bar ui-bar-a">Elim</div></div>';
+			  html+='<div class="ui-block-a" style="width:20px" ><div class="ui-bar ui-bar-a" style="padding-left:0px">T</div></div>';
+          	  html+='<div class="ui-block-b" style="width:60px; margin-left:-10px" ><div class="ui-bar ui-bar-a">Alim</div></div>';
               html+='<div class="ui-block-c" style="width:300px; margin-left:-10px"><div class="ui-bar ui-bar-a">Articulo</div></div>';
 		      html+='<div class="ui-block-d" style="width:80px"><div class="ui-bar ui-bar-a">PP</div></div>';              
               html+='<div class="ui-block-e" style="width:410px">';
@@ -237,7 +237,7 @@ function mostrarpedido(cliente){
 					 }					 
 					 pieabordo+=abordo;						 
 					 piepre+=preventa;		
-			  html+='<div class="ui-block-a" style="width:10px"><div class="ui-bar ui-bar-b" style="padding-left:0px">3</div></div>';		 
+			  html+='<div class="ui-block-a" style="width:20px"><div class="ui-bar ui-bar-b" style="padding-left:0px">3</div></div>';		 
           	  html+='<div class="ui-block-b" style="width:60px;height:10px; margin-left:-10px">';              
            			html+='<div class="ui-bar ui-bar-e"  >';      		 		                   				        
             		html+='<input type="checkbox" name="'+row['articulo']+'" class="checkv" style="position:relative;height:10px">';
@@ -515,7 +515,7 @@ function fichaarticulo(articulo){//
 				     precio=Number(preciocdesc)*(1+(Number(row['impuesto'])/100));				 
 					 parcial=precio*cantidad;
 					 total+=Number(parcial);			  */
-					 html+='<center><a href="" style="float:left"> <img src="jquery-mobile/images/medicamento.png"></a></center><br />';
+					 html+='<center><a href=""><img src="jquery-mobile/images/medicamento.png"/></a></center><br />';
 				     html+='<div class="ui-grid-a" id="gridficha" style="text-align:left">';
 			  	     html+='<div class="ui-block-a" style="width:120px" ><div class="ui-bar ui-bar-a">Articulo</div></div>';
 		             html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
@@ -581,7 +581,7 @@ var i=0;
 			 sumtotlinea+=sumtotlinea+totlinea;//suma del total de linea sin descuento y sin iva
 			 summontodesc+=summontodesc+montodesc;//suma del total de linea sin descuento y sin iva
 			 sumivalinea+=sumivalinea+ivalinea;//suma del total de linea sin descuento y sin iva			 
-			 //alert('antes de llamar a funcion guardated');
+			 alert('antes de llenar query');			 
 			 query[i]='INSERT INTO DETPEDIDO (num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max) VALUES("'+pedido+'","'+articulo+'",'+precio+','+pordesc+','+totalinea+','+montodesc+','+precio+','+cantidad+')'; 
 			 i++;
 			 //guardadetpedido(pedido,articulo,precio,pordesc,totlinea,montodesc,precio,cantidad);
@@ -596,11 +596,13 @@ var i=0;
 			 */			 			 
 		 	});
 			sumtotal=sumtotlinea+sumivalinea;
-			//alert('antes de llamar a funcion guardaenc');
+			alert('antes de llenar query encabezado');
 			query[i]='INSERT INTO ENCPEDIDO (num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,obs_ped,estado,cod_cnd,cod_bod) VALUES ("'+pedido+'","'+ruta+'","'+cliente+'","S","'+fechayhora+'","'+fechaact+'","'+fechaact+'",'+sumivalinea+','+sumtotal+','+sumtotlinea+','+summontodesc+',"'+obs+'","F",'+30+',"'+bodega+'")'; 
 			i++;
+			alert('antes de llenar query parametros');
 			query[i]='UPDATE PARAMETROS SET num_fac="'+pedido+'"';		
 			i++;
+			alert('antes de llenar query borrar tempedido');
 			query[i]='DELETE FROM TEMPEDIDO where cliente="'+cliente+'"';        
 			
 		  	 //guardaencpedido(pedido,ruta,cliente,fechayhora,fechaact,sumivalinea,(sumtotlinea+sumivalinea),sumtotlinea,summontodesc,obs,30,"K01");
