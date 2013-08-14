@@ -515,18 +515,18 @@ function fichaarticulo(articulo){//
 				     precio=Number(preciocdesc)*(1+(Number(row['impuesto'])/100));				 
 					 parcial=precio*cantidad;
 					 total+=Number(parcial);			  */
-					 html+='<center><a href=""><img src="jquery-mobile/images/medicamento.png"/></a></center><br />';
+					 html+='<center><a href=""><img src="jquery-mobile/images/medicamento.png"/></a></center>';
 				     html+='<div class="ui-grid-a" id="gridficha" style="text-align:left">';
 			  	     html+='<div class="ui-block-a" style="width:120px" ><div class="ui-bar ui-bar-a">Articulo</div></div>';
-		             html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
+		             html+='<div class="ui-block-b" style="width:400px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
 				     html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Laboratorio</div></div>';
-	                 html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b" >'+row['laboratorio']+'</div></div>';
+	                 html+='<div class="ui-block-b" style="width:400px"><div class="ui-bar ui-bar-b" >'+row['laboratorio']+'</div></div>';
        	             html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">SAL</div></div>';
-                     html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b" >'+row['sal']+'</div></div>';
+                     html+='<div class="ui-block-b" style="width:400px"><div class="ui-bar ui-bar-b" >'+row['sal']+'</div></div>';
                      html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Accion T</div></div>';
-                     html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b" >'+row['accion']+'</div></div>';             		               
+                     html+='<div class="ui-block-b" style="width:400px"><div class="ui-bar ui-bar-b" >'+row['accion']+'</div></div>';             		               
                      html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Clasificacion</div></div>';
-                     html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b" >'+row['clas']+'</div></div>';         		               
+                     html+='<div class="ui-block-b" style="width:400px"><div class="ui-bar ui-bar-b" >'+row['clas']+'</div></div>';         		               
 					 html+='</div>';
 			  });//.each					
 					$("#divficha").append(html);				
@@ -612,7 +612,7 @@ var i=0;
 	function consultatemp(tx){  
 	             //alert('ENTRA A CONSultatepm'); 
 				var sql='SELECT a.articulo,a.cantidad,b.impuesto,b.precio,';
-				sql+='b.descuento';	
+				sql+='b.descuento ';	
 				sql+='FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo ';
 				sql+='WHERE  a.cliente="'+cliente+'"  ';
 			    //alert(sql);
