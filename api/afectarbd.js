@@ -284,19 +284,7 @@ function guardaencpedido(pedido,ruta,cliente,hora,fecha,impuesto,total,subtotal,
 		}
 	
 }//function guardaencpedido
-function guardadetpedido(pedido,articulo,precio,pordescuento,totalinea,descuento,precio,cantidad){
-	   //alert (pedido+articulo+precio+pordescuento+totalinea+descuento+precio+cantidad);
-	consultadb().transaction(insertadet,function(err){
-    	  alert("Error al insertar en detallepedido: "+err.code+err.message);
-          },alert("Detalle Pedido Guardado"));
-				
-    	function insertadet(tx) {		
-		//alert('entra a modificar detallefactura cantidad: '+cantidad);		
-		
-			tx.executeSql('INSERT INTO DETPEDIDO (num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max) VALUES("'+pedido+'","'+articulo+'",'+precio+','+pordescuento+','+totalinea+','+descuento+','+precio+','+cantidad+')'); 
-		}
-	
-}//function guardadetpedido
+
 function guardaencfactura(pedido,ruta,cliente,hora,fecha,impuesto,total,subtotal,descuento,obs,cond,bodega){
 	   //alert (pedido+ruta+cliente+hora+fecha+impuesto+total+subtotal+descuento+obs+cond+bodega);
 	consultadb().transaction(insertadet,function(err){

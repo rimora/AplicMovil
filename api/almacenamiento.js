@@ -52,6 +52,9 @@ function guardacheque(cheque){
 function guardapendiente(pendiente){
 	window.localStorage.setItem("pendiente",pendiente);
 }
+function guardatotalventa(total){
+	window.localStorage.setItem("totalv",total);
+}
 
 
 function tomarfotopros(){

@@ -53,6 +53,7 @@ $(document).ready(function() {
                  //var clavecli = $(this).attr("id");
 				 //botón clientes, genera lista con los clientes del día lunes
 				  //alert ('llama a mostrar clientes');
+				  $("#divclientes").hide();
 				  window.location.href='#pclientes';				                    
 				  mostrarclientes("Lunes");
 				  //$("select#menu").val("Lunes").selectmenu("refresh");   
@@ -146,6 +147,7 @@ $(document).ready(function() {
 					  navigator.notification.alert('Debe seleccionar un cliente',null,'Error al iniciar visita','Aceptar');					
 					  return false;
 				  }
+				  else{
 				  eliminatempcob();
 				  window.location.href='#pcobros';
 				  $("#divencnum").hide();
@@ -156,23 +158,16 @@ $(document).ready(function() {
 				  //listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado				  				  
 				  guardafechaactual();
 				  iniciavisita();//guarda registro de fecha y hora de visita.funcion en almacenamiento.js			  
-				  
+				  }
 				  			  
 				   
      });			   			   
     $("#menu").bind("change",function(event,ui){
 		//alert($("#menu").val());
-		window.localStorage.setItem("clave",'');//Obtiene clave del cliente 
+		window.localStorage.setItem("clave",'');//limpia clave de cliente
 	    mostrarclientes($("#menu").val());	
 		
-		$("#limitecli").val(0);
-		$("#ocupadocli").val(0);
-		$("#dispcli").val(0);
-		$("#clienteselec").empty();//label
-		
-		
-		
-		
+		$("#divclientes").hide();		
 	});
 		
     $("#listaclientes li").live('click',function(){
@@ -180,8 +175,9 @@ $(document).ready(function() {
                   var clavecli = $(this).attr("id");
 				  
 				  //alert (clavecli);
+				  $('#divclientes').show();				  
 				  mostrarcliente(clavecli);
-				  $('#pclientes').trigger('refresh');
+				  
 				 // window.location.href='#datoscli';
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
     });
@@ -221,29 +217,7 @@ $(document).ready(function() {
 	 {
 		 alert("cierra")
 	 });
-
-	$("#reportes").click(function() { 	 
-		var cadena="555.5";
-		var saldo=0;
-	//alert(Number(cadena)+1);
 	
-	
-		 $("#gridprueba").empty();
-	    	var html = "";
-					 html += "<div class=ui-block-a><strong>Tipo</strong>creado por codigo.</div>";
-					 html += "<div class=ui-block-b><strong>Documento</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
-                     html += "<div class=ui-block-c><strong>Vence</strong> El texto que se ecriba aquí se amoldará a la mitad de pagina.</div>";
-					 html += "<div class=ui-block-d><strong>Saldo</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
-                     html += "<div class=ui-block-e><strong>Monto</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
-
-                  	 html += "<div class=ui-block-a><strong>Tipo</strong> El texto que se ecriba aquí se amoldará a la mitad de pagina.</div>";
-					 html += "<div class=ui-block-b><strong>Documento</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
-                     html += "<div class=ui-block-c><strong>Vence</strong> El texto que se ecriba aquí se amoldará a la mitad de pagina.</div>";
-					 html += "<div class=ui-block-d><strong>Saldo</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
-                     html += "<div class=ui-block-e><strong>Monto</strong> El texto que se ecriba aquí se amoldará a la otra mitad de pagina.</div>";
-			$("#gridprueba").append(html);  
-
-		});
 //****PAGINA DE OPERACIONES ******
 		 $("#regresarop").tap(function() {                   				  				  
 				  var operaciones=window.localStorage.getItem("sioperacion");//devuelve S si realizó alguna operacion de venta, cobro, devolucion.
@@ -362,31 +336,22 @@ $("#beliminarp").tap(function() {
     );
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
 });
-$("#bimprimirp").tap(function() { 
-                 //var clavecli = $(this).attr("id");
-				  var tipov=window.localStorage.getItem("tipov");
+$("#bguardav").tap(function() { 
+                 //var clavecli = $(this).attr("id");				 
+		var cliente=window.localStorage.getItem("clave");			  
+		var total=Number(window.localStorage.getItem("totalv"));
+		if (total<=0){
+		   navigator.notification.alert('No hay artículos para guardar',null,'Total venta en cero','Aceptar');										 
+		   return false;
+		}
+		else{
+		   navigator.notification.confirm('¿Confirma Guardar la Venta ?',onConfirm,'Guardar Venta','SI,NO'); 					 
+		}			  
 		function onConfirm(button) {
-		if (button==1){
-			if (tipov=='P'){
-					imprimirped($("#pcomentario").val());
-					mostrarpedido();
-					gridvaloresven();
-				  }
-				  else{
-					  imprimirfac($("#pcomentario").val());
-					  mostrarfactura();
-					  gridvaloresven()
-				  }
-			
-			
-		}//if (button==1){
-	}			 
-    navigator.notification.confirm('¿Confirma generar pedido?',     // mensaje (message)
-    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
-    'Generar Pedido',            // titulo (title)
-        'SI,NO'       // botones (buttonLabels)
-    );
-				  //$.mobile.changePage($("#datoscli"));	  			  				  
+			if (button==1){
+				guardarventa(cliente,'comentarios');		
+			}//if (button==1){
+		}
 });
 $("#lcatalogo").delegate('.listart','click',function(){//al seleccionar un articulo de la lista
 //$("#lcatalogo li").live('click',function(){
@@ -402,24 +367,6 @@ $("#lcatalogo").delegate('.fichaart','click',function(){//al seleccionar el boto
 				  window.location.href='#pficha';			  
 				  //existeenpedido(articulo,cliente);
 });	
-$("#botonmodcantidadp").tap(function(){
-                 //var cantidad=$('#scantidad').attr('Val');
-				 var cantidad=Number($('#modcantidadp').val());
-				  //alert (cantidad);
-				  if (cantidad<=0){
-					   navigator.notification.alert('Debe indicar cantidad MAYOR A CERO',null,'Error Indicando Cantidad','Aceptar');					
-					  
-				  }
-				  else
-				  {
-				    //obtiene el articulo pulsado en la lista
-    				var articulo = window.localStorage.getItem("articulo");
-	     			//alert (cantidad);	  
-					 modificalineap(articulo,cantidad);
-					 //alert('despues de llamada modificarlineap');
-					 //mostrarpedido();
-				  }
-});
 $("#bgenerav").tap(function() { //boton aceptar del catalogo
                  //var clavecli = $(this).attr("id");
 				 //muestra el pedido 
@@ -439,12 +386,7 @@ $("#bcatalogo").tap(function(){
 				   $('#divnumcat').hide();
 				  window.location.href='#pcatalogo';
 });
-$("#binicializar").click(function(){
-                 //var clavecli = $(this).attr("id");
-				 //limpia los grid
-                  pruebalocalizacion();
-				  
-});
+
 	 //*****D E V O L U C I O N E S *****
 	 $("#bdevoluciones").tap(function() {                   
 				  //limpiartemp();
