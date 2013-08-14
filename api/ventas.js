@@ -134,7 +134,7 @@ function modificatemppedido(articulo,cantidad,cliente){
 	   
 	consultadb().transaction(insertadet,function(err){
     	  alert("Error al modificar renglon: "+err.code+err.message);
-          },alert("Artículo modificado"));
+          });
 				
     	function insertadet(tx) {		
 		//alert('entra a modificar detallepedido');
@@ -243,14 +243,14 @@ function mostrarpedido(cliente){
             		html+='<input type="checkbox" name="'+row['articulo']+'" class="checkv" style="position:relative;height:10px">';
 					html+='</div>';
             		html+='</div>';   
-              html+='<div class="ui-block-c" style="width:300px; margin-left:-10px"><div class="ui-bar ui-bar-b" style="padding-left: 0px"><a href="#" class="descv" name="'+row['articulo']+'" data-ajax="false" >'+row['descripcion']+'</a></div></div>';
+              html+='<div class="ui-block-c" style="width:300px; margin-left:-10px"><div class="ui-bar ui-bar-b" style="padding-left: 0px"><a href="#" class="descv" name="'+row['articulo']+'"  >'+row['descripcion']+'</a></div></div>';
 		      html+='<div class="ui-block-d" style="width:80px"><div class="ui-bar ui-bar-b">'+preciop.toFixed(2)+'</div></div>';
               
               html+='<div class="ui-block-e" style="width:410px">';
               html+='<div class="ui-grid-d">';
 		                html+='<div class="ui-block-a" style="width:50px"><div class="ui-bar ui-bar-b" style="text-align:right">'+descuento+'</div></div>';
 						html+='<div class="ui-block-b" style="width:80px"><div class="ui-bar ui-bar-b" style="text-align:right">'+precio.toFixed(2)+'</div></div>';
-                        html+='<div class="ui-block-c" style="width:50px"><div class="ui-bar ui-bar-b" style="text-align:right"><a href="#" class="clasep" name="'+row['articulo']+'" id="'+row['articulo']+' '+row['descripcion']+'" data-ajax="false" >'+cantidad+'</a></div></div>';
+                        html+='<div class="ui-block-c" style="width:50px"><div class="ui-bar ui-bar-b" style="text-align:right"><a href="#" class="clasep" name="'+row['articulo']+'" id="'+row['articulo']+' '+row['descripcion']+'" >'+cantidad+'</a></div></div>';
                         html+='<div class="ui-block-d" style="width:80px"><div class="ui-bar ui-bar-b" style="text-align:right">'+parcial.toFixed(2)+'</div></div>';
                         
                         html+='<div class="ui-block-e" style="width:150px">';
@@ -300,6 +300,7 @@ function mostrarpedido(cliente){
 			        html+='</div>';
 					$("#divtotales").append(html);	
 					guardatotalventa(total);
+					guardadispventa(disp);
 					
 					
 			
@@ -570,7 +571,7 @@ var i=0;
 			 var precio=row['precio'];//precio sin descuento y sin iva			 
 			 var pordesc=row['descuento'];//porcentaje de descuento que se aplica 
 			 var totlinea=Number(row['cantidad'])*Number(row['precio']);//total de linea sin descuento y sin iva
-			 var montodesc=(Number(totlinea)/100)*Number(row['descuento']); 
+			 var montodesc=(Number(totlinea.toFixed(2))/100)*Number(row['descuento']); 
 			 var lineacdes=totlinea-montodesc;//importe de linea con descuento
 			 var ivalinea=lineacdes*(row['impuesto']/100);			 			 
 			 var preciocdesc=Number(row['precio'])-((Number(row['precio'])/100)*Number(row['descuento']));  
@@ -578,11 +579,11 @@ var i=0;
 			 var cantidad=row['cantidad'];
 			 var articulo=row['articulo'];
 
-			 sumtotlinea+=sumtotlinea+totlinea;//suma del total de linea sin descuento y sin iva
-			 summontodesc+=summontodesc+montodesc;//suma del total de linea sin descuento y sin iva
-			 sumivalinea+=sumivalinea+ivalinea;//suma del total de linea sin descuento y sin iva			 
+			 sumtotlinea+=totlinea.toFixed(2);//suma del total de linea sin descuento y sin iva
+			 summontodesc+=montodesc.toFixed(2);//suma del total de linea sin descuento y sin iva
+			 sumivalinea+=ivalinea.toFixed(2);//suma del total de linea sin descuento y sin iva			 
 			 alert('antes de llenar query');			 
-			 query[i]='INSERT INTO DETPEDIDO (num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max) VALUES("'+pedido+'","'+articulo+'",'+precio+','+pordesc+','+totlinea+','+montodesc+','+precio+','+cantidad+')'; 
+			 query[i]='INSERT INTO DETPEDIDO (num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max) VALUES("'+pedido+'","'+articulo+'",'+precio+','+pordesc+','+totlinea.toFixed(2)+','+montodesc.toFixed(2)+','+precio+','+cantidad+')'; 
 			 i++;
 			 alert('despues de llenar query');
 			 //guardadetpedido(pedido,articulo,precio,pordesc,totlinea,montodesc,precio,cantidad);
@@ -636,8 +637,9 @@ function guardadetpedido(query,total){
 	consultadb().transaction(insertadet,function(err){
     	  alert("Error al insertar en detallepedido: "+err.code+err.message);
           },function(){		  
-		   actsaldo(total);//actualiza saldo del cliente, la funcion esta en almacenamiento.js
-		   alert("Venta Guardada")});
+		  alert('total '+total);
+		   actsaldo(total);//actualiza saldo del cliente, la funcion esta en almacenamiento.js		   		   
+		   navigator.notification.alert('Venta Guardada',null,'Guardar Venta','Aceptar');										 });
 		  				
     	function insertadet(tx) {		
 		//alert('entra a modificar detallefactura cantidad: '+cantidad);		

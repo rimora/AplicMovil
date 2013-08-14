@@ -340,8 +340,9 @@ $("#bguardav").tap(function() {
                  //var clavecli = $(this).attr("id");				 
 		var cliente=window.localStorage.getItem("clave");			  
 		var total=Number(window.localStorage.getItem("totalv"));
-		if (total<=0){
-		   navigator.notification.alert('No hay artículos para guardar',null,'Total venta en cero','Aceptar');										 
+		var disp=Number(window.localStorage.getItem("dispv"));
+		if (total<=0 || disp<0){
+		   navigator.notification.alert('Total en cero o Disponible insuficiente para venta',null,'Error al guardar venta','Aceptar');										 
 		   return false;
 		}
 		else{
@@ -350,6 +351,7 @@ $("#bguardav").tap(function() {
 		function onConfirm(button) {
 			if (button==1){
 				guardarventa(cliente,'comentarios');		
+				window.location.href='#poperaciones';
 			}//if (button==1){
 		}
 });

@@ -458,17 +458,7 @@ function actexis(articulo,cantidad){
 			}
 		}	
 }//function  actexis
-function insertatempcob(factura,abono,saldo){
-	 // navigator.notification.alert('entra insertatempcob '+factura+' '+abono+' '+saldo,null,'','Aceptar');	
-	    consultadb().transaction(insertadet,function(err){
-    	  alert("Error al insertar renglon temcobros: "+err.code+err.message);
-          });
-				
-    	function insertadet(tx) {		
-		   tx.executeSql('INSERT INTO TEMCOBROS (factura,abonado,saldo) VALUES ("'+factura+'",'+abono+','+saldo+')');		
-		}
-	
-}//function insertatempcob(factura)
+
 function actualizatempcob(factura,cantidad){
 	   //alert('actualiza tempcob'+factura+' '+cantidad);
 	    consultadb().transaction(insertadet,function(err){
@@ -481,18 +471,6 @@ function actualizatempcob(factura,cantidad){
 	
 }//function actualizatempcob(factura,cantidad)
 
-function eliminatempcob(){
-	   //alert('inserttafactura'+cantidad);
-	    consultadb().transaction(insertadet,function(err){
-    	  alert("Error al eliminar temcobros: "+err.code+err.message);
-          });
-				
-    	function insertadet(tx) {		
-		//alert('entra a eliminar temcobros');
-		   tx.executeSql('DELETE FROM TEMCOBROS ');		
-		}
-	
-}//function eliminatempcob()
 function insertarcheque(nche,ncta,banco,monto){
 	   //alert('inserta cheque');
 	   var cliente=window.localStorage.getItem("clave");
