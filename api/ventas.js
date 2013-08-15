@@ -479,6 +479,7 @@ function existeenpedido(articulo,cliente){
 						//window.location.href='#pcantidad';
 						$('#cantcat').val('1');						
 						$('#divnumcat').show();
+						$('#gridprevart').empty();
 						
 					}
 				});		
@@ -657,3 +658,47 @@ function guardadetpedido(query,total){
 		}
 	
 }//function guardadetpedido
+function previolinea(articulo,cantidad){		
+ 			if (isNaN(cantidad)) { 
+        			//entonces (no es numero) 
+        	 navigator.notification.alert('Debe indicar un valor válido',null,'Cantidad inválida','Aceptar');			 
+			 return false;
+	       }
+			if (cantidad<=0){
+				navigator.notification.alert('La cantidad indicada debe ser mayor a cero',null,'Cantidad inválida','Aceptar');				
+				$("#cantcat").val('');
+				return false;
+			}
+
+		base.transaction(consulta, errorconsulta);	
+	function consulta(tx) {		
+		tx.executeSql('SELECT a.articulo,a.descripcion,a.precio,a.descuento,a.impuesto FROM articulo where a.articulo="'+articulo+'"',[],exito,errorconsulta);
+		}		
+		function exito(tx,results){ 
+			
+		      $("#gridprevart").empty();				  			  
+			  var html = "";
+			  var tipo="";
+			  var precio=0; var iva=0; var descuento=0; var parcial=0; var preciop=0; var preciocdesc=0;			  			  			 	
+			  $.each(results.rows,function(index){				  
+				  var row = results.rows.item(index); 				  	 					 
+				     preciocdesc=Number(row['precio'])-((Number(row['precio'])/100)*Number(row['descuento']));				     			     				     
+				     precio=Number(preciocdesc)*(1+(Number(row['impuesto'])/100));				 
+					 parcial=precio*Number(cantidad);					 
+					 html+='<div class="ui-block-a" style="width:90px" ><div class="ui-bar ui-bar-a">Precio</div></div>';
+					 html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-a">Cantidad</div></div>';
+					 html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-a">Total</div></div>';
+	                 html+='<div class="ui-block-a" style="width:90px"><div class="ui-bar ui-bar-b" style="text-align:right">'+precio.toFixed(0)+'</div></div>';				    
+		             html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b" style="text-align:right">'+cantidad+'</div></div>';	                
+	                 html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-b" style="text-align:right">'+parcial.toFixed(2)+'</div></div>';
+					 $("#gridprevart").append(html);							 
+			  
+			  });//.each											                
+	   }//function exito
+ 		
+	function errorconsulta(err) {
+    	alert("Error SQL al llenar previo de articulo: "+err.code+err.message);
+	}
+//  });	
+
+  }//previolinea

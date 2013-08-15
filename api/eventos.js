@@ -1091,6 +1091,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
           $('#importeapli').val('');                         
        });
  //**********TECLADO NUMERICO	USADO EN CATALOGO *************	
+ 		var articulo = window.localStorage.getItem("articulo");
 	   $("#bacepcat").tap(function() {                                                   	       
 	   	   var cliente = window.localStorage.getItem("clave");
            var cantidad = parseInt($("#cantcat").val()); 		  
@@ -1110,63 +1111,76 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 			navigator.notification.alert('Artículo Agregado',null,'Agregar Artículo','Aceptar');					
 			//actualizar grid de importes
 			gridvalorescat(cliente);	
-			$('#divnumcat').hide(); 		    
+			$('#divnumcat').hide();
+			$('#gridprevart').empty();
 			}	    
 		  
 		   
        }); 
 	   $("#bcanapli").tap(function() {                                                   
-          $('#divnumcat').hide(); 		   
+          $('#divnumcat').hide(); 
+		  $('#gridprevart').empty();
+		  
        }); 
 	   $("#b111").tap(function() { 	     
 	    var importe=$('#cantcat').val();	                                                    
 		   //if (importe.length<longitud){ 
-          $('#cantcat').val(importe+'1');                         
+          $('#cantcat').val(importe+'1'); 
+		  previolinea(articulo,parseInt($("#cantcat").val()));
 		  // }
        });
 	   $("#b222").tap(function() {                                                   
           var importe=$('#cantcat').val();	                                                    
 		  //if (importe.length<longitud){ 
-          $('#cantcat').val(importe+'2');                         
+          $('#cantcat').val(importe+'2');                     
+		  previolinea(articulo,parseInt($("#cantcat").val()));    
 		  //}
        });
 	   $("#b333").tap(function() {                                                   
           var importe=$('#cantcat').val();	                                                    
 		 // if (importe.length<longitud){ 
-          $('#cantcat').val(importe+'3');                         
+          $('#cantcat').val(importe+'3'); 
+		  previolinea(articulo,parseInt($("#cantcat").val()));                        
 		  //}
        });
 	    $("#b444").tap(function() {  
 	    var importe=$('#cantcat').val();	                                                    
-          $('#cantcat').val(importe+'4');                         
+          $('#cantcat').val(importe+'4');
+		  previolinea(articulo,parseInt($("#cantcat").val()));                         
        });
 	   $("#b555").tap(function() {                                                   
           var importe=$('#cantcat').val();	                                                    
-          $('#cantcat').val(importe+'5');                         
+          $('#cantcat').val(importe+'5');   
+		  previolinea(articulo,parseInt($("#cantcat").val()));                      
        });
 	   $("#b666").tap(function() {                                                   
           var importe=$('#cantcat').val();	                                                    
-          $('#cantcat').val(importe+'6');                         
+          $('#cantcat').val(importe+'6'); 
+		  previolinea(articulo,parseInt($("#cantcat").val()));                        
        });
 	     $("#b777").tap(function() {  
 	    var importe=$('#cantcat').val();	                                                    
-          $('#cantcat').val(importe+'7');                         
+          $('#cantcat').val(importe+'7');   
+		  previolinea(articulo,parseInt($("#cantcat").val()));                      
        });
 	   $("#b888").tap(function() {                                                   
           var importe=$('#cantcat').val();	                                                    
-          $('#cantcat').val(importe+'8');                         
+          $('#cantcat').val(importe+'8'); 
+		  previolinea(articulo,parseInt($("#cantcat").val()));                        
        });
 	   $("#b999").tap(function() {                                                   
           var importe=$('#cantcat').val();	                                                    
-          $('#cantcat').val(importe+'9');                         
+          $('#cantcat').val(importe+'9');   
+		  previolinea(articulo,parseInt($("#cantcat").val()));                      
        });
 	     $("#b000").tap(function() {  
 	    var importe=$('#cantcat').val();	                                                    
-          $('#cantcat').val(importe+'0');                         
+          $('#cantcat').val(importe+'0');    
+		  previolinea(articulo,parseInt($("#cantcat").val()));                     
        });
 	   $("#bpunto3").tap(function() {                                                   
-          var importe=$('#cantcat').val();	                                                    
-          $('#cantcat').val(importe+'.');                         
+         /* var importe=$('#cantcat').val();	                                                    
+          $('#cantcat').val(importe+'.');*/
        });
 	    $("#blimpiarcant").tap(function() {                                                                                                                
           $('#cantcat').val('');                         
