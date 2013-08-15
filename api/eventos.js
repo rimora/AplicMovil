@@ -17,6 +17,7 @@ $(document).ready(function() {
 	window.localStorage.setItem("clave",'');	
 	window.localStorage.setItem("ruta","S04");
 	window.localStorage.setItem("bodega","K01");
+	window.localStorage.setItem("sioperacion",'');
 	document.addEventListener("backbutton", function(){
 			
 		    return false;	
@@ -382,12 +383,19 @@ $("#bgenerav").tap(function() { //boton aceptar del catalogo
 $("#bcatalogo").tap(function(){
                  //var clavecli = $(this).attr("id");
 				 //limpia los grid	
-				  var cliente=window.localStorage.getItem("clave");			  
-                  armacatalogo(cliente);
+				  var cliente=window.localStorage.getItem("clave");			                    
 				  gridvalorescat(cliente);
 				   $('#divnumcat').hide();
 				  window.location.href='#pcatalogo';
 });
+$("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
+                 //var clavecli = $(this).attr("id");
+				 //muestra el pedido 
+     			var criterio=$('#buscaart').val();			  				
+				armacatalogo(criterio);				  
+				  
+});	
+
 
 	 //*****D E V O L U C I O N E S *****
 	 $("#bdevoluciones").tap(function() {                   

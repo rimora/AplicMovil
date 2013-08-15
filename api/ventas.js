@@ -312,7 +312,7 @@ function mostrarpedido(cliente){
 //  });	
 
   }//mostrarpedido
- function armacatalogo(){
+ function armacatalogo(criterio){
  // $('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);		
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);		
@@ -321,9 +321,11 @@ function mostrarpedido(cliente){
          		});		
 	function poblarcat(tx){  	        
 			var sql='SELECT a.articulo,a.descripcion,a.descuento,b.existencia as ebodega,c.existencia as ealg,';			
-			sql+='a.precio ';
+			sql+='a.precio,a.clas,a.accion,a.laboratorio,a.sal ';
 			sql+='FROM articulo a left outer join articulo_existencia b on b.articulo=a.articulo and b.bodega="K01" ';
-			sql+=' left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="ALG" order by a.descripcion';
+			sql+=' left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="ALG" where a.articulo LIKE "%'+criterio+'%"';
+			sql+=' or a.descripcion like "%'+criterio+'%" or a.clas like "%'+criterio+'%" or a.accion like "%'+criterio+'%" or a.laboratorio like "%'+criterio+'%" ';
+			sql+=' or a.sal like "%'+criterio+'%" order by a.descripcion';
 			/*
 			var sql='SELECT a.articulo,a.descripcion,a.clas,a.accion,a.impuesto,a.descuento,b.existencia as ebodega,c.existencia as ealg,';			
 			sql+='a.precio,a.laboratorio,a.sal ';
@@ -582,10 +584,12 @@ var i=0;
 			 sumtotlinea+=totlinea.toFixed(2);//suma del total de linea sin descuento y sin iva
 			 summontodesc+=montodesc.toFixed(2);//suma del total de linea sin descuento y sin iva
 			 sumivalinea+=ivalinea.toFixed(2);//suma del total de linea sin descuento y sin iva			 
-			 alert('antes de llenar query');			 
+			 alert(sumtotlinea);
+			 alert(summontodesc);
+			 alert(sumivalinea);			 
 			 query[i]='INSERT INTO DETPEDIDO (num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max) VALUES("'+pedido+'","'+articulo+'",'+precio+','+pordesc+','+totlinea.toFixed(2)+','+montodesc.toFixed(2)+','+precio+','+cantidad+')'; 
 			 i++;
-			 alert('despues de llenar query');
+			 
 			 //guardadetpedido(pedido,articulo,precio,pordesc,totlinea,montodesc,precio,cantidad);
 			
 			//alert('despues de llamar a funcion guardated');
@@ -598,13 +602,14 @@ var i=0;
 			 */			 			 
 		 	});
 			sumtotal=sumtotlinea+sumivalinea;
-			alert('antes de llenar query encabezado');
+			 alert(sumtotal);
+			 alert(sumtotlinea);
+			 alert(sumivalinea);			 
+
 			query[i]='INSERT INTO ENCPEDIDO (num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,obs_ped,estado,cod_cnd,cod_bod) VALUES ("'+pedido+'","'+ruta+'","'+cliente+'","S","'+fechayhora+'","'+fechaact+'","'+fechaact+'",'+sumivalinea+','+sumtotal+','+sumtotlinea+','+summontodesc+',"'+obs+'","F",'+30+',"'+bodega+'")'; 
-			i++;
-			alert('antes de llenar query parametros');
+			i++;			
 			query[i]='UPDATE PARAMETROS SET num_fac="'+pedido+'"';		
-			i++;
-			alert('antes de llenar query borrar tempedido');
+			i++;			
 			query[i]='DELETE FROM TEMPEDIDO where cliente="'+cliente+'"';        
 			
 		  	 //guardaencpedido(pedido,ruta,cliente,fechayhora,fechaact,sumivalinea,(sumtotlinea+sumivalinea),sumtotlinea,summontodesc,obs,30,"K01");
@@ -639,6 +644,7 @@ function guardadetpedido(query,total){
           },function(){		  
 		  alert('total '+total);
 		   actsaldo(total);//actualiza saldo del cliente, la funcion esta en almacenamiento.js		   		   
+		   window.localStorage.setItem("sioperacion",'S');
 		   navigator.notification.alert('Venta Guardada',null,'Guardar Venta','Aceptar');										 });
 		  				
     	function insertadet(tx) {		
