@@ -601,6 +601,10 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 			//mensaje,funcion callback,titulo,botones ('ACEPTAR,CANCELAR')
 			navigator.notification.confirm('No realizaras abono y el cliente tiene limite de credito excedido o facturas vencidas, solicita al cliente la firma del ticket de relacion de facturas pendientes',onConfirm,'No hay Cobro','ACEPTAR,CANCELAR');	 			 
 		 }
+		 else{
+			window.location.href='#poperaciones'; 
+			 
+		 }
          function onConfirm(button) {
 					if (button==1){						 
 						 window.location.href='#poperaciones';			
