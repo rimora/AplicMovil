@@ -58,6 +58,9 @@ function guardatotalventa(total){
 function guardadispventa(disp){
 	window.localStorage.setItem("dispv",disp);
 }
+function guardasivencida(cadena){
+	window.localStorage.setItem("vencida",cadena);
+}
 
 
 

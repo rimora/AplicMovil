@@ -502,7 +502,7 @@ function guardaenccob(cliente,tipo,ruta,recibo,horaini,horafin,estado,monche,mon
     	  alert("Error al insertar encabezado de cobro: "+err.code+err.message);
           },function(){
 			actsaldo(totalrecibo*-1);  
-			 
+			consultasivencidas(cliente); 
 			 	consultadb().transaction(actcheque,function(err){
 		    	  alert("Error al actualizar recibo en cheques: "+err.code+err.message); });				
     			function actcheque(tx) {		

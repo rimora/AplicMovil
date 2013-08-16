@@ -273,15 +273,21 @@ $(document).ready(function() {
 //**********VENTAS************	
 $("#bventa").tap(function() {		 	 
                  var cliente=window.localStorage.getItem("clave");
-				 //limpia los grid
-				 $("#divnumventas").hide();
-				 $('#divtotalesv').hide();  
-				 $("#divventas").show();                 
-				                
-				  //limpiartemp();
-				  validasug(cliente);//valida si tiene facturas o pedidos pendientes de imprimir para insertar o no pedido sugerido en caso de tenerlo
-			 	  // mostrarpedido();
-				  // mostrarfactura();
+				 var vencida=window.localStorage.getItem("vencida");
+             	 var saldo=Number(window.localStorage.getItem("saldo")); 
+        		 var limite=Number(window.localStorage.getItem("limite")); 
+		         var disp=limite-saldo;
+        		 if (disp<=0 || vencida=='S'){
+					navigator.notification.alert('Cliente con Saldo Vencido o Limite de Credito excedido, realiza abono',null,'Acceso a Ventas','Aceptar');										 
+				 }
+				 else{
+        				 window.location.href='#pventas';			
+		 				 //limpia los grid
+						 $("#divnumventas").hide();
+				         $('#divtotalesv').hide();  
+				         $("#divventas").show();                 
+	                     validasug(cliente);//valida si tiene facturas o pedidos pendientes de imprimir para insertar o no pedido sugerido en caso de tenerlo
+					}    	
 				  
 });	
 
@@ -499,7 +505,9 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 	
  //*****C O B R O S *****	 
 	  $("#bcobros").tap(function() {                   				  
-				  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
+			  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
+			  var saldo=Number(window.localStorage.getItem("saldo"));
+			  if (saldo>0){				  
 				  window.location.href='#pcobros';
 				  $("#divencnum").hide();
 				  $('#divnumcobros').hide();
@@ -509,8 +517,9 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				  copiatemcobros(cliente);//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
 				  //listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado				  				  
 				  guardafechaactual();
-				  			  
-				   
+			  }else{
+					  navigator.notification.alert('No existen facturas con saldo',null,'Cobros','Aceptar'); 
+			  }				   
      });
 	  $("#bpagarimp").tap(function() {  //indicar importe para distribuir entre facturas                                                 
 		  $('#divnumcobros').show(); //muestra el teclado numerico con el input                        
@@ -584,17 +593,20 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				  }
     });
 	$("#regresardecob").tap(function(){
-                function onConfirm(button) {
+     	 var vencida=window.localStorage.getItem("vencida"); 
+		 var saldo=Number(window.localStorage.getItem("saldo")); 
+		 var limite=Number(window.localStorage.getItem("limite")); 
+		 var disp=limite-saldo;
+		 if (disp<0 || vencida=='S'){
+			//mensaje,funcion callback,titulo,botones ('ACEPTAR,CANCELAR')
+			navigator.notification.confirm('No realizaras abono y el cliente tiene limite de credito excedido o saldo vencido, solicita al cliente la firma del ticket de relacion de facturas pendientes',onConfirm,'No hay Cobro','ACEPTAR,CANCELAR');	 			 
+		 }
+         function onConfirm(button) {
 					if (button==1){						 
-						 window.location.href='#poperaciones';
-			
+						 window.location.href='#poperaciones';			
 					}//if (button==1){
 				}			 
-    	navigator.notification.confirm('Se perderán los datos no guardados',     // mensaje (message)
-	    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
-    	'Generar Cobro',            // titulo (title)
-        'ACEPTAR,CANCELAR'       // botones (buttonLabels)
-	    );
+    	
     }); 
 	
 	$("#baceptarcob").tap(function() {                   				  
@@ -1236,15 +1248,18 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
        });
 function formatonum(numero){ 
         // Variable que contendra el resultado final
+		alert(numero);
         var resultado = "";
         
         // Si el numero empieza por el valor "-" (numero negativo)
         if(numero[0]=="-")
         {
+
             // Cogemos el numero eliminando los posibles puntos que tenga, y sin
             // el signo negativo
             nuevoNumero=numero.replace(/\./g,'').substring(1);
         }else{
+						alert('entra ');
             // Cogemos el numero eliminando los posibles puntos que tenga
             nuevoNumero=numero.replace(/\./g,'');
         }
@@ -1270,6 +1285,7 @@ function formatonum(numero){
             return resultado;
         }
     }
+	
 $('#pclientes').live('pagebeforeshow',function(event, ui){
 window.localStorage.setItem("clave",'');
 $("#divclientes").hide();

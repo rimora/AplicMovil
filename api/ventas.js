@@ -1,7 +1,6 @@
 // funciones para ventas
 var base = window.openDatabase("Database", "1.0", "SARDEL", 10000000);	
 function validasug(cliente){
-	alert(cliente);
 var existe=false;	
 	function listo(tx,results){ 	
 	         //alert('entra a funcion listo de existeenpedido');         	          
@@ -160,7 +159,7 @@ function mostrarpedido(cliente){
  var limite=Number(window.localStorage.getItem("limite"));
  var saldo=Number(window.localStorage.getItem("saldo"));
  var disp=limite-saldo;
- alert(cliente);
+ 
 		var bodega='K01';
 		base.transaction(consulta, errorconsulta);	
 	function consulta(tx) {		
@@ -197,7 +196,7 @@ function mostrarpedido(cliente){
 							html+='</div></div>';   
                  	html+='</div>';
                   html+='</div>';
-          		 alert('antes de entrar al each');
+          		
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 
 				  	 					 
@@ -265,10 +264,10 @@ function mostrarpedido(cliente){
                   html+='</div>';
           	
 			  
-			  alert('al final de each');
+			
 			  
 			  });//.each
-			  alert('al salir del each');
+			
 					$("#gridpedido").append(html);	
 					disp=disp-total;				
 					html="";
@@ -300,12 +299,11 @@ function mostrarpedido(cliente){
 	                html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b" style="text-align:right">'+arttotal.toFixed(0)+'</div></div>';
                     html+='<div class="ui-block-a" style="width:90px"><div class="ui-bar ui-bar-a">Total</div></div>';
                     html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b" style="text-align:right">'+total.toFixed(2)+'</div></div>';
-			        html+='</div>';
-					alert('antes del apendiv');
+			        html+='</div>';					
 					$("#divtotales").append(html);	
 					guardatotalventa(total);
 					guardadispventa(disp);
-					alert('al final de exito');
+
 					
 			
 	   }//function exito

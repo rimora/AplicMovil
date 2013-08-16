@@ -62,7 +62,7 @@ function mostrarcliente(clavecli){
 		});	
 	function consulta(tx) {
 		tx.executeSql('SELECT * FROM CLIENTES  WHERE clave="'+clavecli+'"',[],exito,errorconsulta);
-		tx.executeSql('SELECT * FROM PENCOBRO WHERE cliente="'+clavecli+'"',[],poblarfac,errorconsulta);    	
+		tx.executeSql('SELECT * FROM PENCOBRO WHERE saldo>0 and cliente="'+clavecli+'"',[],poblarfac,errorconsulta);    	
 		//alert('entro a la consulta de datos de un cliente');
 		}
 	
@@ -105,14 +105,14 @@ function mostrarcliente(clavecli){
 					 }
 					 
 			  });					
-					/*
+					
 					if (vencida=="S") {
-						navigator.notification.alert('El cliente tiene facturas vencidas, no podrá realizar ventas',null,'Saldo Vencido','Aceptar');					
-						$("#bventa").addClass('ui-disabled');
-						
+						//navigator.notification.alert('El cliente tiene facturas vencidas, no podrá realizar ventas',null,'Saldo Vencido','Aceptar');					
+						//$("#bventa").addClass('ui-disabled');
+						guardasivencida('S');
 
 						
-					}
+					}/*
 					else if (saldo>limite){						
 						navigator.notification.alert('Cliente con limite de credito excedido, no podrá realizar ventas',null,'Limite de Crédito Excedido','Aceptar');					
 						$("#bventa").addClass('ui-disabled');

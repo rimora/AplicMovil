@@ -540,6 +540,30 @@ function insertarcheque(nche,ncta,banco,monto){
 		}
 	
 }//function insertarcheque(nche,ncta,banco,monto)
+function consultasivencidas(cliente){
+	var vencida='';
+		base.transaction(poblarfac, function(err){
+    	 		 alert("Error poblar facturas para cobro: "+err.code+err.message);
+         		},function(){guardasivencida(vencida)});		
+	function poblarfac(tx){  
+			var sql='SELECT a.saldo,a.vencida FROM PENCOBRO a ';		
+				sql+=' WHERE a.cliente="'+cliente+'" and a.saldo>0 '
+			tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error select facturas pendientes de cobro: "+err.code+err.message);
+         		});    	
+	}
+	function listo(tx,results){  
+			  $.each(results.rows,function(index){				  
+				  var row = results.rows.item(index); 				     			     
+					if (row['vencida']=='S') {
+					  vencida='S';	
+					}
+			  });//.each
+ 	}
+	
 
+ // });	//$('#pclientes').live('pageshow',function(event, ui){
+	
+}// listafacturaspend(cliente)
 
 
