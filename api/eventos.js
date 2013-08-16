@@ -54,7 +54,7 @@ $(document).ready(function() {
                  //var clavecli = $(this).attr("id");
 				 //botón clientes, genera lista con los clientes del día lunes
 				  //alert ('llama a mostrar clientes');
-				  $("#divclientes").hide();
+				  
 				  window.location.href='#pclientes';				                    
 				  mostrarclientes("Lunes");
 				  //$("select#menu").val("Lunes").selectmenu("refresh");   
@@ -1271,10 +1271,8 @@ function formatonum(numero){
         }
     }
 $('#pclientes').live('pagebeforeshow',function(event, ui){
-
-alert('antes de mostrar pagina clientes');
 window.localStorage.setItem("clave",'');
-
+$("#divclientes").hide();
 
 });
 
