@@ -9,7 +9,7 @@ $(document).ready(function() {
 	
 	});*/	
 	 //$('#divnumcobros').hide(); 
-	 	
+	 var articulo='';	
 	 var longitud=0;
 	window.localStorage.clear();
 	//obtenerconse();//funcion que almacena localmente los consecutivos de documentos actuales.funcion en configuraciones.js
@@ -288,7 +288,7 @@ $("#bventa").tap(function() {
 //$("a.clasep").live('click',function(){//al modificar linea de pedido
 $("#gridpedido").delegate('.clasep','click',function(){//al modificar linea de pedido
 
-                  var articulo = $(this).attr("name");
+                  articulo = $(this).attr("name");
 				  var desc=$(this).attr("id");
 				  $('#etiartv').empty();
 				  $('#etiartv').append(desc);
@@ -300,7 +300,7 @@ $("#gridpedido").delegate('.clasep','click',function(){//al modificar linea de p
 				 guardaarticulo(articulo);//almacena localmente la clave de articulo 	
     });
 $("#gridpedido").delegate('.descv','click',function(){//al dar click en la descripcion de un artículo, debe mostrar la ficha del mismo
-                  var articulo = $(this).attr("name");				  
+                   articulo = $(this).attr("name");				  
 				  fichaarticulo(articulo);
 				  window.location.href='#pficha';	
     });
@@ -351,7 +351,7 @@ $("#bguardav").tap(function() {
 		}			  
 		function onConfirm(button) {
 			if (button==1){
-				guardarventa(cliente,'comentarios');		
+				guardarventa(cliente,'comentarios',total);		
 				window.location.href='#poperaciones';
 			}//if (button==1){
 		}
@@ -359,13 +359,13 @@ $("#bguardav").tap(function() {
 $("#lcatalogo").delegate('.listart','click',function(){//al seleccionar un articulo de la lista
 //$("#lcatalogo li").live('click',function(){
                   var cliente=window.localStorage.getItem("clave");			  
-				  var articulo = $(this).attr("id");				  				  
+				   articulo = $(this).attr("id");				  				  
 				  existeenpedido(articulo,cliente);
 });	
 $("#lcatalogo").delegate('.fichaart','click',function(){//al seleccionar el boton de buscar en la lista del catalogo para mostrar ficha                  
 				  var art= $(this).attr("id");				  
 				  var longitud=art.length;				  
-				  var articulo=art.substr(1,(longitud-1));
+				  articulo=art.substr(1,(longitud-1));
 				  fichaarticulo(articulo);
 				  window.location.href='#pficha';			  
 				  //existeenpedido(articulo,cliente);
@@ -443,7 +443,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				  }
 				  else
 				  {
-				    //obtiene el articulo pulsado en la lista
+				    //obtiene numero de linea, guardado en almacenamiento local con key articulo
     				var linea = window.localStorage.getItem("articulo");
 	     			//alert (cantidad);	  
 					insertalindev(linea,cantidad,observa);					
@@ -575,7 +575,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				  }
 				  else
 				  {
-				    //obtiene el articulo pulsado en la lista
+				    //obtiene el numero de factura
     				var factura = window.localStorage.getItem("factura");
 	     			//alert (cantidad);	  
 					insertacobro(factura,cantidad);	//actualiza cantidad a pagar de factura en tabla temporal de fac pend de cobro.Funcion en cobros.js				
@@ -613,7 +613,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 					$('#divcheques').hide();
 					$('#divnumaplicob').hide();					
 					eliminachequexrecibo();//elimina los cheques temporales.
-					gridtotalescob();
+					//gridtotalescob();
 				 }
 				  
 				  
@@ -683,36 +683,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
         'ACEPTAR,CANCELAR'       // botones (buttonLabels)
 	    );
     });
-	 $("#efectivo").blur(function(){
-          //al salir del input de efectivo     
-	     //intento convertir a entero. 
-    	 //si era un entero no le afecta, si no lo era lo intenta convertir 
-	     var montoefe = parseInt($("#efectivo").val()); 		 		 
-		 var pendiente1=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
-		 var pendiente=pendiente1+Number(window.localStorage.getItem("efectivo"));//aumentamos el efectivo que tenga guardado, es decir, si es modificación del importe, se anula para tomar este nuevo importe y actualizar el abono pendiente de distribuir en efectivo y cheque.
-		 //alert(montoefe);
-		 //alert(pendiente);
-	    //Compruebo si es un valor numérico 
-    	 if (isNaN(montoefe)) { 
-        //entonces (no es numero) 
-        	 navigator.notification.alert('Debe indicar un valor válido',null,'Cantidad inválida','Aceptar');
-			 $("#efectivo").focus();
-			 
-	     }else{ 
-    	    //En caso contrario (Si era un número) devuelvo el valor 
-			if (montoefe>pendiente || montoefe<0){
-				navigator.notification.alert('La cantidad indicada excede el saldo pendiente por abonar o es inválida',null,'Cantidad inválida','Aceptar');
-				$("#efectivo").focus();
-				$("#efectivo").val(0);
-			}
-			else{
-        	guardaefectivo(montoefe); 			
-			
-			}
-	     } 
-	   
-    });
-	
+	 
 	 $("#bagregacheque").tap(function() {                   				  
 	        var nche=$("#numcheque").val();  			  
 			//var ncta=$("#numcuenta").val();  			  
@@ -752,7 +723,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 						   //alert($("#"+"c"+$(this).val()).val());
     		      		 }
 					});//$('input:checkbox.clasep').each(function () {	
-					poblarcheques();
+					poblarcheques();					
 				}//if (button==1){
 			}			 
     	navigator.notification.confirm('¿Estas seguro de eliminar los registros seleccionados?',     // mensaje (message)
@@ -969,7 +940,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 	   $("#bacepapli").tap(function() {                                                   
 	       var tipocob=window.localStorage.getItem("tipocob");
            var monto = parseFloat($("#importeapli").val()); 
-		   alert(tipocob);
+		   
 		   if (isNaN(monto)) { 
         //entonces (no es numero) 
         	 navigator.notification.alert('Debe indicar un valor válido',null,'Cantidad inválida','Aceptar');			 
@@ -990,10 +961,8 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 			}
 			else{
 		    
-        	guardaefectivo(monto); 	
-			
+        	guardaefectivo(monto); 				
 			gridtotalescob();
-			
 			$('#divnumaplicob').hide(); 		    
 			}	    
 		}//tipocob
@@ -1019,13 +988,13 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				$("#importeapli").val(''); 
 			}			
 			else{
-				insertarcheque(nche,"0",banco,monto);			
+				
 				$("select#menucuentab").val("Banco").selectmenu("refresh"); 
 				window.localStorage.setItem('numche',''); 
 				//$("#numcuenta").val("");  				
-				$('#divnumaplicob').hide();
-				poblarcheques();
-				gridtotalescob();
+				$('#divnumaplicob').hide();				
+				insertarcheque(nche,"0",banco,monto);			
+				
 			}
 			
 			
@@ -1091,11 +1060,11 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
           $('#importeapli').val('');                         
        });
  //**********TECLADO NUMERICO	USADO EN CATALOGO *************	
- 		var articulo = window.localStorage.getItem("articulo");
+ 	   
 	   $("#bacepcat").tap(function() {                                                   	       
 	   	   var cliente = window.localStorage.getItem("clave");
            var cantidad = parseInt($("#cantcat").val()); 		  
-		   var articulo = window.localStorage.getItem("articulo");
+		   //articulo = window.localStorage.getItem("articulo");
 		   if (isNaN(cantidad)) { 
         //entonces (no es numero) 
         	 navigator.notification.alert('Debe indicar un valor válido',null,'Cantidad inválida','Aceptar');			 
@@ -1188,7 +1157,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 //**********TECLADO NUMERICO USADO EN VENTAS *************	
 	   $("#bacepven").tap(function() {                                                   	       
            var cantidad = parseInt($("#cantv").val()); 		  
-		   var articulo = window.localStorage.getItem("articulo");
+		   //articulo = window.localStorage.getItem("articulo");
 		   var cliente = window.localStorage.getItem("clave");
 				  //alert (cantidad);
 				   if (isNaN(cantidad)) { 
@@ -1265,6 +1234,49 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 	    $("#blimpiarcantv").tap(function() {                                                                                                                
           $('#cantv').val('');                         
        });
+function formatonum(numero){ 
+        // Variable que contendra el resultado final
+        var resultado = "";
+        
+        // Si el numero empieza por el valor "-" (numero negativo)
+        if(numero[0]=="-")
+        {
+            // Cogemos el numero eliminando los posibles puntos que tenga, y sin
+            // el signo negativo
+            nuevoNumero=numero.replace(/\./g,'').substring(1);
+        }else{
+            // Cogemos el numero eliminando los posibles puntos que tenga
+            nuevoNumero=numero.replace(/\./g,'');
+        }
+        
+        // Si tiene decimales, se los quitamos al numero
+        if(numero.indexOf(".")>=0)
+            nuevoNumero=nuevoNumero.substring(0,nuevoNumero.indexOf("."));
+
+        // Ponemos un punto cada 3 caracteres
+        for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++) 
+            resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0)? ".": "") + resultado; 
+        
+        // Si tiene decimales, se lo añadimos al numero una vez forateado con 
+        // los separadores de miles
+        if(numero.indexOf(".")>=0)
+            resultado+=numero.substring(numero.indexOf("."));
+
+        if(numero[0]=="-")
+        {
+            // Devolvemos el valor añadiendo al inicio el signo negativo
+            return "-"+resultado;
+        }else{
+            return resultado;
+        }
+    }
+$('#pclientes').live('pagebeforeshow',function(event, ui){
+
+alert('antes de mostrar pagina clientes');
+window.localStorage.setItem("clave",'');
+
+
+});
 
 
   },false);//document.addEventListener("deviceready",function(){	

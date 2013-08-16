@@ -207,7 +207,8 @@ function insertacobro(factura,cantidad){ //llamada de eventos.js
 }//function insertacobro
 function aplicacionpago(saldofac,abono){	
 	var pendiente=Number(saldopendiente());//obtiene el saldo pendiente de distribuir en los tipos de cobro
-	//alert('pendiente de aplicacionpago'+pendiente);
+	alert('pendiente de aplicacionpago'+pendiente);
+	
 	var html="";
 	var html2="";
 	$("#gridaplicobros").empty();	
@@ -226,8 +227,8 @@ function aplicacionpago(saldofac,abono){
 	
 	$("#gridaplicobros").append(html); 	
 	$("#gridaplicobros2").append(html2); 
-	$("#efectivo").val(0); 	
-	$("#cheque").val(0);
+	/*$("#efectivo").val(0); 	
+	$("#cheque").val(0);*/
 				
 }//function aplicacionpago()
 function otro(){	
@@ -235,23 +236,26 @@ alert('entra a otro');
 }
 
 function gridtotalescob(){	
-
-	var pendiente=saldopendiente();//obtiene el saldo pendiente de distribuir en los tipos de cobro
-	var montoche=window.localStorage.getItem("cheque");
-	var montoefe=window.localStorage.getItem("efectivo");
-	//alert('pendiente '+pendiente);
+alert('entra a gridtotalescob()');
+	var pendiente=Number(saldopendiente());//obtiene el saldo pendiente de distribuir en los tipos de cobro
+	var montoche=Number(window.localStorage.getItem("cheque"));
+	var montoefe=Number(window.localStorage.getItem("efectivo"));
+	alert('pendiente '+pendiente);
+	alert('montoche '+montoche);
+	alert('montoefe '+montoefe);
 	var html="";
 	$("#gridaplicobros2").empty();
-    html+='	    <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-a" style="font-size:18px;font-weight:bold">Saldo Pendiente</div></div>';
-	html+='	    <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-a" style="font-size:18px;font-weight:bold">Efectivo</div></div>';
-	html+='	    <div class=ui-block-c style="width:170px"><div class="ui-bar ui-bar-a" style="font-size:18px;font-weight:bold">Cheque</div></div>';
-    html+='     <div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b" style="font-size:18px;font-weight:bold">'+pendiente.toFixed(2)+'</div></div>';
-	
-    html+='     <div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-b" style="font-size:18px;font-weight:bold">'+montoefe.toFixed(2)+'</div></div>';
-	
-    html+='     <div class=ui-block-c style="width:170px"><div class="ui-bar ui-bar-b" style="font-size:18px;font-weight:bold">'+montoche.toFixed(2)+'</div></div>';
+	alert('despues de empty');
+    html+='<div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-a" style="font-size:18px;font-weight:bold">Saldo Pendiente</div></div>';
+	alert(html);
+	html+='<div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-a" style="font-size:18px;font-weight:bold">Efectivo</div></div>';
+	html+='<div class=ui-block-c style="width:170px"><div class="ui-bar ui-bar-a" style="font-size:18px;font-weight:bold">Cheque</div></div>';
+    html+='<div class=ui-block-a style="width:170px"><div class="ui-bar ui-bar-b" style="font-size:18px;font-weight:bold">'+pendiente.toFixed(2)+'</div></div>';	
+    html+='<div class=ui-block-b style="width:170px"><div class="ui-bar ui-bar-b" style="font-size:18px;font-weight:bold">'+montoefe.toFixed(2)+'</div></div>';	
+    html+='<div class=ui-block-c style="width:170px"><div class="ui-bar ui-bar-b" style="font-size:18px;font-weight:bold">'+montoche.toFixed(2)+'</div></div>';
+	alert('antes del apend');
 	$("#gridaplicobros2").append(html); 	
-				
+				alert('despues de apend');
 }//function actgridsaldo()
 function poblarcuenta(){
 		base.transaction(poblarc, function(err){
@@ -285,7 +289,9 @@ function poblarcuenta(){
 }// poblarcuenta()
 function poblarcheques(){	
 //alert('entra poblar cheques ');
- 	base.transaction(consulta, errorconsulta);	
+ 	base.transaction(consulta, errorconsulta,function(){
+	  gridtotalescob();	
+	});	
 	function consulta(tx) {		
 		tx.executeSql('SELECT a.id,a.codbanco,a.monto,a.numcheque,b.descripcion from CHEQUES a left outer join CUENTASB b on b.codigo=a.codbanco where a.recibo="99999"',[],exito,errorconsulta);
 		}
@@ -464,11 +470,12 @@ function pagarximp(cliente,cantidad){
 				});	
 }//function pagarximp
 function mostrarnotascob(factura){	
+alert(factura);
 	var html="";
 	
 	$("#divencnum").empty();
 	html='<label style="font-weight: bold">Notas para factura:'+factura+'</label><br>';
-	html+='<textarea cols="20" rows="30">';
+	html+='<textarea cols="30" rows="10">';
 
 	function listo(tx,results){ 	      
 	        $.each(results.rows,function(index){			
@@ -521,6 +528,25 @@ function insertatempcob(querycob){
 		}
 	
 }//function insertatempcob(factura)
+function insertarcheque(nche,ncta,banco,monto){
+	   //alert('inserta cheque');
+	   var cliente=window.localStorage.getItem("clave");
+	   var ruta=window.localStorage.getItem("ruta");
+	   var fecha=window.localStorage.getItem("fecha");
+	    base.transaction(insertadet,function(err){
+    	  alert("Error al insertar cheque: "+err.code+err.message);
+          },function(){
+			poblarcheques();  
+		  });
+				
+    	function insertadet(tx) {
+			var sql='INSERT INTO CHEQUES (codbanco,cliente,ruta,fecha,monto,numcheque,cuenta,recibo,tipo) VALUES("'+banco+'","'+cliente+'","'+ruta+'", ';		
+				sql+='"'+fecha+'",'+monto+',"'+nche+'","'+ncta+'","99999",5)';		
+				//alert(sql);
+		   tx.executeSql(sql);		
+		}
+	
+}//function insertarcheque(nche,ncta,banco,monto)
 
 
 

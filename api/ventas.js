@@ -177,12 +177,12 @@ function mostrarpedido(cliente){
 			  var artabordo=0; var pieabordo=0; var totalpre=0; var totalabordo=0;
 			  //agrega encabezado de grid			  			  
 			  html+='<div class="ui-block-a" style="width:20px" ><div class="ui-bar ui-bar-a" style="padding-left:0px">T</div></div>';
-          	  html+='<div class="ui-block-b" style="width:60px; margin-left:-10px" ><div class="ui-bar ui-bar-a">Alim</div></div>';
+          	  html+='<div class="ui-block-b" style="width:60px; margin-left:-10px" ><div class="ui-bar ui-bar-a">Elim</div></div>';
               html+='<div class="ui-block-c" style="width:300px; margin-left:-10px"><div class="ui-bar ui-bar-a">Articulo</div></div>';
 		      html+='<div class="ui-block-d" style="width:80px"><div class="ui-bar ui-bar-a">PP</div></div>';              
               html+='<div class="ui-block-e" style="width:410px">';
               html+='<div class="ui-grid-d">';
-					  	html+='<div class="ui-block-a" style="width:50px"><div class="ui-bar ui-bar-a" style="text-align:right">DV</div></div>';
+					  	html+='<div class="ui-block-a" style="width:40px"><div class="ui-bar ui-bar-a" style="text-align:right; padding-left:0px">DV</div></div>';
 						html+='<div class="ui-block-b" style="width:80px"><div class="ui-bar ui-bar-a" style="text-align:right">PV</div></div>';
                         html+='<div class="ui-block-c" style="width:50px"><div class="ui-bar ui-bar-a" style="text-align:right">Cant</div></div>';
                         html+='<div class="ui-block-d" style="width:80px"><div class="ui-bar ui-bar-a" style="text-align:right">Importe</div></div>';                        
@@ -248,7 +248,7 @@ function mostrarpedido(cliente){
               
               html+='<div class="ui-block-e" style="width:410px">';
               html+='<div class="ui-grid-d">';
-		                html+='<div class="ui-block-a" style="width:50px"><div class="ui-bar ui-bar-b" style="text-align:right">'+descuento+'</div></div>';
+		                html+='<div class="ui-block-a" style="width:40px"><div class="ui-bar ui-bar-b" style="text-align:right; padding-left:0px">'+descuento+'</div></div>';
 						html+='<div class="ui-block-b" style="width:80px"><div class="ui-bar ui-bar-b" style="text-align:right">'+precio.toFixed(2)+'</div></div>';
                         html+='<div class="ui-block-c" style="width:50px"><div class="ui-bar ui-bar-b" style="text-align:right"><a href="#" class="clasep" name="'+row['articulo']+'" id="'+row['articulo']+' '+row['descripcion']+'" >'+cantidad+'</a></div></div>';
                         html+='<div class="ui-block-d" style="width:80px"><div class="ui-bar ui-bar-b" style="text-align:right">'+parcial.toFixed(2)+'</div></div>';
@@ -270,7 +270,7 @@ function mostrarpedido(cliente){
 					disp=disp-total;				
 					html="";
 					html+='<center><label style="font-weight:bold; font-size:24px">Disponible:</label></center>';
-       			    html+='<center><label style="font-weight:bold; font-size: 36px; color:#00F">'+disp.toFixed(2)+'</label></center>';
+       			    html+='<center><label style="font-weight:bold; font-size: 36px; color:#00F">'+formatonum(disp.toFixed(2))+'</label></center>';
 			        html+='<center><label style="font-weight:bold; font-size:24px">Preventa:</label></center>';				
 					html+='<div class="ui-grid-a" id="gridtotalesp" style="text-align:left">';
 	                html+='<div class="ui-block-a" style="width:90px" ><div class="ui-bar ui-bar-a">Piezas</div></div>';
@@ -477,10 +477,9 @@ function existeenpedido(articulo,cliente){
 						$('#etiart').empty();
 						$('#etiart').append(articulo+' '+descripcion)
 						//window.location.href='#pcantidad';
-						$('#cantcat').val('1');						
+						$('#cantcat').val('1');//pone por defecto cantidad 1 en el teclado numerico
+						 previolinea(articulo,1);// visualiza grid con el total del articulo 						
 						$('#divnumcat').show();
-						$('#gridprevart').empty();
-						
 					}
 				});		
 
@@ -522,15 +521,15 @@ function fichaarticulo(articulo){//
 					 html+='<center><a href=""><img src="jquery-mobile/images/medicamento.png"/></a></center>';
 				     html+='<div class="ui-grid-a" id="gridficha" style="text-align:left">';
 			  	     html+='<div class="ui-block-a" style="width:120px" ><div class="ui-bar ui-bar-a">Articulo</div></div>';
-		             html+='<div class="ui-block-b" style="width:400px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
+		             html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
 				     html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Laboratorio</div></div>';
-	                 html+='<div class="ui-block-b" style="width:400px"><div class="ui-bar ui-bar-b" >'+row['laboratorio']+'</div></div>';
+	                 html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b" >'+row['laboratorio']+'</div></div>';
        	             html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">SAL</div></div>';
-                     html+='<div class="ui-block-b" style="width:400px"><div class="ui-bar ui-bar-b" >'+row['sal']+'</div></div>';
+                     html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b" >'+row['sal']+'</div></div>';
                      html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Accion T</div></div>';
-                     html+='<div class="ui-block-b" style="width:400px"><div class="ui-bar ui-bar-b" >'+row['accion']+'</div></div>';             		               
+                     html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b" >'+row['accion']+'</div></div>';             		               
                      html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Clasificacion</div></div>';
-                     html+='<div class="ui-block-b" style="width:400px"><div class="ui-bar ui-bar-b" >'+row['clas']+'</div></div>';         		               
+                     html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b" >'+row['clas']+'</div></div>';         		               
 					 html+='</div>';
 			  });//.each					
 					$("#divficha").append(html);				
@@ -543,7 +542,7 @@ function fichaarticulo(articulo){//
 //  });	
 
   }//
-function guardarventa(cliente,obs){	
+function guardarventa(cliente,obs,total){	
 var cabinsertada=false;
 var sumtotlinea=0; var summontodesc=0; var sumivalinea=0; var sumtotal=0; var bodega=window.localStorage.getItem("bodega");
 var consecutivo=window.localStorage.getItem("consepedido");
@@ -582,12 +581,9 @@ var i=0;
 			 var cantidad=row['cantidad'];
 			 var articulo=row['articulo'];
 
-			 sumtotlinea+=totlinea.toFixed(2);//suma del total de linea sin descuento y sin iva
-			 summontodesc+=montodesc.toFixed(2);//suma del total de linea sin descuento y sin iva
-			 sumivalinea+=ivalinea.toFixed(2);//suma del total de linea sin descuento y sin iva			 
-			 alert(sumtotlinea);
-			 alert(summontodesc);
-			 alert(sumivalinea);			 
+			 sumtotlinea+=Number(totlinea);//suma del total de linea sin descuento y sin iva
+			 summontodesc+=Number(montodesc);//suma del monto de descuento de cada linea
+			 sumivalinea+=Number(ivalinea);//suma del total de iva de cada linea
 			 query[i]='INSERT INTO DETPEDIDO (num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max) VALUES("'+pedido+'","'+articulo+'",'+precio+','+pordesc+','+totlinea.toFixed(2)+','+montodesc.toFixed(2)+','+precio+','+cantidad+')'; 
 			 i++;
 			 
@@ -602,12 +598,12 @@ var i=0;
 
 			 */			 			 
 		 	});
-			sumtotal=sumtotlinea+sumivalinea;
+			sumtotal=Number(sumtotlinea)+Number(sumivalinea);
 			 alert(sumtotal);
 			 alert(sumtotlinea);
 			 alert(sumivalinea);			 
 
-			query[i]='INSERT INTO ENCPEDIDO (num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,obs_ped,estado,cod_cnd,cod_bod) VALUES ("'+pedido+'","'+ruta+'","'+cliente+'","S","'+fechayhora+'","'+fechaact+'","'+fechaact+'",'+sumivalinea+','+sumtotal+','+sumtotlinea+','+summontodesc+',"'+obs+'","F",'+30+',"'+bodega+'")'; 
+			query[i]='INSERT INTO ENCPEDIDO (num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,obs_ped,estado,cod_cnd,cod_bod) VALUES ("'+pedido+'","'+ruta+'","'+cliente+'","S","'+fechayhora+'","'+fechaact+'","'+fechaact+'",'+sumivalinea.toFixed(2)+','+sumtotal.toFixed(2)+','+sumtotlinea.toFixed(2)+','+summontodesc.toFixed(2)+',"'+obs+'","F",'+30+',"'+bodega+'")'; 
 			i++;			
 			query[i]='UPDATE PARAMETROS SET num_fac="'+pedido+'"';		
 			i++;			
@@ -633,7 +629,7 @@ var i=0;
     	 			 alert("Error select tabla temporal PEDIDO para guardarlo: "+err.code+err.message);
          		},function(){
 								
-					guardadetpedido(query,sumtotal);
+					guardadetpedido(query,total);
 					
 				});		
 				
@@ -659,6 +655,8 @@ function guardadetpedido(query,total){
 	
 }//function guardadetpedido
 function previolinea(articulo,cantidad){		
+alert(articulo);
+
  			if (isNaN(cantidad)) { 
         			//entonces (no es numero) 
         	 navigator.notification.alert('Debe indicar un valor válido',null,'Cantidad inválida','Aceptar');			 
@@ -672,7 +670,7 @@ function previolinea(articulo,cantidad){
 
 		base.transaction(consulta, errorconsulta);	
 	function consulta(tx) {		
-		tx.executeSql('SELECT a.articulo,a.descripcion,a.precio,a.descuento,a.impuesto FROM articulo where a.articulo="'+articulo+'"',[],exito,errorconsulta);
+		tx.executeSql('SELECT a.articulo,a.descripcion,a.precio,a.descuento,a.impuesto FROM articulo a where a.articulo="'+articulo+'"',[],exito,errorconsulta);
 		}		
 		function exito(tx,results){ 
 			
@@ -691,7 +689,8 @@ function previolinea(articulo,cantidad){
 	                 html+='<div class="ui-block-a" style="width:90px"><div class="ui-bar ui-bar-b" style="text-align:right">'+precio.toFixed(0)+'</div></div>';				    
 		             html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b" style="text-align:right">'+cantidad+'</div></div>';	                
 	                 html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-b" style="text-align:right">'+parcial.toFixed(2)+'</div></div>';
-					 $("#gridprevart").append(html);							 
+					 $("#gridprevart").append(html);
+					 	alert('despues de agregar html');						 
 			  
 			  });//.each											                
 	   }//function exito
