@@ -52,9 +52,9 @@ function mostrarcliente(clavecli){
             html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-a" >Ocupado</div></div>';
             html+='<div class="ui-block-c" style="width:120px"><div class="ui-bar ui-bar-a">Disponible</div></div>';
 			html+='<div class="ui-block-d" style="width:120px"><div class="ui-bar ui-bar-a">Fac Ven</div></div>';
-            html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-b" >'+limite+'</div></div>';
-            html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b">'+saldo+'</div></div>';
-            html+='<div class="ui-block-c" style="width:120px"><div class="ui-bar ui-bar-b" >'+disponible+'</div></div>';			
+            html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-b" >'+limite.toFixed(2)+'</div></div>';
+            html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b">'+saldo.toFixed(2)+'</div></div>';
+            html+='<div class="ui-block-c" style="width:120px"><div class="ui-bar ui-bar-b" >'+disponible.toFixed(2)+'</div></div>';			
 			html+='<div class="ui-block-d" style="width:120px"><div class="ui-bar ui-bar-b" >'+vencida+'</div></div>';			
 			$('#gridtotalescli').append(html);	
 			
@@ -84,7 +84,7 @@ function mostrarcliente(clavecli){
 	   		//$('#limitecredito').text("Límite de Crédito: "+row['lcredito']+" Saldo: "+row['saldo']);			
 			limite=Number(row['lcredito']);			
 			saldo=Number(row['saldo']);
-			disponible=limite-saldo;
+			disponible=Number(limite-saldo);
 			
 			
 			window.localStorage.setItem("limite",Number(row['lcredito']));
@@ -101,7 +101,7 @@ function mostrarcliente(clavecli){
 						 tipo="OTRO" 
 					 }
 					 if (row['vencida']=="S"){
-						 vencida="S"						 
+						 vencida="SI"						 
 					 }
 					 
 			  });					

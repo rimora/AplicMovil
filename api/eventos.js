@@ -599,7 +599,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 		 var disp=limite-saldo;
 		 if (disp<0 || vencida=='S'){
 			//mensaje,funcion callback,titulo,botones ('ACEPTAR,CANCELAR')
-			navigator.notification.confirm('No realizaras abono y el cliente tiene limite de credito excedido o saldo vencido, solicita al cliente la firma del ticket de relacion de facturas pendientes',onConfirm,'No hay Cobro','ACEPTAR,CANCELAR');	 			 
+			navigator.notification.confirm('No realizaras abono y el cliente tiene limite de credito excedido o facturas vencidas, solicita al cliente la firma del ticket de relacion de facturas pendientes',onConfirm,'No hay Cobro','ACEPTAR,CANCELAR');	 			 
 		 }
          function onConfirm(button) {
 					if (button==1){						 

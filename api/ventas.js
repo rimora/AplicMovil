@@ -272,7 +272,7 @@ function mostrarpedido(cliente){
 					disp=disp-total;				
 					html="";
 					html+='<center><label style="font-weight:bold; font-size:24px">Disponible:</label></center>';
-       			    html+='<center><label style="font-weight:bold; font-size: 36px; color:#00F">'+formatonum(disp.toFixed(2))+'</label></center>';
+       			    html+='<center><label style="font-weight:bold; font-size: 36px; color:#00F">'+disp.toFixed(2)+'</label></center>';
 			        html+='<center><label style="font-weight:bold; font-size:24px">Preventa:</label></center>';				
 					html+='<div class="ui-grid-a" id="gridtotalesp" style="text-align:left">';
 	                html+='<div class="ui-block-a" style="width:90px" ><div class="ui-bar ui-bar-a">Piezas</div></div>';
@@ -601,9 +601,10 @@ var i=0;
 			 */			 			 
 		 	});
 			sumtotal=Number(sumtotlinea)+Number(sumivalinea);
+			 /*
 			 alert(sumtotal);
 			 alert(sumtotlinea);
-			 alert(sumivalinea);			 
+			 alert(sumivalinea);			 */
 
 			query[i]='INSERT INTO ENCPEDIDO (num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,obs_ped,estado,cod_cnd,cod_bod) VALUES ("'+pedido+'","'+ruta+'","'+cliente+'","S","'+fechayhora+'","'+fechaact+'","'+fechaact+'",'+sumivalinea.toFixed(2)+','+sumtotal.toFixed(2)+','+sumtotlinea.toFixed(2)+','+summontodesc.toFixed(2)+',"'+obs+'","F",'+30+',"'+bodega+'")'; 
 			i++;			
@@ -641,7 +642,7 @@ function guardadetpedido(query,total){
 	consultadb().transaction(insertadet,function(err){
     	  alert("Error al insertar en detallepedido: "+err.code+err.message);
           },function(){		  
-		  alert('total '+total);
+		 //alert('total '+total);
 		   actsaldo(total);//actualiza saldo del cliente, la funcion esta en almacenamiento.js		   		   
 		   window.localStorage.setItem("sioperacion",'S');
 		   navigator.notification.alert('Venta Guardada',null,'Guardar Venta','Aceptar');										 });
@@ -657,7 +658,7 @@ function guardadetpedido(query,total){
 	
 }//function guardadetpedido
 function previolinea(articulo,cantidad){		
-alert(articulo);
+//alert(articulo);
 
  			if (isNaN(cantidad)) { 
         			//entonces (no es numero) 
@@ -692,7 +693,7 @@ alert(articulo);
 		             html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b" style="text-align:right">'+cantidad+'</div></div>';	                
 	                 html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-b" style="text-align:right">'+parcial.toFixed(2)+'</div></div>';
 					 $("#gridprevart").append(html);
-					 	alert('despues de agregar html');						 
+					 	//alert('despues de agregar html');						 
 			  
 			  });//.each											                
 	   }//function exito
