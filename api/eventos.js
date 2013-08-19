@@ -416,7 +416,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 	 $("#listahistfac li").live('click',function(){
 		          //al seleccionar una factura de la lista, muestra los articulos				  
                   var factura = $(this).attr("id");				  
-				  alert ('entra');
+				 
 				  /*
 				  var vigenciafac=verificarvigencia(factura);
 				  if (vigenciafac=='0'){// cero significa que la factura tiene antigüedad mayor a 15 dias y por lo tanto, la dev debe ser con cargo al vend.

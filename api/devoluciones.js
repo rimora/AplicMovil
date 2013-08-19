@@ -91,7 +91,7 @@ function mostrarhistfac(factura){
               html+=' <div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-b" style="text-align:right">'+disponible+'</div></div>';              
 			  html+='<div class="ui-block-e" style="width:160px">';
 			  
-				  html+='<div class="ui-grid-a">';
+				  html+='<div class="ui-grid-a" style="margin-top:0px">';
 					  	html+='<div class="ui-block-a" style="width:80px"><div class="ui-bar ui-bar-b" style="text-align:right">'+preciocdesc.toFixed(2)+'</div></div>';
                         html+='<div class="ui-block-b" style="width:80px"><div class="ui-bar ui-bar-b" style="text-align:right">'+totlinea.toFixed(2)+'</div></div>';                        
 				  html+='</div></div>';   
