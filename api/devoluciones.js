@@ -311,7 +311,7 @@ function copiadethistempd(factura,estotal){
  	}//function listo(tx,results){ 
 	function consultatemp(tx){   	       
 				//alert('articulo de MODIFICAR temPEDIDO '+articulo);
-				 var sql='SELECT a.articulo,a.linea,a.devuelto ';
+				 var sql='SELECT a.articulo,a.linea,a.devuelto,a.cantidad ';
 	   			 sql+='FROM DETHISFAC a ';	
 				 sql+='where a.factura="'+factura+'"';	
 		
