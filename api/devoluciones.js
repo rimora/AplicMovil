@@ -40,6 +40,7 @@ function listafacturas(){
 }// listafacturas()
 function mostrarhistfac(factura){
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
+		var total=0;
 		consultadb().transaction(consulta, errorconsulta);	
 	function consulta(tx) {	
         var sql='SELECT a.factura,a.articulo,a.cantidad,a.devuelto,a.precio,a.totlinea,a.linea, ';
@@ -53,13 +54,13 @@ function mostrarhistfac(factura){
 		      $("#griddethistfac").empty();				  
 			  var html = "";		      
 			  //agrega encabezado de grid
-			  html+=' <div class="ui-block-a" style="width:300px" ><div class="ui-bar ui-bar-a">Articulo</div></div> ';           
+			  html+=' <div class="ui-block-a" style="width:350px" ><div class="ui-bar ui-bar-a">Articulo</div></div> ';           
 			  html+=' <div class="ui-block-b" style="width:50px"><div class="ui-bar ui-bar-a" style="text-align:right">Cant</div></div>';
 			  html+=' <div class="ui-block-c" style="width:50px"><div class="ui-bar ui-bar-a" style="text-align:right">Dev</div></div>';
               html+=' <div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-a" style="text-align:right">Disp</div></div>';              
 			  html+='<div class="ui-block-e" style="width:160px">';
 			  
-				  html+='<div class="ui-grid-a">';
+				  html+='<div class="ui-grid-a" style="margin-top:0px">';
 					  	html+='<div class="ui-block-a" style="width:80px"><div class="ui-bar ui-bar-a" style="text-align:right">Precio</div></div>';
                         html+='<div class="ui-block-b" style="width:80px"><div class="ui-bar ui-bar-a" style="text-align:right">Total</div></div>';                        
 				  html+='</div></div>';   
@@ -69,12 +70,14 @@ function mostrarhistfac(factura){
 				     //descuento=(row['precio']/100)*row['descuento'];
 				     //precio=row['precio']*(1+(row['impuesto']/100));	
 					 //alert (row['temdev']);
+					/*
 					 if (row['temdev']==null){
 						var devuelto= Number(row['devuelto']);												 
 					 }
 					 else {
 					 	var devuelto= Number(row['devuelto'])+Number(row['temdev']);												 
-					 }
+					 }*/
+					 var devuelto= Number(row['devuelto'])+Number(row['temdev']);												 
 					 //alert (devuelto);
 					 //alert( row['cantidad']);
 					 var totlinea=Number(row['totlinea']);
@@ -83,9 +86,10 @@ function mostrarhistfac(factura){
 					 var preciocdesc=Number(row['precio'])-((Number(row['precio'])/100)*Number(descuento));				     			     
 					 var precio=Number(row['precio']);	
 					 var disponible=Number(row['cantidad'])-Number(devuelto);			 
+					 total+=Number(row['temdev'])*preciocdesc;
 					 //importe=precio*row['cantidad'];
 					 //total+=Number(importe);					 					                 	
-					 html+=' <div class="ui-block-a" style="width:300px" ><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div> ';           
+					 html+=' <div class="ui-block-a" style="width:350px" ><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div> ';           
 			  html+=' <div class="ui-block-b" style="width:50px"><div class="ui-bar ui-bar-b" style="text-align:right">'+row['cantidad']+'</div></div>';
 			  html+=' <div class="ui-block-c" style="width:50px"><div class="ui-bar ui-bar-b" style="text-align:right"><a href="#" class="clasedev" name="'+row['linea']+'">'+devuelto+'</a></div></div>';
               html+=' <div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-b" style="text-align:right">'+disponible+'</div></div>';              
@@ -98,6 +102,7 @@ function mostrarhistfac(factura){
                   	 
 			  });//.each
 					$("#griddethistfac").append(html); 
+					guardatotaldev(total);
 					//$("#tpedido").attr("value",total); 			
 					//$("#tpedido").val(total.toFixed(2)); 			
 					
@@ -129,13 +134,13 @@ function mostrarhistfac(factura){
 			  //agrega encabezado de grid
 			  html+=' <div class="ui-block-a" style="width:300px" ><div class="ui-bar ui-bar-a">Articulo</div></div> ';           
               html+=' <div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-a">Cantidad</div></div>';
-			  html+=' <div class="ui-block-c" style="width:500px"><div class="ui-bar ui-bar-a">Observaciones</div></div>';
+			  html+=' <div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-a">Observaciones</div></div>';
               
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
-				    html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-e">'+row['descripcion']+'</div></div>';   		 		                    
+				    html+='<div class="ui-block-a" style="width:300px"><div class="ui-bar ui-bar-e">'+row['descripcion']+'</div></div>';   		 		                    
 					html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b">'+row['cantidad']+'</div></div>';                  
-					html+='<div class="ui-block-c" style="width:500px"><div class="ui-bar ui-bar-b">'+row['obs']+'</div></div>';                  
+					html+='<div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-b">'+row['obs']+'</div></div>';                  
                   	 
 			  });//.each
 					$("#gridartdev").append(html); 
@@ -256,6 +261,7 @@ var devolucion=inicial+pad(incremetard,6);
 				
 }//function guardadev
 function insertalindev(factura,linea,cantidad,observa){	
+var cantmayor=false;
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){			
 			 	var row = results.rows.item(0); 
@@ -268,7 +274,7 @@ function insertalindev(factura,linea,cantidad,observa){
 				//alert ('linea '+linea);
  			 	if (cantidad>dif){//se intenta devolver mas de la cantidad disponible para devolución
 					navigator.notification.alert('Se intenta devolver una cantidad mayor que el disponible',null,'Error Indicando Cantidad','Aceptar');						 					return false;				 
-					return false;
+					cantmayor=true;
 				 }
 				 //alert('pasa depues del if');
 				
@@ -288,9 +294,11 @@ function insertalindev(factura,linea,cantidad,observa){
 	base.transaction(consultatemp, function(err){
     	 			 alert("Error select tabla DETHISFAC: "+err.code+err.message);
          		},function(){
+					if (cantmayor==false){
 					 actualizatempdev(linea,cantidad,observa)
 					 mostrarhistfac(factura);
 					 mostrarartdev();						
+					}
 				});		
 				
 }//function insertalindev

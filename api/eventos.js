@@ -440,11 +440,11 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
     });
 	$("#bdevtodo").tap(function() {                   
 				  //limpiartemp();	
-				  var factura=window.localStorage.getItem("factura");
+				  var factura=window.localStorage.getItem("factura");				  
 				  copiadethistempd(factura,'S');	
 				  $("#divdevueltos").show();
 				  mostrarhistfac(factura);
-      			 mostrarartdev();
+      			  mostrarartdev();
      });
 	$("a.clasedev").live('click',function(){//al modificar linea de devolución.
                   var linea = $(this).attr("name");//el nombre tiene el numero de linea que corresponde al articulo en la tabla de DETHISFAC
@@ -492,20 +492,27 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 	    );
     }); 
 	$("#bguardadev").tap(function(){
+		var total=Number(window.localStorage.getItem("totaldev"));//
+		if (total>0){		
+			navigator.notification.confirm('¿Desea terminar y guardar la devolución?',onConfirm,'Guardar Devolución','SI,NO');		
+			
+		}
+		else{
+			 navigator.notification.alert('El total de la devolución no es mayor a cero',null,'Guardar Devolución','Aceptar'); 
+			
+		}
                 function onConfirm(button) {
 					if (button==1){
 						 var observagen=$("#obsgendev").val();
 						 guardadev(observagen);//guarda la devolución.						 
 						// window.location.href='#phistfac';
 						 eliminatempdev();
+						 $("#divdevueltos").hide();
+						 $("#divgriddev").hide();
 			
 					}//if (button==1){
 				}			 
-    	navigator.notification.confirm('¿Desea terminar y guardar la devolución?',     // mensaje (message)
-	    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
-    	'Guardar Devolución',            // titulo (title)
-        'SI,NO'       // botones (buttonLabels)
-	    );
+    	
     });  
 	 $("#probarfunciones").tap(function(){
                 function onConfirm(button) {
