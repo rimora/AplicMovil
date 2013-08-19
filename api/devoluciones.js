@@ -54,7 +54,7 @@ function mostrarhistfac(factura){
 		      $("#griddethistfac").empty();				  
 			  var html = "";		      
 			  //agrega encabezado de grid
-			  html+=' <div class="ui-block-a" style="width:350px" ><div class="ui-bar ui-bar-a">Articulo</div></div> ';           
+			  html+=' <div class="ui-block-a" style="width:360px" ><div class="ui-bar ui-bar-a">Articulo</div></div> ';           
 			  html+=' <div class="ui-block-b" style="width:50px"><div class="ui-bar ui-bar-a" style="text-align:right">Cant</div></div>';
 			  html+=' <div class="ui-block-c" style="width:50px"><div class="ui-bar ui-bar-a" style="text-align:right">Dev</div></div>';
               html+=' <div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-a" style="text-align:right">Disp</div></div>';              
@@ -89,7 +89,7 @@ function mostrarhistfac(factura){
 					 total+=Number(row['temdev'])*preciocdesc;
 					 //importe=precio*row['cantidad'];
 					 //total+=Number(importe);					 					                 	
-					 html+=' <div class="ui-block-a" style="width:350px" ><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div> ';           
+					 html+=' <div class="ui-block-a" style="width:360px" ><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div> ';           
 			  html+=' <div class="ui-block-b" style="width:50px"><div class="ui-bar ui-bar-b" style="text-align:right">'+row['cantidad']+'</div></div>';
 			  html+=' <div class="ui-block-c" style="width:50px"><div class="ui-bar ui-bar-b" style="text-align:right"><a href="#" class="clasedev" name="'+row['linea']+'">'+devuelto+'</a></div></div>';
               html+=' <div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-b" style="text-align:right">'+disponible+'</div></div>';              
@@ -262,6 +262,9 @@ var devolucion=inicial+pad(incremetard,6);
 }//function guardadev
 function insertalindev(factura,linea,cantidad,observa){	
 var cantmayor=false;
+alert(linea);
+alert(cantidad);
+
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){			
 			 	var row = results.rows.item(0); 
@@ -269,9 +272,10 @@ var cantmayor=false;
 			 //if (row['cantidad']>0){
 			 	//preparadetalletemp(row['articulo'],row['cantidad']);																
 				var dif=Number(row['cantidad'])-Number(row['devuelto']);
-				//alert ('dif '+dif);
-				//alert ('cantidad '+cantidad);
-				//alert ('linea '+linea);
+				alert ('dif '+dif);
+				alert ('cantidad '+row['cantidad']);
+				alert ('devuelto '+row['devuelto']);
+				alert(dif);
  			 	if (cantidad>dif){//se intenta devolver mas de la cantidad disponible para devolución
 					navigator.notification.alert('Se intenta devolver una cantidad mayor que el disponible',null,'Error Indicando Cantidad','Aceptar');						 					return false;				 
 					cantmayor=true;
