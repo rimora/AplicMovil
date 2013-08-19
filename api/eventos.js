@@ -412,7 +412,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				  $("#divgriddev").hide();			 				   
 				  $("#divdevueltos").hide();
 				  $('#divnumdev').hide();
-     });	
+     });		 
 	 $("#listahistfac li").live('click',function(){
 		          //al seleccionar una factura de la lista, muestra los articulos				  
                   var factura = $(this).attr("id");
@@ -437,6 +437,11 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				  
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
     });
+	$("#bdevtodo").tap(function() {                   
+				  //limpiartemp();				  
+				  copiadethistempd(factura,'S');	
+				  $("#divdevueltos").show();
+     });
 	$("a.clasedev").live('click',function(){//al modificar linea de devolución.
                   var linea = $(this).attr("name");//el nombre tiene el numero de linea que corresponde al articulo en la tabla de DETHISFAC
 				 /* var id = $(this).attr("id");

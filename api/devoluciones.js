@@ -293,16 +293,24 @@ function insertalindev(factura,linea,cantidad,observa){
 				});		
 				
 }//function insertalindev
-function copiadethistempd(factura){	
+function copiadethistempd(factura,estotal){	
 	function listo(tx,results){
 		   $.each(results.rows,function(index){           
 			 var row = results.rows.item(index); 
-			 insertatempdev(row['articulo'],row['linea']);
+			 var disponible=Number(row['cantidad'])-Number(row['devuelto']);			 
+			 if (estotal=='S'){
+				 insertatempdev2(row['articulo'],row['linea'],disponible);
+			 }
+			 else{
+				insertatempdev(row['articulo'],row['linea']);	 
+				 
+			 }
+			 
 		 });    		 	      
  	}//function listo(tx,results){ 
 	function consultatemp(tx){   	       
 				//alert('articulo de MODIFICAR temPEDIDO '+articulo);
-				 var sql='SELECT a.articulo,a.linea ';
+				 var sql='SELECT a.articulo,a.linea,a.devuelto ';
 	   			 sql+='FROM DETHISFAC a ';	
 				 sql+='where a.factura="'+factura+'"';	
 		
