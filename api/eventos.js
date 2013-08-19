@@ -439,7 +439,8 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
     });
 	$("#bdevtodo").tap(function() {                   
-				  //limpiartemp();				  
+				  //limpiartemp();	
+				  var factura=window.localStorage.getItem("factura");
 				  copiadethistempd(factura,'S');	
 				  $("#divdevueltos").show();
      });
