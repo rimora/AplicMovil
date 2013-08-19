@@ -443,6 +443,8 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				  var factura=window.localStorage.getItem("factura");
 				  copiadethistempd(factura,'S');	
 				  $("#divdevueltos").show();
+				  mostrarhistfac(factura);
+      			 mostrarartdev();
      });
 	$("a.clasedev").live('click',function(){//al modificar linea de devolución.
                   var linea = $(this).attr("name");//el nombre tiene el numero de linea que corresponde al articulo en la tabla de DETHISFAC
