@@ -277,8 +277,9 @@ $("#bventa").tap(function() {
              	 var saldo=Number(window.localStorage.getItem("saldo")); 
         		 var limite=Number(window.localStorage.getItem("limite")); 
 		         var disp=limite-saldo;
-        		 if (disp<=0 || vencida=='S'){
-					navigator.notification.alert('Cliente con Saldo Vencido o Limite de Credito excedido, realiza abono',null,'Acceso a Ventas','Aceptar');										 
+        		 //if (disp<=0 || vencida=='S'){
+					 if (vencida=='S'){
+					navigator.notification.alert('Cliente con Saldo Vencido, realiza abono',null,'Acceso a Ventas','Aceptar');										 
 				 }
 				 else{
         				 window.location.href='#pventas';			
@@ -407,19 +408,30 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 	 $("#bdevoluciones").tap(function() {                   
 				  //limpiartemp();
 				  window.location.href='#phistfac';
-				  listafacturas();
-				  eliminatempdev();
-				   
+				  listafacturas();	
+				  $("#divgriddev").hide();			 				   
+				  $("#divdevueltos").hide();
+				  $('#divnumdev').hide();
      });	
 	 $("#listahistfac li").live('click',function(){
-		          //al seleccionar una factura de la lista, muestra los articulos
+		          //al seleccionar una factura de la lista, muestra los articulos				  
                   var factura = $(this).attr("id");
 				  //alert (clavecli);
-				  window.location.href='#pdethistfac';
-				  $("#gridartdev").empty();	
+				  var vigenciafac=verificarvigencia(factura);
+				  if (vigenciafac=='0'){// cero significa que la factura tiene antigüedad mayor a 15 dias y por lo tanto, la dev debe ser con cargo al vend.
+					  navigator.notification.alert('La factura supera la antigüedad permitida para devolución, por lo tanto, la devolución será con cargo al vendedor',null,'Factura fuera de política permitida','Aceptar');					
+				  }
+					  
+				  
+				  //window.location.href='#pdethistfac';
+				  $("#gridartdev").empty();
 				  $("#obsgendev").val('');
-				  guardafactura(factura);//almacena localmente el numero de factura	
-				  copiadethistempd();//copia a tabla temporal los renglones de la factura a devolver
+				  $("#divgriddev").show();
+				  $("#divdevueltos").show();
+				  $('#divnumdev').hide();				  
+                  eliminatempdev();
+				  guardafactura(factura);//almacena localmente el numero de factura
+				  copiadethistempd(factura);//copia a tabla temporal los renglones de la factura a devolver
 				  mostrarhistfac(factura);//muestra el grid con los detalles de los artículos de factura
 				  guardafechaactual();
 				  
@@ -432,8 +444,9 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				  var posicion = id.indexOf('*'); 
 				  var cantidad=Number(id.substring(posicion+1));*/
 				 guardaarticulo(linea);//almacena localmente la linea, usando la función que guarda el articulo
-				 window.location.href='#pcantidaddev';//muestra dialogo para indicar cantidad a modificar y observaciones.
+				 // window.location.href='#pcantidaddev';//muestra dialogo para indicar cantidad a modificar y observaciones.
 				 mostrarddev(linea);
+				 $('#divnumdev').show();
 				 
 				
     });
@@ -450,18 +463,16 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				  else
 				  {
 				    //obtiene numero de linea, guardado en almacenamiento local con key articulo
-    				var linea = window.localStorage.getItem("articulo");
-	     			//alert (cantidad);	  
-					insertalindev(linea,cantidad,observa);					
+    				
     				 //alert('despues de llamada modificarlineap');
 					 //mostrarpedido();
 				  }
     });
-	$("#regresardedev").tap(function(){
+	$("#bregresadev").tap(function(){
                 function onConfirm(button) {
 					if (button==1){
 						 eliminatempdev();
-						 window.location.href='#phistfac';
+						 window.location.href='#poperaciones';
 			
 					}//if (button==1){
 				}			 
@@ -476,7 +487,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 					if (button==1){
 						 var observagen=$("#obsgendev").val();
 						 guardadev(observagen);//guarda la devolución.						 
-						 window.location.href='#phistfac';
+						// window.location.href='#phistfac';
 						 eliminatempdev();
 			
 					}//if (button==1){
@@ -597,9 +608,10 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 		 var saldo=Number(window.localStorage.getItem("saldo")); 
 		 var limite=Number(window.localStorage.getItem("limite")); 
 		 var disp=limite-saldo;
-		 if (disp<0 || vencida=='S'){
+		 //if (disp<0 || vencida=='S'){
+			 if (vencida=='S'){
 			//mensaje,funcion callback,titulo,botones ('ACEPTAR,CANCELAR')
-			navigator.notification.confirm('No realizaras abono y el cliente tiene limite de credito excedido o facturas vencidas, solicita al cliente la firma del ticket de relacion de facturas pendientes',onConfirm,'No hay Cobro','ACEPTAR,CANCELAR');	 			 
+			navigator.notification.confirm('No realizaras abono y el cliente tiene facturas vencidas, solicita al cliente la firma del ticket de relacion de facturas pendientes',onConfirm,'No hay Cobro','ACEPTAR,CANCELAR');	 			 
 		 }
 		 else{
 			window.location.href='#poperaciones'; 
@@ -1244,11 +1256,92 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
           $('#cantv').val(importe+'0');                         
        });
 	   $("#bpunto4").tap(function() {                                                   
-          var importe=$('#cantv').val();	                                                    
-          $('#cantv').val(importe+'.');                         
+                                
        });
 	    $("#blimpiarcantv").tap(function() {                                                                                                                
           $('#cantv').val('');                         
+       });
+//**********TECLADO NUMERICO USADO EN DEVOLUCIONES *************	
+	   $("#bacepdev").tap(function() {                                                   	       
+           var cantidad = parseInt($("#cantd").val()); 		  
+		   //articulo = window.localStorage.getItem("articulo");
+		   var cliente = window.localStorage.getItem("clave");
+		   var linea = window.localStorage.getItem("articulo");
+		   var factura= window.localStorage.getItem("factura");
+	     			//alert (cantidad);	  
+					
+				  //alert (cantidad);
+				   if (isNaN(cantidad)) { 
+       					 //entonces (no es numero) 
+        	 			navigator.notification.alert('Debe indicar un valor válido',null,'Cantidad inválida','Aceptar');			 
+						return false;
+			       }
+				  if (cantidad<0){
+					   navigator.notification.alert('Debe indicar cantidad MAYOR A CERO',null,'Error Indicando Cantidad','Aceptar');					
+					  return false;
+				  }
+				  else
+				  {
+					    insertalindev(factura,linea,cantidad,'');					
+						$('#divnumdev').hide();						
+						
+						
+				  }
+       }); 
+	   $("#bcandev").tap(function() {                                                   
+          $('#divnumdev').hide(); 		  
+       }); 
+	   $("#b11111").tap(function() { 	     
+	    var importe=$('#cantd').val();	                                                    
+		   //if (importe.length<longitud){ 
+          $('#cantd').val(importe+'1');                         
+		   //}
+       });
+	   $("#b22222").tap(function() {                                                   
+          var importe=$('#cantd').val();	                                                    
+		  //if (importe.length<longitud){ 
+          $('#cantd').val(importe+'2');                         
+		  //}
+       });
+	   $("#b33333").tap(function() {                                                   
+          var importe=$('#cantd').val();	                                                    
+		 // if (importe.length<longitud){ 
+          $('#cantd').val(importe+'3');                         
+		  //}
+       });
+	    $("#b44444").tap(function() {  
+	    var importe=$('#cantd').val();	                                                    
+          $('#cantd').val(importe+'4');                         
+       });
+	   $("#b55555").tap(function() {                                                   
+          var importe=$('#cantd').val();	                                                    
+          $('#cantd').val(importe+'5');                         
+       });
+	   $("#b66666").tap(function() {                                                   
+          var importe=$('#cantd').val();	                                                    
+          $('#cantd').val(importe+'6');                         
+       });
+	     $("#b77777").tap(function() {  
+	    var importe=$('#cantd').val();	                                                    
+          $('#cantd').val(importe+'7');                         
+       });
+	   $("#b88888").tap(function() {                                                   
+          var importe=$('#cantd').val();	                                                    
+          $('#cantd').val(importe+'8');                         
+       });
+	   $("#b99999").tap(function() {                                                   
+          var importe=$('#cantd').val();	                                                    
+          $('#cantd').val(importe+'9');                         
+       });
+	     $("#b00000").tap(function() {  
+	    var importe=$('#cantd').val();	                                                    
+          $('#cantd').val(importe+'0');                         
+       });
+	   $("#bpunto5").tap(function() {                                                   
+                                
+       });
+	    $("#blimpiarcantd").tap(function() {                                                                                                                
+          $('#cantd').val('');                         
        });
 function formatonum(numero){ 
         // Variable que contendra el resultado final

@@ -639,7 +639,7 @@ var i=0;
 }//function guardarventa
 function guardadetpedido(query,total){
 	   //alert (pedido+articulo+precio+pordescuento+totalinea+descuento+precio+cantidad);
-	consultadb().transaction(insertadet,function(err){
+	base.transaction(insertadet,function(err){
     	  alert("Error al insertar en detallepedido: "+err.code+err.message);
           },function(){		  
 		 //alert('total '+total);

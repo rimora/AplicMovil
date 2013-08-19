@@ -1,9 +1,10 @@
 //devoluciones
+var base = window.openDatabase("Database", "1.0", "SARDEL", 10000000);	
 function listafacturas(){
  // $('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);		
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);
-		consultadb().transaction(poblarfac, function(err){
+		base.transaction(poblarfac, function(err){
     	 		 alert("Error poblar facturas para devoluciones : "+err.code+err.message);
          		});		
 	function poblarfac(tx){  
@@ -22,7 +23,7 @@ function listafacturas(){
 			 var row = results.rows.item(index); 
 			 var html="";               			 
 			 html+='<li id="'+row['factura']+'">';
-	         html+='<a href="#pdethistfac"><h5> Documento: '+row['factura']+'</h5>';
+	         html+='<a href="#"><h5> Documento: '+row['factura']+'</h5>';
 			 html+='Total:  '+row['monto']+'    Pedido:   '+row['pedido']+'    Fecha:   '+row['fecha']+'</a></li>';
 			 //alert('antes del append de listfac '+html);
 			 $('#listahistfac').append(html);  			
@@ -41,7 +42,7 @@ function mostrarhistfac(factura){
 		consultadb().transaction(consulta, errorconsulta);	
 	function consulta(tx) {	
         var sql='SELECT a.factura,a.articulo,a.cantidad,a.devuelto,a.precio,a.totlinea,a.linea, ';
-	    sql+='(a.precio-((a.precio/100)*b.descuento)) as preciocdesc,b.descripcion,c.cantidad as temdev FROM DETHISFAC a ';	
+	    sql+=' b.precio,b.descuento,b.descripcion,c.cantidad as temdev FROM DETHISFAC a ';	
 		sql+='left outer join articulo b on b.articulo=a.articulo left outer join TEMDEV c on c.linea=a.linea where a.factura="'+factura+'"';	
 		
 		tx.executeSql(sql ,[],exito,errorconsulta);
@@ -49,14 +50,19 @@ function mostrarhistfac(factura){
 		function exito(tx,results){ 
 			
 		      $("#griddethistfac").empty();				  
-			  var html = "";
-		      var precio=0;
+			  var html = "";		      
 			  //agrega encabezado de grid
-			  html+=' <div class="ui-block-a" style="width:110px" ><div class="ui-bar ui-bar-a">Articulo</div></div> ';           
-              html+=' <div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-a">Descrip.</div></div>';
-              html+=' <div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-a">Disp.</div></div>';
-              html+=' <div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-a">Devuelto</div></div>';
-              html+=' <div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-a">Precio</div></div>';
+			  html+=' <div class="ui-block-a" style="width:300px" ><div class="ui-bar ui-bar-a">Articulo</div></div> ';           
+			  html+=' <div class="ui-block-b" style="width:50px"><div class="ui-bar ui-bar-a" style="text-align:right">Cant</div></div>';
+			  html+=' <div class="ui-block-c" style="width:50px"><div class="ui-bar ui-bar-a" style="text-align:right">Dev</div></div>';
+              html+=' <div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-a" style="text-align:right">Disp</div></div>';              
+			  html+='<div class="ui-block-e" style="width:160px">';
+			  
+				  html+='<div class="ui-grid-a">';
+					  	html+='<div class="ui-block-a" style="width:80px"><div class="ui-bar ui-bar-a" style="text-align:right">Precio</div></div>';
+                        html+='<div class="ui-block-b" style="width:80px"><div class="ui-bar ui-bar-a" style="text-align:right">Total</div></div>';                        
+				  html+='</div></div>';   
+			  
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
 				     //descuento=(row['precio']/100)*row['descuento'];
@@ -70,14 +76,24 @@ function mostrarhistfac(factura){
 					 }
 					 //alert (devuelto);
 					 //alert( row['cantidad']);
-					 precio=row['preciocdesc'];	
+					 var totlinea=Number(row['totlinea']);
+					 var totimpdes=(Number(row['precio'])*Number(row['cantidad']))-Number(row['totlinea']);
+					 var descuento=(totimpdes*100)/(Number(row['precio'])*Number(row['cantidad']));
+					 var preciocdesc=Number(row['precio'])-((Number(row['precio'])/100)*Number(descuento));				     			     
+					 var precio=Number(row['precio']);	
 					 var disponible=Number(row['cantidad'])-Number(devuelto);			 
 					 //importe=precio*row['cantidad'];
-					 //total+=Number(importe);					 
-					html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-e">'+row['articulo']+'</div></div>';   		 		                    html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
-                    html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-b">'+disponible+'</div></div>';
-                    html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b"><a href="#" class="clasedev" name="'+row['linea']+'"><font color="FFFFFF">'+devuelto+'</font></a></div></div>';
-	                html+='<div class="ui-block-e" style="width:90px"><div class="ui-bar ui-bar-b">'+precio.toFixed(2)+'</div></div> ';
+					 //total+=Number(importe);					 					                 	
+					 html+=' <div class="ui-block-a" style="width:300px" ><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div> ';           
+			  html+=' <div class="ui-block-b" style="width:50px"><div class="ui-bar ui-bar-b" style="text-align:right">'+row['cantidad']+'</div></div>';
+			  html+=' <div class="ui-block-c" style="width:50px"><div class="ui-bar ui-bar-b" style="text-align:right"><a href="#" class="clasedev" name="'+row['linea']+'">'+devuelto+'</a></div></div>';
+              html+=' <div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-b" style="text-align:right">'+disponible+'</div></div>';              
+			  html+='<div class="ui-block-e" style="width:160px">';
+			  
+				  html+='<div class="ui-grid-a">';
+					  	html+='<div class="ui-block-a" style="width:80px"><div class="ui-bar ui-bar-b" style="text-align:right">'+preciocdesc.toFixed(2)+'</div></div>';
+                        html+='<div class="ui-block-b" style="width:80px"><div class="ui-bar ui-bar-b" style="text-align:right">'+totlinea.toFixed(2)+'</div></div>';                        
+				  html+='</div></div>';   
                   	 
 			  });//.each
 					$("#griddethistfac").append(html); 
@@ -97,10 +113,10 @@ function mostrarhistfac(factura){
   
   function mostrarartdev(){
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 200000);
-		consultadb().transaction(consulta, errorconsulta);	
+		base.transaction(consulta, errorconsulta);	
 	function consulta(tx) {	
-        	var sql='SELECT a.articulo,a.cantidad,obs ';
-	    	sql+='FROM TEMDEV a where cantidad>0 ';	
+        	var sql='SELECT a.articulo,a.cantidad,obs,b.descripcion ';
+	    	sql+='FROM TEMDEV a left outer join articulo b on b.articulo=a.articulo where cantidad>0 ';	
 				
 			tx.executeSql(sql ,[],exito,errorconsulta);
 	}		
@@ -110,13 +126,14 @@ function mostrarhistfac(factura){
 			  var html = "";
 		      var precio=0;
 			  //agrega encabezado de grid
-			  html+=' <div class="ui-block-a" style="width:110px" ><div class="ui-bar ui-bar-a">Articulo</div></div> ';           
+			  html+=' <div class="ui-block-a" style="width:300px" ><div class="ui-bar ui-bar-a">Articulo</div></div> ';           
               html+=' <div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-a">Cantidad</div></div>';
 			  html+=' <div class="ui-block-c" style="width:500px"><div class="ui-bar ui-bar-a">Observaciones</div></div>';
               
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
-				    html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-e">'+row['articulo']+'</div></div>';   		 		                    html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b">'+row['cantidad']+'</div></div>';                  
+				    html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-e">'+row['descripcion']+'</div></div>';   		 		                    
+					html+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b">'+row['cantidad']+'</div></div>';                  
 					html+='<div class="ui-block-c" style="width:500px"><div class="ui-bar ui-bar-b">'+row['obs']+'</div></div>';                  
                   	 
 			  });//.each
@@ -137,7 +154,7 @@ function mostrarhistfac(factura){
   
 function guardadev(observagen){	
 var cabinsertada=false;
-var renglones=0;
+var renglones=0; var sumtotal=0;
 var sumtotlinea=0;
 var summontodesc=0;
 var sumivalinea=0;
@@ -158,6 +175,8 @@ var incremetard=Number(numdev)+1;
  //alert(incremetard); 
 var devolucion=inicial+pad(incremetard,6);
  //alert(devolucion); 
+ var querydev=[];
+ var i=0;
    function pad(n, length){
 	//   alert('entra a funcion'+n); 
   	 n = n.toString();
@@ -168,36 +187,55 @@ var devolucion=inicial+pad(incremetard,6);
 	      if (results.rows.length>0){
 			  renglones=results.rows.length;
 		  	 $.each(results.rows,function(index){           			 
-			 var row = results.rows.item(index);  
+			 var row = results.rows.item(index);  			 
+			 
+			 var totimpdes=(Number(row['precio'])*Number(row['cantidad']))-Number(row['totlinea']);
+			 var pordesc=(totimpdes*100)/(Number(row['precio'])*Number(row['cantidad']));			 
 			 var cantidad=row['cantidad'];//cantidad vendida			 
 			 var linea=row['linea'];//linea afectada			 
-			 var precio=row['precio'];//precio sin descuento y sin iva			 
-			 var pordesc=row['descuento'];//porcentaje de descuento que se aplica 
+			 var precio=row['precio'];//precio sin descuento y sin iva			 			 
 			 var totalinea=Number(row['cantidad'])*Number(row['precio']);//total de linea sin descuento y sin iva
-			 var montodesc=(Number(totalinea)/100)*Number(row['descuento']); 
+			 var montodesc=(Number(totalinea)/100)*Number(pordesc); 
 			 var lineacdes=totalinea-montodesc;//importe de linea con descuento
 			 var ivalinea=lineacdes*(row['impuesto']/100);			 			 
 			 //var preciociva=preciocdesc*(1+(row['impuesto']/100));			 			 
 			 var articulo=row['articulo'];			 
 			 var observa=row['obs'];
 			
-			 sumtotlinea+=sumtotlinea+totalinea;//suma del total de linea sin descuento y sin iva
+			 sumtotlinea+=totalinea;//suma del total de linea sin descuento y sin iva
+			 sumtotal+=lineacdes+ivalinea;//
 			 //summontodesc+=summontodesc+montodesc;//suma del total de linea sin descuento y sin iva
-			 sumivalinea+=sumivalinea+ivalinea;//suma del total de linea sin descuento y sin iva
+			 sumivalinea+=ivalinea;//suma del total de linea sin descuento y sin iva
 			 //alert('antes de llamar a funcion guardadev');
-			 guardadetdev(devolucion,ruta,articulo,totalinea.toFixed(2),precio,cantidad,observa,montodesc.toFixed(2),pordesc,factura,linea);
-			 actexis(articulo,cantidad);
+			 //guardadetdev(devolucion,ruta,articulo,totalinea.toFixed(2),precio,cantidad,observa,montodesc.toFixed(2),pordesc,factura,linea);
+			querydev[i]='INSERT INTO DETDEV (num_dev,cod_zon,cod_art,ind_dev,mon_tot,mon_prc_mx,mon_prc_mn,cnt_max,obs_dev,mon_dsc,por_dsc_ap) VALUES("'+devolucion+'","'+ruta+'","'+articulo+'","B",'+totalinea.toFixed(2)+','+precio+','+precio+','+cantidad+',"'+observa+'",'+montodesc.toFixed(2)+','+pordesc+')'; 
+			//alert('despues de insertadet');				
+			i++;
+			querydev[i]='UPDATE DETHISFAC SET devuelto=devuelto+'+cantidad+' where linea='+linea+' and factura="'+factura+'"';		
+		     i++;
+			 /*
+			 if (tipodev=='0') {
+			   querydev[i]='INSERT INTO DETPEDIDO (num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max) VALUES("'+pedido+'","'+articulo+'",'+precio+','+pordesc+','+totlinea.toFixed(2)+','+montodesc.toFixed(2)+','+precio+','+cantidad+')'; 	 
+				i++; 
+			 }*/
+			 querydev[i]='UPDATE ARTICULO_EXISTENCIA SET existencia=existencia+'+cantidad+' WHERE articulo="'+articulo+'" and bodega="'+bodega+'"';
+			 i++;
+			 //actexis(articulo,cantidad);
 			 //alert('despues de llamar a funcion guardadev');
 			
 		 	});
 			//alert('antes de llamar a funcion guardaencdev');
-			 guardaencdev(devolucion,ruta,cliente,horaini,horafin,fechadev,observagen,renglones,sumtotlinea.toFixed(2),sumivalinea.toFixed(2),bodega,factura)
+			querydev[i]='INSERT INTO ENCDEV (num_dev,cod_zon,cod_clt,hor_ini,hor_fin,fec_dev,obs_dev,num_itm,est_dev,mon_siv,mon_dsc,por_dsc_ap,mon_imp_vt,mon_imp_cs,cod_bod,impreso,num_ref) VALUES("'+devolucion+'","'+ruta+'","'+cliente+'","'+horaini+'","'+horafin+'","'+fechadev+'","'+observagen+'",'+renglones+',"A",'+sumtotlinea.toFixed(2)+',0,0,'+sumivalinea.toFixed(2)+',0,"'+bodega+'","N","'+factura+'")'; 
+			i++;
+   			querydev[i]='UPDATE PARAMETROS SET num_dev="'+devolucion+'"';		
+			i++;
+			// guardaencdev(devolucion,ruta,cliente,horaini,horafin,fechadev,observagen,renglones,sumtotlinea.toFixed(2),sumivalinea.toFixed(2),bodega,factura)
 			//alert('despues de llamar a funcion guardaencdev');
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
 	function consultatemp(tx){  
 	          //   alert('ENTRA A CONSultatepm'); 
-				  var sql='SELECT b.factura,a.articulo,a.cantidad,b.precio,a.obs,a.linea, ';
+				  var sql='SELECT b.factura,a.articulo,a.cantidad,b.precio,a.obs,a.linea,b.totlinea, ';
 	  			  sql+='c.impuesto,c.descuento FROM TEMDEV a left outer join DETHISFAC b on b.linea=a.linea ';					  
 			      sql+='left outer join articulo c on c.articulo=a.articulo  ';
 				  sql+=' where a.cantidad > 0 and b.factura="'+window.localStorage.getItem("factura")+'"';	
@@ -208,12 +246,15 @@ var devolucion=inicial+pad(incremetard,6);
     	 		 alert("Error al preparar guardar devolución : "+linea+err.code+err.message);
          		});    									
 	}
-	consultadb().transaction(consultatemp, function(err){
+	base.transaction(consultatemp, function(err){
     	 			 alert("Error select tabla temporal dethisfac para devolver: "+err.code+err.message);
-         		});		
+         		},function(){
+						guardaencdev(querydev,sumtotal);	
+					
+				});		
 				
 }//function guardadev
-function insertalindev(linea,cantidad,observa){	
+function insertalindev(factura,linea,cantidad,observa){	
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){			
 			 	var row = results.rows.item(0); 
@@ -226,30 +267,33 @@ function insertalindev(linea,cantidad,observa){
 				//alert ('linea '+linea);
  			 	if (cantidad>dif){//se intenta devolver mas de la cantidad disponible para devolución
 					navigator.notification.alert('Se intenta devolver una cantidad mayor que el disponible',null,'Error Indicando Cantidad','Aceptar');						 					return false;				 
+					return false;
 				 }
 				 //alert('pasa depues del if');
-				 actualizatempdev(linea,cantidad,observa)
-				 mostrarhistfac(window.localStorage.getItem("factura"));
-				 mostrarartdev();
+				
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
 	function consultatemp(tx){   	       
 				//alert('articulo de MODIFICAR temPEDIDO '+articulo);
 				 var sql='SELECT a.articulo,a.cantidad,a.devuelto,a.linea, ';
 	   			 sql+='b.cantidad as temdev FROM DETHISFAC a ';	
-				 sql+='left outer join TEMDEV b on b.linea=a.linea where a.factura="'+window.localStorage.getItem("factura")+'" and a.linea='+linea;	
+				 sql+='left outer join TEMDEV b on b.linea=a.linea where a.factura="'+factura+'" and a.linea='+linea;	
 		
 								
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error consultar DETHISFAC : "+articulo+err.code+err.message);
          		});    									
 	}
-	consultadb().transaction(consultatemp, function(err){
+	base.transaction(consultatemp, function(err){
     	 			 alert("Error select tabla DETHISFAC: "+err.code+err.message);
-         		});		
+         		},function(){
+					 actualizatempdev(linea,cantidad,observa)
+					 mostrarhistfac(factura);
+					 mostrarartdev();						
+				});		
 				
 }//function insertalindev
-function copiadethistempd(){	
+function copiadethistempd(factura){	
 	function listo(tx,results){
 		   $.each(results.rows,function(index){           
 			 var row = results.rows.item(index); 
@@ -260,14 +304,14 @@ function copiadethistempd(){
 				//alert('articulo de MODIFICAR temPEDIDO '+articulo);
 				 var sql='SELECT a.articulo,a.linea ';
 	   			 sql+='FROM DETHISFAC a ';	
-				 sql+='where a.factura="'+window.localStorage.getItem("factura")+'"';	
+				 sql+='where a.factura="'+factura+'"';	
 		
 								
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error copiar temporal TEMDEV : "+articulo+err.code+err.message);
          		});    									
 	}
-	consultadb().transaction(consultatemp, function(err){
+	base.transaction(consultatemp, function(err){
     	 			 alert("Error select copiar tabla temporal TEMDEV: "+err.code+err.message);
          		});		
 				
@@ -276,15 +320,17 @@ function mostrarddev(linea){
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){			
 			 	var row = results.rows.item(0); 
-			    $("#cantidaddev").val(row['cantidad']);
-				$("#obsrendev").val(row['obs']);			
-				$("#encdialogodev").val('Indica Cantidad a Devolver para: '+row['articulo']);
+			    $("#cantd").val(row['cantidad']);
+				$("#etiartd").empty();
+				$("#etiartd").append('Artículo: '+row['descripcion'])
+				//$("#obsrendev").val(row['obs']);			
+				//$("#encdialogodev").val('Indica Cantidad a Devolver para: '+row['articulo']);
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
 	function consultatemp(tx){   	       
 				//alert('articulo de MODIFICAR temPEDIDO '+articulo);
-				 var sql='SELECT a.cantidad,a.obs,a.articulo ';
-	   			 sql+='FROM TEMDEV a ';	
+				 var sql='SELECT a.cantidad,a.obs,a.articulo,b.descripcion ';
+	   			 sql+='FROM TEMDEV a left outer join articulo b on b.articulo=a.articulo ';	
 				 sql+='where a.linea='+linea;	
 		
 								
@@ -292,7 +338,7 @@ function mostrarddev(linea){
     	 		 alert("Error consultar temporal para dialogo: "+articulo+err.code+err.message);
          		});    									
 	}
-	consultadb().transaction(consultatemp, function(err){
+	base.transaction(consultatemp, function(err){
     	 			 alert("Error select tabla temporal TEMDEV: "+err.code+err.message);
          		});		
 				
@@ -319,3 +365,15 @@ function f1(){
          		},alert('funcion ok, del consultadb().transaction'));		
 				
 }//function prueba funcion1
+function eliminatempdev(){
+	   //alert('inserttafactura'+cantidad);
+	    base.transaction(insertadet,function(err){
+    	  alert("Error al eliminar temdevolucion: "+err.code+err.message);
+          });
+				
+    	function insertadet(tx) {		
+		//alert('entra a eliminar tempdev');
+		   tx.executeSql('DELETE FROM TEMDEV ');		
+		}
+	
+}//function eliminatempdev

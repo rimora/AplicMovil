@@ -381,20 +381,27 @@ function insertatempdev(articulo,linea){
 		}
 	
 }//function actualizatempdev
-function eliminatempdev(){
-	   //alert('inserttafactura'+cantidad);
-	    consultadb().transaction(insertadet,function(err){
-    	  alert("Error al eliminar temdevolucion: "+err.code+err.message);
-          });
-				
+function guardaencdev(querydev,total){
+	  //alert(devolucion+' '+ruta+' '+cliente+' '+horaini+' '+horafin+' '+fecha+' '+obs+' '+renglones+' '+subtotal+' '+impuesto+' '+bodega+' '+factura);
+	     //alert (pedido+articulo+precio+pordescuento+totalinea+descuento+precio+cantidad);
+	base.transaction(insertadet,function(err){
+    	  alert("Error al insertar en detalledev: "+err.code+err.message);
+          },function(){		  
+		 //alert('total '+total);
+		   actsaldo(total*-1);//actualiza saldo del cliente, la funcion esta en almacenamiento.js		   		   
+		   window.localStorage.setItem("sioperacion",'S');
+		   navigator.notification.alert('Devolución Guardada',null,'Guardar Devolución','Aceptar');										 });
+		  				
     	function insertadet(tx) {		
-		//alert('entra a eliminar tempdev');
-		   tx.executeSql('DELETE FROM TEMDEV ');		
+		//alert('entra a modificar detallefactura cantidad: '+cantidad);		
+			for (var i = 0, long = querydev.length; i < long; i++) {   									   								
+				//alert(query[i]);
+				tx.executeSql(querydev[i]); 						   
+					   
+			}// for (var i = 0, long = query.length; i < long; i++) 
 		}
 	
-}//function eliminatempdev
-function guardaencdev(devolucion,ruta,cliente,horaini,horafin,fecha,obs,renglones,subtotal,impuesto,bodega,factura){
-	  //alert(devolucion+' '+ruta+' '+cliente+' '+horaini+' '+horafin+' '+fecha+' '+obs+' '+renglones+' '+subtotal+' '+impuesto+' '+bodega+' '+factura);
+	/*
 	consultadb().transaction(insertadet,function(err){
     	  alert("Error al insertar encabezado devolucion: "+err.code+err.message);
           },function(){
@@ -404,10 +411,10 @@ function guardaencdev(devolucion,ruta,cliente,horaini,horafin,fecha,obs,renglone
 			});
 				
     	function insertadet(tx) {		
-		//alert('entra a modificar detallefactura cantidad: '+cantidad);		
+		
 		
 			tx.executeSql('INSERT INTO ENCDEV (num_dev,cod_zon,cod_clt,hor_ini,hor_fin,fec_dev,obs_dev,num_itm,est_dev,mon_siv,mon_dsc,por_dsc_ap,mon_imp_vt,mon_imp_cs,cod_bod,impreso,num_ref) VALUES("'+devolucion+'","'+ruta+'","'+cliente+'","'+horaini+'","'+horafin+'","'+fecha+'","'+obs+'",'+renglones+',"A",'+subtotal+',0,0,'+impuesto+',0,"'+bodega+'","N","'+factura+'")'); 
-   			tx.executeSql('UPDATE PARAMETROS SET num_dev="'+devolucion+'"');		
+   			tx.executeSql('UPDATE PARAMETROS SET num_dev="'+devolucion+'"');		*/
 //hor_ini:fecha y hora en que inicia la devolución
 //hor_fin:fecha y hora en que guarda la devolución
 //fec_dev: solo fecha de devolución
@@ -416,7 +423,7 @@ function guardaencdev(devolucion,ruta,cliente,horaini,horafin,fecha,obs,renglone
 //por_dsc_ap: no aplica, lleva cero
 //mon_imp_vt:suma de iva de los renglones
 //mon_imp_cs: no aplica, lleva cero
-		}
+		//}
 	
 }//function guardaencdev
 function guardadetdev(devolucion,ruta,articulo,totalinea,precio,cantidad,obs,descuento,pordescuento,factura,linea){
