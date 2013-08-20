@@ -53,7 +53,7 @@ function listafacturaspend(cliente){
 					 //importe=precio*row['cantidad'];
 					 //total+=Number(importe);					 
 					if (row['vencida']=='S') {
-						html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-e"><a href="#" class="clasecob" name="'+row['documento']+'"><font color="FFFFFF">'+row['documento']+'</font></a></div></div>';
+						html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-e"><a href="#" class="clasecob" name="'+row['documento']+'"><font color="#FFFFFF">'+row['documento']+'</font></a></div></div>';
 					}
 					else
 					{
