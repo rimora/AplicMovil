@@ -660,20 +660,35 @@
     
 </div>
 <!-- P A G I N A  DIALOGO SELECCIONAR TIPO DEVOLUCION-->
-<div data-role="dialog" id="pcantidaddev">
+<div data-role="dialog" id="ptipodev">
     <div data-role="header" data-theme="b">
-        <h1 id="encdialogotipo">Tipo de Devolución</h1>
+        <h1>Tipo de Devolución</h1>
     </div>
     <div data-role="content">
        <div data-role="fieldcontain">
-		<label for="cantidaddev">Cantidad:</label>
-		<input type="number" data-type="range" name="cantidaddev" id="cantidaddev" value="0" min="0" max="100" data-theme="a" data-track-theme="b" />
-        <label for="obsrendev">Observaciones:</label>
-        <textarea cols="3"  name="obsrendev" id="obsrendev"></textarea> 
-        <a href="#" data-role="button" data-rel="back" id="bcantidaddev">Aceptar</a>
+		<div data-role="fieldcontain" data-theme="b" >
+                <label for="menutipodev"><b>Tipo:</b></label>
+                <select name="dia" id="menutipodev" data-theme="b" >
+	                 <option value="tipo">
+                        Selecciona Tipo
+                    </option>
+                    <option value="1">
+                        Con Documento
+                    </option>
+                    <option value="2">
+                        Sin Docto(Cargo al Vendedor)
+                    </option>
+                    <option value="3">
+                        Sin Docto(Cancelación de Cuenta)
+                    </option>
+                   
+                </select>
+                </div>	
+                <a href="#" data-role="button" id="btipodev">Aceptar</a>
 		</div>
     </div>
 </div>
+
 <!--PAGINA DETALLE HISTORICO FACTURAS DE CLIENTE -->
 <div data-role="page" id="pdethistfac">
 	<div data-role="header" data-theme="b">

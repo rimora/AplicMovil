@@ -409,12 +409,30 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 	 //*****D E V O L U C I O N E S *****
 	 $("#bdevoluciones").tap(function() {                   
 				  //limpiartemp();
-				  var cliente=window.localStorage.getItem("clave");			                    
+				  window.location.href='#ptipodev';
+     });		 
+	 $("#btipodev").tap(function() {                   
+				  //limpiartemp();
+				  var tipodev=$("#menutipodev").val();
+				  if (tipodev=='1'){
 				  window.location.href='#phistfac';
+  				  var cliente=window.localStorage.getItem("clave");			                    				  
 				  listafacturas(cliente);	
 				  $("#divgriddev").hide();				  
 				  $('#divnumdev').hide();
+
+				  }
+				  else if (tipodev=='2'){
+					  alert('dev sin documento con cargo al vendedor');
+					  
+				  }
+				  else if (tipodev=='3'){
+					  alert('dev sin documento por cancelacion de cuenta');
+					  
+				  }				  
+				  
      });		 
+
 	 $("#listahistfac li").live('click',function(){
 		          //al seleccionar una factura de la lista, muestra los articulos				  
                   var factura = $(this).attr("id");				  
@@ -499,7 +517,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
                 function onConfirm(button) {
 					if (button==1){
 						 var observagen=$("#obsgendev").val();
-						 alert(cargovendedor);
+						// alert(cargovendedor);
 						 var diasfac=window.localStorage.getItem("diasfac");	
 						 if (diasfac>15){
 							 cargovendedor='S'							 
@@ -540,7 +558,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				  $('#divnumcobros').hide();
 				  $("#labelencpcobros").empty();	
 				  $("#labelencpcobros").append("Cobrar Facturas pendientes del cliente: "+cliente);				  				 				  
-				  consultasivencidas(cliente); 
+				   
 				  eliminatempcob();
 				  copiatemcobros(cliente);//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
 				  //listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado				  				  
@@ -621,6 +639,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				  }
     });
 	$("#regresardecob").tap(function(){
+		 consultasivencidas(cliente);
      	 var vencida=window.localStorage.getItem("vencida"); 
 		 var saldo=Number(window.localStorage.getItem("saldo")); 
 		 var limite=Number(window.localStorage.getItem("limite")); 
