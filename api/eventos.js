@@ -418,14 +418,11 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 	 $("#listahistfac li").live('click',function(){
 		          //al seleccionar una factura de la lista, muestra los articulos				  
                   var factura = $(this).attr("id");				  
-                  validavigencia(factura);			  
-				  var diasfac=window.localStorage.getItem("diasfac");	
-				  alert(diasfac);			  
-				  cargovendedor='';
-				  if (diasfac>15){// si tiene antigüedad mayor a 15 dias la dev debe ser con cargo al vend.
-					  navigator.notification.alert('La factura supera la antigüedad permitida para devolución (15 días), por lo tanto, la devolución será con cargo al vendedor',null,'Factura fuera de política permitida','Aceptar');					
-					  cargovendedor='S';
-				  }				  
+                  cargovendedor='';
+				  validavigencia(factura);			  
+				  //var diasfac=window.localStorage.getItem("diasfac");	
+				  //alert(diasfac);			  
+				  
 				  //window.location.href='#pdethistfac';				  				  
 				  $("#divgriddev").show();				  
 				  $('#divnumdev').hide();				  

@@ -28,7 +28,7 @@ function listafacturas(cliente){
 			 html+='<li id="'+row['factura']+'">';
 	         html+='<a href="#"><h5> Documento: '+row['factura']+'</h5>';
 			// html+='Total:  '+row['monto']+'    Pedido:   '+row['pedido']+'    Fecha:   '+row['fecha']+'</a></li>';
-			 html+='Total:  '+monto.toFixed+' Fecha:   '+fecha2+'</a></li>';
+			 html+='Total:  '+monto.toFixed(2)+' Fecha:   '+fecha2+'</a></li>';
 			 //alert('antes del append de listfac '+html);
 			 $('#listahistfac').append(html);  			
 			 //alert('despues del append de listfac '+html); 
@@ -441,6 +441,7 @@ function eliminatempdev(){
 	
 }//function eliminatempdev
 function validavigencia(factura){	
+var dias=0;
 	function listo(tx,results){
 		   $.each(results.rows,function(index){           
 			 var row = results.rows.item(index); 
@@ -448,7 +449,7 @@ function validavigencia(factura){
 			 var ffac=row['fecha'].split("-");
 			 var fechafac=new Date(Number(ffac[0]),Number(ffac[1])-1,Number(ffac[2]));
 			 alert (fechafac);			 
-			 var dias = (fechaact - fechafac)/86400000; 
+			 dias = (fechaact - fechafac)/86400000; 
 			 alert (dias);			 			 
 			 guardadiasfactura(dias);
 		 });    		 	      
@@ -463,6 +464,11 @@ function validavigencia(factura){
 	}
 	base.transaction(consultatemp, function(err){
     	 			 alert("Error Consultar ENCHISFAC para vigencia : "+err.code+err.message);
-         		});		
+         		},function(){
+					if (dias>15){//si tiene antigüedad mayor a 15 dias la dev debe ser con cargo al vend.
+					  navigator.notification.alert('La factura supera la antigüedad permitida para devolución (15 días), por lo tanto, la devolución será con cargo al vendedor',null,'Factura fuera de política permitida','Aceptar');					
+					  cargovendedor='S';
+					  }
+				});		
 				
 }//function copiadethistempd
