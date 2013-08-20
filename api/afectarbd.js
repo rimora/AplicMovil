@@ -401,6 +401,7 @@ function guardaencdev(querydev,total){
 		 //alert('total '+total);
 		   actsaldo(total*-1);//actualiza saldo del cliente, la funcion esta en almacenamiento.js		   		   
 		   window.localStorage.setItem("sioperacion",'S');
+		   obtenerconse();
 		   navigator.notification.alert('Devolución Guardada',null,'Guardar Devolución','Aceptar');										 });
 		  				
     	function insertadet(tx) {		

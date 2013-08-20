@@ -272,16 +272,14 @@ var devolucion=inicial+pad(incremetard,6);
 			i++;
    			querydev[i]='UPDATE PARAMETROS SET num_dev="'+devolucion+'"';		
 			i++;
-			if (cargovendedor=='S') {
-				alert('cargo al vendedor');
-				var totalpedido=Number(sumtotlinea)+Number(sumivalinea);				
-				alert('antes del query de insert encpedido');	
+			if (cargovendedor=='S') {				
+				var totalpedido=Number(sumtotlinea)+Number(sumivalinea);								
 				querydev[i]='INSERT INTO ENCPEDIDO (num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,obs_ped,estado,cod_cnd,cod_bod) VALUES ("'+pedido+'","'+ruta+'","'+vendedor+'","S","'+horaini+'","'+fechadev+'","'+fechadev+'",'+sumivalinea.toFixed(2)+','+totalpedido.toFixed(2)+','+sumtotlinea.toFixed(2)+','+summontodesc.toFixed(2)+',"Venta por devolucion con cargo al vendedor","F",'+30+',"'+bodega+'")'; 
 				alert(querydev[i]);
-				i++;
-				alert('antes del query de update parametros');			
+				i++;				
 				querydev[i]='UPDATE PARAMETROS SET num_fac="'+pedido+'"';		
-				i++;						
+				i++;	
+				querydev[i]='UPDATE CLIENTES SET SALDO=saldo'+sumtotal+' where clave="'+9999+'"';        					
 			}
 			
 			
@@ -305,7 +303,7 @@ var devolucion=inicial+pad(incremetard,6);
 	base.transaction(consultatemp, function(err){
     	 			 alert("Error select tabla temporal dethisfac para devolver: "+err.code+err.message);
          		},function(){
-						guardaencdev(querydev,sumtotal,cargovendedor);	
+						guardaencdev(querydev,sumtotal);	
 					
 				});		
 				
@@ -450,10 +448,8 @@ var dias=0;
 			 var row = results.rows.item(index); 
 			 var fechaact=new Date();			 
 			 var ffac=row['fecha'].split("-");
-			 var fechafac=new Date(Number(ffac[0]),Number(ffac[1])-1,Number(ffac[2]));
-			 alert (fechafac);			 
+			 var fechafac=new Date(Number(ffac[0]),Number(ffac[1])-1,Number(ffac[2]));			 
 			 dias = (fechaact - fechafac)/86400000; 
-			 alert (dias);			 			 
 			 guardadiasfactura(dias);
 		 });    		 	      
  	}//function listo(tx,results){ 
