@@ -11,6 +11,7 @@ $(document).ready(function() {
 	 //$('#divnumcobros').hide(); 
 	 var articulo='';	
 	 var longitud=0;
+	 var cargovendedor='';
 	window.localStorage.clear();
 	//obtenerconse();//funcion que almacena localmente los consecutivos de documentos actuales.funcion en configuraciones.js
 	window.localStorage.setItem("saldo",0);	
@@ -18,6 +19,7 @@ $(document).ready(function() {
 	window.localStorage.setItem("ruta","S04");
 	window.localStorage.setItem("bodega","K01");
 	window.localStorage.setItem("sioperacion",'');
+	window.localStorage.setItem("vendedor",'9999');	
 	document.addEventListener("backbutton", function(){
 			
 		    return false;	
@@ -416,11 +418,12 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 	 $("#listahistfac li").live('click',function(){
 		          //al seleccionar una factura de la lista, muestra los articulos				  
                   var factura = $(this).attr("id");				  
-				  guardadiasfactura(0);				  
-				  var diasfac=validavigencia(factura);
+                  validavigencia(factura);			  
+				  var diasfac=window.localStorage.getItem("diasfac");				  
+				  cargovendedor='';
 				  if (diasfac>15){// si tiene antigüedad mayor a 15 dias la dev debe ser con cargo al vend.
 					  navigator.notification.alert('La factura supera la antigüedad permitida para devolución (15 días), por lo tanto, la devolución será con cargo al vendedor',null,'Factura fuera de política permitida','Aceptar');					
-					  guardadiasfactura(diasfac);
+					  cargovendedor='S';
 				  }				  
 				  //window.location.href='#pdethistfac';				  				  
 				  $("#divgriddev").show();				  
@@ -435,7 +438,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
     });
 	$("#bdevtodo").tap(function() {                   
 				  //limpiartemp();	
-				  var factura=window.localStorage.getItem("factura");				  
+				  var factura=window.localStorage.getItem("factura");
 				  copiadethistempd(factura,'S');					  
 				  //mostrarhistfac(factura);
       			  //mostrarartdev();
@@ -498,7 +501,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
                 function onConfirm(button) {
 					if (button==1){
 						 var observagen=$("#obsgendev").val();
-						 guardadev(observagen);//guarda la devolución.						 
+						 guardadev(observagen,cargovendedor);//guarda la devolución.						 
 						// window.location.href='#phistfac';
 						
 						 eliminatempdev();
