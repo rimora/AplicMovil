@@ -191,7 +191,6 @@ function mostrarhistfac(factura){
   }//mostrarartdev
   
 function guardadev(observagen,cargovendedor){	
-
 var sumtotlineav=0; var summontodescv=0; var sumivalineav=0; var sumtotalv=0;
 var conseped=window.localStorage.getItem("consepedido");
 var longitud=conseped.length; var inicial=conseped.substr(0,3); var numpedido= conseped.substr(3,(longitud-3));
@@ -230,15 +229,19 @@ var devolucion=inicial+pad(incremetard,6);
 		  	 $.each(results.rows,function(index){           			 
 			 var row = results.rows.item(index);  			 
 			 
-			 var totimpdes=(Number(row['precio'])*Number(row['cantidad']))-Number(row['totlinea']);
-			 var pordesc=(totimpdes*100)/(Number(row['precio'])*Number(row['cantidad']));			 
-			 var cantidad=row['cantidad'];//cantidad vendida			 
+			     //precio unitario del articulo en la factura (precio publico)* cantidad facturada, menos el total de la linea que incluye el descuento aplicado
+			 var totimpdes=(Number(row['precio'])*Number(row['cantfac']))-Number(row['totlinea']);//se obtiene el importe de descuento de la linea de factura			 
+			    //se obtiene el porcentaje de descuento asignado en la factura para calcularlo ahora en los renglones de la devolucion
+			 var pordesc=(totimpdes*100)/(Number(row['precio'])*Number(row['cantfac']));			 
+			 var cantidad=row['cantidad'];//cantidad devuelta			 
 			 var linea=row['linea'];//linea afectada			 
-			 var precio=row['precio'];//precio sin descuento y sin iva			 			 
-			 var totalinea=Number(row['cantidad'])*Number(row['precio']);//total de linea sin descuento y sin iva
+			 var precio=row['precio'];//precio sin descuento y sin iva, precio publico asignado en la factura
+			 var totalinea=Number(row['cantidad'])*Number(row['precio']);//total de linea devuelta sin descuento y sin iva
+				 //monto de descuento aplicado a la linea de devolucion
 			 var montodesc=(Number(totalinea)/100)*Number(pordesc); 
 			 var lineacdes=totalinea-montodesc;//importe de linea con descuento
-			 var ivalinea=lineacdes*(row['impuesto']/100);			 			 
+				//total de iva de la linea de devolucion
+			 var ivalinea=lineacdes*(row['impuesto']/100);
 			 //var preciociva=preciocdesc*(1+(row['impuesto']/100));			 			 
 			 var articulo=row['articulo'];			 
 			 var observa=row['obs'];
@@ -279,7 +282,7 @@ var devolucion=inicial+pad(incremetard,6);
 				i++;				
 				querydev[i]='UPDATE PARAMETROS SET num_fac="'+pedido+'"';		
 				i++;	
-				querydev[i]='UPDATE CLIENTES SET SALDO=saldo'+sumtotal+' where clave="'+9999+'"';        					
+				querydev[i]='UPDATE CLIENTES SET SALDO=saldo+'+sumtotal+' where clave="9999"';        					
 			}
 			
 			
@@ -289,7 +292,7 @@ var devolucion=inicial+pad(incremetard,6);
  	}//function listo(tx,results){ 
 	function consultatemp(tx){  
 	          //   alert('ENTRA A CONSultatepm'); 
-				  var sql='SELECT b.factura,a.articulo,a.cantidad,b.precio,a.obs,a.linea,b.totlinea, ';
+				  var sql='SELECT b.factura,a.articulo,a.cantidad,b.precio,a.obs,a.linea,b.totlinea,bcantidad as cantfac, ';
 	  			  sql+='c.impuesto,c.descuento FROM TEMDEV a left outer join DETHISFAC b on b.linea=a.linea ';					  
 			      sql+='left outer join articulo c on c.articulo=a.articulo  ';
 				  sql+=' where a.cantidad > 0 and b.factura="'+window.localStorage.getItem("factura")+'"';	
