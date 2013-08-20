@@ -499,9 +499,13 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
                 function onConfirm(button) {
 					if (button==1){
 						 var observagen=$("#obsgendev").val();
+						 alert(cargovendedor);
+						 var diasfac=window.localStorage.getItem("diasfac");	
+						 if (diasfac>15){
+							 cargovendedor='S'							 
+						 }
 						 guardadev(observagen,cargovendedor);//guarda la devolución.						 
-						// window.location.href='#phistfac';
-						
+						// window.location.href='#phistfac';						
 						 eliminatempdev();
 						 guardatotaldev(0);						 
 						 $("#divgriddev").hide();
