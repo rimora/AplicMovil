@@ -407,33 +407,28 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 	 //*****D E V O L U C I O N E S *****
 	 $("#bdevoluciones").tap(function() {                   
 				  //limpiartemp();
+				  var cliente=window.localStorage.getItem("clave");			                    
 				  window.location.href='#phistfac';
-				  listafacturas();	
-				  $("#divgriddev").hide();			 				   
-				  $("#divdevueltos").hide();
+				  listafacturas(cliente);	
+				  $("#divgriddev").hide();				  
 				  $('#divnumdev').hide();
      });		 
 	 $("#listahistfac li").live('click',function(){
 		          //al seleccionar una factura de la lista, muestra los articulos				  
                   var factura = $(this).attr("id");				  
-				 
-				  /*
-				  var vigenciafac=verificarvigencia(factura);
-				  if (vigenciafac=='0'){// cero significa que la factura tiene antigüedad mayor a 15 dias y por lo tanto, la dev debe ser con cargo al vend.
-					  navigator.notification.alert('La factura supera la antigüedad permitida para devolución, por lo tanto, la devolución será con cargo al vendedor',null,'Factura fuera de política permitida','Aceptar');					
-				  }*/
-					  
-				  
-				  //window.location.href='#pdethistfac';
-				  $("#gridartdev").empty();
-				  $("#obsgendev").val('');
-				  $("#divgriddev").show();
-				  $("#divdevueltos").show();
+				  guardadiasfactura(0);				  
+				  var diasfac=validavigencia(factura);
+				  if (diasfac>15){// si tiene antigüedad mayor a 15 dias la dev debe ser con cargo al vend.
+					  navigator.notification.alert('La factura supera la antigüedad permitida para devolución (15 días), por lo tanto, la devolución será con cargo al vendedor',null,'Factura fuera de política permitida','Aceptar');					
+					  guardadiasfactura(diasfac);
+				  }				  
+				  //window.location.href='#pdethistfac';				  				  
+				  $("#divgriddev").show();				  
 				  $('#divnumdev').hide();				  
                   eliminatempdev();
 				  guardafactura(factura);//almacena localmente el numero de factura
 				  copiadethistempd(factura);//copia a tabla temporal los renglones de la factura a devolver
-				  mostrarhistfac(factura);//muestra el grid con los detalles de los artículos de factura
+				 // mostrarhistfac(factura);//muestra el grid con los detalles de los artículos de factura
 				  guardafechaactual();
 				  
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
@@ -441,10 +436,9 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 	$("#bdevtodo").tap(function() {                   
 				  //limpiartemp();	
 				  var factura=window.localStorage.getItem("factura");				  
-				  copiadethistempd(factura,'S');	
-				  $("#divdevueltos").show();
-				  mostrarhistfac(factura);
-      			  mostrarartdev();
+				  copiadethistempd(factura,'S');					  
+				  //mostrarhistfac(factura);
+      			  //mostrarartdev();
      });
 	$("a.clasedev").live('click',function(){//al modificar linea de devolución.
                   var linea = $(this).attr("name");//el nombre tiene el numero de linea que corresponde al articulo en la tabla de DETHISFAC
@@ -506,8 +500,9 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 						 var observagen=$("#obsgendev").val();
 						 guardadev(observagen);//guarda la devolución.						 
 						// window.location.href='#phistfac';
+						
 						 eliminatempdev();
-						 $("#divdevueltos").hide();
+						 guardatotaldev(0);						 
 						 $("#divgriddev").hide();
 			
 					}//if (button==1){

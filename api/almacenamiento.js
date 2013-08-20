@@ -64,6 +64,9 @@ function guardasivencida(cadena){
 function guardatotaldev(total){
 	window.localStorage.setItem("totaldev",total);
 }
+function guardadiasfactura(dias){
+	window.localStorage.setItem("diasfac",dias);
+}
 
 
 

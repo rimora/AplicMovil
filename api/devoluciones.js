@@ -1,6 +1,6 @@
 //devoluciones
 var base = window.openDatabase("Database", "1.0", "SARDEL", 10000000);	
-function listafacturas(){
+function listafacturas(cliente){
  // $('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);		
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);
@@ -9,7 +9,7 @@ function listafacturas(){
          		});		
 	function poblarfac(tx){  
 		    //alert('entra a poblarfac');
-			var sql='SELECT * FROM ENCHISFAC WHERE CLIENTE="'+window.localStorage.getItem("clave")+'" ORDER BY FACTURA';		
+			var sql='SELECT * FROM ENCHISFAC WHERE CLIENTE="'+cliente+'" ORDER BY FACTURA';		
 			
 		    //alert(sql);
 		tx.executeSql(sql,[],listo,function(err){
@@ -21,11 +21,14 @@ function listafacturas(){
 		 $('#listahistfac').empty(); 		     
 		 $.each(results.rows,function(index){           
 			 var row = results.rows.item(index); 
-			 var html="";               			 
+			 var html="";               		
+			 var fecha1 = row['fecha'].split("-");	 
+			 var fecha2=fecha1[2]+'/'+fecha1[1]+'/'+fecha1[0];	
+					 
 			 html+='<li id="'+row['factura']+'">';
 	         html+='<a href="#"><h5> Documento: '+row['factura']+'</h5>';
 			// html+='Total:  '+row['monto']+'    Pedido:   '+row['pedido']+'    Fecha:   '+row['fecha']+'</a></li>';
-			 html+='Total:  '+row['monto']+' Fecha:   '+row['fecha']+'</a></li>';
+			 html+='Total:  '+row['monto']+' Fecha:   '+fecha2+'</a></li>';
 			 //alert('antes del append de listfac '+html);
 			 $('#listahistfac').append(html);  			
 			 //alert('despues del append de listfac '+html); 
@@ -44,26 +47,36 @@ function mostrarhistfac(factura){
 		consultadb().transaction(consulta, errorconsulta);	
 	function consulta(tx) {	
         var sql='SELECT a.factura,a.articulo,a.cantidad,a.devuelto,a.precio,a.totlinea,a.linea, ';
-	    sql+=' b.precio,b.descuento,b.descripcion,c.cantidad as temdev FROM DETHISFAC a ';	
+	    sql+=' b.descripcion,c.cantidad as temdev,c.obs FROM DETHISFAC a ';	
 		sql+='left outer join articulo b on b.articulo=a.articulo left outer join TEMDEV c on c.linea=a.linea where a.factura="'+factura+'"';	
 		
 		tx.executeSql(sql ,[],exito,errorconsulta);
 		}		
 		function exito(tx,results){ 
 			
-		      $("#griddethistfac").empty();				  
-			  var html = "";		      
+		      $("#griddethistfac").empty();
+			  $("#divdevueltos").empty();
+			  var html = "";
+			  var html2 = "";
 			  //agrega encabezado de grid
 			  html+=' <div class="ui-block-a" style="width:360px" ><div class="ui-bar ui-bar-a">Articulo</div></div> ';           
 			  html+=' <div class="ui-block-b" style="width:50px"><div class="ui-bar ui-bar-a" style="text-align:right">Cant</div></div>';
 			  html+=' <div class="ui-block-c" style="width:50px"><div class="ui-bar ui-bar-a" style="text-align:right">Dev</div></div>';
-              html+=' <div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-a" style="text-align:right">Disp</div></div>';              
-			  html+='<div class="ui-block-e" style="width:160px">';
-			  
+              html+=' <div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-a" style="text-align:right">Disp</div></div>';            
+			  html+='<div class="ui-block-e" style="width:160px">';			  
 				  html+='<div class="ui-grid-a" style="margin-top:0px">';
 					  	html+='<div class="ui-block-a" style="width:80px"><div class="ui-bar ui-bar-a" style="text-align:right">Precio</div></div>';
-                        html+='<div class="ui-block-b" style="width:80px"><div class="ui-bar ui-bar-a" style="text-align:right">Total</div></div>';                        
-				  html+='</div></div>';   
+                        html+='<div class="ui-block-b" style="width:80px"><div class="ui-bar ui-bar-a" style="text-align:right">Total</div></div>'; 				  html+='</div></div>';   
+			     
+			  html2+='<h1><b>ARTICULOS DEVUELTOS</b></h1>';
+           	  html2+='<div class="ui-grid-b" id="gridartdev">';
+			  html2+=' <div class="ui-block-a" style="width:300px"><div class="ui-bar ui-bar-a">Articulo</div></div> ';           
+              html2+=' <div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-a">Cantidad</div></div>';
+			  html2+=' <div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-a">Observaciones</div></div>';
+              
+				  
+				  
+				  
 			  
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
@@ -97,17 +110,36 @@ function mostrarhistfac(factura){
 			  
 				  html+='<div class="ui-grid-a" style="margin-top:0px">';
 					  	html+='<div class="ui-block-a" style="width:80px"><div class="ui-bar ui-bar-b" style="text-align:right">'+preciocdesc.toFixed(2)+'</div></div>';
-                        html+='<div class="ui-block-b" style="width:80px"><div class="ui-bar ui-bar-b" style="text-align:right">'+totlinea.toFixed(2)+'</div></div>';                        
-				  html+='</div></div>';   
+                        html+='<div class="ui-block-b" style="width:80px"><div class="ui-bar ui-bar-b" style="text-align:right">'+totlinea.toFixed(2)+'</div></div>';  
+						html+='</div></div>';
+			if (Number(row['temdev']>0)){										
+         	 html2+='<div class="ui-block-a" style="width:300px"><div class="ui-bar ui-bar-e">'+row['descripcion']+'</div></div>';
+			 html2+='<div class="ui-block-b" style="width:90px"><div class="ui-bar ui-bar-b">'+row['temdev']+'</div></div>';
+			 html2+='<div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-b">'+row['obs']+'</div></div>';
+			}
+                  	 
+				  
                   	 
 			  });//.each
 					$("#griddethistfac").append(html); 
+	               html2+='</div>'; 
+				   html2+='<br>'; 				   
+	               html2+='<div data-role="fieldcontain">';		
+			        html2+='<label for="obsgendev" style="font-size:16px; color:#F00" >Observaciones Generales:</label>';
+			        html2+='<textarea  style="width:30%"  name="obsgendev" id="obsgendev"></textarea>';
+				   html2+='</div>';
+				   $("#divdevueltos").append(html2); 
+				   $("#gridtotaldev").empty(); 
+				   html2='';
+				   html2+='<div class="ui-block-a" style="width:120px" ><div class="ui-bar ui-bar-a">Total</div></div>';
+                   html2+='<div class="ui-block-b" style="width:120px; text-align:right"><div class="ui-bar ui-bar-b" >'+total.toFixed(2)+'</div></div>';
+				   $("#gridtotaldev").append(html2); 
 					guardatotaldev(total);
 					//$("#tpedido").attr("value",total); 			
 					//$("#tpedido").val(total.toFixed(2)); 			
 					
 					//alert('total'+total);					 
-			
+		
 	   }//function exito
  		
 	function errorconsulta(err) {
@@ -173,7 +205,7 @@ var horaini=window.localStorage.getItem("fechahora");//fecha y hora actual guard
 guardafechaactual();//guarda en memoria la fecha con hora, actuales
 var horafin= window.localStorage.getItem("fechahora");//recuperamos la nueva fecha y hora actual
 var fechadev=window.localStorage.getItem("fecha");//recuperamos la fecha actual
-var longitud=consecutivo.length;
+var longitud=consecutivo.length; 
 var inicial=consecutivo.substr(0,3);
 var numdev= consecutivo.substr(3,(longitud-3));
  //alert(numdev); 
@@ -262,8 +294,6 @@ var devolucion=inicial+pad(incremetard,6);
 }//function guardadev
 function insertalindev(factura,linea,cantidad,observa){	
 var cantmayor=false;
-alert(linea);
-alert(cantidad);
 
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){			
@@ -271,13 +301,9 @@ alert(cantidad);
 			    var articulo=row['articulo'];
 			 //if (row['cantidad']>0){
 			 	//preparadetalletemp(row['articulo'],row['cantidad']);																
-				var dif=Number(row['cantidad'])-Number(row['devuelto']);
-				alert ('dif '+dif);
-				alert ('cantidad '+row['cantidad']);
-				alert ('devuelto '+row['devuelto']);
-				alert(dif);
+				var dif=Number(row['cantidad'])-Number(row['devuelto']);				
  			 	if (cantidad>dif){//se intenta devolver mas de la cantidad disponible para devolución
-					navigator.notification.alert('Se intenta devolver una cantidad mayor que el disponible',null,'Error Indicando Cantidad','Aceptar');						 					return false;				 
+					navigator.notification.alert('Se intenta devolver una cantidad mayor que el disponible',null,'Error Indicando Cantidad','Aceptar');								 
 					cantmayor=true;
 				 }
 				 //alert('pasa depues del if');
@@ -300,8 +326,7 @@ alert(cantidad);
          		},function(){
 					if (cantmayor==false){
 					 actualizatempdev(linea,cantidad,observa)
-					 mostrarhistfac(factura);
-					 mostrarartdev();						
+					 mostrarhistfac(factura);					 
 					}
 				});		
 				
@@ -312,7 +337,7 @@ function copiadethistempd(factura,estotal){
 			 var row = results.rows.item(index); 
 			 var disponible=Number(row['cantidad'])-Number(row['devuelto']);			 
 			 if (estotal=='S'){
-				 insertatempdev2(row['articulo'],row['linea'],disponible);
+				 actualizatempdev(row['linea'],disponible,'');
 			 }
 			 else{
 				insertatempdev(row['articulo'],row['linea']);	 
@@ -334,7 +359,9 @@ function copiadethistempd(factura,estotal){
 	}
 	base.transaction(consultatemp, function(err){
     	 			 alert("Error select copiar tabla temporal TEMDEV: "+err.code+err.message);
-         		});		
+         		},function(){					
+					mostrarhistfac(factura);						
+				});		
 				
 }//function copiadethistempd
 function mostrarddev(linea){	
@@ -398,3 +425,29 @@ function eliminatempdev(){
 		}
 	
 }//function eliminatempdev
+function validavigencia(factura){	
+	function listo(tx,results){
+		   $.each(results.rows,function(index){           
+			 var row = results.rows.item(index); 
+			 var fechaact=new Date();			 
+			 var ffac=row['fecha'].split("-");
+			 var fechafac=new Date(Number(ffac[0]),Number(ffac[1])-1,Number(ffac[2]));
+			 alert (fechafac);			 
+			 var dias = (fechaact - fechafac)/86400000; 
+			 alert (dias);			 			 
+			 return dias;
+		 });    		 	      
+ 	}//function listo(tx,results){ 
+	function consultatemp(tx){   	       				
+				 var sql='SELECT a.fecha';
+	   			 sql+='FROM ENCHISFAC a ';	
+				 sql+='where a.factura="'+factura+'"';
+			tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error query Consultar ENCHISFAC para vigencia : "+articulo+err.code+err.message);
+         		});    									
+	}
+	base.transaction(consultatemp, function(err){
+    	 			 alert("Error Consultar ENCHISFAC para vigencia : "+err.code+err.message);
+         		});		
+				
+}//function copiadethistempd
