@@ -639,6 +639,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				  }
     });
 	$("#regresardecob").tap(function(){
+		 var cliente=window.localStorage.getItem("clave"); 
 		 consultasivencidas(cliente);
      	 var vencida=window.localStorage.getItem("vencida"); 
 		 var saldo=Number(window.localStorage.getItem("saldo")); 
