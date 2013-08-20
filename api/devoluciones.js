@@ -277,7 +277,7 @@ var devolucion=inicial+pad(incremetard,6);
 				var totalpedido=Number(sumtotlinea)+Number(sumivalinea);				
 				alert('antes del query de insert encpedido');	
 				querydev[i]='INSERT INTO ENCPEDIDO (num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,obs_ped,estado,cod_cnd,cod_bod) VALUES ("'+pedido+'","'+ruta+'","'+vendedor+'","S","'+horaini+'","'+fechadev+'","'+fechadev+'",'+sumivalinea.toFixed(2)+','+totalpedido.toFixed(2)+','+sumtotlinea.toFixed(2)+','+summontodesc.toFixed(2)+',"Venta por devolucion con cargo al vendedor","F",'+30+',"'+bodega+'")'; 
-				alert(query[i]);
+				alert(querydev[i]);
 				i++;
 				alert('antes del query de update parametros');			
 				querydev[i]='UPDATE PARAMETROS SET num_fac="'+pedido+'"';		
