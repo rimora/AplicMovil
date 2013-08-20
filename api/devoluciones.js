@@ -266,7 +266,7 @@ var devolucion=inicial+pad(incremetard,6);
 			 //actexis(articulo,cantidad);
 			 //alert('despues de llamar a funcion guardadev');
 			
-		 	});
+		 	});//each
 			//alert('antes de llamar a funcion guardaencdev');
 			querydev[i]='INSERT INTO ENCDEV (num_dev,cod_zon,cod_clt,hor_ini,hor_fin,fec_dev,obs_dev,num_itm,est_dev,mon_siv,mon_dsc,por_dsc_ap,mon_imp_vt,mon_imp_cs,cod_bod,impreso,num_ref) VALUES("'+devolucion+'","'+ruta+'","'+cliente+'","'+horaini+'","'+horafin+'","'+fechadev+'","'+observagen+'",'+renglones+',"A",'+sumtotlinea.toFixed(2)+',0,0,'+sumivalinea.toFixed(2)+',0,"'+bodega+'","N","'+factura+'")'; 
 			i++;
@@ -276,11 +276,11 @@ var devolucion=inicial+pad(incremetard,6);
 				alert('cargo al vendedor');
 				var totalpedido=Number(sumtotlinea)+Number(sumivalinea);				
 				alert('antes del query de insert encpedido');	
-				query[i]='INSERT INTO ENCPEDIDO (num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,obs_ped,estado,cod_cnd,cod_bod) VALUES ("'+pedido+'","'+ruta+'","'+vendedor+'","S","'+horaini+'","'+fechadev+'","'+fechadev+'",'+sumivalinea.toFixed(2)+','+totalpedido.toFixed(2)+','+sumtotlinea.toFixed(2)+','+summontodesc.toFixed(2)+',"Venta por devolucion con cargo al vendedor","F",'+30+',"'+bodega+'")'; 
+				querydev[i]='INSERT INTO ENCPEDIDO (num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,obs_ped,estado,cod_cnd,cod_bod) VALUES ("'+pedido+'","'+ruta+'","'+vendedor+'","S","'+horaini+'","'+fechadev+'","'+fechadev+'",'+sumivalinea.toFixed(2)+','+totalpedido.toFixed(2)+','+sumtotlinea.toFixed(2)+','+summontodesc.toFixed(2)+',"Venta por devolucion con cargo al vendedor","F",'+30+',"'+bodega+'")'; 
 				alert(query[i]);
 				i++;
 				alert('antes del query de update parametros');			
-				query[i]='UPDATE PARAMETROS SET num_fac="'+pedido+'"';		
+				querydev[i]='UPDATE PARAMETROS SET num_fac="'+pedido+'"';		
 				i++;						
 			}
 			
@@ -305,7 +305,7 @@ var devolucion=inicial+pad(incremetard,6);
 	base.transaction(consultatemp, function(err){
     	 			 alert("Error select tabla temporal dethisfac para devolver: "+err.code+err.message);
          		},function(){
-						guardaencdev(querydev,sumtotal);	
+						guardaencdev(querydev,sumtotal,cargovendedor);	
 					
 				});		
 				
