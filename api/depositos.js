@@ -220,3 +220,35 @@ function guardadep(recibo,deposito){
          		});		
 				
 }//function guardadep(recibo,deposito)
+function recibosindep(){
+	var sindeposito=false;
+	function listo(tx,results){ 	      
+	      if (results.rows.length>0){		 
+		  	 navigator.notification.alert('Existen recibos sin relacionar a deposito',null,'Recibos sin depositos','Aceptar');
+			 sindeposito=true;
+		  }//if (results.rows.length>0){		  
+ 	}//function listo(tx,results){ 
+	function consultatemp(tx){  
+	             //alert('ENTRA A CONSultatepm'); 
+				 var sql='SELECT a.recibo FROM ENCOBROS a ';		
+					 sql+=' WHERE a.depositado is null ';
+				    				 
+				//alert(sql);				
+				
+			tx.executeSql(sql,[],listo,function(err){
+    	 		 alert("Error en select para recibos sin deposito: "+err.code+err.message);
+         		});    									
+	}
+	base.transaction(consultatemp, function(err){
+    	 			 alert("Error select tabla ENCOBROS para recibos sin deposito: "+err.code+err.message);
+         		},function(){
+					if (sindeposito==false){
+						window.location.href='#pclientes';				                    
+				 		 mostrarclientes("Lunes");
+				 		 //$("select#menu").val("Lunes").selectmenu("refresh");   
+				 		 $("select#menu").val("Lunes"); 							
+					}
+					
+				});		
+				
+}//function recibosindep

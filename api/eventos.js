@@ -52,17 +52,9 @@ $(document).ready(function() {
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });			   
 			  
-	$("#bclientes").tap(function() { 
-                 //var clavecli = $(this).attr("id");
-				 //botón clientes, genera lista con los clientes del día lunes
-				  //alert ('llama a mostrar clientes');
-				  
-				  window.location.href='#pclientes';				                    
-				  mostrarclientes("Lunes");
-				  //$("select#menu").val("Lunes").selectmenu("refresh");   
-				  $("select#menu").val("Lunes");   
-				  //$.mobile.changePage($("#datoscli"));	  			  				  
-               });
+	$("#bclientes").tap(function() {                  
+				  recibosindep();//valida que no existan recibos sin deposito, en esta funcion abre ventana de clientes en caso de que pase la validación				  
+    });
   /*  $("#bguardacli").tap(function() { 
 	            var nombre = $("#nomnuevocli").val()	
 				var empresa = $("#empnuevocli").val()	
