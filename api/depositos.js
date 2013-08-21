@@ -43,12 +43,13 @@ function listarecibos(){
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
 				     //descuento=(row['precio']/100)*row['descuento'];
-					 montot+=Number(row['mondoc']);
+                     var efectivo=Number(row['monefe']);					 
+					 //montot+=Number(row['mondoc']);
               
 					 
 					html+='<div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" >';              
-           			html+='<div class="ui-bar ui-bar-e" style="margin-left:-10px">';      		 		                   	
-            		html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+row['monefe']+'" class="clasedep"  />';
+           			html+='<div class="ui-bar ui-bar-e" style="margin-right:-10px">';      		 		                   	
+            		html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+efectivo.toFixed(2)+'" class="clasedep"  />';
                    	html+='</div>';	
 		            html+='</div>';
                     html+='<div class="ui-block-b" style="width:110px"><div class="ui-bar ui-bar-b">'+row['recibo']+'</div></div>';
@@ -80,11 +81,12 @@ function listarecibos(){
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
 				     //descuento=(row['precio']/100)*row['descuento'];
-					 montot+=Number(row['monto']);
+					 var cheque=Number(row['monto']);
+					// montot+=Number(row['monto']);
 					 
 					html+='<div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" >';              
-           			html+='<div class="ui-bar ui-bar-e" style="margin-left:-10px" >';      		 		                   	
-            		html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+row['monto']+'" class="clasedep"  />';
+           			html+='<div class="ui-bar ui-bar-e" style="margin-right:-10px" >';      		 		                   	
+            		html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+cheque.toFixed(2)+'" class="clasedep"  />';
                    	html+='</div>';	
 		            html+='</div>';
                     html+='<div class="ui-block-b" style="width:110px"><div class="ui-bar ui-bar-b">'+row['recibo']+'</div></div>';
@@ -110,12 +112,14 @@ function listarecibos(){
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
 				     //descuento=(row['precio']/100)*row['descuento'];
+					 var efectivo=Number(row['efectivo']);
+					 var cheque=Number(row['cheque']);
 					 montot+=Number(row['efectivo'])+Number(row['cheque']);
 					 
 				 html+='<div class="ui-block-a" style="width:120px" ><div class="ui-bar ui-bar-a">Efectivo</div></div>';
-	             html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+row['efectivo']+'</div></div>';
+	             html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+efectivo+'</div></div>';
     	         html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Cheque</div></div>';
-        	     html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+row['cheque']+'</div></div>';
+        	     html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+cheque+'</div></div>';
             	 html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Total</div></div>';
              	 html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+montot.toFixed(2)+'</div></div>';                  	 
 			  });//.each
@@ -134,12 +138,14 @@ function listarecibos(){
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
 				     //descuento=(row['precio']/100)*row['descuento'];
+					 var efectivo=Number(row['efectivo']);
+					 var cheque=Number(row['cheque']);
 					 montot+=Number(row['efectivo'])+Number(row['cheque']);
 					 
 				 html+='<div class="ui-block-a" style="width:120px" ><div class="ui-bar ui-bar-a">Efectivo</div></div>';
-	             html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+row['efectivo']+'</div></div>';
+	             html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+efectivo+'</div></div>';
     	         html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Cheque</div></div>';
-        	     html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+row['cheque']+'</div></div>';
+        	     html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+cheque+'</div></div>';
             	 html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Total</div></div>';
              	 html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+montot.toFixed(2)+'</div></div>';                  	 
 			  });//.each
