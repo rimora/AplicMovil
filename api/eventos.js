@@ -243,26 +243,13 @@ $(document).ready(function() {
 			var ruta=window.localStorage.getItem("ruta");//recuperamos la clave del cliente
 			var visitaini=$("#visitaini").val();	
 			var visitafin=$("#visitafin").val();	
-			alert(razon);
+			//alert(razon);
 			if (razon=='Razon') {
 				navigator.notification.alert('Debe indicar razon de visita',null,'Error al guardar visita','Aceptar');					
-			}else{
-				navigator.notification.confirm('¿Deseas Registrar la Visita?',onConfirm,'Registrar Visita','SI,NO');// botones 
-					  function onConfirm(button) {
-						if (button==1){			
-							guardavisita(cliente,visitaini,visitafin,visitaini,notas,razon,ruta);
-							window.location.href='#pclientes';					  
-
-        		  		 }
-						 else{							 
-							 return false;
-						 }
-					  
-				  	 }		  
-			
-			
-			
-			 }
+			}else{		
+				guardavisita(cliente,visitaini,visitafin,visitaini,notas,razon,ruta);
+				window.location.href='#pclientes';					  
+            }
      	});//$("#bguardavisita").tap(function() {                   				  				  	
 //**********VENTAS************	
 $("#bventa").tap(function() {		 	 
@@ -872,13 +859,13 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 			var importe=$(this).val();
 			var monto=Number(total)+Number(importe);
 		   //alert("checado");
-		   alert($(this).val());
+		   //alert($(this).val());
 		   $("#totalselec").val(monto.toFixed(2));
 		   
 	   }
 	   else{
 		   //alert("NO checado");
-		   alert($(this).val());	
+		   //alert($(this).val());	
 		   	var total=$("#totalselec").val();
 			var importe=$(this).val();
 			var monto=Number(total)-Number(importe);

@@ -35,7 +35,7 @@ function listarecibos(){
 			  var montot=0;			  		      
 			  //agrega encabezado de grid
 			  html+=' <div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" > ';            
-              html+=' <div class="ui-bar ui-bar-a">Selec</div></div> ';           
+              html+=' <div class="ui-bar ui-bar-a">Sel</div></div> ';           
               html+=' <div class="ui-block-b" style="width:110px;margin-left:-10px"><div class="ui-bar ui-bar-a">Recibo</div></div>';
              // html+=' <div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-a">Cliente</div></div>';
               html+=' <div class="ui-block-c" style="width:80px"><div class="ui-bar ui-bar-a">Monto</div></div>';
@@ -75,7 +75,7 @@ function listarecibos(){
               html+=' <div class="ui-bar ui-bar-a">Selec</div></div> ';           
               html+=' <div class="ui-block-b" style="width:110px;margin-left:-10px"><div class="ui-bar ui-bar-a">Recibo</div></div>';
               html+=' <div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-a">Banco</div></div>';
-			  html+=' <div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-a">CH</div></div>';
+			  html+=' <div class="ui-block-d" style="width:60px"><div class="ui-bar ui-bar-a">CH</div></div>';
               html+=' <div class="ui-block-e" style="width:80px"><div class="ui-bar ui-bar-a">Monto</div></div>';
 
 			  $.each(results.rows,function(index){				  
@@ -91,7 +91,7 @@ function listarecibos(){
 		            html+='</div>';
                     html+='<div class="ui-block-b" style="width:110px;margin-left:-10px"><div class="ui-bar ui-bar-b">'+row['recibo']+'</div></div>';
                     html+='<div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
-					html+='<div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-b">'+row['numcheque']+'</div></div>';
+					html+='<div class="ui-block-d" style="width:60px"><div class="ui-bar ui-bar-b">'+row['numcheque']+'</div></div>';
                     html+='<div class="ui-block-e" style="width:80px"><div class="ui-bar ui-bar-b">'+cheque.toFixed(2)+'</div></div>';
 
 
@@ -117,9 +117,9 @@ function listarecibos(){
 					 montot+=Number(row['efectivo'])+Number(row['cheque']);
 					 
 				 html+='<div class="ui-block-a" style="width:120px" ><div class="ui-bar ui-bar-a">Efectivo</div></div>';
-	             html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+efectivo+'</div></div>';
+	             html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+efectivo.toFixed(2)+'</div></div>';
     	         html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Cheque</div></div>';
-        	     html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+cheque+'</div></div>';
+        	     html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+cheque.toFixed(2)+'</div></div>';
             	 html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Total</div></div>';
              	 html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+montot.toFixed(2)+'</div></div>';                  	 
 			  });//.each
@@ -143,9 +143,9 @@ function listarecibos(){
 					 montot+=Number(row['efectivo'])+Number(row['cheque']);
 					 
 				 html+='<div class="ui-block-a" style="width:120px" ><div class="ui-bar ui-bar-a">Efectivo</div></div>';
-	             html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+efectivo+'</div></div>';
+	             html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+efectivo.toFixed(2)+'</div></div>';
     	         html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Cheque</div></div>';
-        	     html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+cheque+'</div></div>';
+        	     html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+cheque.toFixed(2)+'</div></div>';
             	 html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Total</div></div>';
              	 html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+montot.toFixed(2)+'</div></div>';                  	 
 			  });//.each
