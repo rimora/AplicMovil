@@ -6,7 +6,7 @@ function listarecibos(){
          		});		
 	function poblarfac(tx){  				
 			var sql='SELECT a.recibo,a.mondoc,b.nombre FROM ENCOBROS a ';		
-				sql+=' left outer join CLIENTES b on b.clave=a.cliente WHERE a.depositado is null ORDER BY a.recibo';
+				sql+=' left outer join CLIENTES b on b.clave=a.cliente WHERE a.depositado is null and a.monefe>0 ORDER BY a.recibo';
 				//alert(sql);
 				tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error select recibos: "+err.code+err.message);
@@ -21,7 +21,7 @@ function listarecibos(){
               html+=' <div class="ui-bar ui-bar-a">Selec.</div></div> ';           
               html+=' <div class="ui-block-b" style="width:110px"><div class="ui-bar ui-bar-a">Recibo</div></div>';
               html+=' <div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-a">Cliente</div></div>';
-              html+=' <div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-a">Monto</div></div>';
+              html+=' <div class="ui-block-d" style="width:80px"><div class="ui-bar ui-bar-a">Monto</div></div>';
 
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
