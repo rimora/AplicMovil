@@ -868,21 +868,21 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 	 $("input:checkbox.clasedep").live("change",function(event){
 			//alert('entra');
 		if ($(this).prop("checked")){
-			var total=Number($("#totalselec").val());
-			var importe=Number($(this).val());
+			var total=$("#totalselec").val();
+			var importe=$(this).val();
 		   //alert("checado");
 		   //alert($(this).val());
-		   $("#totalselec").val(total.toFixed(2)+importe.toFixed(2));
+		   $("#totalselec").val(total+importe);
 		   
 	   }
 	   else{
 		   //alert("NO checado");
 		   //alert($(this).val());	
-		   	var total=Number($("#totalselec").val());
-			var importe=Number($(this).val());
+		   	var total=$("#totalselec").val();
+			var importe=$(this).val();
 		   //alert("checado");
 		   //alert($(this).val());
-		   $("#totalselec").val(total.toFixed(2)-importe.toFixed(2));
+		   $("#totalselec").val(total-importe);
 	   }
   
      });
