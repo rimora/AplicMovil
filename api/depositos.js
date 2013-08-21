@@ -12,7 +12,7 @@ function listarecibos(){
 				sql2+=' left outer join ENCOBROS d on d.recibo=a.recibo WHERE d.depositado is null ORDER BY a.recibo';	
 			var sql3='SELECT sum(a.monefe) as efectivo,sum(a.monche) as cheque FROM ENCOBROS a ';		
 			var sql4='SELECT sum(a.monefe) as efectivo,sum(a.monche) as cheque FROM ENCOBROS a ';		
-				sql4+=' WHERE d.depositado="S" ';	
+				sql4+=' WHERE a.depositado="S" ';	
 				
 				//alert(sql);
 				tx.executeSql(sql,[],listo,function(err){
@@ -22,10 +22,10 @@ function listarecibos(){
     	 		 alert("Error select cheques para deposito: "+err.code+err.message);
          		});    	
 				tx.executeSql(sql3,[],cobrado,function(err){
-    	 		 alert("Error select cheques para deposito: "+err.code+err.message);
+    	 		 alert("Error select cobrado: "+err.code+err.message);
          		});    	
 				tx.executeSql(sql4,[],depositado,function(err){
-    	 		 alert("Error select cheques para deposito: "+err.code+err.message);
+    	 		 alert("Error select depositado: "+err.code+err.message);
          		});    	
 
 	}
@@ -47,7 +47,7 @@ function listarecibos(){
               
 					 
 					html+='<div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" >';              
-           			html+='<div class="ui-bar ui-bar-e"  >';      		 		                   	
+           			html+='<div class="ui-bar ui-bar-e" style="margin-left:-10px">';      		 		                   	
             		html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+row['monefe']+'" class="clasedep"  />';
                    	html+='</div>';	
 		            html+='</div>';
@@ -83,13 +83,13 @@ function listarecibos(){
 					 montot+=Number(row['monto']);
 					 
 					html+='<div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" >';              
-           			html+='<div class="ui-bar ui-bar-e"  >';      		 		                   	
-            		html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+row['monefe']+'" class="clasedep"  />';
+           			html+='<div class="ui-bar ui-bar-e" style="margin-left:-10px" >';      		 		                   	
+            		html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+row['monto']+'" class="clasedep"  />';
                    	html+='</div>';	
 		            html+='</div>';
                     html+='<div class="ui-block-b" style="width:110px"><div class="ui-bar ui-bar-b">'+row['recibo']+'</div></div>';
                     html+='<div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
-					html+='<div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-b">'+row['numche']+'</div></div>';
+					html+='<div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-b">'+row['numcheque']+'</div></div>';
                     html+='<div class="ui-block-e" style="width:80px"><div class="ui-bar ui-bar-b">'+row['monto']+'</div></div>';
 
 

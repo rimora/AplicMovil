@@ -306,7 +306,7 @@ function poblarcheques(){
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
 					 var monto=Number(row['monto']);
-					 montot+=monto;
+					 montot+=monto.toFixed(2);
 					html+='<div class="ui-block-a" style="width:70px;height:20px" >';              
            			html+='<div class="ui-bar ui-bar-e"  >';      		 		
                    	html+='<div style="padding:0px; margin-top:-8px; margin-left:-10px">'; 
