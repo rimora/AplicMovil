@@ -52,7 +52,7 @@ function listarecibos(){
             		html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+efectivo.toFixed(2)+'" class="clasedep"  />';
                    	html+='</div>';	
 		            html+='</div>';
-                    html+='<div class="ui-block-b" style="width:110px"><div class="ui-bar ui-bar-b">'+row['recibo']+'</div></div>';
+                    html+='<div class="ui-block-b" style="width:110px;margin-left:-10px"><div class="ui-bar ui-bar-b">'+row['recibo']+'</div></div>';
                     //html+='<div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-b">'+row['nombre']+'</div></div>';
                     html+='<div class="ui-block-c" style="width:80px"><div class="ui-bar ui-bar-b">'+row['monefe']+'</div></div>';
 
@@ -89,7 +89,7 @@ function listarecibos(){
             		html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+cheque.toFixed(2)+'" class="clasedep"  />';
                    	html+='</div>';	
 		            html+='</div>';
-                    html+='<div class="ui-block-b" style="width:110px"><div class="ui-bar ui-bar-b">'+row['recibo']+'</div></div>';
+                    html+='<div class="ui-block-b" style="width:110px;margin-left:-10px"><div class="ui-bar ui-bar-b">'+row['recibo']+'</div></div>';
                     html+='<div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
 					html+='<div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-b">'+row['numcheque']+'</div></div>';
                     html+='<div class="ui-block-e" style="width:80px"><div class="ui-bar ui-bar-b">'+row['monto']+'</div></div>';
@@ -229,8 +229,9 @@ function guardadep(recibo,deposito){
 function recibosindep(){
 	var sindeposito=false;
 	function listo(tx,results){ 	      
-	      if (results.rows.length>0){		 
-		  	 navigator.notification.alert('Existen recibos sin relacionar a deposito',null,'Recibos sin depositos','Aceptar');
+	      if (results.rows.length>0){	
+		  	 var row = results.rows.item(0);	 
+		  	 navigator.notification.alert('Existen recibos sin relacionar a deposito '+row['recibo'],null,'Recibos sin depositos','Aceptar');
 			 sindeposito=true;
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
