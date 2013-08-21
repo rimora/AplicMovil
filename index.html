@@ -894,21 +894,24 @@
 <!--PAGINA CHEQUES -->
 
 <!--PAGINA DEPOSITOS -->
-<div data-role="dialog" id="pfichadep">
+<div data-role="page" id="pfichadep">
     <div data-role="header" data-theme="b">
         <h1>Datos para Deposito</h1>
     </div>
     <div data-role="content">       
           <div data-role="fieldcontain" data-theme="b">           		
-	            <select name="menucuentad" id="menucuentad" data-theme="b" >
-		        </select>
+	            <center><select name="menucuentad" id="menucuentad" data-theme="b" >
+		        </select></center>
+                <br>
 				<label for="numficha" style="font-size:18px">Núm. Ficha:</label>
 				<input name="" type="number" id="numficha" style="width:20%;color:#F00; font-weight:bold">	
-                <label for="obsdep">Observaciones:</label>
+                <br>
+                <label for="obsdep" style="font-size:18px">Observaciones:</label>
 	      		<textarea cols="3"  name="obsdep" id="obsdep"></textarea> 
+                <br>
                 <label for="totaldep" style="font-size:18px">Total:</label>
 				<input name="" type="number" id="totaldep" style="width:20%; color:#F00; font-weight:bold"" readonly >						    		    
-                <a href="#" data-role="button" id="bguardadep">Guardar</a>
+                <a href="#" data-role="button" id="bguardadep" data-theme="b">Guardar</a>
           </div>	
     </div>
 </div>
@@ -940,7 +943,7 @@
         <label style="font-size:24px; font-weight:bold">Recibos cobrados con efectivo</label>
         <div class=ui-grid-b id="gridrecibosefe">         		    	   
 		</div>
-      <div  style="position:absolute; left:460px; top:190px"> 
+      <div  style="position:absolute; left:460px; top:188px"> 
         <label style="font-size:24px; font-weight:bold">Recibos cobrados con cheque</label>
         <div class=ui-grid-d id="gridrecibosche">         		    	   
 		</div>
@@ -959,6 +962,7 @@
         
 	</div>
 </div>
+
 <!--PAGINA REPORTE MONTO COBRADO Y VENDIDO -->
 <div data-role="page" id="prepcobven">
 	<div data-role="header" data-position="fixed" data-theme="b">
