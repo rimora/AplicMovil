@@ -810,6 +810,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				  guardafechaactual();
 				  $("#numficha").val(""); 
 				  $("#totaldep").val(0); 
+				  $("#totalselec").val(0); 
 				  $("#obsdep").val("");
   });
   $("#regresardep").tap(function(){
@@ -871,21 +872,21 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 	 $("input:checkbox.clasedep").live("change",function(event){
 			//alert('entra');
 		if ($(this).prop("checked")){
-			var total=$("#totaldep").val();
+			var total=$("#totalselec").val();
 			var importe=$(this).val();
 		   //alert("checado");
 		   //alert($(this).val());
-		   $("#totaldep").val(Number(total)+Number(importe));
+		   $("#totalselec").val(Number(total)+Number(importe));
 		   
 	   }
 	   else{
 		   //alert("NO checado");
 		   //alert($(this).val());	
-		   var total=$("#totaldep").val();
+		   var total=$("#totalselec").val();
 			var importe=$(this).val();
 		   //alert("checado");
 		   //alert($(this).val());
-		   $("#totaldep").val(Number(total)-Number(importe));
+		   $("#totalselec").val(Number(total)-Number(importe));
 	   }
   
      });

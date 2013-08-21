@@ -5,45 +5,92 @@ function listarecibos(){
     	 		 alert("Error poblar recibos para deposito: "+err.code+err.message);
          		});		
 	function poblarfac(tx){  				
-			var sql='SELECT a.recibo,a.mondoc,b.nombre FROM ENCOBROS a ';		
+			var sql='SELECT a.recibo,a.mondoc,b.nombre,a.monefe FROM ENCOBROS a ';		
 				sql+=' left outer join CLIENTES b on b.clave=a.cliente WHERE a.depositado is null and a.monefe>0 ORDER BY a.recibo';
+			var sql2='SELECT a.recibo,a.monto,a.numcheque,b.nombre,c.descripcion FROM CHEQUES a ';		
+				sql2+=' left outer join CLIENTES b on b.clave=a.cliente left OUTER JOIN CUENTASB c on c.codigo=a.codbanco ';	
+				sql2+=' left outer join ENCOBROS d on d.recibo=a.recibo WHERE d.depositado is null ORDER BY a.recibo';	
+				
 				//alert(sql);
 				tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error select recibos: "+err.code+err.message);
          		});    	
+				tx.executeSql(sql,[],cheques,function(err){
+    	 		 alert("Error select cheques para deposito: "+err.code+err.message);
+         		});    	
 	}
 	function listo(tx,results){ 			  
-		      $("#gridrecibosdep").empty();				  
+		      $("#gridrecibosefe").empty();				  
 			  var html = "";			 
 			  var montot=0;			  		      
 			  //agrega encabezado de grid
-			  html+=' <div class="ui-block-a" style="width:70px;height:20px" > ';            
-              html+=' <div class="ui-bar ui-bar-a">Selec.</div></div> ';           
-              html+=' <div class="ui-block-b" style="width:110px"><div class="ui-bar ui-bar-a">Recibo</div></div>';
-              html+=' <div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-a">Cliente</div></div>';
-              html+=' <div class="ui-block-d" style="width:80px"><div class="ui-bar ui-bar-a">Monto</div></div>';
+			  html+=' <div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" > ';            
+              html+=' <div class="ui-bar ui-bar-a">Selec</div></div> ';           
+              html+=' <div class="ui-block-b" style="width:110px;margin-left:-10px"><div class="ui-bar ui-bar-a">Recibo</div></div>';
+             // html+=' <div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-a">Cliente</div></div>';
+              html+=' <div class="ui-block-c" style="width:80px"><div class="ui-bar ui-bar-a">Monto</div></div>';
 
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
 				     //descuento=(row['precio']/100)*row['descuento'];
 					 montot+=Number(row['mondoc']);
 					 
-					html+='<div class="ui-block-a" style="width:70px;height:20px" >';              
+					html+='<div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" >';              
            			html+='<div class="ui-bar ui-bar-e"  >';      		 		
                    	html+='<div style="padding:0px; margin-top:-8px; margin-left:-10px">'; 
 			        html+='     <label for="D'+row['recibo']+'" >&nbsp</label>';  
-            		html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+row['mondoc']+'" class="clasedep"  />';
+            		html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+row['monefe']+'" class="clasedep"  />';
                    	html+='		</div>';	
 		            html+='   </div>';
             		html+='</div>';            
                     html+='<div class="ui-block-b" style="width:110px"><div class="ui-bar ui-bar-b">'+row['recibo']+'</div></div>';
-                    html+='<div class="ui-block-c" style="width:300px"><div class="ui-bar ui-bar-b">'+row['nombre']+'</div></div>';
-                    html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b">'+row['mondoc']+'</div></div>';
+                    //html+='<div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-b">'+row['nombre']+'</div></div>';
+                    html+='<div class="ui-block-c" style="width:80px"><div class="ui-bar ui-bar-b">'+row['monefe']+'</div></div>';
 
 
                   	 
 			  });//.each
-					$("#gridrecibosdep").append(html); 
+					$("#gridrecibosefe").append(html); 
+					//$("#tpedido").attr("value",total); 			
+					//$("#montodep").val(montot.toFixed(2)); 			
+					
+					//alert('total'+total);					 
+			
+	   }//function exito
+	   function cheques(tx,results){ 			  
+		      $("#gridrecibosche").empty();				  
+			  var html = "";			 
+			  var montot=0;			  		      
+			  //agrega encabezado de grid
+			  html+=' <div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" > ';            
+              html+=' <div class="ui-bar ui-bar-a">Selec</div></div> ';           
+              html+=' <div class="ui-block-b" style="width:110px;margin-left:-10px"><div class="ui-bar ui-bar-a">Recibo</div></div>';
+              html+=' <div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-a">Banco</div></div>';
+			  html+=' <div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-a">CH</div></div>';
+              html+=' <div class="ui-block-e" style="width:80px"><div class="ui-bar ui-bar-a">Monto</div></div>';
+
+			  $.each(results.rows,function(index){				  
+				  var row = results.rows.item(index); 				     			     
+				     //descuento=(row['precio']/100)*row['descuento'];
+					 montot+=Number(row['monto']);
+					 
+					html+='<div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" >';              
+           			html+='<div class="ui-bar ui-bar-e"  >';      		 		
+                   	html+='<div style="padding:0px; margin-top:-8px; margin-left:-10px">'; 
+			        html+='     <label for="D'+row['recibo']+'" >&nbsp</label>';  
+            		html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+row['monefe']+'" class="clasedep"  />';
+                   	html+='		</div>';	
+		            html+='   </div>';
+            		html+='</div>';            
+                    html+='<div class="ui-block-b" style="width:110px"><div class="ui-bar ui-bar-b">'+row['recibo']+'</div></div>';
+                    html+='<div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
+					html+='<div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-b">'+row['numche']+'</div></div>';
+                    html+='<div class="ui-block-e" style="width:80px"><div class="ui-bar ui-bar-b">'+row['monto']+'</div></div>';
+
+
+                  	 
+			  });//.each
+					$("#gridrecibosche").append(html); 
 					//$("#tpedido").attr("value",total); 			
 					//$("#montodep").val(montot.toFixed(2)); 			
 					
