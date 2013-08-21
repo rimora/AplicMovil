@@ -49,7 +49,7 @@ function listarecibos(){
 					 
 					html+='<div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" >';              
            			html+='<div class="ui-bar ui-bar-e" style="margin-right:-10px">';      		 		                   	
-            		html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+efectivo.toFixed(2)+'" class="clasedep"  />';
+            		html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+row['monefe']+'" class="clasedep"  />';
                    	html+='</div>';	
 		            html+='</div>';
                     html+='<div class="ui-block-b" style="width:110px;margin-left:-10px"><div class="ui-bar ui-bar-b">'+row['recibo']+'</div></div>';
@@ -86,13 +86,13 @@ function listarecibos(){
 					 
 					html+='<div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" >';              
            			html+='<div class="ui-bar ui-bar-e" style="margin-right:-10px" >';      		 		                   	
-            		html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+cheque.toFixed(2)+'" class="clasedep"  />';
+            		html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+row['monto']+'" class="clasedep"  />';
                    	html+='</div>';	
 		            html+='</div>';
                     html+='<div class="ui-block-b" style="width:110px;margin-left:-10px"><div class="ui-bar ui-bar-b">'+row['recibo']+'</div></div>';
                     html+='<div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
 					html+='<div class="ui-block-d" style="width:50px"><div class="ui-bar ui-bar-b">'+row['numcheque']+'</div></div>';
-                    html+='<div class="ui-block-e" style="width:80px"><div class="ui-bar ui-bar-b">'+row['monto']+'</div></div>';
+                    html+='<div class="ui-block-e" style="width:80px"><div class="ui-bar ui-bar-b">'+cheque.toFixed(2)+'</div></div>';
 
 
                   	 
