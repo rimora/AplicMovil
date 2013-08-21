@@ -870,19 +870,21 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 		if ($(this).prop("checked")){
 			var total=$("#totalselec").val();
 			var importe=$(this).val();
+			var monto=Number(total)+Number(importe);
 		   //alert("checado");
-		   //alert($(this).val());
-		   $("#totalselec").val(total+importe);
+		   alert($(this).val());
+		   $("#totalselec").val(monto.toFixed(2));
 		   
 	   }
 	   else{
 		   //alert("NO checado");
-		   //alert($(this).val());	
+		   alert($(this).val());	
 		   	var total=$("#totalselec").val();
 			var importe=$(this).val();
+			var monto=Number(total)-Number(importe);
 		   //alert("checado");
 		   //alert($(this).val());
-		   $("#totalselec").val(total-importe);
+		   $("#totalselec").val(monto.toFixed(2));
 	   }
   
      });
