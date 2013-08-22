@@ -19,25 +19,25 @@ function listarecibos(codigo){
              /*html+='<div class="ui-block-a" style="width:330px;text-align:center" ><div class="ui-bar ui-bar-a">Cobrado</div></div>';
 			 html+='<div class="ui-block-b" style="width:100px;text-align: left" ><div class="ui-bar ui-bar-b">Ficha</div></div>';	 */
 			 if (totalefe>0){				 
-			 html+='<div class="ui-block-a" style="width:120px;text-align: right" ><div class="ui-bar ui-bar-a"  style="height: 40px">Efectivo</div></div>';
-			 html+='<div class="ui-block-b" style="width:140px;text-align: left" ><div class="ui-bar ui-bar-a"  style="height: 40px">Ficha</div></div>';
-	         html+='<div class="ui-block-a" style="width:120px;text-align: right"><div class="ui-bar ui-bar-b" >'+totalefe.toFixed(2)+'</div></div>';
-    	     html+='<div class="ui-block-b" style="width:140px;style="padding:0px"><input name="" type="number" id="fichaefe" style="width:135px; color:#F00; font-weight:bold;height:30px; padding:0px"></div>';
+			 html+='<div class="ui-block-a" style="width:110px;text-align: right" ><div class="ui-bar ui-bar-a"  style="height: 40px">Efectivo</div></div>';
+			 html+='<div class="ui-block-b" style="width:120px;text-align: left" ><div class="ui-bar ui-bar-a"  style="height: 40px">Ficha</div></div>';
+	         html+='<div class="ui-block-a" style="width:110px;text-align: right"><div class="ui-bar ui-bar-b" >'+totalefe.toFixed(2)+'</div></div>';
+    	     html+='<div class="ui-block-b" style="width:120px;padding:0px"><input name="" type="number" id="fichaefe" style="width:120px; color:#F00; font-weight:bold;height:30px; padding:0px"></div>';
 			 }
 			 if (totalche>0){			 
-			 html2+='<div class="ui-block-a" style="width:140px;text-align: left" ><div class="ui-bar ui-bar-a">Cheques mismo Banco</div></div>';
-			 html2+='<div class="ui-block-b" style="width:140px;text-align: left" ><div class="ui-bar ui-bar-a"  style="height: 40px">Ficha</div></div>';
+			 html2+='<div class="ui-block-a" style="width:140px;text-align: left" ><div class="ui-bar ui-bar-a" style="height: 40px">Cheques mismo Banco</div></div>';
+			 html2+='<div class="ui-block-b" style="width:120px;text-align: left" ><div class="ui-bar ui-bar-a"  style="height: 40px">Ficha</div></div>';
         	 html2+='<div class="ui-block-a" style="width:140px;text-align: right"><div class="ui-bar ui-bar-b" >'+totalche.toFixed(2)+'</div></div>';
-			 html2+='<div class="ui-block-b" style="width:140px"><input name="" type="number" id="fichache" style="width:80px; color:#F00; font-weight:bold;"></div>';
+			 html2+='<div class="ui-block-b" style="width:120px;padding:0px"><input name="" type="number" id="fichache" style="width:120px; color:#F00; font-weight:bold;height:30px; padding:0px"></div>';
 			 }
 			 if (totalcheotros>0){			 
-             html3+='<div class="ui-block-a" style="width:140px;text-align: left" ><div class="ui-bar ui-bar-a">Cheques Otros Bancos</div></div>';
-			 html3+='<div class="ui-block-b" style="width:140px;text-align: left" ><div class="ui-bar ui-bar-a"  style="height: 40px">Ficha</div></div>';
+             html3+='<div class="ui-block-a" style="width:140px;text-align: left" ><div class="ui-bar ui-bar-a" style="height: 40px">Cheques Otros Bancos</div></div>';
+			 html3+='<div class="ui-block-b" style="width:120px;text-align: left" ><div class="ui-bar ui-bar-a"  style="height: 40px">Ficha</div></div>';
              html3+='<div class="ui-block-a" style="width:140px;text-align: right"><div class="ui-bar ui-bar-b" >'+totalcheotros.toFixed(2)+'</div></div>';
-			 html3+='<div class="ui-block-b" style="width:140px"><input name="" type="number" id="fichacheotros" style="width:80px; color:#F00; font-weight:bold; margin-top:0px;margin-bottom:0px"></div>';
+			 html3+='<div class="ui-block-b" style="width:120px;padding:0px"><input name="" type="number" id="fichacheotros" style="width:120px; color:#F00; font-weight:bold;height:30px; padding:0px"></div>';
 			 }
-			 html4+='<div class="ui-block-a" style="width:120px;text-align:right" ><div class="ui-bar ui-bar-a"  style="height: 40px">Total</div></div>';
-			 html4+='<div class="ui-block-a" style="width:120px;text-align: right" ><div class="ui-bar ui-bar-b">'+montot.toFixed(2)+'</div></div>';	 
+			 html4+='<div class="ui-block-a" style="width:110px;text-align:right" ><div class="ui-bar ui-bar-a"  style="height: 40px">Total</div></div>';
+			 html4+='<div class="ui-block-a" style="width:110px;text-align: right" ><div class="ui-bar ui-bar-b">'+montot.toFixed(2)+'</div></div>';	 
 			 
 			 $("#griddepefe").append(html);
 			 $("#griddepche").append(html2);
