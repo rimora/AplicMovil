@@ -797,9 +797,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
   				  listarecibos(codigo);				  
 				  guardafechaactual();	
 	  			  $("#labeldeposito").empty();
-				  $("#labeldeposito").append('Banco seleccionado: ');
-				  $("#totalselec").val(0); 					  
-				  $("#numficha").val(""); 				  				  
+				  $("#labeldeposito").append('Banco seleccionado: ');				  				  
 				  $("#obsdep").val("");
 				}
   });
