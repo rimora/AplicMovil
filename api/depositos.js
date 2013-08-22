@@ -79,11 +79,11 @@ function listarecibos(codigo){
 			  var html = "";			 
 			  var montot=0;			  		      
 			  //agrega encabezado de grid
-			  html+=' <div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" > ';            
-              html+=' <div class="ui-bar ui-bar-a">Sel</div></div> ';           
-              html+=' <div class="ui-block-b" style="width:110px;margin-left:-10px"><div class="ui-bar ui-bar-a">Recibo</div></div>';
+			  //html+=' <div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" > ';            
+              //html+=' <div class="ui-bar ui-bar-a">Sel</div></div> ';           
+              html+=' <div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-a">Recibo</div></div>';
              // html+=' <div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-a">Cliente</div></div>';
-              html+=' <div class="ui-block-c" style="width:80px"><div class="ui-bar ui-bar-a">Monto</div></div>';
+              html+=' <div class="ui-block-b" style="width:80px"><div class="ui-bar ui-bar-a">Monto</div></div>';
 
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
@@ -92,14 +92,14 @@ function listarecibos(codigo){
 					 //montot+=Number(row['mondoc']);
               
 					 
-					html+='<div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" >';              
-           			html+='<div class="ui-bar ui-bar-e" style="margin-right:-10px">';      		 		                   	
-            		html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+row['monefe']+'" class="clasedep"  />';
-                   	html+='</div>';	
-		            html+='</div>';
-                    html+='<div class="ui-block-b" style="width:110px;margin-left:-10px"><div class="ui-bar ui-bar-b">'+row['recibo']+'</div></div>';
+					//html+='<div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" >';              
+           			//html+='<div class="ui-bar ui-bar-e" style="margin-right:-10px">';      		 		                   	
+            		//html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+row['monefe']+'" class="clasedep"  />';
+                   	//html+='</div>';	
+		            //html+='</div>';
+                    html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-b">'+row['recibo']+'</div></div>';
                     //html+='<div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-b">'+row['nombre']+'</div></div>';
-                    html+='<div class="ui-block-c" style="width:80px"><div class="ui-bar ui-bar-b">'+row['monefe']+'</div></div>';
+                    html+='<div class="ui-block-b" style="width:80px"><div class="ui-bar ui-bar-b">'+row['monefe']+'</div></div>';
 
 
                   	 

@@ -53,7 +53,11 @@ $(document).ready(function() {
                });			   
 			  
 	$("#bclientes").tap(function() {                  
-				  recibosindep();//valida que no existan recibos sin deposito, en esta funcion abre ventana de clientes en caso de que pase la validación				  
+				 // recibosindep();//valida que no existan recibos sin deposito, en esta funcion abre ventana de clientes en caso de que pase la validación				  
+				  window.location.href='#pclientes';				                    
+		 		 mostrarclientes("Lunes");
+		 		 //$("select#menu").val("Lunes").selectmenu("refresh");   
+		 		 $("select#menu").val("Lunes"); 	
     });
   /*  $("#bguardacli").tap(function() { 
 	            var nombre = $("#nomnuevocli").val()	
@@ -846,7 +850,8 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 							 var pos=banco.indexOf("@");
 						     var codigo= banco.substr(0,(pos));
 					         var cuenta=banco.substr(pos+1,longitud-(pos+1));
-							 alert('f1'+$("#fichaefe").val()+' f2 '+$("#fichache").val()+'f3 '+$("#fichacheotros").val());
+							 alert('deposito guardado');
+							// alert('f1'+$("#fichaefe").val()+' f2 '+$("#fichache").val()+'f3 '+$("#fichacheotros").val());
 							 
 							 /*
 							 $('input:checkbox.clasedep').each(function () {
