@@ -816,6 +816,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
     }); 
 	$("#bguardadep").tap(function(){
 		var recibos='';
+		var faltandatos=false;
 		var banco=$("#menucuentad").val();
 		guardafechaactual();//guarda en memoria la fecha con hora, actuales
 		var fecha= window.localStorage.getItem("fechahora");//recuperamos la nueva fecha y hora actual
@@ -825,7 +826,19 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 		var longitud=banco.length;
                 function onConfirm(button) {
 					if (button==1){						 						 
-						 if (($("#fichaefe").val().length==0 && efectivo>0) || ($("#fichache").val().length==0 && cheque>0) || ($("#fichacheotros").val().length==0 && chequeotros>0 )){
+						if (efectivo>0){
+							if ($("#fichaefe").val().length==0){
+								faltandatos=true; }
+						}
+						if (cheque>0){
+							if ($("#fichache").val().length==0){
+								faltandatos=true; }
+						}
+						if (chequeotros>0){
+							if ($("#fichacheotros").val().length==0){
+								faltandatos=true; }
+						}
+						if (faltandatos){
 							 navigator.notification.alert('Debe indicar numero de ficha para los importes a depositar',null,'Faltan Datos','Aceptar');
 							 return false;
 						 }
