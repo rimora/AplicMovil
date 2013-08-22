@@ -786,15 +786,22 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				  window.location.href='#pfichadep';
 				  poblarcuentadep();				  
   });
-   $("#bdatosdep").tap(function() {                   				  				  
+  $("#bdatosdep").tap(function() { 
+				var banco=$("#menucuentad").val();				
+   				if (banco=='Banco'){
+					 navigator.notification.alert('Debe seleccionar algún banco',null,'Seleccione Banco','Aceptar');					
+				}else{
 				  window.location.href='#pdepositos';
-  				  listarecibos();				  
-				  guardafechaactual();				  				  
+				  var pos=banco.indexOf("@");//el valor regresado en Banco es codigo+cuenta bancaria
+                  var codigo= banco.substr(0,(pos));//se obtiene el codigo del catalogo de bancos, para relacionar con CUENTASB
+  				  listarecibos(codigo);				  
+				  guardafechaactual();	
+	  			  $("#labeldeposito").empty();
+				  $("#labeldeposito").append('Banco seleccionado: ');
 				  $("#totalselec").val(0); 					  
 				  $("#numficha").val(""); 				  				  
 				  $("#obsdep").val("");
-				  
-				  
+				}
   });
   $("#regresardep").tap(function(){
                 function onConfirm(button) {
@@ -811,23 +818,26 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
     }); 
 	$("#bguardadep").tap(function(){
 		var recibos='';
-		var banco=$("#menucuentad").val();		
+		var banco=$("#menucuentad").val();
 		guardafechaactual();//guarda en memoria la fecha con hora, actuales
 		var fecha= window.localStorage.getItem("fechahora");//recuperamos la nueva fecha y hora actual
+		var efectivo= Number(window.localStorage.getItem("depositoefe"));//
+		var cheque= Number(window.localStorage.getItem("depositoche"));//
+		var chequeotros= Number(window.localStorage.getItem("depositocheotros"));//
 		var longitud=banco.length;
-		
-
                 function onConfirm(button) {
 					if (button==1){						 						 
-						 if ($("#numficha").val().length==0 || $("#totaldep").val()==0 || banco=='Banco'){
-							 navigator.notification.alert('Debe indicar numero de ficha,banco y seleccionar algun recibo',null,'Faltan Datos','Aceptar');
+						 if (($("#fichaefe").val().length==0 && efectivo>0) || ($("#fichache").val().length==0 && cheque>0) || ($("#fichacheotros").val().length==0 && chequeotros>0 )){
+							 navigator.notification.alert('Debe indicar numero de ficha para los importes a depositar',null,'Faltan Datos','Aceptar');
 							 return false;
-							 
 						 }
 						 else{
 							 var pos=banco.indexOf("@");
 						     var codigo= banco.substr(0,(pos));
 					         var cuenta=banco.substr(pos+1,longitud-(pos+1));
+							 alert('f1'+$("#fichaefe").val()+' f2 '+$("#fichache").val()+'f3 '+$("#fichacheotros").val());
+							 
+							 /*
 							 $('input:checkbox.clasedep').each(function () {
         		   				if (this.checked) {
 						 		  //alert('nombre '+$(this).attr("name")+' valor '+$(this).val()+'banco '+banco+' codigo '+codigo+' cuenta '+cuenta);
@@ -839,7 +849,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 							});//$('input:checkbox.clasep').each(function () {								 
 							 //alert(recibos);
 							 guardaencdep(codigo,cuenta,$("#numficha").val(),fecha,$("#totaldep").val(),$("#obsdep").val())
-							 
+							 */
 						 }				 
 						 
 						 window.location.href='#page';

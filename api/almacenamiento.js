@@ -67,6 +67,16 @@ function guardatotaldev(total){
 function guardadiasfactura(dias){
 	window.localStorage.setItem("diasfac",dias);
 }
+function guardadepositoefe(importe){
+	window.localStorage.setItem("depositoefe",importe);
+}
+function guardadepositoche(importe){
+	window.localStorage.setItem("depositoche",importe);
+}
+function guardadepositocheotros(importe){
+	window.localStorage.setItem("depositocheotros",importe);
+}
+
 
 
 
