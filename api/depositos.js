@@ -24,9 +24,9 @@ function listarecibos(){
 				tx.executeSql(sql3,[],cobrado,function(err){
     	 		 alert("Error select cobrado: "+err.code+err.message);
          		});    	
-				tx.executeSql(sql4,[],depositado,function(err){
+				/*tx.executeSql(sql4,[],depositado,function(err){
     	 		 alert("Error select depositado: "+err.code+err.message);
-         		});    	
+         		});    	*/
 
 	}
 	function listo(tx,results){ 			  
@@ -72,7 +72,7 @@ function listarecibos(){
 			  var montot=0;			  		      
 			  //agrega encabezado de grid
 			  html+=' <div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" > ';            
-              html+=' <div class="ui-bar ui-bar-a">Selec</div></div> ';           
+              html+=' <div class="ui-bar ui-bar-a">Sel</div></div> ';           
               html+=' <div class="ui-block-b" style="width:110px;margin-left:-10px"><div class="ui-bar ui-bar-a">Recibo</div></div>';
               html+=' <div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-a">Banco</div></div>';
 			  html+=' <div class="ui-block-d" style="width:60px"><div class="ui-bar ui-bar-a">CH</div></div>';
@@ -92,10 +92,7 @@ function listarecibos(){
                     html+='<div class="ui-block-b" style="width:110px;margin-left:-10px"><div class="ui-bar ui-bar-b">'+row['recibo']+'</div></div>';
                     html+='<div class="ui-block-c" style="width:200px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
 					html+='<div class="ui-block-d" style="width:60px"><div class="ui-bar ui-bar-b">'+row['numcheque']+'</div></div>';
-                    html+='<div class="ui-block-e" style="width:80px"><div class="ui-bar ui-bar-b">'+cheque.toFixed(2)+'</div></div>';
-
-
-                  	 
+                    html+='<div class="ui-block-e" style="width:80px"><div class="ui-bar ui-bar-b">'+cheque.toFixed(2)+'</div></div>';                  	 
 			  });//.each
 					$("#gridrecibosche").append(html); 
 					//$("#tpedido").attr("value",total); 			
@@ -115,13 +112,17 @@ function listarecibos(){
 					 var efectivo=Number(row['efectivo']);
 					 var cheque=Number(row['cheque']);
 					 montot+=Number(row['efectivo'])+Number(row['cheque']);
-					 
-				 html+='<div class="ui-block-a" style="width:120px" ><div class="ui-bar ui-bar-a">Efectivo</div></div>';
-	             html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+efectivo.toFixed(2)+'</div></div>';
-    	         html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Cheque</div></div>';
+                 html+='<div class="ui-block-a" style="width:330px;text-align: left" ><div class="ui-bar ui-bar-a">Cobrado</div></div>';	 
+				 html+='<div class="ui-block-b" style="width:100px;text-align: left" ><div class="ui-bar ui-bar-b">Ficha</div></div>';	 
+				 html+='<div class="ui-block-a" style="width:210px;text-align: left" ><div class="ui-bar ui-bar-a">Efectivo</div></div>';
+	             html+='<div class="ui-block-b" style="width:120px;text-align: right"><div class="ui-bar ui-bar-b" >'+efectivo.toFixed(2)+'</div></div>';
+    	         html+='<div class="ui-block-c" style="width:100px"><input name="" type="number" id="fichaefe" style="width:80px; color:#F00; font-weight:bold; margin-top:0px"></div>';
+				 html+='<div class="ui-block-a" style="width:210px;text-align: left" ><div class="ui-bar ui-bar-a">Cheques mismo Banco</div></div>';
         	     html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+cheque.toFixed(2)+'</div></div>';
-            	 html+='<div class="ui-block-a" style="width:120px"><div class="ui-bar ui-bar-a">Total</div></div>';
-             	 html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+montot.toFixed(2)+'</div></div>';                  	 
+				 html+='<div class="ui-block-c" style="width:100px"><input name="" type="number" id="fichache" style="width:80px; color:#F00; font-weight:bold; margin-top:0px"></div>';
+            	 html+='<div class="ui-block-a" style="width:210px;text-align: left" ><div class="ui-bar ui-bar-a">Cheques Otros Bancos</div></div>';
+             	 html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b" >'+cheque.toFixed(2)+'</div></div>';
+				 html+='<div class="ui-block-c" style="width:100px"><input name="" type="number" id="fichacheo" style="width:80px; color:#F00; font-weight:bold; margin-top:0px"></div>';
 			  });//.each
 					$("#gridcobrado").append(html); 
 					//$("#tpedido").attr("value",total); 			
@@ -130,6 +131,7 @@ function listarecibos(){
 					//alert('total'+total);					 
 			
 	   }//function cobrado
+	   /*
 	    function depositado(tx,results){ 			  
 		     $("#griddepositado").empty();				  
 			  var html = "";			 
@@ -155,7 +157,7 @@ function listarecibos(){
 					
 					//alert('total'+total);			 
 			
-	   }//function depositado
+	   }//function depositado*/
 
  // });	//$('#pclientes').live('pageshow',function(event, ui){
 	
@@ -250,7 +252,7 @@ function recibosindep(){
     	 			 alert("Error select tabla ENCOBROS para recibos sin deposito: "+err.code+err.message);
          		},function(){
 					if (sindeposito==false){
-						window.location.href='#pclientes';				                    
+						 window.location.href='#pclientes';				                    
 				 		 mostrarclientes("Lunes");
 				 		 //$("select#menu").val("Lunes").selectmenu("refresh");   
 				 		 $("select#menu").val("Lunes"); 							

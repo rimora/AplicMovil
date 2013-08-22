@@ -783,17 +783,17 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
   }); 
 //**********D E P O S I T O S	 *************
  $("#bdepositos").tap(function() {                   				  				  
-				  window.location.href='#pdepositos';
-				  listarecibos();				  
-				  guardafechaactual();				  				  
-				  $("#totalselec").val(0); 				  
-  });
-   $("#bdatosdep").tap(function() {                   				  				  
 				  window.location.href='#pfichadep';
 				  poblarcuentadep();				  
+  });
+   $("#bdatosdep").tap(function() {                   				  				  
+				  window.location.href='#pdepositos';
+  				  listarecibos();				  
+				  guardafechaactual();				  				  
+				  $("#totalselec").val(0); 					  
 				  $("#numficha").val(""); 				  				  
 				  $("#obsdep").val("");
-				  $("#totaldep").val($("#totalselec").val());
+				  
 				  
   });
   $("#regresardep").tap(function(){
