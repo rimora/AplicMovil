@@ -53,31 +53,37 @@ function listarecibos(codigo){
 				sql+=' left outer join CLIENTES b on b.clave=a.cliente WHERE a.depositado is null and a.monefe>0 ORDER BY a.recibo';
 			var sql2='SELECT a.recibo,a.monto,a.numcheque,b.nombre,c.descripcion FROM CHEQUES a ';//recibos en efectivo no depositado
 				sql2+=' left outer join CLIENTES b on b.clave=a.cliente left OUTER JOIN CUENTASB c on c.codigo=a.codbanco ';	
-				sql2+=' left outer join ENCOBROS d on d.recibo=a.recibo WHERE d.depositado is null  ORDER BY a.recibo';	//recibos con cheque no depositados
-			var sql3='SELECT sum(a.monefe) as efectivo FROM ENCOBROS a WHERE a.depositado is null';//cobrado en efectivo no depositado		
+				sql2+=' left outer join ENCOBROS d on d.recibo=a.recibo WHERE d.depositado is null and  a.codbanco="'+codigo+'"  ORDER BY a.recibo';	//recibos con cheque no depositados
+			//var sql3='SELECT sum(a.monefe) as efectivo FROM ENCOBROS a WHERE a.depositado is null';//cobrado en efectivo no depositado		
 			     //cobrado con cheque no depositado, del banco seleccionado para depositar
-			var sql4='SELECT sum(a.monto) as cheque FROM CHEQUES a inner join ENCOBROS b on b.recibo=a.recibo WHERE b.depositado is null and  a.codbanco="'+codigo+'" ';		
-			var sql5='SELECT sum(a.monto) as cheque FROM CHEQUES a inner join ENCOBROS b on b.recibo=a.recibo WHERE b.depositado is null and  a.codbanco<>"'+codigo+'" ';		
+			//var sql4='SELECT sum(a.monto) as cheque FROM CHEQUES a inner join ENCOBROS b on b.recibo=a.recibo WHERE b.depositado is null and  a.codbanco="'+codigo+'" ';		
+			var sql3='SELECT a.recibo,a.monto,a.numcheque,b.nombre,c.descripcion FROM CHEQUES a ';//recibos en efectivo no depositado
+				sql3+=' left outer join CLIENTES b on b.clave=a.cliente left OUTER JOIN CUENTASB c on c.codigo=a.codbanco ';	
+				sql3+=' left outer join ENCOBROS d on d.recibo=a.recibo WHERE d.depositado is null and  a.codbanco<>"'+codigo+'"  ORDER BY a.recibo';	//recibos con cheque no depositados
+			
+			//var sql3='SELECT sum(a.monto) as cheque FROM CHEQUES a inner join ENCOBROS b on b.recibo=a.recibo WHERE b.depositado is null and  a.codbanco<>"'+codigo+'" ';		
+				
 				tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error select recibos: "+err.code+err.message);
          		});    	
 				tx.executeSql(sql2,[],cheques,function(err){
-    	 		 alert("Error select cheques para deposito: "+err.code+err.message);
+    	 		 alert("Error select cheques mismo banco para deposito: "+err.code+err.message);
          		});    	
+				/*
 				tx.executeSql(sql3,[],efectivo,function(err){
     	 		 alert("Error select efectivo sin depositar: "+err.code+err.message);
-         		});    	
-				tx.executeSql(sql4,[],chequesbanco,function(err){
+         		});*/
+			/*	tx.executeSql(sql4,[],chequesbanco,function(err){
     	 		 alert("Error select cheques mismo banco: "+err.code+err.message);
-         		});    	
-				tx.executeSql(sql5,[],chequesotro,function(err){
+         		});    	*/
+				tx.executeSql(sql3,[],chequesotro,function(err){
     	 		 alert("Error select cheques otros bancos: "+err.code+err.message);
          		});    	
 	}
 	function listo(tx,results){ 			  
 		      $("#gridrecibosefe").empty();				  
 			  var html = "";			 
-			  var montot=0;			  		      
+			 		  		      
 			  //agrega encabezado de grid
 			  //html+=' <div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" > ';            
               //html+=' <div class="ui-bar ui-bar-a">Sel</div></div> ';           
@@ -88,7 +94,8 @@ function listarecibos(codigo){
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
 				     //descuento=(row['precio']/100)*row['descuento'];
-                     var efectivo=Number(row['monefe']);					 
+                     var efectivo=Number(row['monefe']);	
+					 totalefe+=efectivo;				 
 					 //montot+=Number(row['mondoc']);
               
 					 
@@ -114,7 +121,7 @@ function listarecibos(codigo){
 	   function cheques(tx,results){ 			  
 		      $("#gridrecibosche").empty();				  
 			  var html = "";			 
-			  var montot=0;			  		      
+			 	  		      
 			  //agrega encabezado de grid
 			  //html+=' <div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" > ';            
               //html+=' <div class="ui-bar ui-bar-a">Sel</div></div> ';           
@@ -128,6 +135,7 @@ function listarecibos(codigo){
 				  var row = results.rows.item(index); 				     			     
 				     //descuento=(row['precio']/100)*row['descuento'];
 					 var cheque=Number(row['monto']);
+					  totalche+=cheque;
 					// montot+=Number(row['monto']);
 					 
 					//html+='<div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" >';              
@@ -147,25 +155,54 @@ function listarecibos(codigo){
 					//alert('total'+total);					 
 			
 	   }//function cheques
+	   
+		/*	   
 	    function efectivo(tx,results){ 			  		      
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
 					 totalefe=Number(row['efectivo']);
 			  });//.each
-
 	   }//function efectivo
-	    function chequesbanco(tx,results){ 			  		      
+	   */
+	   /* function chequesbanco(tx,results){ 			  		      
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
 					 totalche=Number(row['cheque']);
 			  });//.each
 
-	   }//function efectivo
+	   }//function efectivo*/
 	    function chequesotro(tx,results){ 			  		      
+			   $("#gridreciboscheotros").empty();				  
+			  var html = "";			 
+			 	  		      
+			  //agrega encabezado de grid
+			  //html+=' <div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" > ';            
+              //html+=' <div class="ui-bar ui-bar-a">Sel</div></div> ';           
+              //html+=' <div class="ui-block-a" style="width:110px;margin-left:-10px"><div class="ui-bar ui-bar-a">Recibo</div></div>';
+			  html+=' <div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-a">Recibo</div></div>';
+              html+=' <div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-a">Banco</div></div>';
+			  html+=' <div class="ui-block-c" style="width:60px"><div class="ui-bar ui-bar-a">CH</div></div>';
+              html+=' <div class="ui-block-d" style="width:80px"><div class="ui-bar ui-bar-a">Monto</div></div>';
+
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
-					 totalcheotros=Number(row['cheque']);
+				     //descuento=(row['precio']/100)*row['descuento'];
+					 var cheque=Number(row['monto']);
+					  totalcheotros+=cheque;
+					// montot+=Number(row['monto']);
+					 
+					//html+='<div class="ui-block-a" style="width:60px;height:20px;margin-left:-10px" >';              
+           			//html+='<div class="ui-bar ui-bar-e" style="margin-right:-10px" >';      		 		                   	
+            		//html+='     <input type="checkbox" id="D'+row['recibo']+'" name="'+row['recibo']+'" value="'+row['monto']+'" class="clasedep"  />';
+                   	//html+='</div>';	
+		            //html+='</div>';
+                    html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-b">'+row['recibo']+'</div></div>';
+                    html+='<div class="ui-block-b" style="width:300px"><div class="ui-bar ui-bar-b">'+row['descripcion']+'</div></div>';
+					html+='<div class="ui-block-c" style="width:60px"><div class="ui-bar ui-bar-b">'+row['numcheque']+'</div></div>';
+                    html+='<div class="ui-block-d" style="width:80px"><div class="ui-bar ui-bar-b">'+cheque.toFixed(2)+'</div></div>';                  	 
 			  });//.each
+					$("#gridreciboscheotros").append(html); 
+					
 
 	   }//function efectivo	  
 	   /*
