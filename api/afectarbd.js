@@ -651,10 +651,30 @@ alert('entra');
 		//alert(respuestaServer.Numreporte)
 		
 		//if(respuestaServer.validacion == "ok"){
-			
-		
+}
+function pruebaphp(){
+var datosUsuario ="ricardo";
+	var datosPassword = "123";
 	
+  	archivoValidacion = "http://192.168.3.46/validar.php?jsoncallback=?"
+ 
+	$.getJSON( archivoValidacion, { usuario:datosUsuario ,password:datosPassword})
+	.done(function(respuestaServer) {
 		
+		alert(respuestaServer.mensaje + "\nGenerado en: " + respuestaServer.hora + "\n" +respuestaServer.generador)
+		
+		if(respuestaServer.validacion == "ok"){
+		  
+		 	/// si la validacion es correcta, muestra la pantalla "home"
+			//$.mobile.changePage("#home")
+			alert('jala');
+		  
+		}else{
+		  
+		  /// ejecutar una conducta cuando la validacion falla
+		}
+  
+	})
+	return false;
 
-	
 }
