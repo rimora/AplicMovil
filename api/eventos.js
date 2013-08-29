@@ -1231,6 +1231,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 	    $("#blimpiarcant").tap(function() {                                                                                                                
           $('#cantcat').val('');                         
        });
+	   
 //**********TECLADO NUMERICO USADO EN VENTAS *************	
 	   $("#bacepven").tap(function() {                                                   	       
            var cantidad = parseInt($("#cantv").val()); 		  
@@ -1437,6 +1438,10 @@ window.localStorage.setItem("clave",'');
 $("#divclientes").hide();
 
 });
+$("#bcargaclientes").tap(function() {                                                                                                                
+         cargarclientes();                       
+       });
+
 
 
   },false);//document.addEventListener("deviceready",function(){	
