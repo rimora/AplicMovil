@@ -636,11 +636,22 @@ alert('entra');
   	//archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback=?"
 	//archivoValidacion ="http://aplicacion.netai.net/index.php?jsoncallback=?"
 	var archivoValidacion ="http://192.168.3.46/prueba.php?jsoncallback=?";
-	$.getJSON(archivoValidacion,function(result){
-		alert('entra a funcion');
-     $.each(result, function(i, clientes){
-       alert(clientes.cliente);
-	   alert(clientes.nombre);	   
-     });
-   });
+	$.getJSON( archivoValidacion, {numRepor:"hola"})
+	.done(function(clientes) {
+		alert('entra2');
+			$.each(clientes,function(i,datos){
+				alert(datos.clave);
+				alert(datos.nombre);
+				
+				
+			});
+		//alert(respuestaServer.mensaje + "\nGenerado en: " + respuestaServer.hora + "\n" +respuestaServer.generador)		
+		//alert(respuestaServer.Numreporte)
+		
+		//if(respuestaServer.validacion == "ok"){
+			
+		
+	
+		
+	});
 }
