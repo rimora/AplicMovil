@@ -679,7 +679,7 @@ var datosUsuario ="ricardo";
 	.fail(function( jqxhr, textStatus, error ) {
 	
 	 	 var err = textStatus + ', ' + error;
-
+			 alert( jqxhr.responseText);
  		 alert( "Request Failed: " + err);
 
 	});
