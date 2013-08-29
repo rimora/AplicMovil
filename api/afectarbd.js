@@ -656,8 +656,8 @@ function pruebaphp(){
 var datosUsuario ="ricardo";
 	var datosPassword = "123";
 	
-  	//archivoValidacion = "http://192.168.3.46/validar.php?jsoncallback=?"
-	archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback";
+  	archivoValidacion = "http://192.168.3.46/validar.php?jsoncallback=?"
+	//archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback";
  
 	$.getJSON( archivoValidacion, { usuario:datosUsuario ,password:datosPassword})
 	.done(function(respuestaServer) {
