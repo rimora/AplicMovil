@@ -630,20 +630,16 @@ function f1_1(){
 
 }//function f1_1
 function cargarclientes(){
-
+alert('entra');
 //	var datosPassword = $("#regEmail").val()
 	
   	//archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback=?"
 	//archivoValidacion ="http://aplicacion.netai.net/index.php?jsoncallback=?"
 	archivoValidacion ="http://192.168.3.46/prueba.php?jsoncallback=?";
-	$.getJSON(archivoValidacion, function(datos) {                 
-       var alumno;
-    for (var idx in datos)
-    {
-        alumno = datos[idx];
-        alert(alumno.cliente);
-		alert(alumno.nombre);
-    } 
-       
-	});
+	$.getJSON(archivoValidacion,function(result){
+     $.each(result, function(i, clientes){
+       alert(clientes.cliente);
+	   alert(clientes.nombre);	   
+     });
+   });
 }
