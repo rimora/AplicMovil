@@ -1439,7 +1439,7 @@ $("#divclientes").hide();
 
 });
 $("#bcargaclientes").tap(function() {                                                                                                                
-         cargarclientes();                       
+          pruebaphp();                       
        });
 
 
