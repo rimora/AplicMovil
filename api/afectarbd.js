@@ -635,8 +635,9 @@ alert('entra');
 	
   	//archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback=?"
 	//archivoValidacion ="http://aplicacion.netai.net/index.php?jsoncallback=?"
-	archivoValidacion ="http://192.168.3.46/prueba.php?jsoncallback=?";
+	var archivoValidacion ="http://192.168.3.46/prueba.php?jsoncallback=?";
 	$.getJSON(archivoValidacion,function(result){
+		alert('entra a funcion');
      $.each(result, function(i, clientes){
        alert(clientes.cliente);
 	   alert(clientes.nombre);	   
