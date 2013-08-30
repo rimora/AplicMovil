@@ -636,17 +636,25 @@ alert('entra');
   	//archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback=?"
 	//archivoValidacion ="http://aplicacion.netai.net/index.php?jsoncallback=?"
 	var dato="nombre";
-	var archivoValidacion ="http://192.168.3.46/prueba.php?jsoncallback=?";
-	$.getJSON( archivoValidacion, dato,function(clientes){
-		alert('entra2');
-			$.each(clientes,function(i,datos){
-				alert(datos.clave);
-				alert(datos.nombre);
-			});
+	var archivoValidacion ="http://sardelfr03.zapto.org/prueba.php?jsoncallback=?";
+	$.getJSON( archivoValidacion, {nombre:dato})
+	.done(function(data) {
+		
+		$.each(data, function(key, val) {    alert(key + ' ' + val );  });
 		
 	})
 	
-		
+	.fail(function( jqxhr, textStatus, error ) {
+	
+	 	 var err = textStatus + ', ' + error;
+			 alert( jqxhr.responseText);
+ 		 alert( "Request Failed: " + err);
+
+	});
+
+
+	return false;
+	
 		//alert(respuestaServer.mensaje + "\nGenerado en: " + respuestaServer.hora + "\n" +respuestaServer.generador)		
 		//alert(respuestaServer.Numreporte)
 		
@@ -671,7 +679,7 @@ var datosUsuario ="ricardo";
 			alert('jala');
 		  
 		}else{
-		  
+		  alert('jala');
 		  /// ejecutar una conducta cuando la validacion falla
 		}
   
