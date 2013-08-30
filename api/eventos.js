@@ -1438,8 +1438,9 @@ window.localStorage.setItem("clave",'');
 $("#divclientes").hide();
 
 });
-$("#bcargaclientes").tap(function() {                                                                                                                
-          cargarclientes();                       
+$("#bcargaclientes").tap(function() {  
+		  var ruta=window.localStorage.getItem("ruta");
+          cargaclientes(ruta);                       
        });
 
 

@@ -629,20 +629,20 @@ function f1_1(){
 		}
 
 }//function f1_1
-function cargarclientes(){
+function cargaclientes(ruta){
 alert('entra');
 //	var datosPassword = $("#regEmail").val()
 	
   	//archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback=?"
 	//archivoValidacion ="http://aplicacion.netai.net/index.php?jsoncallback=?"
-	var dato="nombre";
-	var archivoValidacion ="http://sardelfr03.zapto.org/prueba.php?jsoncallback=?";
-	$.getJSON( archivoValidacion, {nombre:dato})
+	
+	var archivoValidacion ="http://192.168.3.46/prueba.php?jsoncallback=?";
+	$.getJSON( archivoValidacion, {numruta:ruta})
 	.done(function(data) {
 		var query=[];
 		$.each(data, function(key, val) {    
-			alert(key + ' ' + val['cliente'] );  
-			query[key]='INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("'+val['nombre']+'", "'+val['cliente']+'","Lunes","Dirección del cliente","2281545130","C","30",10000.00,2324.65)';      
+			//alert(key + ' ' + val['cliente'] );  
+			query[key]='INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("'+val['nombre']+'", "'+val['cliente']+'","Lunes","'+val['direccion']+'","'+val['telefono']+'","'+val['categoria']+'","'+val['diascredito']+'",'+val['limite']+','+val['saldo']+')';      
 			
 			
 				
