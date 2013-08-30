@@ -639,9 +639,17 @@ alert('entra');
 	var archivoValidacion ="http://sardelfr03.zapto.org/prueba.php?jsoncallback=?";
 	$.getJSON( archivoValidacion, {nombre:dato})
 	.done(function(data) {
-		
-		$.each(data, function(key, val) {    alert(key + ' ' + val['cliente'] );  });
-		
+		var query=[];
+		$.each(data, function(key, val) {    
+			alert(key + ' ' + val['cliente'] );  
+			query[key]='INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("'+val['nombre']+'", "'+val['cliente']+'","Lunes","Dirección del cliente","2281545130","C","30",10000.00,2324.65)';      
+			
+			
+				
+			
+			
+			});
+		insertabd(query);
 	})
 	
 	.fail(function( jqxhr, textStatus, error ) {
@@ -659,6 +667,24 @@ alert('entra');
 		//alert(respuestaServer.Numreporte)
 		
 		//if(respuestaServer.validacion == "ok"){
+}
+function insertabd(query){
+	  //alert(devolucion+' '+ruta+' '+cliente+' '+horaini+' '+horafin+' '+fecha+' '+obs+' '+renglones+' '+subtotal+' '+impuesto+' '+bodega+' '+factura);
+	     //alert (pedido+articulo+precio+pordescuento+totalinea+descuento+precio+cantidad);
+	base.transaction(insertadet,function(err){
+    	  alert("Error al insertar en detalledev: "+err.code+err.message);
+          },function(){		  
+		   navigator.notification.alert('clientes cargados',null,'Guardar Devolución','Aceptar');										 });
+		  				
+    	function insertadet(tx) {		
+		//alert('entra a modificar detallefactura cantidad: '+cantidad);		
+			for (var i = 0, long = query.length; i < long; i++) {   									   								
+				//alert(query[i]);
+				tx.executeSql(query[i]); 						   
+					   
+			}// for (var i = 0, long = query.length; i < long; i++) 
+		}
+	
 }
 function pruebaphp(){
 var datosUsuario ="ricardo";
