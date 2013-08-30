@@ -640,7 +640,7 @@ alert('entra');
 	$.getJSON( archivoValidacion, {nombre:dato})
 	.done(function(data) {
 		
-		$.each(data, function(key, val) {    alert(key + ' ' + val );  });
+		$.each(data, function(key, val) {    alert(key + ' ' + val[key].cliente );  });
 		
 	})
 	
