@@ -1,5 +1,6 @@
 // CLIENTES
 function mostrarclientes(dia){
+	alert('dia '+dia);
  // $('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);		
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);
@@ -9,10 +10,10 @@ function mostrarclientes(dia){
 	function poblarcli(tx){  
 	    
 	    if (dia!="Todos"){
-			var sql='SELECT * FROM CLIENTES WHERE DIA="'+dia+'" ORDER BY nombre  '			
+			var sql='SELECT b.clave,b.nombre FROM RUTA_CLIENTE a inner join CLIENTES b on b.clave=a.cliente WHERE a.dia='+dia+' ORDER BY nombre  '			
 		}
 		else {
-			var sql='SELECT * FROM CLIENTES ORDER BY nombre'			
+			var sql='SELECT b.clave,b.nombre FROM RUTA_CLIENTE a inner join CLIENTES b on b.clave=a.cliente ORDER BY nombre  '			
 		}
 		tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error select clientes por dia: "+err.code+err.message);
@@ -80,7 +81,7 @@ function mostrarcliente(clavecli){
 			limite=Number(row['lcredito']);*/
 			$('#nomcli').text("Clave: "+row['clave']+" Nombre: "+row['nombre']);  	   		    
 			$('#direccion').text("Dirección: "+row['direccion']+" Telefono: "+row['telefono']);  	   		
-	   		$('#tipo').text("Estado: Credito "+row['tipo']+" Dias de Crédito: "+row['diasc']);
+	   		$('#tipo').text("Estado:"+row['tipo']+" Dias de Crédito: "+row['diasc']);
 	   		//$('#limitecredito').text("Límite de Crédito: "+row['lcredito']+" Saldo: "+row['saldo']);			
 			limite=Number(row['lcredito']);			
 			saldo=Number(row['saldo']);

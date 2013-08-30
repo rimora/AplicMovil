@@ -12,6 +12,11 @@ $(document).ready(function() {
 	 var articulo='';	
 	 var longitud=0;
 	 var cargovendedor='';
+	 var now = new Date();
+	 var diasemana=now.getDay();
+	
+
+
 	window.localStorage.clear();
 	//obtenerconse();//funcion que almacena localmente los consecutivos de documentos actuales.funcion en configuraciones.js
 	window.localStorage.setItem("saldo",0);	
@@ -30,7 +35,24 @@ $(document).ready(function() {
 				var Usuario = $("#nombredeusuario").val()	
 				var Pass = $("#clave").val()	  	
 				if(Usuario == "r1"){
-
+					if (diasemana == 1){					
+						navigator.notification.alert('Es lunes. Y vuelta a empezar',null,'Saludo','Aceptar');					
+					}
+					else if (diasemana == 2){
+						navigator.notification.alert('Es martes, mejor que lunes',null,'Saludo','Aceptar');					
+					}
+					else if (diasemana == 3){
+						navigator.notification.alert('Es miércoles, ¿qué tal va la semana?',null,'Saludo','Aceptar');					
+					}
+					else if (diasemana == 4){
+						navigator.notification.alert('Es jueves, ¿cómo estás hoy?',null,'Saludo','Aceptar');					
+					}
+					else if (diasemana == 5){
+						navigator.notification.alert('¡Por fin es viernes!',null,'Saludo','Aceptar');					
+					}
+					else if (diasemana == 6){
+						navigator.notification.alert('Es sábado. Que tengas un buen fin de semana',null,'Saludo','Aceptar');					
+					}
 					window.location.href='#page';
 		  		}else{		  		  
 				alert('Usuario No Válio');
@@ -54,10 +76,11 @@ $(document).ready(function() {
 			  
 	$("#bclientes").tap(function() {                  
 				 // recibosindep();//valida que no existan recibos sin deposito, en esta funcion abre ventana de clientes en caso de que pase la validación				  
-				  window.location.href='#pclientes';				                    
-		 		 mostrarclientes("Lunes");
+				  window.location.href='#pclientes';
+				  				                    
+		 		 mostrarclientes(diasemana-1);
 		 		 //$("select#menu").val("Lunes").selectmenu("refresh");   
-		 		 $("select#menu").val("Lunes"); 	
+		 		 $("select#menu").val(diasemana-1); 	
     });
   /*  $("#bguardacli").tap(function() { 
 	            var nombre = $("#nomnuevocli").val()	
@@ -1440,11 +1463,10 @@ $("#divclientes").hide();
 });
 $("#bcargaclientes").tap(function() {  
 		  var ruta=window.localStorage.getItem("ruta");
-          cargaclientes(ruta);                       
+		  var direccion ="http://192.168.3.46/prueba.php?jsoncallback=?";
+          cargaclientes(ruta,direccion);                       
+		 // cargarutacli(ruta,direccion);                       		  
        });
-
-
-
   },false);//document.addEventListener("deviceready",function(){	
 });//$(document).ready(function() 
 			   

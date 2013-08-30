@@ -15,6 +15,7 @@ consultadb().transaction(creartb, errorCB, successCB);
 		function creartb(tx) {
 			//alert('funcion creartb');	
     	 tx.executeSql('DROP TABLE IF EXISTS CLIENTES');
+		 tx.executeSql('DROP TABLE IF EXISTS RUTA_CLIENTE');
 		 tx.executeSql('DROP TABLE IF EXISTS CUENTASB');
 		 tx.executeSql('DROP TABLE IF EXISTS CUENTASDEP');
 		 tx.executeSql('DROP TABLE IF EXISTS CHEQUES');		 
@@ -42,7 +43,7 @@ consultadb().transaction(creartb, errorCB, successCB);
 		 tx.executeSql('DROP TABLE IF EXISTS NOTASCOB');		 
 	 
 
-		 
+		 tx.executeSql('CREATE TABLE IF NOT EXISTS RUTA_CLIENTE (id INTEGER PRIMARY KEY AUTOINCREMENT, ruta,cliente,dia,orden)');  
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS ENCHISFAC (id INTEGER PRIMARY KEY AUTOINCREMENT, factura,monto,cliente,pedido,fecha)');  
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS DETHISFAC (id INTEGER PRIMARY KEY AUTOINCREMENT, factura,articulo,linea,cantidad,devuelto,precio,totlinea)');  
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS PARAMETROS (id INTEGER PRIMARY KEY AUTOINCREMENT, cod_zon,num_ped,num_rec,num_dev,num_fac)'); 
@@ -629,27 +630,31 @@ function f1_1(){
 		}
 
 }//function f1_1
-function cargaclientes(ruta){
+function cargaclientes(ruta,direccion){
 alert('entra');
 //	var datosPassword = $("#regEmail").val()
 	
   	//archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback=?"
-	//archivoValidacion ="http://aplicacion.netai.net/index.php?jsoncallback=?"
-	
-	var archivoValidacion ="http://192.168.3.46/prueba.php?jsoncallback=?";
-	$.getJSON( archivoValidacion, {numruta:ruta})
+	//archivoValidacion ="http://aplicacion.netai.net/index.php?jsoncallback=?"	
+	//var archivoValidacion ="http://192.168.3.46/prueba.php?jsoncallback=?";
+	$.getJSON( direccion, {numruta:ruta})
 	.done(function(data) {
 		var query=[];
-		$.each(data, function(key, val) {    
+		 var clientes = data.clientes;
+	     var diasruta = data.diasruta;
+		 var i=0;
+		$.each(clientes, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] );  
-			query[key]='INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("'+val['nombre']+'", "'+val['cliente']+'","Lunes","'+val['direccion']+'","'+val['telefono']+'","'+val['categoria']+'","'+val['diascredito']+'",'+val['limite']+','+val['saldo']+')';      
-			
-			
-				
-			
-			
-			});
-		insertabd(query);
+			query[i]='INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("'+val['nombre']+'", "'+val['cliente']+'","Lunes","'+val['direccion']+'","'+val['telefono']+'","'+val['categoria']+'","'+val['diascredito']+'",'+val['limite']+','+val['saldo']+')';
+			i++;
+		});
+		$.each(diasruta, function(key, val) {    
+			//alert(key + ' ' + val['cliente'] );  
+			query[i]='INSERT INTO RUTA_CLIENTE (ruta,cliente,dia,orden) VALUES ("'+val['ruta']+'", "'+val['cliente']+'",'+val['dia']+','+val['orden']+')';
+			i++;
+		});
+		alert(i);
+		insertabd(query,"Clientes Cargados");
 	})
 	
 	.fail(function( jqxhr, textStatus, error ) {
@@ -668,13 +673,34 @@ alert('entra');
 		
 		//if(respuestaServer.validacion == "ok"){
 }
-function insertabd(query){
+function cargarutacli(ruta,direccion){
+	alert('entra ruta cliente');	
+	$.getJSON( direccion, {numruta:ruta})
+	.done(function(data) {
+		var query=[];
+		$.each(data, function(key, val) {    
+			//alert(key + ' ' + val['cliente'] );  
+			query[key]='INSERT INTO RUTA_CLIENTE (ruta,cliente,dia,orden) VALUES ("'+val['ruta']+'", "'+val['cliente']+'",'+val['dia']+','+val['orden']+')';
+			});
+		insertabd(query,"DiasRuta Cargados");
+	})
+	
+	.fail(function( jqxhr, textStatus, error ) {
+	 	 var err = textStatus + ', ' + error;
+			 alert( jqxhr.responseText);
+ 		 alert( "Request Failed: " + err);
+	});
+	return false;	
+}
+
+
+function insertabd(query,mensaje){
 	  //alert(devolucion+' '+ruta+' '+cliente+' '+horaini+' '+horafin+' '+fecha+' '+obs+' '+renglones+' '+subtotal+' '+impuesto+' '+bodega+' '+factura);
 	     //alert (pedido+articulo+precio+pordescuento+totalinea+descuento+precio+cantidad);
 	base.transaction(insertadet,function(err){
-    	  alert("Error al insertar en detalledev: "+err.code+err.message);
+    	  alert("Error al insertar datos cargados: "+err.code+err.message);
           },function(){		  
-		   navigator.notification.alert('clientes cargados',null,'Guardar Devolución','Aceptar');										 });
+		   navigator.notification.alert(mensaje,null,'Carga Datos','Aceptar');										 });
 		  				
     	function insertadet(tx) {		
 		//alert('entra a modificar detallefactura cantidad: '+cantidad);		
