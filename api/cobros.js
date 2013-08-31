@@ -404,15 +404,15 @@ var recibo=inicial+pad(incrementarec,6);
 			 var saldo_doc=Number(saldo)-Number(monto);//saldo nuevo de la factura
 			 
 			 totalrecibo+=monto;//suma de los abonos a facturas			
-			 //alert('antes de llamar a funcion guardadetcob');
+			 alert('antes de llamar a funcion guardadetcob');
+			 
 			 guardadetcob(cliente,tipo,tipoaso,ruta,recibo,factura,estado,monto.toFixed(2),saldo_doc.toFixed(2));			 
-			 //alert('despues de llamar a funcion guardadev');
-			
+			 alert('despues de llamar a funcion guardadev');			
 		 	});
-			//alert('antes de llamar a funcion guardaenccob');			
+			alert('antes de llamar a funcion guardaenccob');			
 			//alert(cliente+','+tipo+','+ruta+','+recibo+','+horaini+','+horafin+','+estado+','+monche.toFixed(2)+','+monefe.toFixed(2)+','+totalrecibo.toFixed(2));
 			 guardaenccob(cliente,tipo,ruta,recibo,horaini,horafin,estado,monche.toFixed(2),monefe.toFixed(2),totalrecibo.toFixed(2));
-			//alert('despues de llamar a funcion guardaenccob');
+			alert('despues de llamar a funcion guardaenccob');
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
 	function consultatemp(tx){  
