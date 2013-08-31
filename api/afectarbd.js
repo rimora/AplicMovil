@@ -652,17 +652,20 @@ alert('entra');
 			query[i]='INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("'+val['nombre']+'", "'+val['cliente']+'","Lunes","'+val['direccion']+'","'+val['telefono']+'","'+val['categoria']+'","'+val['diascredito']+'",'+val['limite']+','+val['saldo']+')';
 			i++;
 		});
+		alert('procesando diascliente');
 		$.each(diasruta, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] );  
 			query[i]='INSERT INTO RUTA_CLIENTE (ruta,cliente,dia,orden) VALUES ("'+val['ruta']+'", "'+val['cliente']+'",'+val['dia']+','+val['orden']+')';
 			i++;
 		});
-		$.each(diasruta, function(key, val) {    
+		alert('procesando pendcobro');
+		$.each(fpen, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] );  			
 			query[i]='INSERT INTO PENCOBRO (documento,cliente,saldo,monto,fecha,fechaven) VALUES ("'+val['documento']+'","'+val['cliente']+'",'+val['saldo']+',"'+val['fecha'].substr(0,2)+'/'+val['fecha'].substr(2,2)+'/'+val['fecha'].substr(4,4)+'","'+val['fechaven'].substr(0,2)+'/'+val['fechaven'].substr(2,2)+'/'+val['fechaven'].substr(4,4)+'")';
 			i++;
 		});
 		alert(i);
+		alert('insertando datos');
 		insertabd(query,"Clientes Cargados");
 	})
 	
