@@ -417,7 +417,7 @@ var recibo=inicial+pad(incrementarec,6);
  	}//function listo(tx,results){ 
 	function consultatemp(tx){  
 	             //alert('ENTRA A CONSultatepm'); 
-				  var sql='SELECT a.factura,a.abonado,b.saldo,b.vencida ';
+				  var sql='SELECT a.factura,a.abonado,b.saldo ';
 	  			  sql+='FROM TEMCOBROS a left outer join PENCOBRO b on b.documento=a.factura ';					  
 				  sql+=' where a.abonado > 0 ';		    				 
 				//alert(sql);				
