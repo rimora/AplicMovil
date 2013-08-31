@@ -9,8 +9,9 @@ function listafacturaspend(cliente){
     	 		 alert("Error poblar facturas para cobro: "+err.code+err.message);
          		});		
 	function poblarfac(tx){  
-			var sql='SELECT a.documento,a.saldo,a.monto,a.fechaven,b.abonado,a.vencida,a.diasv FROM PENCOBRO a ';		
-				sql+=' left outer join TEMCOBROS b on b.factura=a.documento WHERE a.cliente="'+cliente+'" and a.saldo>0 ORDER BY fechaven'
+			var sql='SELECT a.documento,a.saldo,a.monto,a.fechaven,b.abonado,c.diasc FROM PENCOBRO a ';		
+				sql+=' left outer join TEMCOBROS b on b.factura=a.documento left outer join clientes c on c.clave=a.cliente';
+				sql+=' WHERE a.cliente="'+cliente+'" and a.saldo>0 ORDER BY fechaven';
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error select facturas pendientes de cobro: "+err.code+err.message);
          		});    	
@@ -51,8 +52,24 @@ function listafacturaspend(cliente){
 						saldot+=Number(saldo);
 						abonot+=abonado;						
 					 //importe=precio*row['cantidad'];
-					 //total+=Number(importe);					 
-					if (row['vencida']=='S') {
+					 //total+=Number(importe);	
+					 var fechaact=new Date();			 
+	              	 var ffac=row['fechaven'].split("/");//viene en formato dd/mm/yyyy
+					 var fechafac=new Date(Number(ffac[2]),Number(ffac[1])-1,Number(ffac[0]));	//año mes dia		 
+				  	//tenemos los dias despues del vencimiento
+				     var dias = (fechaact - fechafac)/86400000; 
+					 if (dias <0) {
+						dias=0; 
+						 
+					 }
+					 /*
+				  	 if (row['tipo']=='CRE' || row['tipo']=='CONT'){
+						var diascre=Number(row['diasc']);
+						if (dias>diascre){
+						 	vencida="SI"						 
+						 }
+					 }*/
+					 if (dias>30){ 					
 						html+='<div class="ui-block-a" style="width:110px"><div class="ui-bar ui-bar-e"><a href="#" class="clasecob" name="'+row['documento']+'"><font color="#FFFFFF">'+row['documento']+'</font></a></div></div>';
 					}
 					else
@@ -61,7 +78,7 @@ function listafacturaspend(cliente){
 					}
 					
 					 html+='<div class="ui-block-b" style="width:120px"><div class="ui-bar ui-bar-b">'+row['fechaven']+'</div></div>';
-		      html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-b">'+row['diasv']+'</div></div>';
+		      html+='<div class="ui-block-c" style="width:90px"><div class="ui-bar ui-bar-b">'+Math.round(dias)+'</div></div>';
         	  html+='<div class="ui-block-d" style="width:90px"><div class="ui-bar ui-bar-b">'+monto.toFixed(2)+'</div></div>';
 		      html+='<div class="ui-block-e"  >';
               html+='<div class="ui-grid-b"  style="margin-top:0px;width:280px">';
@@ -546,7 +563,7 @@ function consultasivencidas(cliente){
     	 		 alert("Error poblar facturas para cobro: "+err.code+err.message);
          		},function(){guardasivencida(vencida)});		
 	function poblarfac(tx){  
-			var sql='SELECT a.saldo,a.vencida FROM PENCOBRO a ';		
+			var sql='SELECT a.saldo,a.fechaven FROM PENCOBRO a ';		
 				sql+=' WHERE a.cliente="'+cliente+'" and a.saldo>0 '
 			tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error select facturas pendientes de cobro: "+err.code+err.message);
@@ -554,8 +571,20 @@ function consultasivencidas(cliente){
 	}
 	function listo(tx,results){  
 			  $.each(results.rows,function(index){				  
-				  var row = results.rows.item(index); 				     			     
-					if (row['vencida']=='S') {
+				  var row = results.rows.item(index); 
+				  	 var fechaact=new Date();			 
+	              	 var ffac=row['fechaven'].split("/");//viene en formato dd/mm/yyyy
+					 var fechafac=new Date(Number(ffac[2]),Number(ffac[1])-1,Number(ffac[0]));	//año mes dia		 
+				  	//tenemos los dias despues del vencimiento
+				     var dias = (fechaact - fechafac)/86400000; 
+					 /*
+				  	 if (row['tipo']=='CRE' || row['tipo']=='CONT'){
+						var diascre=Number(row['diasc']);
+						if (dias>diascre){
+						 	vencida="SI"						 
+						 }
+					 }*/
+					 if (dias>30){ 									  
 					  vencida='S';	
 					}
 			  });//.each
