@@ -36,22 +36,22 @@ $(document).ready(function() {
 				var Pass = $("#clave").val()	  	
 				if(Usuario == "r1"){
 					if (diasemana == 1){					
-						navigator.notification.alert('Es lunes. Y vuelta a empezar',null,'Saludo','Aceptar');					
+						navigator.notification.alert('Es lunes. Y vuelta a empezar',null,'Saludos','Aceptar');					
 					}
 					else if (diasemana == 2){
-						navigator.notification.alert('Es martes, mejor que lunes',null,'Saludo','Aceptar');					
+						navigator.notification.alert('Es martes, mejor que lunes',null,'Saludos','Aceptar');					
 					}
 					else if (diasemana == 3){
-						navigator.notification.alert('Es miércoles, ¿qué tal va la semana?',null,'Saludo','Aceptar');					
+						navigator.notification.alert('Es miércoles, ¿qué tal va la semana?',null,'Saludos','Aceptar');					
 					}
 					else if (diasemana == 4){
-						navigator.notification.alert('Es jueves, ¿cómo estás hoy?',null,'Saludo','Aceptar');					
+						navigator.notification.alert('Es jueves, ¿cómo estás hoy?',null,'Saludos','Aceptar');					
 					}
 					else if (diasemana == 5){
-						navigator.notification.alert('¡Por fin es viernes!',null,'Saludo','Aceptar');					
+						navigator.notification.alert('¡Por fin es viernes!',null,'Saludos','Aceptar');					
 					}
 					else if (diasemana == 6){
-						navigator.notification.alert('Es sábado. Que tengas un buen fin de semana',null,'Saludo','Aceptar');					
+						navigator.notification.alert('Es sábado. Que tengas un buen fin de semana',null,'Saludos','Aceptar');					
 					}
 					window.location.href='#page';
 		  		}else{		  		  
