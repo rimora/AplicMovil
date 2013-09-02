@@ -90,7 +90,7 @@ function insertar(){
           }, navigator.notification.alert('Datos insertados',null,'Insertar Datos','Aceptar'));
 				
     	function insertarcli(tx) {	
-		tx.executeSql('INSERT INTO PARAMETROS (cod_zon,num_ped,num_rec,num_dev,num_fac) VALUES ("S04","S04000216","R04000656","D04000001","F04000646")'); 	
+		//tx.executeSql('INSERT INTO PARAMETROS (cod_zon,num_ped,num_rec,num_dev,num_fac) VALUES ("S04","S04000216","R04000656","D04000001","F04000646")'); 	
 		tx.executeSql('INSERT INTO RAZONVISITA (cod_rzn,des_rzn) VALUES ("R1","Ventas")'); 
 		tx.executeSql('INSERT INTO RAZONVISITA (cod_rzn,des_rzn) VALUES ("R2","Cobros")'); 
 		tx.executeSql('INSERT INTO RAZONVISITA (cod_rzn,des_rzn) VALUES ("R3","Local Cerrado")'); 
