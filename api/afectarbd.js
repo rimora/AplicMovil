@@ -690,7 +690,7 @@ function cargaclientes(ruta,direccion){
 					
 			i++;
 		});
-		alert('procesando parametros');
+		//alert('procesando parametros');
 		$.each(parametros, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] ); 			 					
 			query[i]='INSERT INTO PARAMETROS (cod_zon,num_ped,num_rec,num_dev,num_fac) VALUES ("'+val['ruta']+'","'+val['pedido']+'","'+val['recibo']+'","'+val['devo']+'","'+val['factura']+'")';
@@ -699,7 +699,7 @@ function cargaclientes(ruta,direccion){
 		
 		
 		//alert(i);
-		navigator.notification.alert(mensaje,null,'Insertando Datos','Aceptar');										 
+		navigator.notification.alert('Insertando Datos',null,'Insertando Datos','Aceptar');										 
 		insertabd(query,"Datos Cargados");
 	})	
 	.fail(function( jqxhr, textStatus, error ) {
