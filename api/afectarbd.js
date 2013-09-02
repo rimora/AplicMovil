@@ -90,7 +90,7 @@ function insertar(){
           }, navigator.notification.alert('Datos insertados',null,'Insertar Datos','Aceptar'));
 				
     	function insertarcli(tx) {	
-		//tx.executeSql('INSERT INTO PARAMETROS (cod_zon,num_ped,num_rec,num_dev,num_fac) VALUES ("S04","S04000216","R04000656","D04000001","F04000646")'); 	
+		tx.executeSql('INSERT INTO PARAMETROS (cod_zon,num_ped,num_rec,num_dev,num_fac) VALUES ("S08","S08001091","R08002066","D08000001","F08001923")'); 	
 		tx.executeSql('INSERT INTO RAZONVISITA (cod_rzn,des_rzn) VALUES ("R1","Ventas")'); 
 		tx.executeSql('INSERT INTO RAZONVISITA (cod_rzn,des_rzn) VALUES ("R2","Cobros")'); 
 		tx.executeSql('INSERT INTO RAZONVISITA (cod_rzn,des_rzn) VALUES ("R3","Local Cerrado")'); 
@@ -691,11 +691,12 @@ function cargaclientes(ruta,direccion){
 			i++;
 		});
 		//alert('procesando parametros');
+		/*
 		$.each(parametros, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] ); 			 					
 			query[i]='INSERT INTO PARAMETROS (cod_zon,num_ped,num_rec,num_dev,num_fac) VALUES ("'+val['ruta']+'","'+val['pedido']+'","'+val['recibo']+'","'+val['devo']+'","'+val['factura']+'")';
 			i++;
-		});
+		});*/
 		
 		
 		//alert(i);
