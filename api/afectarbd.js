@@ -642,7 +642,7 @@ function cargaclientes(ruta,direccion){
   	//archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback=?"
 	//archivoValidacion ="http://aplicacion.netai.net/index.php?jsoncallback=?"	
 	//var archivoValidacion ="http://192.168.3.46/prueba.php?jsoncallback=?";
-	alert(ruta);
+	
 	$.getJSON(direccion, {numruta:ruta})
 	.done(function(data) {
 		
@@ -818,4 +818,99 @@ var datosUsuario ="ricardo";
 
 	return false;
 
+}
+function cargaclientes2(ruta,direccion){
+//alert(direccion);
+//	var datosPassword = $("#regEmail").val()
+	
+  	//archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback=?"
+	//archivoValidacion ="http://aplicacion.netai.net/index.php?jsoncallback=?"	
+	//var archivoValidacion ="http://192.168.3.46/prueba.php?jsoncallback=?";
+	$.ajax({
+    url: direccion,
+    dataType: 'json',
+    success: function(result){
+      	 var query=[];
+		 var clientes = data.clientes;
+	     var diasruta = data.diasruta;
+		 var fpen = data.facpen;
+		 var art= data.articulos;
+		 var exis= data.existencias;
+         var parametros= data.param;		 
+		 var enchisfac= data.devocab;
+		 //var dethisfac= data.devodet;
+		 var i=0;
+		$.each(clientes, function(key, val) {    
+			//alert(key + ' ' + val['cliente'] );  
+			query[i]='INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("'+val['nombre']+'", "'+val['cliente']+'","Lunes","'+val['direccion']+'","'+val['telefono']+'","'+val['categoria']+'","'+val['diascredito']+'",'+val['limite']+','+val['saldo']+')';
+			i++;
+		});
+		//alert('procesando diascliente');
+		$.each(diasruta, function(key, val) {    
+			//alert(key + ' ' + val['cliente'] );  
+			query[i]='INSERT INTO RUTA_CLIENTE (ruta,cliente,dia,orden) VALUES ("'+val['ruta']+'", "'+val['cliente']+'",'+val['dia']+','+val['orden']+')';
+			i++;
+		});
+		//alert('procesando pendcobro');
+		$.each(fpen, function(key, val) {    
+			//alert(key + ' ' + val['cliente'] );  			
+			query[i]='INSERT INTO PENCOBRO (documento,cliente,saldo,monto,fecha,fechaven) VALUES ("'+val['documento']+'","'+val['cliente']+'",'+val['saldo']+','+val['monto']+',"'+val['fecha'].substr(0,2)+'/'+val['fecha'].substr(2,2)+'/'+val['fecha'].substr(4,4)+'","'+val['fechaven'].substr(0,2)+'/'+val['fechaven'].substr(2,2)+'/'+val['fechaven'].substr(4,4)+'")';
+			i++;
+		});
+		
+		//alert('procesando existencias');
+		$.each(exis, function(key, val) {    
+			//alert(key + ' ' + val['cliente'] );  			
+		query[i]='INSERT INTO ARTICULO_EXISTENCIA (articulo,bodega,existencia) VALUES ("'+val['articulo']+'","'+val['bodega']+'",'+val['existencia']+')'; 			
+			i++;
+		});
+		 
+		//alert('procesando articulos');
+		$.each(art, function(key, val) {    
+			//alert(key + ' ' + val['cliente'] ); 
+			var articulo=val['articulo'];
+			var descripcion=val['descripcion'];
+			articulo=articulo.replace(/\\/g,'');
+			descripcion=descripcion.replace(/\\/g,'');
+			 			
+		query[i]='INSERT INTO ARTICULO (articulo,descripcion,clas,accion,impuesto,precio,descuento,laboratorio,sal,ubi,categoria) VALUES ("'+articulo+'","'+descripcion+'","'+val['clasificacion']+'","'+val['acciont']+'",'+val['impuesto']+','+val['precio']+','+val['descuento']+',"'+val['laboratorio']+'","'+val['pactivo']+'","'+val['ubi']+'","'+val['categoria']+'")'; 
+					
+			i++;
+		});
+		//alert('procesando parametros');		
+		$.each(parametros, function(key, val) {    
+			//alert(key + ' ' + val['cliente'] ); 			 					
+			query[i]='INSERT INTO PARAMETROS (cod_zon,num_ped,num_rec,num_dev,num_fac) VALUES ("'+val['ruta']+'","'+val['pedido']+'","'+val['recibo']+'","'+val['devo']+'","'+val['factura']+'")';
+			i++;
+		});
+		//alert('procesando enc de historicos de facturas para devolucion');		
+		
+		$.each(enchisfac, function(key, val) {    
+			//alert(key + ' ' + val['cliente'] ); 			 								
+			query[i]='INSERT INTO ENCHISFAC (factura,monto,cliente,pedido,fecha) VALUES ("'+val['factura']+'",'+val['monto']+',"'+val['cliente']+'","'+val['pedido']+'","'+val['fecha'].substr(0,2)+'/'+val['fecha'].substr(2,2)+'/'+val['fecha'].substr(4,4)+'")';
+			i++;
+		});/*
+		//alert('procesando detalledes de historicos de facturas para devolucion');		
+		$.each(dethisfac, function(key, val) {    
+			//alert(key + ' ' + val['cliente'] ); 			 								
+			query[i]='INSERT INTO DETHISFAC (factura,articulo,linea,cantidad,devuelto,precio,totlinea) VALUES ("'+val['factura']+'","'+val['articulo']+'",'+val['linea']+','+val['cantidad']+','+val['devuelto']+','+val['precio']+','+val['totlinea']+')';
+			i++;
+		});
+
+		*/
+
+		//alert(i);
+		//navigator.notification.alert('Insertando Datos',null,'Insertando Datos','Aceptar');										 
+		insertabd(query,"Datos Cargados"); 
+    },
+    error: function(xhr) {
+        alert (xhr.statusText);
+    }
+});
+return false;
+	
+		//alert(respuestaServer.mensaje + "\nGenerado en: " + respuestaServer.hora + "\n" +respuestaServer.generador)		
+		//alert(respuestaServer.Numreporte)
+		
+		//if(respuestaServer.validacion == "ok"){
 }

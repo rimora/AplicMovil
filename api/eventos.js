@@ -1466,6 +1466,7 @@ $("#bcargaclientes").tap(function() {
 		  var direccion ="http://192.168.3.46/prueba.php?jsoncallback=?";
 		  //var direccion ="http://sardelfr03.zapto.org/prueba.php?jsoncallback=?";
           cargaclientes(ruta,direccion);                       
+		  cargaclientes2(ruta,direccion);                       
 		 // cargarutacli(ruta,direccion);                       		  
        });
   },false);//document.addEventListener("deviceready",function(){	
