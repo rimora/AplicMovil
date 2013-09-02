@@ -827,9 +827,10 @@ function cargaclientes2(ruta,direccion){
 	//archivoValidacion ="http://aplicacion.netai.net/index.php?jsoncallback=?"	
 	//var archivoValidacion ="http://192.168.3.46/prueba.php?jsoncallback=?";
 	$.ajax({
-    url: direccion,
+	type:GET,		
+    url: direccion, data: { numruta: ruta},
     dataType: 'json',
-    success: function(result){
+    success: function(data){
       	 var query=[];
 		 var clientes = data.clientes;
 	     var diasruta = data.diasruta;
