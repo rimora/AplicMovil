@@ -1,7 +1,9 @@
 // crear e insertar en tablas
 function consultadb()
 {
-	var db = window.openDatabase("Database", "1.0", "SARDEL", 10000000);			
+	//alert('antes de db');
+	var db = window.openDatabase("Database", "1.0", "SARDEL", 10000000);
+	//alert('despues de db');
 	return db;	
 }
 
@@ -122,13 +124,13 @@ function insertar(){
         tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia CUATRO", "1050","Jueves","Dirección del cliente  CUATRO","2281545130","C","30",5000.00,0.00)'); 		
 		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Vendedor de Ruta", "9999","Jueves","Dirección del cliente  9999","2281545130","C","30",0.00,0.00)'); 		
 		
-		tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ("1","00041534","1020",437.55,437.55,"08/05/2013","08/06/2013","S",54)');  		       
-		tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ( "1","00041535","1020",888.55,1000.55,"15/05/2013","15/06/2013","S",31)');  
-		tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ( "1","00041537","1020",998.55,1000.55,"15/05/2013","15/06/2013","S",31)');        
-		tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ( "1","00041536","1030",5000.00,5000.00,"08/06/2013","08/07/2013","N",24)');        
-		tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ( "1","00041540","1030",5000.00,5000.00,"08/06/2013","08/07/2013","N",24)');        
-		tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ( "1","00041538","1030",5000.00,5000.00,"08/06/2013","08/07/2013","N",24)');        
-		tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ( "1","00041539","1030",5000.00,5000.00,"08/06/2013","08/07/2013","N",24)');        
+		tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ("00041534","1020",437.55,437.55,"08/05/2013","08/06/2013")');  		       
+		tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ( "00041535","1020",888.55,1000.55,"15/05/2013","15/06/2013")');  
+		tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ( "00041537","1020",998.55,1000.55,"15/05/2013","15/06/2013")');        
+		tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ( "00041536","1030",5000.00,5000.00,"08/06/2013","08/07/2013")');        
+		tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ( "00041540","1030",5000.00,5000.00,"08/06/2013","08/07/2013")');        
+		tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ( "00041538","1030",5000.00,5000.00,"08/06/2013","08/07/2013")');        
+		tx.executeSql('INSERT INTO PENCOBRO (tipo,documento,cliente,saldo,monto,fecha,fechaven,vencida,diasv) VALUES ( "00041539","1030",5000.00,5000.00,"08/06/2013","08/07/2013")');        
 		*/
 		tx.executeSql('INSERT INTO NOTASCOB (factura,nota) VALUES ( "00041534","notas de cobranza1")');        
 		tx.executeSql('INSERT INTO NOTASCOB (factura,nota) VALUES ( "00041534","notas de cobranza2")');        
@@ -642,7 +644,7 @@ alert(direccion);
 	//var archivoValidacion ="http://192.168.3.46/prueba.php?jsoncallback=?";
 	$.getJSON(direccion, {numruta:ruta})
 	.done(function(data) {
-		alert('en resultado');
+		
 		 var query=[];
 		 var clientes = data.clientes;
 	     var diasruta = data.diasruta;
@@ -655,27 +657,27 @@ alert(direccion);
 			query[i]='INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("'+val['nombre']+'", "'+val['cliente']+'","Lunes","'+val['direccion']+'","'+val['telefono']+'","'+val['categoria']+'","'+val['diascredito']+'",'+val['limite']+','+val['saldo']+')';
 			i++;
 		});
-		alert('procesando diascliente');
+		//alert('procesando diascliente');
 		$.each(diasruta, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] );  
 			query[i]='INSERT INTO RUTA_CLIENTE (ruta,cliente,dia,orden) VALUES ("'+val['ruta']+'", "'+val['cliente']+'",'+val['dia']+','+val['orden']+')';
 			i++;
 		});
-		alert('procesando pendcobro');
+		//alert('procesando pendcobro');
 		$.each(fpen, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] );  			
 			query[i]='INSERT INTO PENCOBRO (documento,cliente,saldo,monto,fecha,fechaven) VALUES ("'+val['documento']+'","'+val['cliente']+'",'+val['saldo']+','+val['monto']+',"'+val['fecha'].substr(0,2)+'/'+val['fecha'].substr(2,2)+'/'+val['fecha'].substr(4,4)+'","'+val['fechaven'].substr(0,2)+'/'+val['fechaven'].substr(2,2)+'/'+val['fechaven'].substr(4,4)+'")';
 			i++;
 		});
 		
-		alert('procesando existencias');
+		//alert('procesando existencias');
 		$.each(exis, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] );  			
 		query[i]='INSERT INTO ARTICULO_EXISTENCIA (articulo,bodega,existencia) VALUES ("'+val['articulo']+'","'+val['bodega']+'",'+val['existencia']+')'; 			
 			i++;
 		});
 		 
-		alert('procesando articulos');
+		//alert('procesando articulos');
 		$.each(art, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] ); 
 			var articulo=val['articulo'];
@@ -687,9 +689,9 @@ alert(direccion);
 					
 			i++;
 		});
-		alert(i);
-		alert('insertando datos');
-		insertabd(query,"Clientes Cargados");
+		//alert(i);
+		navigator.notification.alert(mensaje,null,'Insertando Datos','Aceptar');										 
+		insertabd(query,"Datos Cargados");
 	})	
 	.fail(function( jqxhr, textStatus, error ) {
 	
@@ -736,7 +738,8 @@ function insertabd(query,mensaje){
 		var bandera=0;
     	  alert("Error al insertar datos cargados: "+bandera+''+err.code+' '+err.message);
           },function(){		  
-		   navigator.notification.alert(mensaje,null,'Carga Datos','Aceptar');										 });
+		   	navigator.notification.alert(mensaje,null,'Carga Datos','Aceptar');										
+		   });
 		  				
     	function insertadet(tx) {		
 		//alert('entra a modificar detallefactura cantidad: '+cantidad);		
