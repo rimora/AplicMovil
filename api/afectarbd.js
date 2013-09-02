@@ -636,7 +636,7 @@ function f1_1(){
 
 }//function f1_1
 function cargaclientes(ruta,direccion){
-alert(direccion);
+//alert(direccion);
 //	var datosPassword = $("#regEmail").val()
 	
   	//archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback=?"
@@ -690,7 +690,7 @@ alert(direccion);
 					
 			i++;
 		});
-		//alert('procesando parametros');
+		alert('procesando parametros');
 		$.each(parametros, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] ); 			 					
 			query[i]='INSERT INTO PARAMETROS (cod_zon,num_ped,num_rec,num_dev,num_fac) VALUES ("'+val['ruta']+'","'+val['pedido']+'","'+val['recibo']+'","'+val['devo']+'","'+val['factura']+'")';
