@@ -653,9 +653,9 @@ function cargaclientes(ruta,direccion){
 		 var art= data.articulos;
 		 var exis= data.existencias;
          var parametros= data.param;
-		 /*
+		 
 		 var enchisfac= data.devocab;
-		 var dethisfac= data.devodet;*/
+		 //var dethisfac= data.devodet;
 		 var i=0;
 		$.each(clientes, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] );  
@@ -701,12 +701,12 @@ function cargaclientes(ruta,direccion){
 			i++;
 		});
 		//alert('procesando enc de historicos de facturas para devolucion');		
-		/*
+		
 		$.each(enchisfac, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] ); 			 								
 			query[i]='INSERT INTO ENCHISFAC (factura,monto,cliente,pedido,fecha) VALUES ("'+val['factura']+'",'+val['monto']+',"'+val['cliente']+'","'+val['pedido']+'","'+val['fecha'].substr(0,2)+'/'+val['fecha'].substr(2,2)+'/'+val['fecha'].substr(4,4)+'")';
 			i++;
-		});
+		});/*
 		//alert('procesando detalledes de historicos de facturas para devolucion');		
 		$.each(dethisfac, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] ); 			 								
@@ -820,7 +820,7 @@ var datosUsuario ="ricardo";
 
 }
 function cargaclientes2(ruta,direccion){
-//alert(direccion);
+alert(cargaclientes2);
 //	var datosPassword = $("#regEmail").val()
 	
   	//archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback=?"
