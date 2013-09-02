@@ -226,7 +226,7 @@ function insertatempfactura(articulo,cantidad){
     	function insertadet(tx) {		
 		
 		tx.executeSql('INSERT INTO TEMFACTURA (articulo,cantidad,cliente) VALUES ("'+articulo+'",'+Number(cantidad)+',"'+window.localStorage.getItem("clave")+'")');
-		tx.executeSql('UPDATE ARTICULO_EXISTENCIA SET existencia=existencia-'+Number(cantidad)+' WHERE articulo="'+articulo+'" and bodega="K01"');        
+		tx.executeSql('UPDATE ARTICULO_EXISTENCIA SET existencia=existencia-'+Number(cantidad)+' WHERE articulo="'+articulo+'" and bodega="G01"');        
 		}
 	
 }//function insertatempfactura
@@ -240,7 +240,7 @@ function eliminatempfactura(articulo,cantidad){
     	function insertadet(tx) {		
 		//alert('entra a delete de detallefactura');
 		tx.executeSql('DELETE FROM TEMFACTURA WHERE ARTICULO="'+articulo+'" and cliente="'+window.localStorage.getItem("clave")+'"');        
-		tx.executeSql('UPDATE ARTICULO_EXISTENCIA SET existencia=existencia+'+cantidad+' WHERE articulo="'+articulo+'" and bodega="K01"');
+		tx.executeSql('UPDATE ARTICULO_EXISTENCIA SET existencia=existencia+'+cantidad+' WHERE articulo="'+articulo+'" and bodega="G01"');
 		}
 	
 }//function eliminatempfactura
@@ -254,13 +254,13 @@ function modificatempfactura(articulo,cantidad){
 		//alert('entra a modificar detallefactura cantidad: '+cantidad);		
 		if (Number(cantidad)>0){
 			tx.executeSql('UPDATE TEMFACTURA SET CANTIDAD=cantidad+'+cantidad+' WHERE ARTICULO="'+articulo+'" and cliente="'+window.localStorage.getItem("clave")+'"');        
-			tx.executeSql('UPDATE ARTICULO_EXISTENCIA SET existencia=existencia-'+cantidad+' WHERE articulo="'+articulo+'" and bodega="K01"');
+			tx.executeSql('UPDATE ARTICULO_EXISTENCIA SET existencia=existencia-'+cantidad+' WHERE articulo="'+articulo+'" and bodega="G01"');
 		}
 		else{
 			cantidad=Number(cantidad)*-1
 			//alert('cantidad menor a cero');
 			tx.executeSql('UPDATE TEMFACTURA SET CANTIDAD=cantidad-'+cantidad+' WHERE ARTICULO="'+articulo+'" and cliente="'+window.localStorage.getItem("clave")+'"');        
-			tx.executeSql('UPDATE ARTICULO_EXISTENCIA SET existencia=existencia+'+cantidad+' WHERE articulo="'+articulo+'" and bodega="K01"');	
+			tx.executeSql('UPDATE ARTICULO_EXISTENCIA SET existencia=existencia+'+cantidad+' WHERE articulo="'+articulo+'" and bodega="G01"');	
 		}
 		}
 	
@@ -651,6 +651,7 @@ alert(direccion);
 		 var fpen = data.facpen;
 		 var art= data.articulos;
 		 var exis= data.existencias;
+         var parametros= data.param;
 		 var i=0;
 		$.each(clientes, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] );  
@@ -689,6 +690,14 @@ alert(direccion);
 					
 			i++;
 		});
+		//alert('procesando parametros');
+		$.each(parametros, function(key, val) {    
+			//alert(key + ' ' + val['cliente'] ); 			 					
+			query[i]='INSERT INTO PARAMETROS (cod_zon,num_ped,num_rec,num_dev,num_fac) VALUES ("'+val['ruta']+'","'+val['pedido']+'","'+val['recibo']+'","'+val['devo']+'","'+val['factura']+'")';
+			i++;
+		});
+		
+		
 		//alert(i);
 		navigator.notification.alert(mensaje,null,'Insertando Datos','Aceptar');										 
 		insertabd(query,"Datos Cargados");

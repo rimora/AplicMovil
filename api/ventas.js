@@ -160,7 +160,7 @@ function mostrarpedido(cliente){
  var saldo=Number(window.localStorage.getItem("saldo"));
  var disp=limite-saldo;
  
-		var bodega='K01';
+		var bodega='G01';
 		base.transaction(consulta, errorconsulta);	
 	function consulta(tx) {		
 		tx.executeSql('SELECT a.articulo,b.descripcion,b.precio,b.descuento,a.cantidad,b.impuesto,c.existencia FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo left outer join ARTICULO_EXISTENCIA c on c.articulo=a.articulo and c.bodega="'+bodega+'" where a.cliente="'+cliente+'"',[],exito,errorconsulta);
@@ -324,7 +324,7 @@ function mostrarpedido(cliente){
 	function poblarcat(tx){  	        
 			var sql='SELECT a.articulo,a.descripcion,a.descuento,b.existencia as ebodega,c.existencia as ealg,';			
 			sql+='a.precio,a.clas,a.accion,a.laboratorio,a.sal ';
-			sql+='FROM articulo a left outer join articulo_existencia b on b.articulo=a.articulo and b.bodega="K01" ';
+			sql+='FROM articulo a left outer join articulo_existencia b on b.articulo=a.articulo and b.bodega="G01" ';
 			sql+=' left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="ALG" where a.articulo LIKE "%'+criterio+'%"';
 			sql+=' or a.descripcion like "%'+criterio+'%" or a.clas like "%'+criterio+'%" or a.accion like "%'+criterio+'%" or a.laboratorio like "%'+criterio+'%" ';
 			sql+=' or a.sal like "%'+criterio+'%" order by a.descripcion';
@@ -391,7 +391,7 @@ function gridvalorescat(cliente){//muestra en un grid los totales de preventa y 
  var limite=Number(window.localStorage.getItem("limite"));
  var saldo=Number(window.localStorage.getItem("saldo"));
  var disp=limite-saldo;
-		var bodega='K01';
+		var bodega='G01';
 		base.transaction(consulta, errorconsulta);	
 	function consulta(tx) {		
 		tx.executeSql('SELECT a.articulo,b.descripcion,b.precio,b.descuento,a.cantidad,b.impuesto,c.existencia FROM TEMPEDIDO a left outer join articulo b on b.articulo=a.articulo left outer join ARTICULO_EXISTENCIA c on c.articulo=a.articulo and c.bodega="'+bodega+'" where a.cliente="'+cliente+'"',[],exito,errorconsulta);
@@ -490,12 +490,12 @@ function existeenpedido(articulo,cliente){
 	
 }//function existeenpedido
 function fichaarticulo(articulo){//
-		var bodega='K01';
+		var bodega='G01';
 		base.transaction(consulta, errorconsulta);	
 	function consulta(tx) {
 		var sql='SELECT a.articulo,a.descripcion,a.clas,a.accion,a.impuesto,a.descuento,b.existencia as ebodega,c.existencia as ealg,';			
 			sql+='a.precio,a.laboratorio,a.sal ';
-			sql+='FROM articulo a left outer join articulo_existencia b on b.articulo=a.articulo and b.bodega="K01" ';
+			sql+='FROM articulo a left outer join articulo_existencia b on b.articulo=a.articulo and b.bodega="G01" ';
 			sql+=' left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="ALG"  WHERE a.articulo="'+articulo+'" order by a.descripcion';
 					
 		tx.executeSql(sql,[],exito,errorconsulta);
