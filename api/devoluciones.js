@@ -450,8 +450,8 @@ var dias=0;
 		   $.each(results.rows,function(index){           
 			 var row = results.rows.item(index); 
 			 var fechaact=new Date();			 
-			 var ffac=row['fecha'].split("-");
-			 var fechafac=new Date(Number(ffac[0]),Number(ffac[1])-1,Number(ffac[2]));			 
+			 var ffac=row['fecha'].split("/");
+			 var fechafac=new Date(Number(ffac[2]),Number(ffac[1])-1,Number(ffac[0]));			 
 			 dias = (fechaact - fechafac)/86400000; 
 			 guardadiasfactura(dias);
 		 });    		 	      

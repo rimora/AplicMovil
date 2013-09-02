@@ -574,8 +574,7 @@ var i=0;
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){		
 		  	 $.each(results.rows,function(index){   
-			 var row = results.rows.item(index);    
-			 alert('entra a listo');
+			 var row = results.rows.item(index);    			 
 			 var precio=Number(row['precio']);//precio sin descuento y sin iva			 
 			 var pordesc=Number(row['descuento']);//porcentaje de descuento que se aplica 
 			 var articulo=row['articulo'];			 

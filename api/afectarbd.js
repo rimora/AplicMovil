@@ -90,7 +90,7 @@ function insertar(){
           }, navigator.notification.alert('Datos insertados',null,'Insertar Datos','Aceptar'));
 				
     	function insertarcli(tx) {	
-		tx.executeSql('INSERT INTO PARAMETROS (cod_zon,num_ped,num_rec,num_dev,num_fac) VALUES ("S08","S08001091","R08002066","D08000001","F08001923")'); 	
+		//tx.executeSql('INSERT INTO PARAMETROS (cod_zon,num_ped,num_rec,num_dev,num_fac) VALUES ("S08","S08001091","R08002066","D08000001","F08001923")'); 	
 		tx.executeSql('INSERT INTO RAZONVISITA (cod_rzn,des_rzn) VALUES ("R1","Ventas")'); 
 		tx.executeSql('INSERT INTO RAZONVISITA (cod_rzn,des_rzn) VALUES ("R2","Cobros")'); 
 		tx.executeSql('INSERT INTO RAZONVISITA (cod_rzn,des_rzn) VALUES ("R3","Local Cerrado")'); 
@@ -104,7 +104,7 @@ function insertar(){
 		tx.executeSql('INSERT INTO CUENTASDEP (codigo,cuenta,descripcion) VALUES("BSANTAND","92001407761","Santander")'); 
 		tx.executeSql('INSERT INTO CUENTASDEP (codigo,cuenta,descripcion) VALUES("ND","110120113112","ERNESTO ARANA")'); 
 		tx.executeSql('INSERT INTO CUENTASDEP (codigo,cuenta,descripcion) VALUES("BITAL","04045430485","HSBC")'); 		
-		tx.executeSql('INSERT INTO ENCHISFAC (factura,monto,cliente,pedido,fecha) VALUES ("00046441",241.643,"1020","F06000779","2013-08-09")');  		
+		/*tx.executeSql('INSERT INTO ENCHISFAC (factura,monto,cliente,pedido,fecha) VALUES ("00046441",241.643,"1020","F06000779","2013-08-09")');  		
 		tx.executeSql('INSERT INTO DETHISFAC (factura,articulo,linea,cantidad,devuelto,precio,totlinea) VALUES ("00046441","ACA-01",0,2,0,85.77,77.193)')	//55	
 		tx.executeSql('INSERT INTO DETHISFAC (factura,articulo,linea,cantidad,devuelto,precio,totlinea) VALUES ("00046441","ACE-01",1,5,0,59.80,74.75)')	//75	
 		tx.executeSql('INSERT INTO DETHISFAC (factura,articulo,linea,cantidad,devuelto,precio,totlinea) VALUES ("00046441","ACE-02",2,6,0,59.8,89.70)')	//75	
@@ -116,7 +116,7 @@ function insertar(){
 		tx.executeSql('INSERT INTO DETHISFAC (factura,articulo,linea,cantidad,devuelto,precio,totlinea) VALUES ("00046443","ALC-01",0,2,1,185,92.50)')//75	
 		tx.executeSql('INSERT INTO DETHISFAC (factura,articulo,linea,cantidad,devuelto,precio,totlinea) VALUES ("00046443","ALI-01",1,5,2,54.03,124.269)')	//54	
 		tx.executeSql('INSERT INTO DETHISFAC (factura,articulo,linea,cantidad,devuelto,precio,totlinea) VALUES ("00046443","ALI-02",2,6,0,46.95,129.582)')		//54
-
+		*/
 		/*
 		tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia UNO", "1020","Lunes","Dirección del cliente","2281545130","C","30",10000.00,2324.65)');      
         tx.executeSql('INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("Farmacia DOS", "1030","Martes","Dirección del cliente  DOS","2281545130","C","30",30000.00,20000.00)'); 
@@ -652,6 +652,8 @@ function cargaclientes(ruta,direccion){
 		 var art= data.articulos;
 		 var exis= data.existencias;
          var parametros= data.param;
+		 var enchisfac= data.devocab;
+		 var dethisfac= data.devodet;
 		 var i=0;
 		$.each(clientes, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] );  
@@ -690,17 +692,29 @@ function cargaclientes(ruta,direccion){
 					
 			i++;
 		});
-		//alert('procesando parametros');
-		/*
+		//alert('procesando parametros');		
 		$.each(parametros, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] ); 			 					
 			query[i]='INSERT INTO PARAMETROS (cod_zon,num_ped,num_rec,num_dev,num_fac) VALUES ("'+val['ruta']+'","'+val['pedido']+'","'+val['recibo']+'","'+val['devo']+'","'+val['factura']+'")';
 			i++;
-		});*/
+		});
+		//alert('procesando enc de historicos de facturas para devolucion');		
+		$.each(enchisfac, function(key, val) {    
+			//alert(key + ' ' + val['cliente'] ); 			 								
+			query[i]='INSERT INTO ENCHISFAC (factura,monto,cliente,pedido,fecha) VALUES ("'+val['factura']+'",'+val['monto']+',"'+val['cliente']+'","'+val['pedido']+'","'+val['fecha'].substr(0,2)+'/'+val['fecha'].substr(2,2)+'/'+val['fecha'].substr(4,4)+'")';
+			i++;
+		});
+		//alert('procesando detalledes de historicos de facturas para devolucion');		
+		$.each(dethisfac, function(key, val) {    
+			//alert(key + ' ' + val['cliente'] ); 			 								
+			query[i]='INSERT INTO DETHISFAC (factura,articulo,linea,cantidad,devuelto,precio,totlinea) VALUES ("'+val['factura']+'","'+val['articulo']+'",'+val['lines']+','+val['cantidad']+','+val['devuelto']+','+val['precio']+','+val['totlinea']+')';
+			i++;
+		});
+
 		
-		
+
 		//alert(i);
-		navigator.notification.alert('Insertando Datos',null,'Insertando Datos','Aceptar');										 
+		//navigator.notification.alert('Insertando Datos',null,'Insertando Datos','Aceptar');										 
 		insertabd(query,"Datos Cargados");
 	})	
 	.fail(function( jqxhr, textStatus, error ) {
@@ -718,6 +732,33 @@ function cargaclientes(ruta,direccion){
 		//alert(respuestaServer.Numreporte)
 		
 		//if(respuestaServer.validacion == "ok"){
+}
+
+function insertabd(query,mensaje){
+	  //alert(devolucion+' '+ruta+' '+cliente+' '+horaini+' '+horafin+' '+fecha+' '+obs+' '+renglones+' '+subtotal+' '+impuesto+' '+bodega+' '+factura);
+	     //alert (pedido+articulo+precio+pordescuento+totalinea+descuento+precio+cantidad);		
+	base.transaction(insertadet,function(err){
+		var bandera=0;
+    	  alert("Error al insertar datos cargados: "+bandera+''+err.code+' '+err.message);
+          },function(){		  
+		   	navigator.notification.alert(mensaje,null,'Carga Datos','Aceptar');										
+			obtenerconse();//funcion que almacena localmente los consecutivos de documentos actuales.funcion en configuraciones.js
+		   });
+		  				
+    	function insertadet(tx) {		
+		//alert('entra a modificar detallefactura cantidad: '+cantidad);		
+			for (var i = 0, long = query.length; i < long; i++) {   									   								
+				//alert(query[i]);
+				bandera=i;
+				/*
+				if (i>649){
+					alert(query[i]);
+				}*/
+				tx.executeSql(query[i]); 						   
+					   
+			}// for (var i = 0, long = query.length; i < long; i++) 
+		}
+	
 }
 function cargarutacli(ruta,direccion){
 	alert('entra ruta cliente');
@@ -738,33 +779,6 @@ function cargarutacli(ruta,direccion){
  		 alert( "Request Failed: " + err);
 	});
 	return false;	
-}
-
-
-function insertabd(query,mensaje){
-	  //alert(devolucion+' '+ruta+' '+cliente+' '+horaini+' '+horafin+' '+fecha+' '+obs+' '+renglones+' '+subtotal+' '+impuesto+' '+bodega+' '+factura);
-	     //alert (pedido+articulo+precio+pordescuento+totalinea+descuento+precio+cantidad);		
-	base.transaction(insertadet,function(err){
-		var bandera=0;
-    	  alert("Error al insertar datos cargados: "+bandera+''+err.code+' '+err.message);
-          },function(){		  
-		   	navigator.notification.alert(mensaje,null,'Carga Datos','Aceptar');										
-		   });
-		  				
-    	function insertadet(tx) {		
-		//alert('entra a modificar detallefactura cantidad: '+cantidad);		
-			for (var i = 0, long = query.length; i < long; i++) {   									   								
-				//alert(query[i]);
-				bandera=i;
-				/*
-				if (i>649){
-					alert(query[i]);
-				}*/
-				tx.executeSql(query[i]); 						   
-					   
-			}// for (var i = 0, long = query.length; i < long; i++) 
-		}
-	
 }
 function pruebaphp(){
 var datosUsuario ="ricardo";

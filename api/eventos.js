@@ -69,8 +69,7 @@ $(document).ready(function() {
      $("#envia").tap(function() { 
                  //var clavecli = $(this).attr("id");
 				  //alert (oID);
-				  insertar();
-				  obtenerconse();//funcion que almacena localmente los consecutivos de documentos actuales.funcion en configuraciones.js
+				  insertar();				  
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });			   
 			  
