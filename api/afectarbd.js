@@ -820,7 +820,7 @@ var datosUsuario ="ricardo";
 
 }
 function cargaclientes2(ruta,direccion){
-alert(cargaclientes2);
+alert('entra cargaclientes2');
 //	var datosPassword = $("#regEmail").val()
 	
   	//archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback=?"
