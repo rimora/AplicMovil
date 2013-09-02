@@ -642,6 +642,7 @@ function cargaclientes(ruta,direccion){
   	//archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback=?"
 	//archivoValidacion ="http://aplicacion.netai.net/index.php?jsoncallback=?"	
 	//var archivoValidacion ="http://192.168.3.46/prueba.php?jsoncallback=?";
+	alert(ruta);
 	$.getJSON(direccion, {numruta:ruta})
 	.done(function(data) {
 		
@@ -707,7 +708,7 @@ function cargaclientes(ruta,direccion){
 		//alert('procesando detalledes de historicos de facturas para devolucion');		
 		$.each(dethisfac, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] ); 			 								
-			query[i]='INSERT INTO DETHISFAC (factura,articulo,linea,cantidad,devuelto,precio,totlinea) VALUES ("'+val['factura']+'","'+val['articulo']+'",'+val['lines']+','+val['cantidad']+','+val['devuelto']+','+val['precio']+','+val['totlinea']+')';
+			query[i]='INSERT INTO DETHISFAC (factura,articulo,linea,cantidad,devuelto,precio,totlinea) VALUES ("'+val['factura']+'","'+val['articulo']+'",'+val['linea']+','+val['cantidad']+','+val['devuelto']+','+val['precio']+','+val['totlinea']+')';
 			i++;
 		});
 
