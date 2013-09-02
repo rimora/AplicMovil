@@ -21,14 +21,12 @@ function listafacturas(cliente){
 		 $('#listahistfac').empty(); 		     
 		 $.each(results.rows,function(index){           
 			 var row = results.rows.item(index); 
-			 var html="";               		
-			 var fecha1 = row['fecha'].split("-");	 
-			 var fecha2=fecha1[2]+'/'+fecha1[1]+'/'+fecha1[0];	
+			 var html="";               					 
 			 var monto=Number(row['monto']);		 
 			 html+='<li id="'+row['factura']+'">';
 	         html+='<a href="#"><h5> Documento: '+row['factura']+'</h5>';
 			// html+='Total:  '+row['monto']+'    Pedido:   '+row['pedido']+'    Fecha:   '+row['fecha']+'</a></li>';
-			 html+='Total:  '+monto.toFixed(2)+' Fecha:   '+fecha2+'</a></li>';
+			 html+='Total:  '+monto.toFixed(2)+' Fecha:   '+row['fecha']+'</a></li>';
 			 //alert('antes del append de listfac '+html);
 			 $('#listahistfac').append(html);  			
 			 //alert('despues del append de listfac '+html); 

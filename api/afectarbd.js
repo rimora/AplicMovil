@@ -654,8 +654,8 @@ function cargaclientes(ruta,direccion){
 		 var exis= data.existencias;
          var parametros= data.param;
 		 
-		 var enchisfac= data.devocab;
-		 //var dethisfac= data.devodet;
+		 var encfac= data.devocab;
+		 var detfac= data.devodet;
 		 var i=0;
 		$.each(clientes, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] );  
@@ -702,19 +702,19 @@ function cargaclientes(ruta,direccion){
 		});
 		//alert('procesando enc de historicos de facturas para devolucion');		
 		
-		$.each(enchisfac, function(key, val) {    
+		$.each(encfac, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] ); 			 								
 			query[i]='INSERT INTO ENCHISFAC (factura,monto,cliente,pedido,fecha) VALUES ("'+val['factura']+'",'+val['monto']+',"'+val['cliente']+'","'+val['pedido']+'","'+val['fecha'].substr(0,2)+'/'+val['fecha'].substr(2,2)+'/'+val['fecha'].substr(4,4)+'")';
 			i++;
-		});/*
+		});
 		//alert('procesando detalledes de historicos de facturas para devolucion');		
-		$.each(dethisfac, function(key, val) {    
+		$.each(detfac, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] ); 			 								
 			query[i]='INSERT INTO DETHISFAC (factura,articulo,linea,cantidad,devuelto,precio,totlinea) VALUES ("'+val['factura']+'","'+val['articulo']+'",'+val['linea']+','+val['cantidad']+','+val['devuelto']+','+val['precio']+','+val['totlinea']+')';
 			i++;
 		});
 
-		*/
+		
 
 		//alert(i);
 		//navigator.notification.alert('Insertando Datos',null,'Insertando Datos','Aceptar');										 
