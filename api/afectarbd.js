@@ -930,7 +930,7 @@ function enviadatos(ruta,direccion){
 	function consulta(tx) {
 		var sql='SELECT linea,num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max ';						
 			sql+='FROM DETPEDIDO ';
-			sql+=' WHERE doc_pro=null order by num_ped';			
+			//sql+=' WHERE doc_pro=null order by num_ped';			
 		tx.executeSql(sql,[],exito,errorconsulta);
 		}
 		
