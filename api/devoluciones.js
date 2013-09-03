@@ -257,7 +257,7 @@ var devolucion=inicial+pad(incremetard,6);
 		     i++;
 			 
 			 if (cargovendedor=='S') {
-			   querydev[i]='INSERT INTO DETPEDIDO (num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max) VALUES("'+pedido+'","'+articulo+'",'+precio+','+pordesc+','+totalinea.toFixed(2)+','+montodesc.toFixed(2)+','+precio+','+cantidad+')'; 	 
+			   querydev[i]='INSERT INTO DETPEDIDO (num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max,doc_pro) VALUES("'+pedido+'","'+articulo+'",'+precio+','+pordesc+','+totalinea.toFixed(2)+','+montodesc.toFixed(2)+','+precio+','+cantidad+',"null")'; 	 
 				i++; 
 			 }
 			 else{
