@@ -608,7 +608,7 @@ var i=0;
 						 sumtotlineaped+=Number(totlinea);//suma del total de linea sin descuento y sin iva
 						 summontodescped+=Number(montodesc);//suma del monto de descuento de cada linea
 						 sumivalineaped+=Number(ivalinea);//suma del total de iva de cada linea						 
-						 query[i]='INSERT INTO DETPEDIDO (num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max,doc_pro) VALUES("'+pedido+'","'+articulo+'",'+precio+','+pordesc+','+totlinea.toFixed(2)+','+montodesc.toFixed(2)+','+precio+','+cantidad+',"null")'; 
+						 query[i]='INSERT INTO DETPEDIDO (num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max,doc_pro) VALUES("'+pedido+'","'+articulo+'",'+precio+','+pordesc+','+totlinea.toFixed(2)+','+montodesc.toFixed(2)+','+precio+','+preventa+',"null")'; 
 						// alert(query[i]);
 						 i++;
 					 }
@@ -626,13 +626,14 @@ var i=0;
 						 summontodescfac+=Number(montodesc);//suma del monto de descuento de cada linea
 						 sumivalineafac+=Number(ivalinea);//suma del total de iva de cada linea
 						 totalfactura+=(lineacdes+ivalinea);
-						 query[i]='INSERT INTO DETPEDIDO (num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max,doc_pro) VALUES("'+factura+'","'+articulo+'",'+precio+','+pordesc+','+totlinea.toFixed(2)+','+montodesc.toFixed(2)+','+precio+','+cantidad+',"null")';						 
+						 query[i]='INSERT INTO DETPEDIDO (num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max,doc_pro) VALUES("'+factura+'","'+articulo+'",'+precio+','+pordesc+','+totlinea.toFixed(2)+','+montodesc.toFixed(2)+','+precio+','+abordo+',"null")';						 
 						 //alert(query[i]);
 						 i++;						 
 						 query[i]='UPDATE ARTICULO_EXISTENCIA SET existencia=existencia-'+abordo+' WHERE articulo="'+articulo+'" and bodega="'+bodega+'"';
 						 //alert(query[i]);
+						 i++;
 					 }
-			 i++;
+			
 			 
 			 //guardadetpedido(pedido,articulo,precio,pordesc,totlinea,montodesc,precio,cantidad);
 			

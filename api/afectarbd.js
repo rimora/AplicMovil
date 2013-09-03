@@ -927,6 +927,7 @@ function enviadatos(ruta,direccion){
 	var detalles='[';
 	var cadena='';
 	base.transaction(consulta, errorconsulta,function(){
+		    alert(cadena);
 			$.getJSON(direccion, {numruta:ruta,datos:cadena})
 	.done(function(data) {
 		
