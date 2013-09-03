@@ -926,6 +926,40 @@ function enviadatos(ruta,direccion){
 	
 	var detalles='[';
 	var cadena='';
+	
+	function consulta(tx) {
+		var sql='SELECT num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max ';						
+			sql+='FROM DETPEDIDO ';
+			sql+=' WHERE doc_pro="null" order by num_ped';			
+		tx.executeSql(sql,[],exito,errorconsulta);
+		}
+		
+		function exito(tx,results){ 
+				
+			  $.each(results.rows,function(index){				  
+				  var row = results.rows.item(index); 
+				  detalles += '{"num_ped":"'+row['num_ped']+'", "cod_art":"'+row['cod_art']+'","mon_prc_mn" : "'+row['mon_prc_mn']+'", "por_dsc_ap" : "'+row['por_dsc_ap']+'", "mon_tot" : "'+row['mon_tot']+'", "mon_dsc" : "'+row['mon_dsc']+'", "mon_prc_mx" : "'+row['mon_prc_mx']+'","cnt_max" : "'+row['cnt_max']+'"},';
+				  
+				  
+					/* cantidad=Number(row['cantidad']);							 			 
+				     preciocdesc=Number(row['precio'])-((Number(row['precio'])/100)*Number(row['descuento']));				     			     
+				     descuento=Number(row['descuento']);
+					 iva=Number(row['impuesto']);					 
+					 preciop=Number(row['precio']);
+				     precio=Number(preciocdesc)*(1+(Number(row['impuesto'])/100));				 
+					 parcial=precio*cantidad;
+					 total+=Number(parcial);			  */
+			  });//.each	
+			  var longitud=detalles.length; var cadena=detalles.substr(0,(longitud-1));				
+			  cadena=cadena+']';
+			  alert(cadena);
+				
+			
+	   }//function exito
+ 		
+	function errorconsulta(err) {
+    	alert("Error SQL al llenar ficha de articulo: "+err.code+err.message);
+	}
 	base.transaction(consulta, errorconsulta,function(){
 		    alert(cadena);
 			$.getJSON(direccion, {numruta:ruta,datos:cadena})
@@ -960,43 +994,6 @@ function enviadatos(ruta,direccion){
 		
 		
 	});
-	
-	
-	
-		
-	function consulta(tx) {
-		var sql='SELECT num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max ';						
-			sql+='FROM DETPEDIDO ';
-			sql+=' WHERE doc_pro="null" order by num_ped';			
-		tx.executeSql(sql,[],exito,errorconsulta);
-		}
-		
-		function exito(tx,results){ 
-				
-			  $.each(results.rows,function(index){				  
-				  var row = results.rows.item(index); 
-				  detalles += '{"num_ped":"'+row['num_ped']+'", "cod_art":"'+row['cod_art']+'","mon_prc_mn" : "'+row['mon_prc_mn']+'", "por_dsc_ap" : "'+row['por_dsc_ap']+'", "mon_tot" : "'+row['mon_tot']+'", "mon_dsc" : "'+row['mon_dsc']+'", "mon_prc_mx" : "'+row['mon_prc_mx']+'","cnt_max" : "'+row['cnt_max']+'"},';
-				  
-				  
-					/* cantidad=Number(row['cantidad']);							 			 
-				     preciocdesc=Number(row['precio'])-((Number(row['precio'])/100)*Number(row['descuento']));				     			     
-				     descuento=Number(row['descuento']);
-					 iva=Number(row['impuesto']);					 
-					 preciop=Number(row['precio']);
-				     precio=Number(preciocdesc)*(1+(Number(row['impuesto'])/100));				 
-					 parcial=precio*cantidad;
-					 total+=Number(parcial);			  */
-			  });//.each	
-			  var longitud=detalles.length; var cadena=detalles.substr(0,(longitud-1));				
-			  cadena=cadena+']';
-			  alert(cadena);
-				
-			
-	   }//function exito
- 		
-	function errorconsulta(err) {
-    	alert("Error SQL al llenar ficha de articulo: "+err.code+err.message);
-	}
 //  });	
 	return false;
 	
