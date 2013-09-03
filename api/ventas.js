@@ -713,7 +713,7 @@ function guardadetpedido(query,total){
 		   navigator.notification.alert('Venta Guardada',null,'Guardar Venta','Aceptar');										 });
 		  				
     	function insertadet(tx) {		
-		//alert('entra a modificar detallefactura cantidad: '+cantidad);		
+		alert('entra ainsertadet');		
 			for (var i = 0, long = query.length; i < long; i++) {   									   								
 				alert(query[i]);
 				tx.executeSql(query[i]); 						   
