@@ -915,3 +915,91 @@ return false;
 		
 		//if(respuestaServer.validacion == "ok"){
 }
+function enviadatos(ruta,direccion){
+//alert(direccion);
+//	var datosPassword = $("#regEmail").val()
+	
+  	//archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback=?"
+	//archivoValidacion ="http://aplicacion.netai.net/index.php?jsoncallback=?"	
+	//var archivoValidacion ="http://192.168.3.46/prueba.php?jsoncallback=?";
+	var bodega='G01';
+	
+	var detalles='[';
+	var cadena='';
+	base.transaction(consulta, errorconsulta,function(){
+			$.getJSON(direccion, {numruta:ruta,datos:cadena})
+	.done(function(data) {
+		
+		 var query=[];
+		 /*
+		 var clientes = data.clientes;
+	     var diasruta = data.diasruta;
+		 var fpen = data.facpen;
+		 var art= data.articulos;
+		 var exis= data.existencias;
+         var parametros= data.param;
+		 
+		 var encfac= data.devocab;
+		 var detfac= data.devodet;*/
+		 var i=0;
+		$.each(data, function(key, val) {    
+			alert(key + ' ' + val['num_ped'] );  
+			//query[i]='INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("'+val['nombre']+'", "'+val['cliente']+'","Lunes","'+val['direccion']+'","'+val['telefono']+'","'+val['categoria']+'","'+val['diascredito']+'",'+val['limite']+','+val['saldo']+')';
+			i++;
+		});
+	})	
+	.fail(function( jqxhr, textStatus, error ) {
+	
+	 	 var err = textStatus + ', ' + error;
+			 alert( jqxhr.responseText);
+ 		 alert( "Request Failed: " + err);
+
+	});	
+		
+		
+	});
+	
+	
+	
+		
+	function consulta(tx) {
+		var sql='SELECT num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max ';						
+			sql+='FROM DETPEDIDO ';
+			sql+=' WHERE doc_pro="null" order by num_ped';			
+		tx.executeSql(sql,[],exito,errorconsulta);
+		}
+		
+		function exito(tx,results){ 
+				
+			  $.each(results.rows,function(index){				  
+				  var row = results.rows.item(index); 
+				  detalles += '{"num_ped":"'+row['num_ped']+'", "cod_art":"'+row['cod_art']+'","mon_prc_mn" : "'+row['mon_prc_mn']+'", "por_dsc_ap" : "'+row['por_dsc_ap']+'", "mon_tot" : "'+row['mon_tot']+'", "mon_dsc" : "'+row['mon_dsc']+'", "mon_prc_mx" : "'+row['mon_prc_mx']+'","cnt_max" : "'+row['cnt_max']+'"},';
+				  
+				  
+					/* cantidad=Number(row['cantidad']);							 			 
+				     preciocdesc=Number(row['precio'])-((Number(row['precio'])/100)*Number(row['descuento']));				     			     
+				     descuento=Number(row['descuento']);
+					 iva=Number(row['impuesto']);					 
+					 preciop=Number(row['precio']);
+				     precio=Number(preciocdesc)*(1+(Number(row['impuesto'])/100));				 
+					 parcial=precio*cantidad;
+					 total+=Number(parcial);			  */
+			  });//.each	
+			  var longitud=detalles.length; var cadena=detalles.substr(0,(longitud-1));				
+			  cadena=cadena+']';
+			  alert(cadena);
+				
+			
+	   }//function exito
+ 		
+	function errorconsulta(err) {
+    	alert("Error SQL al llenar ficha de articulo: "+err.code+err.message);
+	}
+//  });	
+	return false;
+	
+		//alert(respuestaServer.mensaje + "\nGenerado en: " + respuestaServer.hora + "\n" +respuestaServer.generador)		
+		//alert(respuestaServer.Numreporte)
+		
+		//if(respuestaServer.validacion == "ok"){
+}
