@@ -941,9 +941,10 @@ function enviadatos(ruta,direccion){
 		 
 		 var encfac= data.devocab;
 		 var detfac= data.devodet;*/
+		 var pedidos = data.pedido;
 		 var i=0;
-		$.each(data, function(key, val) {    
-			alert(key + ' ' + val['num_ped'] );  
+		$.each(pedidos, function(key, val) {    
+			alert(key + ' ' + val['campo1'] );  
 			//query[i]='INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("'+val['nombre']+'", "'+val['cliente']+'","Lunes","'+val['direccion']+'","'+val['telefono']+'","'+val['categoria']+'","'+val['diascredito']+'",'+val['limite']+','+val['saldo']+')';
 			i++;
 		});
