@@ -952,8 +952,8 @@ function enviadatos(ruta,direccion){
 			  });//.each	
 			  var longitud=detalles.length; var cadena=detalles.substr(0,(longitud-1));				
 			  cadena=cadena+']';
-			  query[0]=cadena;
-			  alert(query[0]);
+			  window.localStorage.setItem("pedidos",cadena);
+			  alert(cadena);
 				
 			
 	   }//function exito
@@ -961,9 +961,10 @@ function enviadatos(ruta,direccion){
 	function errorconsulta(err) {
     	alert("Error SQL al llenar ficha de articulo: "+err.code+err.message);
 	}
-	base.transaction(consulta, errorconsulta,function(query){
-		    alert('cadena '+query[0]);
-			$.getJSON(direccion, {numruta:ruta,datos:query[0]})
+	base.transaction(consulta, errorconsulta,function(){
+		   var pedidos=window.localStorage.getItem("pedidos");
+		   alert('pedidos '+pedidos);
+			$.getJSON(direccion, {numruta:ruta,datos:pedidos})
 	.done(function(data) {
 		
 		
