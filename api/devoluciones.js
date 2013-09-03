@@ -215,6 +215,7 @@ var devolucion=inicial+pad(incremetard,6);
  //alert(devolucion); 
  var querydev=[];
  var i=0;
+ var linea=1;
    function pad(n, length){
 	//   alert('entra a funcion'+n); 
   	 n = n.toString();
@@ -257,7 +258,7 @@ var devolucion=inicial+pad(incremetard,6);
 		     i++;
 			 
 			 if (cargovendedor=='S') {
-			   querydev[i]='INSERT INTO DETPEDIDO (num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max,doc_pro) VALUES("'+pedido+'","'+articulo+'",'+precio+','+pordesc+','+totalinea.toFixed(2)+','+montodesc.toFixed(2)+','+precio+','+cantidad+',"null")'; 	 
+			   querydev[i]='INSERT INTO DETPEDIDO (linea,num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max) VALUES('+linea+',"'+pedido+'","'+articulo+'",'+precio+','+pordesc+','+totalinea.toFixed(2)+','+montodesc.toFixed(2)+','+precio+','+cantidad+')'; 	 
 				i++; 
 			 }
 			 else{
@@ -266,7 +267,7 @@ var devolucion=inicial+pad(incremetard,6);
 			 }
 			 //actexis(articulo,cantidad);
 			 //alert('despues de llamar a funcion guardadev');
-			
+			linea++;
 		 	});//each
 			//alert('antes de llamar a funcion guardaencdev');
 			querydev[i]='INSERT INTO ENCDEV (num_dev,cod_zon,cod_clt,hor_ini,hor_fin,fec_dev,obs_dev,num_itm,est_dev,mon_siv,mon_dsc,por_dsc_ap,mon_imp_vt,mon_imp_cs,cod_bod,impreso,num_ref) VALUES("'+devolucion+'","'+ruta+'","'+cliente+'","'+horaini+'","'+horafin+'","'+fechadev+'","'+observagen+'",'+renglones+',"A",'+sumtotlinea.toFixed(2)+',0,0,'+sumivalinea.toFixed(2)+',0,"'+bodega+'","N","'+factura+'")'; 
