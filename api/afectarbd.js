@@ -930,7 +930,7 @@ function enviadatos(ruta,direccion){
 	function consulta(tx) {
 		var sql='SELECT linea,num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max ';						
 			sql+='FROM DETPEDIDO ';
-			sql+=' WHERE doc_pro is null order by num_ped';			
+			sql+=' WHERE doc_pro=null order by num_ped';			
 		tx.executeSql(sql,[],exito,errorconsulta);
 		}
 		
@@ -959,7 +959,7 @@ function enviadatos(ruta,direccion){
 	   }//function exito
  		
 	function errorconsulta(err) {
-    	alert("Error SQL al llenar ficha de articulo: "+err.code+err.message);
+    	alert("Error SQL al obtener detalle pedido para enviar: "+err.code+err.message);
 	}
 	base.transaction(consulta, errorconsulta,function(){
 		   var pedidos=window.localStorage.getItem("pedidos");
