@@ -925,7 +925,7 @@ function enviadatos(ruta,direccion){
 	var bodega='G01';
 	
 	var detalles='[';
-	var cadena='';
+	cadena='';
 	
 	function consulta(tx) {
 		var sql='SELECT num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max ';						
@@ -961,7 +961,7 @@ function enviadatos(ruta,direccion){
     	alert("Error SQL al llenar ficha de articulo: "+err.code+err.message);
 	}
 	base.transaction(consulta, errorconsulta,function(){
-		    alert(cadena);
+		    alert('cadena '+cadena);
 			$.getJSON(direccion, {numruta:ruta,datos:cadena})
 	.done(function(data) {
 		
