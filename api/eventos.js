@@ -21,8 +21,8 @@ $(document).ready(function() {
 	//obtenerconse();//funcion que almacena localmente los consecutivos de documentos actuales.funcion en configuraciones.js
 	window.localStorage.setItem("saldo",0);	
 	window.localStorage.setItem("clave",'');	
-	window.localStorage.setItem("ruta","S08");
-	window.localStorage.setItem("bodega","G01");
+	window.localStorage.setItem("ruta","S04");
+	window.localStorage.setItem("bodega","K01");
 	window.localStorage.setItem("sioperacion",'');
 	window.localStorage.setItem("vendedor",'9999');	
 	document.addEventListener("backbutton", function(){
