@@ -406,8 +406,9 @@ $("#bcatalogo").tap(function(){
 $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
                  //var clavecli = $(this).attr("id");
 				 //muestra el pedido 
+				var bodega=window.localStorage.getItem("bodega");	 
      			var criterio=$('#buscaart').val();			  				
-				armacatalogo(criterio);				  
+				armacatalogo(criterio,bodega);				  
 				  
 });	
 

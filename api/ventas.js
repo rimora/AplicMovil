@@ -314,7 +314,7 @@ function mostrarpedido(cliente){
 //  });	
 
   }//mostrarpedido
- function armacatalogo(criterio){
+ function armacatalogo(criterio,bodega){
  // $('#pclientes').live('pageshow',function(event, ui){
 		//alert('This page was just hidden: '+ ui.prevPage);		
 		//var db = window.openDatabase("Database", "1.0", "SARDEL", 1000000);		
@@ -324,7 +324,7 @@ function mostrarpedido(cliente){
 	function poblarcat(tx){  	        
 			var sql='SELECT a.articulo,a.descripcion,a.descuento,b.existencia as ebodega,c.existencia as ealg,';			
 			sql+='a.precio,a.clas,a.accion,a.laboratorio,a.sal ';
-			sql+='FROM articulo a left outer join articulo_existencia b on b.articulo=a.articulo and b.bodega="G01" ';
+			sql+='FROM articulo a left outer join articulo_existencia b on b.articulo=a.articulo and b.bodega="'+bodega+'" ';
 			sql+=' left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="ALG" where a.articulo LIKE "%'+criterio+'%"';
 			sql+=' or a.descripcion like "%'+criterio+'%" or a.clas like "%'+criterio+'%" or a.accion like "%'+criterio+'%" or a.laboratorio like "%'+criterio+'%" ';
 			sql+=' or a.sal like "%'+criterio+'%" order by a.descripcion';
@@ -333,8 +333,7 @@ function mostrarpedido(cliente){
 			sql+='a.precio,a.laboratorio,a.sal ';
 			sql+='FROM articulo a left outer join articulo_existencia b on b.articulo=a.articulo and b.bodega="K01" ';
 			sql+=' left outer join articulo_existencia c on c.articulo=a.articulo and c.bodega="ALG" order by a.descripcion';*/
-			//alert('despues del sql armacatalogo');        			
-			
+			//alert('despues del sql armacatalogo');
 		    tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error select catalogo: "+sql+err.code+err.message);
          	});    	
