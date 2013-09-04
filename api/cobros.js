@@ -407,7 +407,7 @@ var query=[]; var i=0;
 		 	});
 			//alert(cliente+','+tipo+','+ruta+','+recibo+','+horaini+','+horafin+','+estado+','+monche.toFixed(2)+','+monefe.toFixed(2)+','+totalrecibo.toFixed(2));
 			 //guardaenccob(cliente,tipo,ruta,recibo,horaini,horafin,estado,monche.toFixed(2),monefe.toFixed(2),totalrecibo.toFixed(2));
-			 query[i]='INSERT INTO ENCOBROS (cliente,tipo,ruta,recibo,hor_ini,hor_fin,impreso,estado,monche,monefe,mondoc,ind_anl) VALUES("'+cliente+'","'+tipo+'","'+ruta+'","'+conserecibo+'","'+horaini+'","'+horafin+'","N","'+estado+'",'+monche.toFixed(2)+','+monefe.toFixed(2)+','+totalrecibo.toFixed(2)+',"A")';
+			 query[i]='INSERT INTO ENCOBROS (cliente,tipo,ruta,recibo,hor_ini,hor_fin,impreso,estado,monche,monefe,mondoc) VALUES("'+cliente+'","'+tipo+'","'+ruta+'","'+conserecibo+'","'+horaini+'","'+horafin+'","N","'+estado+'",'+monche.toFixed(2)+','+monefe.toFixed(2)+','+totalrecibo.toFixed(2)+')';
 			 i++;
 			 query[i]='UPDATE CHEQUES SET recibo="'+conserecibo+'" where recibo="99999" and cliente="'+cliente+'"';
 			 i++;							
