@@ -67,7 +67,7 @@ consultadb().transaction(creartb, errorCB, successCB);
          tx.executeSql('CREATE TABLE IF NOT EXISTS DETPEDIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, linea,num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max,doc_pro)'); 
 		  tx.executeSql('CREATE TABLE IF NOT EXISTS ENCDEV (id INTEGER PRIMARY KEY AUTOINCREMENT, num_dev,cod_zon,cod_clt,hor_ini,hor_fin,fec_dev,obs_dev,num_itm,est_dev,doc_pro,mon_siv,mon_dsc,por_dsc_ap,mon_imp_vt,mon_imp_cs,cod_bod,impreso,num_ref)'); 
          tx.executeSql('CREATE TABLE IF NOT EXISTS DETDEV  (id INTEGER PRIMARY KEY AUTOINCREMENT, num_dev,cod_zon,cod_art,ind_dev,mon_tot,mon_prc_mx,mon_prc_mn,cnt_max,obs_dev,mon_dsc,por_dsc_ap)'); 
-		 tx.executeSql('CREATE TABLE IF NOT EXISTS ENCOBROS (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente,tipo,ruta,recibo,doc_pro,fec_pro,hor_ini,hor_fin,impreso,estado,monche,monefe,mondoc,depositado)'); 
+		 tx.executeSql('CREATE TABLE IF NOT EXISTS ENCOBROS (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente,tipo,ruta,recibo,doc_pro,fec_pro,hor_ini,hor_fin,impreso,estado,monche,monefe,mondoc,depositado,ind_anl)'); 
 		  tx.executeSql('CREATE TABLE IF NOT EXISTS DETCOBROS (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente,tipo,tipoaso,ruta,recibo,docafectado,doc_pro,fec_pro,estado,monto,saldo_doc)'); 
 		  tx.executeSql('CREATE TABLE IF NOT EXISTS ENCDEP (id INTEGER PRIMARY KEY AUTOINCREMENT, codigo,cuenta,deposito,doc_pro,fec_dep,mon_dep,obs)'); 
 		  tx.executeSql('CREATE TABLE IF NOT EXISTS DETDEP (id INTEGER PRIMARY KEY AUTOINCREMENT, monche,monefe,deposito,recibo,obs)'); 
@@ -541,7 +541,7 @@ function guardaenccob(cliente,tipo,ruta,recibo,horaini,horafin,estado,monche,mon
 				
     	function insertadet(tx) {		
 		//alert('entra a modificar detallefactura cantidad: '+cantidad);				
-			tx.executeSql('INSERT INTO ENCOBROS (cliente,tipo,ruta,recibo,hor_ini,hor_fin,impreso,estado,monche,monefe,mondoc) VALUES("'+cliente+'","'+tipo+'","'+ruta+'","'+recibo+'","'+horaini+'","'+horafin+'","N","'+estado+'",'+monche+','+monefe+','+totalrecibo+')'); 
+			tx.executeSql('INSERT INTO ENCOBROS (cliente,tipo,ruta,recibo,hor_ini,hor_fin,impreso,estado,monche,monefe,mondoc,ind_anl) VALUES("'+cliente+'","'+tipo+'","'+ruta+'","'+recibo+'","'+horaini+'","'+horafin+'","N","'+estado+'",'+monche+','+monefe+','+totalrecibo+',"A")'); 
 		}
 	
 }//function guardaenccob
@@ -934,8 +934,14 @@ function enviadatos(ruta,direccion){
 		var sql2='SELECT num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,num_itm,obs_ped,estado,cod_cnd,cod_bod,dir_ent ';						
 			sql2+='FROM ENCPEDIDO ';
 			sql2+=' WHERE doc_pro is null order by num_ped';			
+		var sql3='SELECT recibo,tipo,ruta,cliente,fec_pro,ind_anl,mondoc,monefe,monche,hor_ini,hor_fin,impreso ';						
+			sql3+='FROM ENCOBROS ';
+			sql3+=' WHERE doc_pro is null order by recibo';	
+
+
 		tx.executeSql(sql,[],detallesped,errorconsulta);
 		tx.executeSql(sql2,[],cabeceraped,errorconsulta);
+		tx.executeSql(sql3,[],cabeceracob,errorconsulta);
 		}
 		
 		function detallesped(tx,results){	
@@ -947,7 +953,7 @@ function enviadatos(ruta,direccion){
 			  var longitud=detalles.length; detalles=detalles.substr(0,(longitud-1));				
 			  detalles=detalles+']';
 			  window.localStorage.setItem("pedidosdet",detalles);
-			  alert(detalles);
+			  //alert(detalles);
 	    }//function detallesped
 	    function cabeceraped(tx,results){				
 				var detalles='[';			
@@ -958,7 +964,19 @@ function enviadatos(ruta,direccion){
 			  var longitud=detalles.length; detalles=detalles.substr(0,(longitud-1));				
 			  detalles=detalles+']';
 			  window.localStorage.setItem("pedidoscab",detalles);
-			  alert(detalles);
+			  //alert(detalles);
+	    }//function detallesped
+		 function cabeceracob(tx,results){				
+				var detalles='[';			
+			  $.each(results.rows,function(index){				  
+				  var row = results.rows.item(index); 
+				  recibo,tipo,ruta,cliente,fec_pro,mondoc,monefe,monche,hor_ini,hor_fin,impreso
+				  detalles += '{"num_rec":"'+row['recibo']+'", "cod_tip_dc":"'+row['tipo']+'","cod_zon" : "'+row['ruta']+'", "cod_clt" : "'+row['cliente']+'","fec_pro" : "'+row['fec_pro']+'","ind_anl" : "'+row['ind_anl']+'","mon_doc_loc" : "'+row['mondoc']+'", "mon_efe_local" : "'+row['monefe']+'", "mon_che_local" : "'+row['monche']+'","hor_ini" : "'+row['hor_ini']+'","hor_fin" : "'+row['hor_fin']+'","impreso" : "'+row['impreso']+'"},';  
+			  });//.each	
+			  var longitud=detalles.length; detalles=detalles.substr(0,(longitud-1));				
+			  detalles=detalles+']';
+			  window.localStorage.setItem("cobroscab",detalles);
+			  //alert(detalles);
 	    }//function detallesped
  		
 	function errorconsulta(err) {
@@ -967,9 +985,11 @@ function enviadatos(ruta,direccion){
 	base.transaction(consulta, errorconsulta,function(){
 		   var pedidosdet=window.localStorage.getItem("pedidosdet");
 		   var pedidoscab=window.localStorage.getItem("pedidoscab");
+		   var cobroscab=window.localStorage.getItem("cobroscab");
 		   alert('pedidos detalle: '+pedidosdet);
 		   alert('pedidos cabecera: '+pedidoscab);
-			$.getJSON(direccion, {numruta:ruta,peddet:pedidosdet,pedcab:pedidoscab})
+		   alert('cobros cabecera: '+cobroscab);
+			$.getJSON(direccion, {numruta:ruta,peddet:pedidosdet,pedcab:pedidoscab,cobcab:cobroscab})
 	.done(function(data) {
 		
 		
@@ -986,7 +1006,7 @@ function enviadatos(ruta,direccion){
 		 var pedidos = data.resultado;
 		 var i=0;
 		$.each(pedidos, function(key, val) {    
-			alert(key + ' ' + val['conexion'] +' peddet '+val['respeddet'] +' pedcab '+val['respedcab'] );  
+			alert(key + ' ' + val['conexion'] +' peddet '+val['respeddet'] +' pedcab '+val['respedcab']+' cobcab '+val['rescobcab'] );  
 			//query[i]='INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("'+val['nombre']+'", "'+val['cliente']+'","Lunes","'+val['direccion']+'","'+val['telefono']+'","'+val['categoria']+'","'+val['diascredito']+'",'+val['limite']+','+val['saldo']+')';
 			i++;
 		});
