@@ -397,17 +397,18 @@ var query=[]; var i=0;
 			 var factura=row['factura'];//factura afectada 
 			 var saldo=row['saldo'];//saldo de la factura sin aplicar el abono
 			 var saldo_doc=Number(saldo)-Number(monto);//saldo nuevo de la factura
-			 
+			 var ffac=row['fecha'].split("/");//viene en formato dd/mm/yyyy
+			 var fec_doc=ffac[2]+'-'+ffac[1]+'-'+ffac[0];
 			 totalrecibo+=monto;//suma de los abonos a facturas			
 			 //guardadetcob(cliente,tipo,tipoaso,ruta,recibo,factura,estado,monto.toFixed(2),saldo_doc.toFixed(2));
-			 query[i]='INSERT INTO DETCOBROS (cliente,tipo,tipoaso,ruta,recibo,docafectado,estado,monto,saldo_doc) VALUES("'+cliente+'","'+tipo+'","'+tipoaso+'","'+ruta+'","'+conserecibo+'","'+factura+'","'+estado+'",'+monto.toFixed(2)+','+saldo_doc.toFixed(2)+')';
+			 query[i]='INSERT INTO DETCOBROS (cliente,tipo,tipoaso,ruta,recibo,docafectado,estado,monto,saldo_doc,fec_doc,fec_pro) VALUES("'+cliente+'","'+tipo+'","'+tipoaso+'","'+ruta+'","'+conserecibo+'","'+factura+'","'+estado+'",'+monto.toFixed(2)+','+saldo_doc.toFixed(2)+',"'+fec_doc+'","'+fecharec+'")';
 			 i++;
 			 query[i]='UPDATE PENCOBRO SET saldo='+saldo_doc+' where documento="'+factura+'"';
 			 i++;				 
 		 	});
 			//alert(cliente+','+tipo+','+ruta+','+recibo+','+horaini+','+horafin+','+estado+','+monche.toFixed(2)+','+monefe.toFixed(2)+','+totalrecibo.toFixed(2));
 			 //guardaenccob(cliente,tipo,ruta,recibo,horaini,horafin,estado,monche.toFixed(2),monefe.toFixed(2),totalrecibo.toFixed(2));
-			 query[i]='INSERT INTO ENCOBROS (cliente,tipo,ruta,recibo,hor_ini,hor_fin,impreso,estado,monche,monefe,mondoc) VALUES("'+cliente+'","'+tipo+'","'+ruta+'","'+conserecibo+'","'+horaini+'","'+horafin+'","N","'+estado+'",'+monche.toFixed(2)+','+monefe.toFixed(2)+','+totalrecibo.toFixed(2)+')';
+			 query[i]='INSERT INTO ENCOBROS (cliente,tipo,ruta,recibo,fec_pro,hor_ini,hor_fin,impreso,estado,monche,monefe,mondoc) VALUES("'+cliente+'","'+tipo+'","'+ruta+'","'+conserecibo+'","'+horaini+'","'+horaini+'","'+horafin+'","N","'+estado+'",'+monche.toFixed(2)+','+monefe.toFixed(2)+','+totalrecibo.toFixed(2)+')';
 			 i++;
 			 query[i]='UPDATE CHEQUES SET recibo="'+conserecibo+'" where recibo="99999" and cliente="'+cliente+'"';
 			 i++;							
@@ -415,7 +416,7 @@ var query=[]; var i=0;
 		  }//if (results.rows.length>0){		  
  	}//function listo(tx,results){ 
 	function consultatemp(tx){ 
-				  var sql='SELECT a.factura,a.abonado,b.saldo ';
+				  var sql='SELECT a.factura,a.abonado,b.saldo,b.fecha ';
 	  			  sql+='FROM TEMCOBROS a left outer join PENCOBRO b on b.documento=a.factura ';					  
 				  sql+=' where a.abonado > 0 ';								
 								

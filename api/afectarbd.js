@@ -68,7 +68,7 @@ consultadb().transaction(creartb, errorCB, successCB);
 		  tx.executeSql('CREATE TABLE IF NOT EXISTS ENCDEV (id INTEGER PRIMARY KEY AUTOINCREMENT, num_dev,cod_zon,cod_clt,hor_ini,hor_fin,fec_dev,obs_dev,num_itm,est_dev,doc_pro,mon_siv,mon_dsc,por_dsc_ap,mon_imp_vt,mon_imp_cs,cod_bod,impreso,num_ref)'); 
          tx.executeSql('CREATE TABLE IF NOT EXISTS DETDEV  (id INTEGER PRIMARY KEY AUTOINCREMENT, num_dev,cod_zon,cod_art,ind_dev,mon_tot,mon_prc_mx,mon_prc_mn,cnt_max,obs_dev,mon_dsc,por_dsc_ap)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS ENCOBROS (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente,tipo,ruta,recibo,doc_pro,fec_pro,hor_ini,hor_fin,impreso,estado,monche,monefe,mondoc,depositado)'); 
-		  tx.executeSql('CREATE TABLE IF NOT EXISTS DETCOBROS (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente,tipo,tipoaso,ruta,recibo,docafectado,doc_pro,fec_pro,estado,monto,saldo_doc)'); 
+		  tx.executeSql('CREATE TABLE IF NOT EXISTS DETCOBROS (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente,tipo,tipoaso,ruta,recibo,docafectado,doc_pro,fec_pro,estado,monto,saldo_doc,fec_doc)'); 
 		  tx.executeSql('CREATE TABLE IF NOT EXISTS ENCDEP (id INTEGER PRIMARY KEY AUTOINCREMENT, codigo,cuenta,deposito,doc_pro,fec_dep,mon_dep,obs)'); 
 		  tx.executeSql('CREATE TABLE IF NOT EXISTS DETDEP (id INTEGER PRIMARY KEY AUTOINCREMENT, monche,monefe,deposito,recibo,obs)'); 
 		  tx.executeSql('CREATE TABLE IF NOT EXISTS NOTASCOB (id INTEGER PRIMARY KEY AUTOINCREMENT, factura,nota)'); 
@@ -939,7 +939,7 @@ function enviadatos(ruta,direccion){
 			sql3+='FROM ENCOBROS ';
 			sql3+=' WHERE doc_pro is null order by recibo';	
 			alert('despues sql3 '+sql3);			
-		var sql4='SELECT tipo,ruta,recibo,tipoaso,docafectado,cliente,fec_pro,estado,monto,saldo_doc ';						
+		var sql4='SELECT tipo,ruta,recibo,tipoaso,docafectado,cliente,fec_doc,fec_pro,estado,monto,saldo_doc ';						
 			sql4+='FROM DETCOBROS ';
 			sql4+=' WHERE doc_pro is null order by recibo';		
 			alert('despues sql4 '+sql4);
@@ -988,7 +988,7 @@ function enviadatos(ruta,direccion){
 				var detalles='[';			
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				  
-				  detalles += '{"cod_tip_dc":"'+row['tipo']+'", "cod_zon":"'+row['ruta']+'","num_rec" : "'+row['recibo']+'", "cod_tip_da" : "'+row['tipoaso']+'","num_doc_af" : "'+row['docafectado']+'","cod_clt" : "'+row['cliente']+'","fec_doc" : "'+row['fec_pro']+'", "ind_anl" : "'+row['estado']+'", "mon_mov_local" : "'+row['monto']+'","mon_sal_loc" : "'+row['saldo_doc']+'"},';  
+				  detalles += '{"cod_tip_dc":"'+row['tipo']+'", "cod_zon":"'+row['ruta']+'","num_rec" : "'+row['recibo']+'", "cod_tip_da" : "'+row['tipoaso']+'","num_doc_af" : "'+row['docafectado']+'","cod_clt" : "'+row['cliente']+'","fec_doc" : "'+row['fec_doc']+'","fec_pro" : "'+row['fec_pro']+'", "ind_anl" : "'+row['estado']+'", "mon_mov_local" : "'+row['monto']+'","mon_sal_loc" : "'+row['saldo_doc']+'"},';  
 			  });//.each	
 			  var longitud=detalles.length; detalles=detalles.substr(0,(longitud-1));				
 			  detalles=detalles+']';
