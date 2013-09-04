@@ -53,7 +53,7 @@ consultadb().transaction(creartb, errorCB, successCB);
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS VISITA (id INTEGER PRIMARY KEY AUTOINCREMENT,cliente,doc_pro,fecha_plan,fin,inicio,notas,razon,ruta,tipo)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS CUENTASB (id INTEGER PRIMARY KEY AUTOINCREMENT, codigo TEXT NOT NULL,descripcion)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS CUENTASDEP (id INTEGER PRIMARY KEY AUTOINCREMENT, codigo TEXT NOT NULL,cuenta,descripcion)'); 
-         tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL,direccion TEXT NOT NULL,telefono TEXT NOT NULL,tipo TEXT NOT NULL,diasc TEXT NOT NULL,lcredito,saldo )'); 
+         tx.executeSql('CREATE TABLE IF NOT EXISTS CLIENTES (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT NOT NULL, clave TEXT NOT NULL,dia TEXT NOT NULL,direccion TEXT NOT NULL,telefono TEXT NOT NULL,tipo TEXT NOT NULL,diasc TEXT NOT NULL,lcredito,saldo,dir_ent)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS PENCOBRO (id INTEGER PRIMARY KEY AUTOINCREMENT, documento TEXT NOT NULL,cliente TEXT NOT NULL,saldo,monto,fecha,fechaven)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMPEDIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,cantidad,cliente)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS TEMFACTURA (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,cantidad,cliente)'); 
@@ -63,7 +63,7 @@ consultadb().transaction(creartb, errorCB, successCB);
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS ARTICULO (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,descripcion,clas,accion,impuesto,precio,descuento,laboratorio,sal,ubi,categoria)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS ARTICULO_EXISTENCIA (id INTEGER PRIMARY KEY AUTOINCREMENT, articulo TEXT NOT NULL,bodega TEXT NOT NULL,existencia)'); 
 		 tx.executeSql('CREATE TABLE IF NOT EXISTS SUGERIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, cliente TEXT NOT NULL,articulo TEXT NOT NULL,cantidad)'); 
-         tx.executeSql('CREATE TABLE IF NOT EXISTS ENCPEDIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, num_ped,cod_zon,doc_pro,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,obs_ped,estado,cod_cnd,cod_bod)'); 
+         tx.executeSql('CREATE TABLE IF NOT EXISTS ENCPEDIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, num_ped,cod_zon,doc_pro,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,num_itm,obs_ped,estado,cod_cnd,cod_bod,dir_ent)'); 
          tx.executeSql('CREATE TABLE IF NOT EXISTS DETPEDIDO (id INTEGER PRIMARY KEY AUTOINCREMENT, linea,num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max,doc_pro)'); 
 		  tx.executeSql('CREATE TABLE IF NOT EXISTS ENCDEV (id INTEGER PRIMARY KEY AUTOINCREMENT, num_dev,cod_zon,cod_clt,hor_ini,hor_fin,fec_dev,obs_dev,num_itm,est_dev,doc_pro,mon_siv,mon_dsc,por_dsc_ap,mon_imp_vt,mon_imp_cs,cod_bod,impreso,num_ref)'); 
          tx.executeSql('CREATE TABLE IF NOT EXISTS DETDEV  (id INTEGER PRIMARY KEY AUTOINCREMENT, num_dev,cod_zon,cod_art,ind_dev,mon_tot,mon_prc_mx,mon_prc_mn,cnt_max,obs_dev,mon_dsc,por_dsc_ap)'); 
@@ -659,7 +659,7 @@ function cargaclientes(ruta,direccion){
 		 var i=0;
 		$.each(clientes, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] );  
-			query[i]='INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("'+val['nombre']+'", "'+val['cliente']+'","Lunes","'+val['direccion']+'","'+val['telefono']+'","'+val['categoria']+'","'+val['diascredito']+'",'+val['limite']+','+val['saldo']+')';
+			query[i]='INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo,dir_ent) VALUES ("'+val['nombre']+'", "'+val['cliente']+'","Lunes","'+val['direccion']+'","'+val['telefono']+'","'+val['categoria']+'","'+val['diascredito']+'",'+val['limite']+','+val['saldo']+',"'+val['dir_ent']+'")';
 			i++;
 		});
 		//alert('procesando diascliente');
@@ -924,47 +924,52 @@ function enviadatos(ruta,direccion){
 	//var archivoValidacion ="http://192.168.3.46/prueba.php?jsoncallback=?";
 	var bodega='G01';
 	
-	var detalles='[';
+	
 	var query=[];
 	
 	function consulta(tx) {
 		var sql='SELECT linea,num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max ';						
 			sql+='FROM DETPEDIDO ';
 			sql+=' WHERE doc_pro is null order by num_ped';			
-		tx.executeSql(sql,[],exito,errorconsulta);
+		var sql2='SELECT num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,num_itm,obs_ped,estado,cod_cnd,cod_bod,dir_ent ';						
+			sql2+='FROM ENCPEDIDO ';
+			sql2+=' WHERE doc_pro is null order by num_ped';			
+		tx.executeSql(sql,[],detallesped,errorconsulta);
+		tx.executeSql(sql2,[],cabeceraped,errorconsulta);
 		}
 		
-		function exito(tx,results){ 
-				
+		function detallesped(tx,results){	
+			  var detalles='[';			
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 
 				  detalles += '{"linea":"'+row['linea']+'","num_ped":"'+row['num_ped']+'", "cod_art":"'+row['cod_art']+'","mon_prc_mn" : "'+row['mon_prc_mn']+'", "por_dsc_ap" : "'+row['por_dsc_ap']+'", "mon_tot" : "'+row['mon_tot']+'", "mon_dsc" : "'+row['mon_dsc']+'", "mon_prc_mx" : "'+row['mon_prc_mx']+'","cnt_max" : "'+row['cnt_max']+'"},';
-				  
-				  
-					/* cantidad=Number(row['cantidad']);							 			 
-				     preciocdesc=Number(row['precio'])-((Number(row['precio'])/100)*Number(row['descuento']));				     			     
-				     descuento=Number(row['descuento']);
-					 iva=Number(row['impuesto']);					 
-					 preciop=Number(row['precio']);
-				     precio=Number(preciocdesc)*(1+(Number(row['impuesto'])/100));				 
-					 parcial=precio*cantidad;
-					 total+=Number(parcial);			  */
 			  });//.each	
-			  var longitud=detalles.length; var cadena=detalles.substr(0,(longitud-1));				
-			  cadena=cadena+']';
-			  window.localStorage.setItem("pedidos",cadena);
-			  alert(cadena);
-				
-			
-	   }//function exito
+			  var longitud=detalles.length; detalles=detalles.substr(0,(longitud-1));				
+			  detalles=detalles+']';
+			  window.localStorage.setItem("pedidosdet",detalles);
+			  alert(detalles);
+	    }//function detallesped
+	    function cabeceraped(tx,results){				
+				var detalles='[';			
+			  $.each(results.rows,function(index){				  
+				  var row = results.rows.item(index); 
+				  detalles += '{"num_ped":"'+row['num_ped']+'", "cod_zon":"'+row['cod_zon']+'","cod_clt" : "'+row['cod_clt']+'", "tip_doc" : "'+row['tip_doc']+'","hor_fin" : "'+row['hor_fin']+'", "fec_ped" : "'+row['fec_ped']+'", "fec_des" : "'+row['fec_des']+'", "mon_imp_vt" : "'+row['mon_imp_vt']+'","mon_civ" : "'+row['mon_civ']+'","mon_siv" : "'+row['mon_siv']+'","mon_dsc" : "'+row['mon_dsc']+'","num_itm" : "'+row['num_itm']+'","obs_ped" : "'+row['obs_ped']+'","estado" : "'+row['estado']+'","cod_cnd" : "'+row['cod_cnd']+'","cod_bod" : "'+row['cod_bod']+'","dir_ent" : "'+row['dir_ent']+'"},';
+			  });//.each	
+			  var longitud=detalles.length; detalles=detalles.substr(0,(longitud-1));				
+			  detalles=detalles+']';
+			  window.localStorage.setItem("pedidoscab",detalles);
+			  alert(detalles);
+	    }//function detallesped
  		
 	function errorconsulta(err) {
-    	alert("Error SQL al obtener detalle pedido para enviar: "+err.code+err.message);
+    	alert("Error SQL al obtener datos para enviar: "+err.code+err.message);
 	}
 	base.transaction(consulta, errorconsulta,function(){
-		   var pedidos=window.localStorage.getItem("pedidos");
-		   alert('pedidos '+pedidos);
-			$.getJSON(direccion, {numruta:ruta,datos:pedidos})
+		   var pedidosdet=window.localStorage.getItem("pedidosdet");
+		   var pedidoscab=window.localStorage.getItem("pedidoscab");
+		   alert('pedidos detalle: '+pedidosdet);
+		   alert('pedidos cabecera: '+pedidoscab);
+			$.getJSON(direccion, {numruta:ruta,peddet:pedidosdet,pedcab:pedidoscab})
 	.done(function(data) {
 		
 		
@@ -981,7 +986,7 @@ function enviadatos(ruta,direccion){
 		 var pedidos = data.pedido;
 		 var i=0;
 		$.each(pedidos, function(key, val) {    
-			alert(key + ' ' + val['resultado'] );  
+			alert(key + ' ' + val['conexion'] +' peddet '+val['respeddet'] +' pedcab '+val['respeddet'] );  
 			//query[i]='INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("'+val['nombre']+'", "'+val['cliente']+'","Lunes","'+val['direccion']+'","'+val['telefono']+'","'+val['categoria']+'","'+val['diascredito']+'",'+val['limite']+','+val['saldo']+')';
 			i++;
 		});

@@ -545,15 +545,15 @@ function fichaarticulo(articulo){//
 
   }//
 function guardarventa(cliente,obs,total){	
-var cabinsertada=false;
+var cabinsertada=false; var diascredito=window.localStorage.getItem("diascredito"); var direntrega=window.localStorage.getItem("direntrega");
 var sumtotlineaped=0; var summontodescped=0; var sumivalineaped=0; var sumtotal=0; var bodega=window.localStorage.getItem("bodega");
 var sumtotlineafac=0; var summontodescfac=0; var sumivalineafac=0; var sumtotalfac=0; var totalfactura=0;
-var consecutivo=window.localStorage.getItem("consepedido");
-var consefac=window.localStorage.getItem("consefactura");
+var consecutivo=window.localStorage.getItem("consepedido"); var consepedido=window.localStorage.getItem("consepedido");
+var consefac=window.localStorage.getItem("consefactura"); var consefactura=window.localStorage.getItem("consefactura");
 var ruta=window.localStorage.getItem("ruta"); var tipocliente=window.localStorage.getItem("tipocliente");
 var fecha = new Date();
-var fechaact=fecha.getFullYear()+"/"+(fecha.getMonth()+1)+"/"+fecha.getDate();
-var fechadmy=fecha.getDate()+'/'+(fecha.getMonth()+1)+'/'+fecha.getFullYear();
+var fechaact=fecha.getFullYear()+"-"+rellenar((fecha.getMonth()+1),2)+"-"+rellenar(fecha.getDate(),2);
+var fechadmy=rellenar(fecha.getDate(),2)+'/'+rellenar((fecha.getMonth()+1),2)+'/'+fecha.getFullYear();
 var hora=fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds();
 var fechayhora=fechaact+" "+hora;
 //+"\nMilisegundo: "+fecha.getMilliseconds());
@@ -608,7 +608,7 @@ var i=0; var lineaped=1; var lineafac=1;
 						 sumtotlineaped+=Number(totlinea);//suma del total de linea sin descuento y sin iva
 						 summontodescped+=Number(montodesc);//suma del monto de descuento de cada linea
 						 sumivalineaped+=Number(ivalinea);//suma del total de iva de cada linea						 
-						 query[i]='INSERT INTO DETPEDIDO (linea,num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max) VALUES('+lineaped+',"'+pedido+'","'+articulo+'",'+precio+','+pordesc+','+totlinea.toFixed(2)+','+montodesc.toFixed(2)+','+precio+','+preventa+')'; 
+						 query[i]='INSERT INTO DETPEDIDO (linea,num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max) VALUES('+lineaped+',"'+consepedido+'","'+articulo+'",'+precio+','+pordesc+','+totlinea.toFixed(2)+','+montodesc.toFixed(2)+','+precio+','+preventa+')'; 
 						// alert(query[i]);
 						lineaped++;
 						 i++;
@@ -627,7 +627,7 @@ var i=0; var lineaped=1; var lineafac=1;
 						 summontodescfac+=Number(montodesc);//suma del monto de descuento de cada linea
 						 sumivalineafac+=Number(ivalinea);//suma del total de iva de cada linea
 						 totalfactura+=(lineacdes+ivalinea);
-						 query[i]='INSERT INTO DETPEDIDO (linea,num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max) VALUES('+lineafac+',"'+factura+'","'+articulo+'",'+precio+','+pordesc+','+totlinea.toFixed(2)+','+montodesc.toFixed(2)+','+precio+','+abordo+')';						 
+						 query[i]='INSERT INTO DETPEDIDO (linea,num_ped,cod_art,mon_prc_mn,por_dsc_ap,mon_tot,mon_dsc,mon_prc_mx,cnt_max) VALUES('+lineafac+',"'+consefactura+'","'+articulo+'",'+precio+','+pordesc+','+totlinea.toFixed(2)+','+montodesc.toFixed(2)+','+precio+','+abordo+')';						 
 						 //alert(query[i]);
 						 i++;						 
 						 query[i]='UPDATE ARTICULO_EXISTENCIA SET existencia=existencia-'+abordo+' WHERE articulo="'+articulo+'" and bodega="'+bodega+'"';
@@ -655,7 +655,7 @@ var i=0; var lineaped=1; var lineafac=1;
 			 alert(sumtotlinea);
 			 alert(sumivalinea);			 */
 			 if (sumtotal>0){
-				query[i]='INSERT INTO ENCPEDIDO (num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,obs_ped,estado,cod_cnd,cod_bod) VALUES ("'+pedido+'","'+ruta+'","'+cliente+'","S","'+fechayhora+'","'+fechaact+'","'+fechaact+'",'+sumivalineaped.toFixed(2)+','+sumtotal.toFixed(2)+','+sumtotlineaped.toFixed(2)+','+summontodescped.toFixed(2)+',"'+obs+'","F",'+30+',"'+bodega+'")'; 
+				query[i]='INSERT INTO ENCPEDIDO (num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,num_itm,obs_ped,estado,cod_cnd,cod_bod,dir_ent) VALUES ("'+consepedido+'","'+ruta+'","'+cliente+'","S","'+fechayhora+'","'+fechaact+'","'+fechaact+'",'+sumivalineaped.toFixed(2)+','+sumtotal.toFixed(2)+','+sumtotlineaped.toFixed(2)+','+summontodescped.toFixed(2)+','+(lineaped-1)+',"'+obs+'","F",'+diascredito+',"'+bodega+'","'+direntrega+'")'; 
 				i++;			
 			//alert(query[i]);
 				query[i]='UPDATE PARAMETROS SET num_ped="'+pedido+'"';		
@@ -663,7 +663,7 @@ var i=0; var lineaped=1; var lineafac=1;
 				i++;			
 			 }
 			 if (sumtotalfac>0){
-				query[i]='INSERT INTO ENCPEDIDO (num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,obs_ped,estado,cod_cnd,cod_bod) VALUES ("'+factura+'","'+ruta+'","'+cliente+'","S","'+fechayhora+'","'+fechaact+'","'+fechaact+'",'+sumivalineafac.toFixed(2)+','+sumtotalfac.toFixed(2)+','+sumtotlineafac.toFixed(2)+','+summontodescfac.toFixed(2)+',"'+obs+'","F",'+30+',"'+bodega+'")'; 
+				query[i]='INSERT INTO ENCPEDIDO (num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,num_itm,obs_ped,estado,cod_cnd,cod_bod,dir_ent) VALUES ("'+consefactura+'","'+ruta+'","'+cliente+'","S","'+fechayhora+'","'+fechaact+'","'+fechaact+'",'+sumivalineafac.toFixed(2)+','+sumtotalfac.toFixed(2)+','+sumtotlineafac.toFixed(2)+','+summontodescfac.toFixed(2)+','+(lineafac-1)+',"'+obs+'","F",'+diascredito+',"'+bodega+'","'+direntrega+'")';
 				i++;			 
 				//alert(query[i]);
 				query[i]='UPDATE PARAMETROS SET num_fac="'+factura+'"';		
@@ -671,7 +671,7 @@ var i=0; var lineaped=1; var lineafac=1;
 				i++;
 				
 				//if (tipocliente=='CONT'){
-					query[i]='INSERT INTO PENCOBRO (documento,cliente,saldo,monto,fecha,fechaven) VALUES ("'+factura+'","'+cliente+'",'+totalfactura+','+totalfactura+',"'+fechadmy+'","'+fechadmy+'")';
+					query[i]='INSERT INTO PENCOBRO (documento,cliente,saldo,monto,fecha,fechaven) VALUES ("'+consefactura+'","'+cliente+'",'+totalfactura+','+totalfactura+',"'+fechadmy+'","'+fechadmy+'")';
 					i++;
 				//}
 				
