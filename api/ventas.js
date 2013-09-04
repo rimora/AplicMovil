@@ -582,6 +582,9 @@ var i=0; var lineaped=1; var lineafac=1;
 			 var existencia=Number(row['existencia']);
 			 var cantidad=Number(row['cantidad']);
 			 var dif=existencia-cantidad;
+			 alert ('existencia '+existencia);
+			 alert ('cantidad '+cantidad);
+			 alert ('dif '+dif);
 					 if (existencia==0){
 						 preventa=cantidad;							 
 					 }

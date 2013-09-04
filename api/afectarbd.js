@@ -983,10 +983,10 @@ function enviadatos(ruta,direccion){
 		 
 		 var encfac= data.devocab;
 		 var detfac= data.devodet;*/
-		 var pedidos = data.pedido;
+		 var pedidos = data.resultado;
 		 var i=0;
 		$.each(pedidos, function(key, val) {    
-			alert(key + ' ' + val['conexion'] +' peddet '+val['respeddet'] +' pedcab '+val['respeddet'] );  
+			alert(key + ' ' + val['conexion'] +' peddet '+val['respeddet'] +' pedcab '+val['respedcab'] );  
 			//query[i]='INSERT INTO CLIENTES (nombre,clave,dia,direccion,telefono,tipo,diasc,lcredito,saldo) VALUES ("'+val['nombre']+'", "'+val['cliente']+'","Lunes","'+val['direccion']+'","'+val['telefono']+'","'+val['categoria']+'","'+val['diascredito']+'",'+val['limite']+','+val['saldo']+')';
 			i++;
 		});
