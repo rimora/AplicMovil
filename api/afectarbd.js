@@ -763,62 +763,7 @@ function insertabd(query,mensaje){
 		}
 	
 }
-function cargarutacli(ruta,direccion){
-	alert('entra ruta cliente');
-		
-	$.getJSON( direccion, {numruta:ruta})
-	.done(function(data) {
-		var query=[];
-		$.each(data, function(key, val) {    
-			//alert(key + ' ' + val['cliente'] );  
-			query[key]='INSERT INTO RUTA_CLIENTE (ruta,cliente,dia,orden) VALUES ("'+val['ruta']+'", "'+val['cliente']+'",'+val['dia']+','+val['orden']+')';
-			});
-		insertabd(query,"DiasRuta Cargados");
-	})
-	
-	.fail(function( jqxhr, textStatus, error ) {
-	 	 var err = textStatus + ', ' + error;
-			 alert( jqxhr.responseText);
- 		 alert( "Request Failed: " + err);
-	});
-	return false;	
-}
-function pruebaphp(){
-var datosUsuario ="ricardo";
-	var datosPassword = "123";
-	
-  	archivoValidacion = "http://192.168.3.46/validar.php?jsoncallback=?"
-	//archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback";
- 
-	$.getJSON( archivoValidacion, { usuario:datosUsuario ,password:datosPassword})
-	.done(function(respuestaServer) {
-		
-		alert(respuestaServer.mensaje + "\nGenerado en: " + respuestaServer.hora + "\n" +respuestaServer.generador)
-		
-		if(respuestaServer.validacion == "ok"){
-		  
-		 	/// si la validacion es correcta, muestra la pantalla "home"
-			//$.mobile.changePage("#home")
-			alert('jala');
-		  
-		}else{
-		  alert('jala');
-		  /// ejecutar una conducta cuando la validacion falla
-		}
-  
-	})
-	.fail(function( jqxhr, textStatus, error ) {
-	
-	 	 var err = textStatus + ', ' + error;
-			 alert( jqxhr.responseText);
- 		 alert( "Request Failed: " + err);
 
-	});
-
-
-	return false;
-
-}
 function cargaclientes2(ruta,direccion){
 alert('entra cargaclientes2');
 //	var datosPassword = $("#regEmail").val()

@@ -874,7 +874,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 							 var pos=banco.indexOf("@");
 						     var codigo= banco.substr(0,(pos));
 					         var cuenta=banco.substr(pos+1,longitud-(pos+1));
-							 alert('deposito guardado');
+							 guardadep(codigo,cuenta,fecha,$("#obsdep").val());
 							// alert('f1'+$("#fichaefe").val()+' f2 '+$("#fichache").val()+'f3 '+$("#fichacheotros").val());
 							 
 							 /*
@@ -892,7 +892,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 							 */
 						 }				 
 						 
-						 window.location.href='#page';
+						
 			
 					}//if (button==1){
 				}			  
