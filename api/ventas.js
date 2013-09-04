@@ -657,7 +657,7 @@ var i=0; var lineaped=1; var lineafac=1;
 			 alert(sumtotlinea);
 			 alert(sumivalinea);			 */
 			 if (sumtotal>0){
-				query[i]='INSERT INTO ENCPEDIDO (num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,num_itm,obs_ped,estado,cod_cnd,cod_bod,dir_ent) VALUES ("'+consepedido+'","'+ruta+'","'+cliente+'","S","'+fechayhora+'","'+fechaact+'","'+fechaact+'",'+sumivalineaped.toFixed(2)+','+sumtotal.toFixed(2)+','+sumtotlineaped.toFixed(2)+','+summontodescped.toFixed(2)+','+(lineaped-1)+',"'+obs+'","F",'+diascredito+',"'+bodega+'","'+direntrega+'")'; 
+				query[i]='INSERT INTO ENCPEDIDO (num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,num_itm,obs_ped,estado,cod_cnd,cod_bod,dir_ent) VALUES ("'+consepedido+'","'+ruta+'","'+cliente+'","1","'+fechayhora+'","'+fechaact+'","'+fechaact+'",'+sumivalineaped.toFixed(2)+','+sumtotal.toFixed(2)+','+sumtotlineaped.toFixed(2)+','+summontodescped.toFixed(2)+','+(lineaped-1)+',"'+obs+'","N",'+diascredito+',"'+bodega+'","'+direntrega+'")'; 
 				i++;			
 			//alert(query[i]);
 				query[i]='UPDATE PARAMETROS SET num_ped="'+pedido+'"';		
@@ -665,7 +665,7 @@ var i=0; var lineaped=1; var lineafac=1;
 				i++;			
 			 }
 			 if (sumtotalfac>0){
-				query[i]='INSERT INTO ENCPEDIDO (num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,num_itm,obs_ped,estado,cod_cnd,cod_bod,dir_ent) VALUES ("'+consefactura+'","'+ruta+'","'+cliente+'","S","'+fechayhora+'","'+fechaact+'","'+fechaact+'",'+sumivalineafac.toFixed(2)+','+sumtotalfac.toFixed(2)+','+sumtotlineafac.toFixed(2)+','+summontodescfac.toFixed(2)+','+(lineafac-1)+',"'+obs+'","F",'+diascredito+',"'+bodega+'","'+direntrega+'")';
+				query[i]='INSERT INTO ENCPEDIDO (num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,num_itm,obs_ped,estado,cod_cnd,cod_bod,dir_ent) VALUES ("'+consefactura+'","'+ruta+'","'+cliente+'","F","'+fechayhora+'","'+fechaact+'","'+fechaact+'",'+sumivalineafac.toFixed(2)+','+sumtotalfac.toFixed(2)+','+sumtotlineafac.toFixed(2)+','+summontodescfac.toFixed(2)+','+(lineafac-1)+',"'+obs+'","F",'+diascredito+',"'+bodega+'","'+direntrega+'")';
 				i++;			 
 				//alert(query[i]);
 				query[i]='UPDATE PARAMETROS SET num_fac="'+factura+'"';		
