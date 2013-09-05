@@ -355,7 +355,7 @@ function guardadep(codigo,cuenta,fecha,obs){
 			var depefe=$("#fichaefe").val();
 			var depche=$("#fichache").val();
 			var depcheotros=$("#fichacheotros").val();
-			
+			alert('antes de execute');
 				
 				tx.executeSql(sql,[],listo,function(err){
     	 		 alert("Error select recibos: "+err.code+err.message);

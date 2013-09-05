@@ -871,6 +871,8 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 							 return false;
 						 }
 						 else{
+							  
+							 
 							 var pos=banco.indexOf("@");
 						     var codigo= banco.substr(0,(pos));
 					         var cuenta=banco.substr(pos+1,longitud-(pos+1));
@@ -925,6 +927,23 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 	   }
   
      });
+ $('#fichaefe').live('blur', function() {
+    	if ($('#fichaefe').val()==$('#fichache').val() || $('#fichaefe').val()==$('#fichacheotros').val()){
+			$('#fichaefe').val('');
+			
+		}
+});
+$('#fichache').live('blur', function() {
+    	if ($('#fichache').val()==$('#fichaefe').val() || $('#fichache').val()==$('#fichacheotros').val()){
+			$('#fichache').val('');			
+		}
+});
+$('#fichacheotros').live('blur', function() {
+    	if ($('#fichaotros').val()==$('#fichache').val() || $('#fichacheotros').val()==$('#fichaefe').val()){
+			$('#fichacheotros').val('');
+			
+		}
+});
 	 //**********R E P O R T E S	 *************	
 	 $("#reporte1").tap(function() {     
 	               navigator.notification.alert('entra tap reporte1',null,'pruebas','Aceptar');             				  				  

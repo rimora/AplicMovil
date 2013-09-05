@@ -300,10 +300,7 @@ function poblarcheques(){
 	});	
 	function consulta(tx) {		
 		tx.executeSql('SELECT a.id,a.codbanco,a.monto,a.numcheque,b.descripcion from CHEQUES a left outer join CUENTASB b on b.codigo=a.codbanco where a.recibo="99999"',[],exito,errorconsulta);
-		}
-		
-	
-		
+		}		
 		function exito(tx,results){ 
 			
 		      $("#gridcheques").empty();				  
@@ -335,7 +332,7 @@ function poblarcheques(){
 			} 
 			  		guardacheque(montot);					
 					//alert('pendiente '+pendiente);					
-					//alert('montot '+montot);					
+					alert('montot '+montot);					
 					$("#gridcheques").append(html); 
 					//$("#tpedido").attr("value",total); 													
 					
@@ -355,11 +352,11 @@ var abono=window.localStorage.getItem("abono");//lo que el usuario indicó que s
 var montoefe=window.localStorage.getItem("efectivo");//el importe indicado en efectivo hasta el momento
 var montoche=window.localStorage.getItem("cheque");//el importe indicado en cheque hasta el momento
 var pendiente=Number(abono)-Number(montoefe)-Number(montoche);	
-
+alert('montoefe '+montoefe);
+alert('montoche '+montoche);
+alert('pendiente '+pendiente);
 return pendiente;
-
 }
-
   
 function guardacob(){
 var totalrecibo=0;
