@@ -656,7 +656,7 @@ function cargaclientes(ruta,direccion){
 		 
 		 var encfac= data.devocab;
 		 var detfac= data.devodet;
-		 var sug= data.sugerido;
+		// var sug= data.sugerido;
 		 var i=0;
 		$.each(clientes, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] );  
@@ -715,12 +715,13 @@ function cargaclientes(ruta,direccion){
 			i++;
 		});
 		//alert('procesando sugerido de venta');		
+		/*
 		$.each(sug, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] ); 			 								
 			query[i]='INSERT INTO SUGERIDO (cliente,articulo,cantidad) VALUES ("'+val['cliente']+'","'+val['articulo']+'",'+val['cantidad']+')';
 			i++;
 		});
-
+*/
 		
 
 		//alert(i);
