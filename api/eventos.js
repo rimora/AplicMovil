@@ -729,6 +729,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
      });
 	 $("#baceptaraplic").tap(function() {                   				  
 	 	var pendiente=Number(window.localStorage.getItem("pendiente"));
+		alert('pendiente '+pendiente);
 			if (pendiente>0){
 				navigator.notification.alert('Saldo pendiente mayor a cero',null,'Indicar tipo de Pago','Aceptar');				 	
 				return false;
