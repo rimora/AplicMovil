@@ -656,6 +656,7 @@ function cargaclientes(ruta,direccion){
 		 
 		 var encfac= data.devocab;
 		 var detfac= data.devodet;
+		 var sug= data.sugerido;
 		 var i=0;
 		$.each(clientes, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] );  
@@ -711,6 +712,12 @@ function cargaclientes(ruta,direccion){
 		$.each(detfac, function(key, val) {    
 			//alert(key + ' ' + val['cliente'] ); 			 								
 			query[i]='INSERT INTO DETHISFAC (factura,articulo,linea,cantidad,devuelto,precio,totlinea) VALUES ("'+val['factura']+'","'+val['articulo']+'",'+val['linea']+','+val['cantidad']+','+val['devuelto']+','+val['precio']+','+val['totlinea']+')';
+			i++;
+		});
+		//alert('procesando sugerido de venta');		
+		$.each(sug, function(key, val) {    
+			//alert(key + ' ' + val['cliente'] ); 			 								
+			query[i]='INSERT INTO SUGERIDO (cliente,articulo,cantidad) VALUES ("'+val['cliente']+'","'+val['articulo']+'",'+val['cantidad']+')';
 			i++;
 		});
 
@@ -893,7 +900,7 @@ function enviadatos(ruta,direccion){
 			sql6+=' WHERE doc_pro is null order by deposito';		
 		var sql7='SELECT num_dev,cod_zon,cod_clt,hor_fin,fec_dev,hor_ini,mon_imp_vt,mon_imp_cs,mon_siv,mon_dsc,num_itm,obs_dev,est_dev,cod_bod,impreso,num_ref,por_dsc_ap ';						
 			sql7+='FROM ENCDEV ';
-			sql7+=' WHERE doc_pro is null order by num_ped';			
+			sql7+=' WHERE doc_pro is null order by num_dev';			
 		var sql8='SELECT a.num_dev,a.cod_art,a.mon_prc_mn,a.por_dsc_ap,a.mon_tot,a.mon_dsc,a.mon_prc_mx,a.cnt_max,a.cod_zon,a.ind_dev,a.obs_dev ';						
 			sql8+='FROM DETDEV a inner join ENCDEV b on b.num_dev=a.num_dev ';
 			sql8+=' WHERE b.doc_pro is null order by a.num_dev';			

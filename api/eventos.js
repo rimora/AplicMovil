@@ -286,8 +286,8 @@ $("#bventa").tap(function() {
         		 var limite=Number(window.localStorage.getItem("limite")); 
 		         var disp=limite-saldo;
         		 //if (disp<=0 || vencida=='S'){
-				 if (vencida=='S' || tipocli=='SUSP'){
-					navigator.notification.alert('Cliente con Saldo Vencido o Credito Suspendido, realiza abono',null,'Acceso a Ventas','Aceptar');										 
+				 if (vencida=='S' || tipocli=='SUSP' || disp<=0){
+					navigator.notification.alert('Cliente con Saldo Vencido, Credito Suspendido o Límite de Crédito Excedido, realiza abono',null,'Acceso a Ventas','Aceptar');										 
 				 }
 				 else{
         				 window.location.href='#pventas';			
@@ -385,14 +385,14 @@ $("#lcatalogo").delegate('.fichaart','click',function(){//al seleccionar el boto
 				  window.location.href='#pficha';			  
 				  //existeenpedido(articulo,cliente);
 });	
-$("#bgenerav").tap(function() { //boton aceptar del catalogo
+$("#bgenerav").tap(function() { //boton regresar a pedido del catalogo
                  //var clavecli = $(this).attr("id");
 				 //muestra el pedido 
      			var cliente=window.localStorage.getItem("clave");			  
 				mostrarpedido(cliente);  
 				$("#divnumventas").hide();
 				$('#divtotales').show(); 	
-				  
+				window.location.href='#pventas'; 
 				  
 });	
 $("#bcatalogo").tap(function(){
@@ -560,6 +560,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 			  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
 			  var nomcli=window.localStorage.getItem("clavenombre");//Obtiene clave del cliente
 			  var saldo=Number(window.localStorage.getItem("saldo"));
+			  alert(saldo);
 			  if (saldo>0){				  
 				  window.location.href='#pcobros';
 				  $("#divencnum").hide();
@@ -727,21 +728,21 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				//$("#numcuenta").val("");  				 
      });
 	 $("#baceptaraplic").tap(function() {                   				  
+	 	var pendiente=Number(window.localStorage.getItem("pendiente"));
+			if (pendiente>0){
+				navigator.notification.alert('Saldo pendiente mayor a cero',null,'Indicar tipo de Pago','Aceptar');				 	
+				return false;
+			}
+			else{
+				navigator.notification.confirm('¿Deseas terminar y guardar el Cobro?',onConfirm,'Guardar Cobro','ACEPTAR,CANCELAR');    			  
+			}
 	        function onConfirm(button) {
-					if (button==1){	
-					   var pendiente=window.localStorage.getItem("pendiente");
+					if (button==1){						   
 					  // alert(pendiente);
 					     guardacob();	//prepara datos para guardar las tablas cabecera y detalles de recibos.funcion en cobros.js 				 
-						 window.location.href='#poperaciones';
-			
+						 window.location.href='#poperaciones';			
 					}//if (button==1){
-				}			 
-    	navigator.notification.confirm('¿Deseas terminar y guardar el Cobro?',     // mensaje (message)
-	    onConfirm,      // función 'callback' a llamar con el índice del botón pulsado (confirmCallback)
-    	'Guardar Cobro',            // titulo (title)
-        'ACEPTAR,CANCELAR'       // botones (buttonLabels)
-	    );    			  
-				  
+			}
      });
 	 $("#regresardeaplic").tap(function(){
                 function onConfirm(button) {
@@ -1181,7 +1182,9 @@ $('#fichacheotros').live('blur', function() {
        });
  //**********TECLADO NUMERICO	USADO EN CATALOGO *************	
  	   
-	   $("#bacepcat").tap(function() {                                                   	       
+	  // $("#bacepcat").tap(function() {                                                   	       
+		$("#bacepcat").bind( "vclick", function( event ) {
+			$("#bacepcat").addClass('ui-disabled');
 	   	   var cliente = window.localStorage.getItem("clave");
            var cantidad = parseInt($("#cantcat").val()); 		  
 		   //articulo = window.localStorage.getItem("articulo");
@@ -1277,6 +1280,7 @@ $('#fichacheotros').live('blur', function() {
 	   
 //**********TECLADO NUMERICO USADO EN VENTAS *************	
 	   $("#bacepven").tap(function() {                                                   	       
+	  
            var cantidad = parseInt($("#cantv").val()); 		  
 		   //articulo = window.localStorage.getItem("articulo");
 		   var cliente = window.localStorage.getItem("clave");

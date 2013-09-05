@@ -316,7 +316,7 @@ function poblarcheques(){
 			  $.each(results.rows,function(index){				  
 				  var row = results.rows.item(index); 				     			     
 					 var monto=Number(row['monto']);
-					 montot+=monto.toFixed(2);
+					 montot+=monto;
 					html+='<div class="ui-block-a" style="width:70px;height:20px" >';              
            			html+='<div class="ui-bar ui-bar-e"  >';      		 		
                    	html+='<div style="padding:0px; margin-top:-8px; margin-left:-10px">'; 
@@ -330,7 +330,7 @@ function poblarcheques(){
 	                html+='<div class="ui-block-e" style="width:100px"><div class="ui-bar ui-bar-b">'+monto.toFixed(2)+'</div></div> ';                  	 
 			  });//.each
 			} 
-			  		guardacheque(montot);					
+			  		guardacheque(Number(montot));					
 					//alert('pendiente '+pendiente);					
 					alert('montot '+montot);					
 					$("#gridcheques").append(html); 
@@ -435,7 +435,7 @@ function ejecutaquerycob(query,total){
 	base.transaction(insertadet,function(err){
     	  alert("Error al insertar en detallepedido: "+err.code+err.message);
           },function(){		  
-		    alert('total '+total);
+		    //alert('total '+total);
 		    actsaldo(total*-1);  
 			consultasivencidas(cliente);			
 			window.localStorage.setItem("sioperacion","S");

@@ -372,7 +372,7 @@ function mostrarpedido(cliente){
 			 //alert(row['descripcion']);		 
 			 html+='<li>';
 	        // html+='<a href=""><img src="imagenes/sardel.jpg" width="100" height="100"/><h3> '+row['descripcion']+'</h3>';
-			 html+='<a href="" class="listart" id="'+row['articulo']+'"><h5>'+row['descripcion']+'&nbsp;&nbsp;&nbsp; PP:$'+precio.toFixed(2)+'    DV:'+descuento+'%    A bordo:'+existencia+'    ALG:'+existenciaalg+'</h5>';
+			 html+='<a href="" class="listart" id="'+row['articulo']+'"><h5>'+row['descripcion']+'&nbsp;&nbsp;&nbsp; PP:$'+precio.toFixed(2)+'    DV:'+descuento+'%    A.B:'+existencia+'    ALG:'+existenciaalg+'</h5>';
 			 html+='</a><a id="F'+row['articulo']+'" href="" data-role="button" data-icon="search" class="fichaart"></a></li>';
 			 			 
 			 $('#lcatalogo').append(html);        	
@@ -480,6 +480,7 @@ function existeenpedido(articulo,cliente){
 						//window.location.href='#pcantidad';
 						$('#cantcat').val('1');//pone por defecto cantidad 1 en el teclado numerico
 						 previolinea(articulo,1);// visualiza grid con el total del articulo 						
+						 $("#bacepcat").removeClass('ui-disabled'); 
 						$('#divnumcat').show();
 					}
 				});		
