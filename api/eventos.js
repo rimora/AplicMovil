@@ -939,7 +939,7 @@ $('#fichache').live('blur', function() {
 		}
 });
 $('#fichacheotros').live('blur', function() {
-    	if ($('#fichaotros').val()==$('#fichache').val() || $('#fichacheotros').val()==$('#fichaefe').val()){
+    	if ($('#fichacheotros').val()==$('#fichache').val() || $('#fichacheotros').val()==$('#fichaefe').val()){
 			$('#fichacheotros').val('');
 			
 		}
