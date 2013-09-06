@@ -666,6 +666,7 @@ var i=0; var lineaped=1; var lineafac=1;
 				i++;			
 			 }
 			 if (sumtotalfac>0){
+				 totalfactura=Number(totalfactura);
 				query[i]='INSERT INTO ENCPEDIDO (num_ped,cod_zon,cod_clt,tip_doc,hor_fin,fec_ped,fec_des,mon_imp_vt,mon_civ,mon_siv,mon_dsc,num_itm,obs_ped,estado,cod_cnd,cod_bod,dir_ent) VALUES ("'+consefactura+'","'+ruta+'","'+cliente+'","F","'+fechayhora+'","'+fechaact+'","'+fechaact+'",'+sumivalineafac.toFixed(2)+','+sumtotalfac.toFixed(2)+','+sumtotlineafac.toFixed(2)+','+summontodescfac.toFixed(2)+','+(lineafac-1)+',"'+obs+'","F",'+diascredito+',"'+bodega+'","'+direntrega+'")';
 				i++;			 
 				//alert(query[i]);
@@ -724,7 +725,7 @@ function guardadetpedido(query,total){
     	function insertadet(tx) {		
 		//alert('entra ainsertadet');		
 			for (var i = 0, long = query.length; i < long; i++) {   									   								
-				//alert(query[i]);
+				alert(query[i]);
 				tx.executeSql(query[i]); 						   
 					   
 			}// for (var i = 0, long = query.length; i < long; i++) 
