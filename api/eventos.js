@@ -201,6 +201,7 @@ $(document).ready(function() {
     $("#listaclientes li").live('click',function(){
 		          //al seleccionar un cliente de la lista, muestra sus datos
 				  window.localStorage.setItem("clave",'');//limpia clave de cliente
+				  window.localStorage.setItem("saldo",0);
                   var clavecli = $(this).attr("id");
 				  
 				  //alert (clavecli);
@@ -744,14 +745,15 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 			}
 			else{
 				navigator.notification.confirm('¿Deseas terminar y guardar el Cobro?',onConfirm,'Guardar Cobro','ACEPTAR,CANCELAR');    			  
-			}
-	        function onConfirm(button) {
+				function onConfirm(button) {
 					if (button==1){						   
 					  // alert(pendiente);
 					     guardacob();	//prepara datos para guardar las tablas cabecera y detalles de recibos.funcion en cobros.js 				 
 						 window.location.href='#poperaciones';			
 					}//if (button==1){
+				}
 			}
+	        
      });
 	 $("#regresardeaplic").tap(function(){
                 function onConfirm(button) {
