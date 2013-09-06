@@ -34,9 +34,6 @@ function mostrarclientes(dia){
 }// mostrarclientes
 function mostrarcliente(clavecli){
 //  $('#datoscli').live('pageshow',function(event, ui){
-   	   
-	   //guarda el cliente con el que se harán operaciones
-	   saveidcliente(clavecli);
        var limite=0;
 	   var saldo=0;
 	   var disponible=0;

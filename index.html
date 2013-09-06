@@ -51,24 +51,7 @@
            
     </div>
     <div data-role="content" style="background-color: #FF6">
-     <div class="api-div" id="api-geolocation">
-				<h2>Geolocation</h2>
-				<blockquote>
-  					<p>The <code>geolocation</code> object provides access to the device's GPS sensor.</p>
-				</blockquote>
-				<h4 class="help"><b>Toggle</b> to stop/start
-				geolocation watch. <br/><b>Get Current</b> for one-time geolocation reading.</h4>
-				<div class="ui-grid-a">
-					<div class="ui-block-a"><div data-role="button" id="btoggle">Toggle</div></div>
-					<div class="ui-block-b"><div data-role="button" id="bcurrent">Get Current</div></div>
-				</div>
-   				<div id="cur_position"></div>
-   				<img id="map"/>								
-			</div>
-            
-  	<center><img src="imagenes/portrait.png" alt="mee"  /></center>
-    	    
-    
+	  	<center><img src="imagenes/portrait.png" alt="mee"  /></center>
     				<label> Usuario </label>
           			<input type="text" id="nombredeusuario" name="nombredeusuario"> 
                     <label> Password </label>
@@ -86,21 +69,7 @@
     		 <a href="#" id ="bclientes"  data-role="button" data-theme="e" style="left: 19px; position: absolute; width: 150px; top: 148px;"><img src="jquery-mobile/images/clientes.png"/></a>
              <a href="#" id ="bdepositos"  data-role="button" data-theme="c" style="left: 277px; position: absolute; width: 150px; top: 147px;"><img src="jquery-mobile/images/depositos128.png"/></a>
              <a href="#" id ="breportes"  data-role="button" data-theme="c" style="left: 522px; position: absolute; width: 150px; top: 148px;"><img src="jquery-mobile/images/reportes128.png"/></a>
-             <a href="#pdatos" id ="bdatos"  data-role="button" data-theme="c" style="left: 776px; position: absolute; width: 150px; top: 148px;"><img src="jquery-mobile/images/datos128.png"/></a>
-            
-            <div data-role="collapsible" data-theme="b" data-content-theme="e" id="agrupareportes" style="position: absolute; left: 16px; top: 310px;">
-	     		  <h3>
-                    <center><b>Reportes</b></center>
-	              </h3>
-       				<ul data-role="listview">
-                    	<li id="reporte1">Reporte de Monto Cobrado y Vendido</li>
-		                <li id="reporte2">Reporte de Cierre de Cobro</li>
-	                    <li id="reporte3">Reporte de Inventario</li>
-        	            <li id="reporte4">Reporte de Visitas</li>                    
-                    </ul>
-			</div>  
-          
-      
+             <a href="#pdatos" id ="bdatos"  data-role="button" data-theme="c" style="left: 776px; position: absolute; width: 150px; top: 148px;"><img src="jquery-mobile/images/datos128.png"/></a>            
             <!--  PRUEBAS
             <li data-role="list-divider">  </li>              
             <a href="#pprueba" id ="bprueba"  data-role="button">Pruebas</a> 		
@@ -597,23 +566,7 @@
         <a href="#" data-role="button" data-rel="back" id="botonmodcantidadf">Aceptar</a>
 	</div>
     </div>
-</div>
-
- <!--LOCALIZACION-->
- <div data-role="page" id="plocalizacion">
-	<div data-role="header">
-		<h1>localizacion</h1>
-    </div>
-    <div data-role="content">
-       <div id="map_canvas" style="width:100%; height:100%"></div>
-
-    </div>
-	<div data-role="footer">        
-       <a href="#" data-role="button" id="binicializar">Aceptar</a>
-            
-           
-	</div>
-</div>
+</div> 
 <!--PAGINA HISTORICO FACTURAS DEL CLIENTE-->
 <div data-role="page" id="phistfac">
 	<div data-role="header" data-theme="b">
@@ -1103,7 +1056,48 @@
     </div>
     
 </div>
-
+<!-- P A G I N A  REPORTES-->
+<div data-role="page" id="pvisita">
+	<div data-role="header" data-theme="b">
+		<h3>Reportes</h3>
+     <a href="#page" class="ui-btn-right" id="regresarrep" data-role="button" data-theme="b" data-icon="back" data-iconpos="left" >Regresar</a>             
+	</div>
+	<div data-role="content">
+       				<ul data-role="listview" data-inset="true">
+                    	<li id="reporte1">Reporte de Monto Cobrado y Vendido</li>
+		                <li id="reporte2">Reporte de Cierre de Cobro</li>
+	                    <li id="reporte3">Reporte de Inventario</li>
+        	            <li id="reporte4">Reporte de Visitas</li>                    
+                    </ul>
+    </div>    
+    <div data-role="footer" data-position="fixed">
+    </div>    
+</div>
+<!-- P A G I N A LOCALIZACION-->
+<div data-role="page" id="pvisita">
+	<div data-role="header" data-theme="b">
+		<h3>Reportes</h3>
+     <a href="#page" class="ui-btn-right" id="regresarrep" data-role="button" data-theme="b" data-icon="back" data-iconpos="left" >Regresar</a>             
+	</div>
+	<div data-role="content">
+       		<div class="api-div" id="api-geolocation">
+				<h2>Geolocation</h2>
+				<blockquote>
+  					<p>The <code>geolocation</code> object provides access to the device's GPS sensor.</p>
+				</blockquote>
+				<h4 class="help"><b>Toggle</b> to stop/start
+				geolocation watch. <br/><b>Get Current</b> for one-time geolocation reading.</h4>
+				<div class="ui-grid-a">
+					<div class="ui-block-a"><div data-role="button" id="btoggle">Toggle</div></div>
+					<div class="ui-block-b"><div data-role="button" id="bcurrent">Get Current</div></div>
+				</div>
+   				<div id="cur_position"></div>
+   				<img id="map"/>								
+			</div>
+    </div>    
+    <div data-role="footer" data-position="fixed">
+    </div>    
+</div>
 <!-- P A G I N A  PRUEBA-->
 <div data-role="page" id="pprueba">
 	<div data-role="header">
@@ -1208,7 +1202,7 @@
       </div><!-- /grid-a con dos filas-->           
     </div>    <!--fin div content-->
 	<div data-role="footer" data-position="fixed">
-			<a class="ui-btn-right" id="regresarreportes" data-role="button" data-rel="back"
+			<a class="ui-btn-right" id="regprueba" data-role="button" data-rel="back"
         data-theme="b" data-icon="back" data-iconpos="left" data-direction="reverse">Regresar</a>        
         <a href="#" data-role="button"  id="botoncantidad">Aceptar</a>
  	</div>

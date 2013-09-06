@@ -53,32 +53,25 @@ $(document).ready(function() {
 					else if (diasemana == 6){
 						navigator.notification.alert('Es sábado. Que tengas un buen fin de semana',null,'Saludos','Aceptar');					
 					}
+					obtenerconse();//funcion que almacena localmente los consecutivos de documentos actuales.funcion en configuraciones.js
 					window.location.href='#page';
 		  		}else{		  		  
 				alert('Usuario No Válio');
 				}  	
 	}); 
 	
-	$("#carga").tap(function() { 	           
-                 //var clavecli = $(this).attr("id");
-				  //alert ("llama a iniciar");
+	$("#carga").tap(function() { 	                           
 				  iniciar();
-				  
-				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });
      $("#envia").tap(function() { 
-                 //var clavecli = $(this).attr("id");
-				  //alert (oID);
 				  insertar();				  
-				  //$.mobile.changePage($("#datoscli"));	  			  				  
                });			   
-			  
 	$("#bclientes").tap(function() {                  
 				 // recibosindep();//valida que no existan recibos sin deposito, en esta funcion abre ventana de clientes en caso de que pase la validación				  
 				  window.location.href='#pclientes';				  				                    
 		 		  mostrarclientes(diasemana-1);
 		 		 //$("select#menu").val("Lunes").selectmenu("refresh");   
-		 		 $("select#menu").val(diasemana-1); 	
+		 		 $("select#menu").val(diasemana-1).selectmenu("refresh");	
     });
   /*  $("#bguardacli").tap(function() { 
 	            var nombre = $("#nomnuevocli").val()	
@@ -159,60 +152,54 @@ $(document).ready(function() {
 				}
 				 
 				  
-     });		
-	
-   $("#bvisita").tap(function() {    //inicia visita               				  
-				  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
-				  if (cliente==''){
-					  navigator.notification.alert('Debe seleccionar un cliente',null,'Error al iniciar visita','Aceptar');					
-					  return false;
-				  }
-				  else{
-					 var saldo=Number(window.localStorage.getItem("saldo"));  
-					 if (saldo>0){
-				  eliminatempcob();
-				  window.location.href='#pcobros';
-				  $("#divencnum").hide();
-				  $("#divnumcobros").hide();
-				  $("#labelencpcobros").empty();	
-				  $("#labelencpcobros").append("Cobrar Facturas pendientes del cliente: "+cliente);				  				 				  				  
-				  copiatemcobros(cliente);//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
-				  //listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado				  				  
-					 }
-					 else{
-						window.location.href='#poperaciones'; 
-						 
-					 }
-				  guardafechaactual();
-				  iniciavisita();//guarda registro de fecha y hora de visita.funcion en almacenamiento.js			  
-				  }
-				  			  
-				   
-     });			   			   
-    $("#menu").bind("change",function(event,ui){
+     });	
+	 $("#menu").bind("change",function(event,ui){
 		//alert($("#menu").val());
 		window.localStorage.setItem("clave",'');//limpia clave de cliente
 		//window.localStorage.setItem("clinom",'');//limpia nombre de cliente
 	    mostrarclientes($("#menu").val());	
 		
 		$("#divclientes").hide();		
-	});
-		
+	});	   
     $("#listaclientes li").live('click',function(){
-		          //al seleccionar un cliente de la lista, muestra sus datos
-				  window.localStorage.setItem("clave",'');//limpia clave de cliente
+		          //al seleccionar un cliente de la lista, muestra sus datos				  
 				  window.localStorage.setItem("saldo",0);
                   var clavecli = $(this).attr("id");
-				  
-				  //alert (clavecli);
-				  $('#divclientes').show();				  
+				  saveidcliente(clavecli);//guarda el cliente con el que se harán operaciones				  
+				  //alert (clavecli);				  			  
 				  mostrarcliente(clavecli);
-				  
+				  $('#divclientes').show();	
 				 // window.location.href='#datoscli';
 				  //$.mobile.changePage($("#datoscli"));	  			  				  
     });
-	 
-				   
+	$("#bvisita").tap(function() {    //inicia visita               				  
+				  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
+				  alert(cliente);
+				  if (cliente==''){
+					  navigator.notification.alert('Debe seleccionar un cliente',null,'Error al iniciar visita','Aceptar');					
+					  return false;
+				  }
+				  else{
+					 var saldo=Number(window.localStorage.getItem("saldo"));  
+					 alert('saldo '+saldo);
+					 if (saldo>0){
+				 		 //eliminatempcob();
+						 copiatemcobros(cliente);//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
+		                 window.location.href='#pcobros';
+	                     $("#divencnum").hide();
+				  		 $("#divnumcobros").hide();
+					     $("#labelencpcobros").empty();	
+				         $("#labelencpcobros").append("Cobrar Facturas pendientes del cliente: "+cliente);				  				 				  				  
+				         
+				         //listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado				  				  
+					 }
+					 else{
+						window.location.href='#poperaciones'; 						 
+					 }
+                     guardafechaactual();
+				     iniciavisita();//guarda registro de fecha y hora de visita.funcion en almacenamiento.js			  
+				  }
+     }); 				   
   /*
    $("#checkcli").bind("change",function(event){
 				  alert($("#menu").val());
@@ -577,7 +564,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				  $("#labelencpcobros").empty();	
 				  $("#labelencpcobros").append("Cobrar Facturas pendientes del cliente: "+nomcli);				  				 				  
 				   
-				  eliminatempcob();
+				  //eliminatempcob();
 				  copiatemcobros(cliente);//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
 				  //listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado				  				  
 				  guardafechaactual();
@@ -599,7 +586,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 	    $("#blimpiar").tap(function() { //limpiar la columna "A pagar" del grid que muestra las facturas pendientes de cobro
 		  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente                                                   
           $('#divnumcobros').hide();//oculta el teclado numerico con el input                         
-		   eliminatempcob();
+		   //eliminatempcob();
 		   copiatemcobros(cliente);
 		   //listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado			    
 		   $("#divencnum").hide();
@@ -608,7 +595,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 	       var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
 	       $('#divnumcobros').hide();//oculta el teclado numerico con el input
 		   $("#divencnum").hide(); 
-		   eliminatempcob();
+		   //eliminatempcob();
 	       copiatemcobros(cliente,'S');//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
 		   
 		   	
@@ -958,7 +945,7 @@ $('#fichacheotros').live('blur', function() {
 });
 	 //**********R E P O R T E S	 *************	
 	 $("#reporte1").tap(function() {     
-	               navigator.notification.alert('entra tap reporte1',null,'pruebas','Aceptar');             				  				  
+	              //navigator.notification.alert('entra tap reporte1',null,'pruebas','Aceptar');             				  				  
 				  window.location.href='#prepcobven';
 				  repvencob();								  
 	  });
@@ -1069,7 +1056,8 @@ $('#fichacheotros').live('blur', function() {
           $('#importecobro').val('');                         
        });
 	   //**********TECLADO NUMERICO	USADO EN APLICACION DE COBROS *************	
-	   $("#bacepapli").tap(function() {                                                   
+	   //$("#bacepapli").tap(function() {                                                   
+	   $("#bacepapli").bind( "vclick", function( event ) {
 	       var tipocob=window.localStorage.getItem("tipocob");
            var monto = parseFloat($("#importeapli").val()); 
 		   
@@ -1135,60 +1123,73 @@ $('#fichacheotros').live('blur', function() {
 		  
 		   
        }); 
-	   $("#bcanapli").tap(function() {                                                   
+	   //$("#bcanapli").tap(function() {                                                   
+	   $("#bcanapli").bind( "vclick", function( event ) {
           $('#divnumaplicob').hide(); 		   
        }); 
-	   $("#b11").tap(function() { 	     
+	   //$("#b11").tap(function() { 	     
+	   $("#b11").bind( "vclick", function( event ) {	   
 	    var importe=$('#importeapli').val();	                                                    
 		  // if (importe.length<longitud){ 
           $('#importeapli').val(importe+'1');                         
 		   //}
        });
-	   $("#b22").tap(function() {                                                   
+	   //$("#b22").tap(function() {                                                   
+	   $("#b22").bind( "vclick", function( event ) {	   
           var importe=$('#importeapli').val();	                                                    
 		  //if (importe.length<longitud){ 
           $('#importeapli').val(importe+'2');                         
 		  //}
        });
-	   $("#b33").tap(function() {                                                   
+	   //$("#b33").tap(function() {                                                   
+	   $("#b33").bind( "vclick", function( event ) {	   
           var importe=$('#importeapli').val();	                                                    
 		  //if (importe.length<longitud){ 
           $('#importeapli').val(importe+'3');                         
 		  //}
        });
-	    $("#b44").tap(function() {  
+	    //$("#b44").tap(function() {  
+		$("#b44").bind( "vclick", function( event ) {	   
 	    var importe=$('#importeapli').val();	                                                    
           $('#importeapli').val(importe+'4');                         
        });
-	   $("#b55").tap(function() {                                                   
+	   //$("#b55").tap(function() {                                                   
+	   $("#b55").bind( "vclick", function( event ) {	   
           var importe=$('#importeapli').val();	                                                    
           $('#importeapli').val(importe+'5');                         
        });
-	   $("#b66").tap(function() {                                                   
+	   //$("#b66").tap(function() {                                                   
+	   $("#b66").bind( "vclick", function( event ) {	   
           var importe=$('#importeapli').val();	                                                    
           $('#importeapli').val(importe+'6');                         
        });
-	     $("#b77").tap(function() {  
+	    // $("#b77").tap(function() {  
+		$("#b77").bind( "vclick", function( event ) {	   
 	    var importe=$('#importeapli').val();	                                                    
           $('#importeapli').val(importe+'7');                         
        });
-	   $("#b88").tap(function() {                                                   
+	   //$("#b88").tap(function() {                                                   
+	   $("#b88").bind( "vclick", function( event ) {	   
           var importe=$('#importeapli').val();	                                                    
           $('#importeapli').val(importe+'8');                         
        });
-	   $("#b99").tap(function() {                                                   
+	   //$("#b99").tap(function() {                                                   
+	   $("#b99").bind( "vclick", function( event ) {	   
           var importe=$('#importeapli').val();	                                                    
           $('#importeapli').val(importe+'9');                         
        });
-	     $("#b00").tap(function() {  
+	    // $("#b00").tap(function() {  
+		$("#b00").bind( "vclick", function( event ) {	   
 	    var importe=$('#importeapli').val();	                                                    
           $('#importeapli').val(importe+'0');                         
        });
-	   $("#bpunto2").tap(function() {                                                   
+	  //$("#bpunto2").tap(function() {                                                   
+	  $("#bpunto2").bind( "vclick", function( event ) {	   
           var importe=$('#importeapli').val();	                                                    
           $('#importeapli').val(importe+'.');                         
        });
-	    $("#blimpiarapli").tap(function() {                                                                                                                
+	   // $("#blimpiarapli").tap(function() {                                                                                                                
+	   $("#blimpiarapli").bind( "vclick", function( event ) {	   
           $('#importeapli').val('');                         
        });
  //**********TECLADO NUMERICO	USADO EN CATALOGO *************	
@@ -1225,67 +1226,78 @@ $('#fichacheotros').live('blur', function() {
 		  $('#gridprevart').empty();
 		  
        }); 
-	   $("#b111").tap(function() { 	     
+	   //$("#b111").tap(function() { 
+	   $("#b111").bind( "vclick", function( event ) {	     
 	    var importe=$('#cantcat').val();	                                                    
 		   //if (importe.length<longitud){ 
           $('#cantcat').val(importe+'1'); 
 		  previolinea(articulo,parseInt($("#cantcat").val()));
 		  // }
        });
-	   $("#b222").tap(function() {                                                   
+	   //$("#b222").tap(function() {                                                   
+	   $("#b222").bind( "vclick", function( event ) {
           var importe=$('#cantcat').val();	                                                    
 		  //if (importe.length<longitud){ 
           $('#cantcat').val(importe+'2');                     
 		  previolinea(articulo,parseInt($("#cantcat").val()));    
 		  //}
        });
-	   $("#b333").tap(function() {                                                   
+	   //$("#b333").tap(function() {                                                   
+	   $("#b333").bind( "vclick", function( event ) {
           var importe=$('#cantcat').val();	                                                    
 		 // if (importe.length<longitud){ 
           $('#cantcat').val(importe+'3'); 
 		  previolinea(articulo,parseInt($("#cantcat").val()));                        
 		  //}
        });
-	    $("#b444").tap(function() {  
+	    //$("#b444").tap(function() {  
+		$("#b444").bind( "vclick", function( event ) {
 	    var importe=$('#cantcat').val();	                                                    
           $('#cantcat').val(importe+'4');
 		  previolinea(articulo,parseInt($("#cantcat").val()));                         
        });
-	   $("#b555").tap(function() {                                                   
+	   //$("#b555").tap(function() {                                                   
+	   $("#b555").bind( "vclick", function( event ) {
           var importe=$('#cantcat').val();	                                                    
           $('#cantcat').val(importe+'5');   
 		  previolinea(articulo,parseInt($("#cantcat").val()));                      
        });
-	   $("#b666").tap(function() {                                                   
+	   //$("#b666").tap(function() {                                                   
+	   $("#b666").bind( "vclick", function( event ) {
           var importe=$('#cantcat').val();	                                                    
           $('#cantcat').val(importe+'6'); 
 		  previolinea(articulo,parseInt($("#cantcat").val()));                        
        });
-	     $("#b777").tap(function() {  
+	     //$("#b777").tap(function() {  
+		 $("#b777").bind( "vclick", function( event ) {
 	    var importe=$('#cantcat').val();	                                                    
           $('#cantcat').val(importe+'7');   
 		  previolinea(articulo,parseInt($("#cantcat").val()));                      
        });
-	   $("#b888").tap(function() {                                                   
+	   //$("#b888").tap(function() {                                                   
+	   $("#b888").bind( "vclick", function( event ) {
           var importe=$('#cantcat').val();	                                                    
           $('#cantcat').val(importe+'8'); 
 		  previolinea(articulo,parseInt($("#cantcat").val()));                        
        });
-	   $("#b999").tap(function() {                                                   
+	   //$("#b999").tap(function() {                                                   
+	   $("#b999").bind( "vclick", function( event ) {
           var importe=$('#cantcat').val();	                                                    
           $('#cantcat').val(importe+'9');   
 		  previolinea(articulo,parseInt($("#cantcat").val()));                      
        });
-	     $("#b000").tap(function() {  
+	     //$("#b000").tap(function() {  
+		 $("#b000").bind( "vclick", function( event ) {
 	    var importe=$('#cantcat').val();	                                                    
           $('#cantcat').val(importe+'0');    
 		  previolinea(articulo,parseInt($("#cantcat").val()));                     
        });
-	   $("#bpunto3").tap(function() {                                                   
+	   //$("#bpunto3").tap(function() {		   
          /* var importe=$('#cantcat').val();	                                                    
           $('#cantcat').val(importe+'.');*/
-       });
-	    $("#blimpiarcant").tap(function() {                                                                                                                
+       //});
+	    //$("#blimpiarcant").tap(function() {
+			$("#blimpiarcant").bind( "vclick", function( event ) {
           $('#cantcat').val('');                         
        });
 	   

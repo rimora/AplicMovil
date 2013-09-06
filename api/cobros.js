@@ -112,12 +112,15 @@ function listafacturaspend(cliente){
  // });	//$('#pclientes').live('pageshow',function(event, ui){
 	
 }// listafacturaspend(cliente)
+
 function copiatemcobros(cliente,copiar){	//llamada de eventos.js
 //el parametro copiar indica si el usuario selecciono el boton de copiar la columna saldo a la columna a pagar
 //
 var querycob=[];
 var i=0;
 	function listo(tx,results){
+		     querycob[i]='DELETE FROM TEMCOBROS ';	
+			 i++;
 		   $.each(results.rows,function(index){           
 			 var row = results.rows.item(index); 			 
 			 if (copiar=='S'){
@@ -127,6 +130,7 @@ var i=0;
 				 querycob[i]='INSERT INTO TEMCOBROS (factura,abonado,saldo) VALUES ("'+row['documento']+'",'+0+','+row['saldo']+')';						 
 			 }
 			 i++;
+				 
 		 });    		 	      
  	}//function listo(tx,results){ 
 	function consultatemp(tx){   	       
@@ -532,18 +536,7 @@ function mostrarnotascob(factura){
          		});		
 				
 }//function mostrarnotascob(factura)
-function eliminatempcob(){
-	   //alert('inserttafactura'+cantidad);
-	    base.transaction(insertadet,function(err){
-    	  alert("Error al eliminar temcobros: "+err.code+err.message);
-          });
-				
-    	function insertadet(tx) {		
-		//alert('entra a eliminar temcobros');
-		   tx.executeSql('DELETE FROM TEMCOBROS ');		
-		}
-	
-}//function eliminatempcob()
+
 function insertatempcob(querycob){
 	 // navigator.notification.alert('entra insertatempcob '+factura+' '+abono+' '+saldo,null,'','Aceptar');	
 	    base.transaction(insertadet,function(err){
@@ -613,5 +606,16 @@ function consultasivencidas(cliente){
  // });	//$('#pclientes').live('pageshow',function(event, ui){
 	
 }// listafacturaspend(cliente)
-
+function eliminatempcob(){
+	   //alert('inserttafactura'+cantidad);
+	    base.transaction(insertadet,function(err){
+    	  alert("Error al eliminar temcobros: "+err.code+err.message);
+          });
+				
+    	function insertadet(tx) {		
+		//alert('entra a eliminar temcobros');
+		   tx.executeSql('DELETE FROM TEMCOBROS ');		
+		}
+	
+}//function eliminatempcob()
 
