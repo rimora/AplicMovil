@@ -168,6 +168,8 @@ $(document).ready(function() {
 					  return false;
 				  }
 				  else{
+					 var saldo=Number(window.localStorage.getItem("saldo"));  
+					 if (saldo>0){
 				  eliminatempcob();
 				  window.location.href='#pcobros';
 				  $("#divencnum").hide();
@@ -176,6 +178,11 @@ $(document).ready(function() {
 				  $("#labelencpcobros").append("Cobrar Facturas pendientes del cliente: "+cliente);				  				 				  				  
 				  copiatemcobros(cliente);//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
 				  //listafacturaspend(cliente);//lista las facturas pendientes de cobro, del cliente seleccionado				  				  
+					 }
+					 else{
+						window.location.href='#poperaciones'; 
+						 
+					 }
 				  guardafechaactual();
 				  iniciavisita();//guarda registro de fecha y hora de visita.funcion en almacenamiento.js			  
 				  }
