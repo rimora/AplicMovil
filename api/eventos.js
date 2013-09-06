@@ -174,16 +174,17 @@ $(document).ready(function() {
     });
 	$("#bvisita").tap(function() {    //inicia visita               				  
 				  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
-				  alert(cliente);
+				  //alert(cliente);
 				  if (cliente==''){
 					  navigator.notification.alert('Debe seleccionar un cliente',null,'Error al iniciar visita','Aceptar');					
 					  return false;
 				  }
 				  else{
 					 var saldo=Number(window.localStorage.getItem("saldo"));  
-					 alert('saldo '+saldo);
+					// alert('saldo '+saldo);
 					 if (saldo>0){
 				 		 //eliminatempcob();
+						 alert('saldo '+saldo);
 						 copiatemcobros(cliente);//copia a tabla temporal las facturas pendientes de cobro. funcion de archivo cobros.js
 		                 window.location.href='#pcobros';
 	                     $("#divencnum").hide();
