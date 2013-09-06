@@ -163,11 +163,13 @@ function mostrardcob(factura){
 	function listo(tx,results){ 	      
 	      if (results.rows.length>0){			
 			 	var row = results.rows.item(0); 
+				var saldo=Number(row['saldo']);
+				var abonado=Number(row['abonado']);				
 				if (row['abonado']==0){
-					$("#importecobro").val(row['saldo']);
+					$("#importecobro").val(saldo.toFixed(2));
 				}
 				else{
-					$("#importecobro").val(row['abonado']);
+					$("#importecobro").val(abonado.toFixed(2));
 					
 				}
 		  }//if (results.rows.length>0){		  

@@ -381,7 +381,8 @@ $("#lcatalogo").delegate('.fichaart','click',function(){//al seleccionar el boto
 				  window.location.href='#pficha';			  
 				  //existeenpedido(articulo,cliente);
 });	
-$("#bgenerav").tap(function() { //boton regresar a pedido del catalogo
+//$("#bgenerav").tap(function() { //boton regresar a pedido del catalogo
+$("#bgenerav").bind( "vclick", function( event ) {//boton regresar a pedido del catalogo
                  //var clavecli = $(this).attr("id");
 				 //muestra el pedido 
      			var cliente=window.localStorage.getItem("clave");			  
@@ -1076,6 +1077,7 @@ $('#fichacheotros').live('blur', function() {
 		 //si es modificación del importe, se anula para tomar este nuevo importe y actualizar el abono pendiente de distribuir en efectivo y cheque.		    
 			if (monto>pendiente || monto<0){
 				navigator.notification.alert('La cantidad indicada excede el saldo pendiente por abonar o es inválida',null,'Cantidad inválida','Aceptar');				
+				alert('monto '+monto+' vs pendiente '+pendiente);
 				$("#importeapli").val('');
 				return false;
 			}
@@ -1208,6 +1210,7 @@ $('#fichacheotros').live('blur', function() {
 			if (cantidad<=0){
 				navigator.notification.alert('La cantidad indicada debe ser mayor a cero',null,'Cantidad inválida','Aceptar');				
 				$("#cantcat").val('');
+				$("#bacepcat").removeClass('ui-disabled'); 
 				return false;
 			}
 			else{			
