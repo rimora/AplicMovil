@@ -648,9 +648,9 @@ function cargaclientes(ruta,direccion){
 	}
 	else{
 		 
-		 $.getJSON(direccion, {})
+		 $.getJSON('http://192.168.3.44/conexion.php?jsoncallback=?', {})
 		.done(function(data) {
-			navigator.notification.alert('Conectado a internet usando: '+estadoconexion+' '+data.resultado,null,'Detectar Conexion','Aceptar');			
+			navigator.notification.alert('Conectado a internet usando: '+estadoconexion+' '+data['resultado'],null,'Detectar Conexion','Aceptar');			
 		})		
 		.fail(function( jqxhr, textStatus, error ) {
 	
