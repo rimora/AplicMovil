@@ -642,6 +642,24 @@ function cargaclientes(ruta,direccion){
   	//archivoValidacion = "http://revolucion.mobi/ejemplos/phonegap/envioFormulario/validacion_de_datos.php?jsoncallback=?"
 	//archivoValidacion ="http://aplicacion.netai.net/index.php?jsoncallback=?"	
 	//var archivoValidacion ="http://192.168.3.46/prueba.php?jsoncallback=?";
+var estadoconexion=navigator.network.connection.type;
+	if (estadoconexion==Connection.NONE){
+		navigator.notification.alert('No hay conexion a Internet',null,'Detectar Conexion','Aceptar');
+	}
+	else{
+		 
+		 $.getJSON(direccion, {})
+		.done(function(data) {
+			navigator.notification.alert('Conectado a internet usando: '+estadoconexion+' '+data,null,'Detectar Conexion','Aceptar');			
+		})		
+		.fail(function( jqxhr, textStatus, error ) {
+	
+	 	 var err = textStatus + ', ' + error;
+			 alert( jqxhr.responseText);
+ 		 alert( "Request Failed: " + err);
+
+	});		
+	}	
 	
 	$.getJSON(direccion, {numruta:ruta})
 	.done(function(data) {

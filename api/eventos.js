@@ -1514,25 +1514,36 @@ $("#divclientes").hide();
 });
 $("#bcargaclientes").tap(function() {  
 		  var ruta=window.localStorage.getItem("ruta");
-		  var direccion ="http://192.168.3.44/prueba.php?jsoncallback=?";
-		  //var direccion ="http://sardelfr03.zapto.org/prueba.php?jsoncallback=?";
+		  //var direccion ="http://192.168.3.44/prueba.php?jsoncallback=?";
+		  var direccion ="http://sardelfr03.zapto.org/prueba.php?jsoncallback=?";
           cargaclientes(ruta,direccion);                       		                  
 		 // cargarutacli(ruta,direccion);                       		  
        });
 $("#bcargaclientes2").tap(function() {  
 		  var ruta=window.localStorage.getItem("ruta");
-		  //var direccion ="http://192.168.3.44/prueba.php";
-		  var direccion ="http://sardelfr03.zapto.org/prueba.php?jsoncallback=?";         
+		  var direccion ="http://192.168.3.44/prueba.php";
+		  //var direccion ="http://sardelfr03.zapto.org/prueba.php?jsoncallback=?";         
 		  cargaclientes2(ruta,direccion);                       
 		 // cargarutacli(ruta,direccion);                       		  
        });	
 $("#benvia2").tap(function() {  
 		  var ruta=window.localStorage.getItem("ruta");
-		  //var direccion ="http://192.168.3.44/enviar.php";
-		  var direccion ="http://sardelfr03.zapto.org/enviar.php";         
+		  var direccion ="http://192.168.3.44/enviar.php";
+		  //var direccion ="http://sardelfr03.zapto.org/enviar.php";         
 		  enviadatos(ruta,direccion);                       
 		 // cargarutacli(ruta,direccion);                       		  
-       });		      
+});		      
+$("#detectar").tap(function() {  
+	var estadoconexion=navigator.network.connection.type;
+	if (estadoconexion==Connection.NONE){
+		navigator.notification.alert('No hay conexion a Internet',null,'Detectar Conexion','Aceptar');
+	}
+	else{
+		 navigator.notification.alert('Conectado a internet usando: '+estadoconexion,null,'Detectar Conexion','Aceptar');
+	}
+});		  
+
+ 
   },false);//document.addEventListener("deviceready",function(){	
 });//$(document).ready(function() 
 			   
