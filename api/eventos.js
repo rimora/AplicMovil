@@ -200,6 +200,7 @@ $(document).ready(function() {
 		
     $("#listaclientes li").live('click',function(){
 		          //al seleccionar un cliente de la lista, muestra sus datos
+				  window.localStorage.setItem("clave",'');//limpia clave de cliente
                   var clavecli = $(this).attr("id");
 				  
 				  //alert (clavecli);
