@@ -650,7 +650,7 @@ function cargaclientes(ruta,direccion){
 		 
 		 $.getJSON(direccion, {})
 		.done(function(data) {
-			navigator.notification.alert('Conectado a internet usando: '+estadoconexion+' '+data,null,'Detectar Conexion','Aceptar');			
+			navigator.notification.alert('Conectado a internet usando: '+estadoconexion+' '+data.resultado,null,'Detectar Conexion','Aceptar');			
 		})		
 		.fail(function( jqxhr, textStatus, error ) {
 	
