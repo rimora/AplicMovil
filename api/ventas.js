@@ -674,7 +674,7 @@ var i=0; var lineaped=1; var lineafac=1;
 				i++;
 				
 				//if (tipocliente=='CONT'){
-					query[i]='INSERT INTO PENCOBRO (documento,cliente,saldo,monto,fecha,fechaven) VALUES ("'+consefactura+'","'+cliente+'",'+totalfactura+','+totalfactura+',"'+fechadmy+'","'+fechadmy+'")';
+					query[i]='INSERT INTO PENCOBRO (documento,cliente,saldo,monto,fecha,fechaven) VALUES ("'+consefactura+'","'+cliente+'",'+totalfactura.toFixed(2)+','+totalfactura.toFixed(2)+',"'+fechadmy+'","'+fechadmy+'")';
 					i++;
 				//}
 				
