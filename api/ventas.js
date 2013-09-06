@@ -679,7 +679,9 @@ var i=0; var lineaped=1; var lineafac=1;
 				//}
 				
 			 }
-			query[i]='DELETE FROM TEMPEDIDO where cliente="'+cliente+'"';        
+			query[i]='DELETE FROM TEMPEDIDO where cliente="'+cliente+'"';  
+			i++;
+			query[i]='UPDATE CLIENTES SET SALDO=saldo'+total+' where clave="'+cliente+'"';              
 			//alert(query[i]);
 			
 		  	 //guardaencpedido(pedido,ruta,cliente,fechayhora,fechaact,sumivalinea,(sumtotlinea+sumivalinea),sumtotlinea,summontodesc,obs,30,"K01");
@@ -700,10 +702,8 @@ var i=0; var lineaped=1; var lineafac=1;
 	}
 	base.transaction(consultatemp, function(err){
     	 			 alert("Error select tabla temporal PEDIDO para guardarlo: "+err.code+err.message);
-         		},function(){
-								
-					guardadetpedido(query,total);
-					
+         		},function(){								
+					guardadetpedido(query,total);					
 				});		
 				
 }//function guardarventa
@@ -713,11 +713,14 @@ function guardadetpedido(query,total){
     	  alert("Error al insertar en detallepedido: "+err.code+err.message);
           },function(){		  
 		 //alert('total '+total);
-		   actsaldo(total);//actualiza saldo del cliente, la funcion esta en almacenamiento.js		   		   
+		   //actsaldo(total);//actualiza saldo del cliente, la funcion esta en almacenamiento.js		   		   
 		   window.localStorage.setItem("sioperacion",'S');
 		   obtenerconse();
-		   navigator.notification.alert('Venta Guardada',null,'Guardar Venta','Aceptar');										 });
-		  				
+		   var saldoact=Number(window.localStorage.getItem("saldo"))+Number(total);
+					alert(saldoact);
+           window.localStorage.setItem("saldo",saldoact);		
+		   navigator.notification.alert('Venta Guardada',null,'Guardar Venta','Aceptar');										 
+		   });		  				
     	function insertadet(tx) {		
 		//alert('entra ainsertadet');		
 			for (var i = 0, long = query.length; i < long; i++) {   									   								
