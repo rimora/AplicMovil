@@ -245,7 +245,7 @@ function aplicacionpago(saldofac,abono){
 				
 }//function aplicacionpago()
 function otro(){	
-alert('entra a otro');
+//alert('entra a otro');
 }
 
 function gridtotalescob(){	
@@ -332,7 +332,7 @@ function poblarcheques(){
 			} 
 			  		guardacheque(Number(montot));					
 					//alert('pendiente '+pendiente);					
-					alert('montot '+montot);					
+					//alert('montot '+montot);					
 					$("#gridcheques").append(html); 
 					//$("#tpedido").attr("value",total); 													
 					
@@ -352,9 +352,9 @@ var abono=window.localStorage.getItem("abono");//lo que el usuario indicó que s
 var montoefe=window.localStorage.getItem("efectivo");//el importe indicado en efectivo hasta el momento
 var montoche=window.localStorage.getItem("cheque");//el importe indicado en cheque hasta el momento
 var pendiente=Number(abono)-Number(montoefe)-Number(montoche);	
-alert('montoefe '+montoefe);
-alert('montoche '+montoche);
-alert('pendiente '+pendiente);
+//alert('montoefe '+montoefe);
+//alert('montoche '+montoche);
+//alert('pendiente '+pendiente);
 return pendiente;
 }
   

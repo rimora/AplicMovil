@@ -560,7 +560,7 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 			  var cliente=window.localStorage.getItem("clave");//Obtiene clave del cliente 
 			  var nomcli=window.localStorage.getItem("clavenombre");//Obtiene clave del cliente
 			  var saldo=Number(window.localStorage.getItem("saldo"));
-			  alert(saldo);
+			  //alert(saldo);
 			  if (saldo>0){				  
 				  window.location.href='#pcobros';
 				  $("#divencnum").hide();
@@ -728,8 +728,8 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 				//$("#numcuenta").val("");  				 
      });
 	 $("#baceptaraplic").tap(function() {                   				  
-	 	var pendiente=Number(window.localStorage.getItem("pendiente"));
-		alert('pendiente '+pendiente);
+	 	var pendiente=Number(saldopendiente());
+		//alert('pendiente '+pendiente);
 			if (pendiente>0){
 				navigator.notification.alert('Saldo pendiente mayor a cero',null,'Indicar tipo de Pago','Aceptar');				 	
 				return false;
@@ -775,8 +775,8 @@ $("#bbuscaart").tap(function() { //boton buscar articulo en catalogo
 			}
 			if (monto>pendiente || monto<0){
 				navigator.notification.alert('La cantidad indicada excede el saldo pendiente por abonar o es inválida',null,'Cantidad inválida','Aceptar');
-				alert(monto);
-				alert(pendiente);
+				//alert(monto);
+				//alert(pendiente);
 				$("#monto").focus();
 				$("#monto").val(0); 
 			}			

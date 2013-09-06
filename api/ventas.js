@@ -582,9 +582,9 @@ var i=0; var lineaped=1; var lineafac=1;
 			 var existencia=Number(row['existencia']);
 			 var cantidad=Number(row['cantidad']);
 			 var dif=existencia-cantidad;
-			 alert ('existencia '+existencia);
-			 alert ('cantidad '+cantidad);
-			 alert ('dif '+dif);
+			 //alert ('existencia '+existencia);
+			 //alert ('cantidad '+cantidad);
+			 //alert ('dif '+dif);
 					 if (existencia==0){
 						 preventa=cantidad;							 
 					 }
@@ -719,9 +719,9 @@ function guardadetpedido(query,total){
 		   navigator.notification.alert('Venta Guardada',null,'Guardar Venta','Aceptar');										 });
 		  				
     	function insertadet(tx) {		
-		alert('entra ainsertadet');		
+		//alert('entra ainsertadet');		
 			for (var i = 0, long = query.length; i < long; i++) {   									   								
-				alert(query[i]);
+				//alert(query[i]);
 				tx.executeSql(query[i]); 						   
 					   
 			}// for (var i = 0, long = query.length; i < long; i++) 
