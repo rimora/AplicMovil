@@ -1521,15 +1521,15 @@ $("#bcargaclientes").tap(function() {
        });
 $("#bcargaclientes2").tap(function() {  
 		  var ruta=window.localStorage.getItem("ruta");
-		  var direccion ="http://192.168.3.44/prueba.php";
-		  //var direccion ="http://sardelfr03.zapto.org/prueba.php?jsoncallback=?";         
+		  //var direccion ="http://192.168.3.44/prueba.php";
+		  var direccion ="http://sardelfr03.zapto.org/prueba.php?jsoncallback=?";         
 		  cargaclientes2(ruta,direccion);                       
 		 // cargarutacli(ruta,direccion);                       		  
        });	
 $("#benvia2").tap(function() {  
 		  var ruta=window.localStorage.getItem("ruta");
-		  var direccion ="http://192.168.3.44/enviar.php";
-		  //var direccion ="http://sardelfr03.zapto.org/enviar.php";         
+		  //var direccion ="http://192.168.3.44/enviar.php";
+		  var direccion ="http://sardelfr03.zapto.org/enviar.php";         
 		  enviadatos(ruta,direccion);                       
 		 // cargarutacli(ruta,direccion);                       		  
        });		      
